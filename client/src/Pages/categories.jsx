@@ -4,7 +4,15 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
-
+import {
+  Box,
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import axios from "axios";
 
 function Categories() {
@@ -14,6 +22,8 @@ function Categories() {
   const [datas, setDatas] = useState([]);
   const [returndspmsg, setReturndspmsg] = useState();
   const [errorMsg, setErrorMsg] = useState([]);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isFilter, setIsFilter] = useState(false);
   useEffect(() => {
     axios
       .get("http://localhost:3007/getcategories")
@@ -186,11 +196,7 @@ function Categories() {
         <div className="pageHeader p-3">
           <h1 className="text-2xl font-semibold">Category Listing</h1>
           <div className="actions">
-            <span
-              onClick={() =>
-                document.getElementById("addcategory_modal").showModal()
-              }
-            >
+            <span onClick={() => setIsEditOpen(true)}>
               <Link to="" alt="New Course" title="New Course">
                 <svg
                   className="h-6 w-6 text-stone-600"
@@ -211,11 +217,7 @@ function Categories() {
                 </svg>
               </Link>
             </span>
-            <span
-              onClick={() =>
-                document.getElementById("filter_modal").showModal()
-              }
-            >
+            <span onClick={() => setIsFilter(true)}>
               <svg
                 className="h-6 w-6 text-stone-600"
                 viewBox="0 0 24 24"
@@ -239,148 +241,161 @@ function Categories() {
         </div>
       </div>
 
-      <dialog id="addcategory_modal" className="modal">
-        <div className="modal-box">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h3 className="font-bold text-lg">Add Category</h3>
-
-          <form
-            action=""
-            method="post"
-            id="coursebranchForm"
-            onSubmit={addcategory}
-          >
-            {returndspmsg && returndspmsg}
-            <div className="mt-2">
-              <div className="errmsg">{errorMsg[0]}</div>
-            </div>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="category_name"
-                placeholder="Category Name*"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-              <div className="errmsg">{errorMsg[0]}</div>
-            </div>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="category_url"
-                placeholder="Category URL*"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-              <div className="errmsg">{errorMsg[1]}</div>
-            </div>
-            <div className="mt-2">
-              <textarea
-                name="category_description"
-                placeholder="Description*"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-              <div className="errmsg">{errorMsg[2]}</div>
-            </div>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="category_meta_title"
-                placeholder="Meta Title*"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-              <div className="errmsg">{errorMsg[3]}</div>
-            </div>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="category_meta_keyword"
-                placeholder="Meta Keyword*"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-              <div className="errmsg">{errorMsg[4]}</div>
-            </div>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="category_meta_description"
-                placeholder="Meta Descripton*"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-              <div className="errmsg">{errorMsg[5]}</div>
-            </div>
-            <div className="mt-2">
-              <label>Feature</label>
-              <input
-                type="checkbox"
-                name="category_featured"
-                value="Y"
-                placeholder="Meta Descripton*"
-                className="rounded-md border-0 py-1.5 "
-              />
-              <div className="errmsg">{errorMsg[6]}</div>
-            </div>
-            <div className="mt-2">
-              <label>Status</label>
-              <input
-                type="radio"
-                name="category_status"
-                value="A"
-                placeholder="Meta Descripton*"
-                className="rounded-md border-0 py-1.5 "
-              />
-              Active
-              <input
-                type="radio"
-                name="category_status"
-                value="D"
-                placeholder="Meta Descripton*"
-                className="rounded-md border-0 py-1.5 "
-              />
-              Inactive
-              <div className="errmsg">{errorMsg[6]}</div>
-            </div>
-            <div className="mt-2">
-              <button className="rounded-md bg-indigo-600 px-3 py-2  font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ">
-                Cancle
-              </button>
+      {isEditOpen && (
+        <DialogContent>
+          <div className="modal-box">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
               <button
-                type="submit"
-                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                onClick={() => setIsEditOpen(false)}
               >
-                Submit
+                ✕
               </button>
-            </div>
-          </form>
-        </div>
-      </dialog>
+            </form>
+            <h3 className="font-bold text-lg">Add Category</h3>
 
-      <dialog id="filter_modal" className="modal">
-        <div className="modal-box">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h3 className="font-bold text-lg">Filter</h3>
-          <form>
-            <input
-              type="text"
-              placeholder="Search by category name"
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            />
-            <br></br>
-            <button>Cancle</button>
-            <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-              Submit
-            </button>
-          </form>
-        </div>
-      </dialog>
+            <form
+              action=""
+              method="post"
+              id="coursebranchForm"
+              onSubmit={addcategory}
+            >
+              {returndspmsg && returndspmsg}
+              <div className="mt-2">
+                <div className="errmsg">{errorMsg[0]}</div>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="category_name"
+                  placeholder="Category Name*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                <div className="errmsg">{errorMsg[0]}</div>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="category_url"
+                  placeholder="Category URL*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                <div className="errmsg">{errorMsg[1]}</div>
+              </div>
+              <div className="mt-2">
+                <textarea
+                  name="category_description"
+                  placeholder="Description*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                <div className="errmsg">{errorMsg[2]}</div>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="category_meta_title"
+                  placeholder="Meta Title*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                <div className="errmsg">{errorMsg[3]}</div>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="category_meta_keyword"
+                  placeholder="Meta Keyword*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                <div className="errmsg">{errorMsg[4]}</div>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="category_meta_description"
+                  placeholder="Meta Descripton*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                <div className="errmsg">{errorMsg[5]}</div>
+              </div>
+              <div className="mt-2">
+                <label>Feature</label>
+                <input
+                  type="checkbox"
+                  name="category_featured"
+                  value="Y"
+                  placeholder="Meta Descripton*"
+                  className="rounded-md border-0 py-1.5 "
+                />
+                <div className="errmsg">{errorMsg[6]}</div>
+              </div>
+              <div className="mt-2">
+                <label>Status</label>
+                <input
+                  type="radio"
+                  name="category_status"
+                  value="A"
+                  placeholder="Meta Descripton*"
+                  className="rounded-md border-0 py-1.5 "
+                />
+                Active
+                <input
+                  type="radio"
+                  name="category_status"
+                  value="D"
+                  placeholder="Meta Descripton*"
+                  className="rounded-md border-0 py-1.5 "
+                />
+                Inactive
+                <div className="errmsg">{errorMsg[6]}</div>
+              </div>
+              <div className="btn-section">
+                <button type="button" onClick={() => setIsEditOpen(false)}>
+                  Cancle
+                </button>
+                <button
+                  type="submit"
+                  className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </DialogContent>
+      )}
+
+      {isFilter && (
+        <DialogContent>
+          <div className="modal-box">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                onClick={() => setIsFilter(false)}
+              >
+                ✕
+              </button>
+            </form>
+            <h3 className="font-bold text-lg">Filter</h3>
+            <form>
+              <input
+                type="text"
+                placeholder="Search by category name"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+              <div className="btn-section">
+                <button type="button" onClick={() => setIsFilter(false)}>
+                  Cancle
+                </button>
+                <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </DialogContent>
+      )}
     </>
   );
 }

@@ -4,6 +4,15 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
+import {
+  Box,
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 
 import axios from "axios";
 
@@ -12,6 +21,8 @@ function Approvedby() {
     window.location = "login";
   }
   const [datas, setDatas] = useState([]);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isFilter, setIsFilter] = useState(false);
   useEffect(() => {
     /*fetch("http://localhost:3001/")
       .then((response) => response.json())
@@ -84,11 +95,7 @@ function Approvedby() {
                 </svg>
               </Link>
             </span>
-            <span
-              onClick={() =>
-                document.getElementById("filter_modal").showModal()
-              }
-            >
+            <span onClick={() => setIsFilter(true)}>
               <svg
                 className="h-6 w-6 text-stone-600"
                 viewBox="0 0 24 24"
@@ -112,29 +119,37 @@ function Approvedby() {
         </div>
       </div>
 
-      <dialog id="filter_modal" className="modal">
-        <div className="modal-box">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h3 className="font-bold text-lg">Filter</h3>
-          <form>
-            <input
-              type="text"
-              placeholder="Search by college name"
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            />
-            <br></br>
-            <button>Cancle</button>
-            <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-              Submit
-            </button>
-          </form>
-        </div>
-      </dialog>
+      {isFilter && (
+        <DialogContent>
+          <div className="modal-box">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                onClick={() => setIsFilter(false)}
+              >
+                ✕
+              </button>
+            </form>
+            <h3 className="font-bold text-lg">Filter</h3>
+            <form>
+              <input
+                type="text"
+                placeholder="Search by name"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+              <div className="btn-section">
+                <button type="button" onClick={() => setIsFilter(false)}>
+                  Cancle
+                </button>
+                <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </DialogContent>
+      )}
     </>
   );
 }

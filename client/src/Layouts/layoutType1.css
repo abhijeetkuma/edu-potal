@@ -55,6 +55,7 @@ header .logo img {
 .actions span {
   float: left;
   padding-left: 1rem;
+  cursor: pointer;
 }
 [type="text"],
 input:where(:not([type])),

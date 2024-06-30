@@ -2,6 +2,8 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import LayoutType1 from "./Layouts/layoutType1";
+import UserLayoutType1 from "./Layouts/UserLayoutType1";
+
 import Login from "./Pages/login";
 import Dashboard from "./Pages/dashboard";
 import Collegelisting from "./Pages/collegelisting";
@@ -26,6 +28,11 @@ import "./index.css";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <UserLayoutType1 />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/admin",
     element: <LayoutType1 />,
     errorElement: <ErrorPage />,
     children: [
@@ -34,60 +41,59 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "/collegelisting",
+        path: "/admin/collegelisting",
         element: <Collegelisting />,
       },
       {
-        path: "/courses",
+        path: "/admin/courses",
         element: <Courses />,
       },
       {
-        path: "/coursebranchs",
+        path: "/admin/coursebranchs",
         element: <Coursebranchs />,
       },
       {
-        path: "/categories",
+        path: "/admin/categories",
         element: <Categories />,
       },
       {
-        path: "/facilites",
+        path: "/admin/facilites",
         element: <Facility />,
       },
       {
-        path: "/approvedby",
+        path: "/admin/approvedby",
         element: <Approvedby />,
       },
       {
-        path: "/jobsapproval",
+        path: "/admin/jobsapproval",
         element: <Jobsapproval />,
       },
       {
-        path: "/memonbilling",
+        path: "/admin/memonbilling",
         element: <Memonbilling />,
       },
       {
-        path: "/csm",
+        path: "/admin/csm",
         element: <Csm />,
       },
-
       {
-        path: "/expenses",
+        path: "/admin/expenses",
         element: <Expenses />,
       },
       {
-        path: "/vehicles",
+        path: "/admin/vehicles",
         element: <Vehicles />,
       },
       {
-        path: "/collegelisting/college",
+        path: "/admin/collegelisting/college",
         element: <College />,
       },
       {
-        path: "/adminusers",
+        path: "/admin/adminusers",
         element: <Adminusers />,
       },
       {
-        path: "/roles",
+        path: "/admin/roles",
         element: <Roles />,
       },
     ],

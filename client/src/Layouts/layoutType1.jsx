@@ -99,7 +99,7 @@ function LayoutType1(props) {
             <ul>
               <li>
                 <NavLink
-                  to={`/`}
+                  to={`/admin`}
                   className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                 >
                   Dashboard
