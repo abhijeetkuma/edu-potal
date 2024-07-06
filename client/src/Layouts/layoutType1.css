@@ -162,3 +162,19 @@ dialog {
   float: left;
   margin: 10px;
 }
+
+/*-----Buttons-----*/
+
+.addButton {
+  background-color: #0959e1;
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 3px;
+}
+
+.removeButton {
+  background-color: #b3083e;
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 3px;
+}

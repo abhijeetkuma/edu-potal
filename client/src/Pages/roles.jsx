@@ -135,9 +135,10 @@ function Roles() {
 
     console.log("errorsForm", errorsForm);
     if (errorsForm.length === 0) {
+      console.log("--------------------->", permissions.join(","));
       const payload = {
         role_name: role_name.value,
-        modules_access_ids: JSON.stringify(permissions),
+        modules_access_ids: permissions.join(","),
         role_status: "A",
       };
       axios({

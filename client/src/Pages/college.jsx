@@ -2,11 +2,39 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+// import CKTextEditor from "../Components/ckTextEditor/editor";
+
 function College() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
   }
   const [errorMsg, setErrorMsg] = useState([]);
+  const [highLights, setHighLights] = useState([
+    { highParameter: "", highDetails: "" },
+  ]);
+  const [images, setImages] = useState([]);
+
+  const handleClick = (e) => {
+    setHighLights([...highLights, { highParameter: "", highDetails: "" }]);
+  };
+
+  const handleChange = (e, i) => {
+    const { name, value } = e.target;
+    const onChangeData = [...highLights];
+    onChangeData[i][name] = value;
+    setHighLights(onChangeData);
+  };
+
+  const handleDelete = (i) => {
+    const deleteData = [...highLights];
+    deleteData.splice(i, 1);
+    setHighLights(deleteData);
+  };
+
+  const onImageChange = (e) => {
+    setImages([...e.target.files]);
+  };
+
   const addnew = (e) => {
     e.preventDefault();
     const {
@@ -46,7 +74,7 @@ function College() {
         college_url: college_url.value,
         tag_line: tag_line.value,
         usp_remark: usp_remark.value,
-        meta_title: meta_title.value,
+        meta_title: highLights,
         meta_keyword: meta_keyword.value,
         found_year: found_year.value,
       };
@@ -211,6 +239,8 @@ function College() {
                   Description
                 </label>
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  {/* <CKTextEditor /> */}
+
                   <textarea
                     id="found_year"
                     name="college_descripton"
@@ -228,35 +258,60 @@ function College() {
                 Tabuller
               </div>
               <div className="sm:col-span-4">
-                <div className="flex ">
-                  <div className="sm:col-span-2 px-2">
-                    <input
-                      id="meta_title"
-                      name="meta_title"
-                      type="text"
-                      placeholder="Parameter"
-                      autoComplete="meta_title"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                  <div className="sm:col-span-2 px-2">
-                    <input
-                      id="meta_title"
-                      name="meta_title"
-                      type="text"
-                      placeholder="Details"
-                      autoComplete="meta_title"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                    <span className="font-light sm:text-gray-dark">
-                      Hints: Display data in bullets point user
-                    </span>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <button type="button">+</button>
-                    <button type="button">-</button>
-                  </div>
-                </div>
+                {highLights.map((item, i) => (
+                  <>
+                    <div className="flex mb-2" key={`key-${i}`}>
+                      <div className="sm:col-span-2 px-2">
+                        <input
+                          id="meta_title"
+                          name="highParameter"
+                          type="text"
+                          placeholder="Parameter"
+                          autoComplete="meta_title"
+                          value={item.highParameter}
+                          onChange={(e) => handleChange(e, i)}
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                      </div>
+                      <div className="sm:col-span-2 px-2">
+                        <input
+                          id="meta_title"
+                          name="highDetails"
+                          type="text"
+                          placeholder="Details"
+                          autoComplete="meta_title"
+                          value={item.highDetails}
+                          onChange={(e) => handleChange(e, i)}
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                      </div>
+                      <div className="sm:col-span-2">
+                        {i === 0 && (
+                          <button
+                            type="button"
+                            onClick={handleClick}
+                            className="addButton"
+                          >
+                            Add
+                          </button>
+                        )}
+                        {i !== 0 && (
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(i)}
+                            className="removeButton"
+                          >
+                            Delete
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                ))}
+
+                <span className="font-light sm:text-gray-dark">
+                  &nbsp; Hints: Display data in bullets point user
+                </span>
               </div>
 
               <div className="sm:col-span-4">
@@ -310,6 +365,24 @@ function College() {
                   />
                 </div>
               </div>
+
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="meta_keyword"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Upload Logo
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={onImageChange}
+                  />
+                </div>
+              </div>
+
               <div className="sm:col-span-2 mt-6 flex items-center ">
                 <button
                   type="button"
