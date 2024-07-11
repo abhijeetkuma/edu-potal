@@ -109,12 +109,24 @@ function Roles() {
       <Box sx={{ display: "flex", gap: "1rem" }}>
         <Tooltip title="Edit">
           <IconButton onClick={() => setIsEditOpen(true)}>
-            <EditIcon />
+            <EditIcon
+              onClick={() => {
+                // table.setEditingRow(row);
+
+                console.log("Edit======------>", row.original.rol_id);
+              }}
+            />
           </IconButton>
         </Tooltip>
         <Tooltip title="Delete">
           <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
-            <DeleteIcon />
+            <DeleteIcon
+              onClick={() => {
+                console.log("Delete======------>", row.original.rol_id);
+
+                // data.splice(row.index, 1); //assuming simple data table
+              }}
+            />
           </IconButton>
         </Tooltip>
       </Box>
@@ -294,7 +306,7 @@ function Roles() {
           </form>
         </div>
       </dialog> */}
-      I
+
       {isEditOpen && (
         <DialogContent>
           <div className="modal-box">

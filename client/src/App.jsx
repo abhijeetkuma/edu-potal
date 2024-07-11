@@ -20,6 +20,11 @@ import Csm from "./Pages/csm";
 import Adminusers from "./Pages/adminusers";
 import Roles from "./Pages/roles";
 
+//-----------Website------------------
+
+import Home from "./Pages/website/home";
+import Listing from "./Pages/website/listing";
+
 import Expenses from "./Pages/expenses";
 import ErrorPage from "./Components/errorComp";
 
@@ -30,6 +35,16 @@ const router = createBrowserRouter([
     path: "/",
     element: <UserLayoutType1 />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "/listing",
+        element: <Listing />,
+      },
+    ],
   },
   {
     path: "/admin",

@@ -12,6 +12,10 @@
   flex-direction: column;
 }
 
+.main-contents.w-full {
+  width: calc(100% - 180px);
+}
+
 .sidebar ul li {
   margin-bottom: 2px;
 }
