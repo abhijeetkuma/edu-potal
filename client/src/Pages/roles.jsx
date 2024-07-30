@@ -22,9 +22,11 @@ function Roles() {
     window.location = "login";
   }
   const [datas, setDatas] = useState([]);
+  const [editdata, setEditdata] = useState([]);
   const [returndspmsg, setReturndspmsg] = useState();
   const [modulearr, setModulearr] = useState([]);
   const [rolesarr, setRolesarr] = useState([]);
+  const [edmodulsarr, setEdmodulsarr] = useState([]);
   const [permissions, setPermissions] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
@@ -112,8 +114,9 @@ function Roles() {
             <EditIcon
               onClick={() => {
                 // table.setEditingRow(row);
+                editDetails(row.original.rol_id);
 
-                console.log("Edit======------>", row.original.rol_id);
+                //console.log("Edit======------>", row.original.rol_id);
               }}
             />
           </IconButton>
@@ -122,8 +125,6 @@ function Roles() {
           <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
             <DeleteIcon
               onClick={() => {
-                console.log("Delete======------>", row.original.rol_id);
-
                 // data.splice(row.index, 1); //assuming simple data table
               }}
             />
@@ -132,7 +133,7 @@ function Roles() {
       </Box>
     ),
   });
-  // add new course branches
+  // add new roles
   const [errorMsg, setErrorMsg] = useState([]);
   const addroles = (e) => {
     e.preventDefault();
@@ -145,9 +146,9 @@ function Roles() {
       errorsForm.push();
     }
 
-    console.log("errorsForm", errorsForm);
+    // console.log("errorsForm", errorsForm);
     if (errorsForm.length === 0) {
-      console.log("--------------------->", permissions.join(","));
+      // console.log("--------------------->", permissions.join(","));
       const payload = {
         role_name: role_name.value,
         modules_access_ids: permissions.join(","),
@@ -183,7 +184,22 @@ function Roles() {
       setErrorMsg(errorsForm);
     }
   };
-  // end add new course branches
+  // end add new roles
+
+  //edit role details
+
+  const editDetails = (editval) => {
+    console.log("Edit role id:", editval);
+    axios
+      .get("http://localhost:3007/editroles/" + editval)
+      .then((response) => {
+        setEditdata(response.data[0]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  //end edit role details
 
   const handleCheck = (event) => {
     var permissions_array = [...permissions];
@@ -200,6 +216,16 @@ function Roles() {
 
   //   );
   // };
+  const check =
+    editdata.modules_access_ids && editdata.modules_access_ids.split(",");
+  if (check) {
+    var createarr = [];
+    check.map((item, i) => createarr.push(item));
+  }
+  //setEdmodulsarr(createarr);
+  // console.log("createarr", createarr);
+
+  const checks = [5, 11];
 
   return (
     <>
@@ -327,6 +353,7 @@ function Roles() {
                   type="text"
                   placeholder="Role Name"
                   name="role_name"
+                  value={editdata.role_name && editdata.role_name}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -347,8 +374,20 @@ function Roles() {
                       value={item.mod_id}
                       //onChange={(e) => handleCheckBox(e, i)}
                       onChange={handleCheck}
+                      checked={
+                        createarr?.length
+                          ? createarr.includes(JSON.stringify(item.mod_id))
+                          : false
+                      }
+                      // checked={
+                      //   createarr && createarr.includes(item.mod_id)
+                      //     ? "checked"
+                      //     : ""
+                      // }
                       className="py-2  text-sm font-semibold"
                     />
+                    {/* <span>{createarr && createarr}</span> */}
+                    {/* {console.log("createarr valuessss--", createarr)} */}
                     <span className="py-2 px-2 text-sm font-normal text-justify">
                       {item.module_title}
                     </span>

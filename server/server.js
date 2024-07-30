@@ -133,6 +133,17 @@ app.delete("/deletecollege/:id", (req, res) => {
     });
 });
 
+app.get("/editroles/:rol_id", (req, res) => {
+  colleges_model
+    .editroles(req.params.rol_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
 app.put("/getvehicledetails/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
@@ -171,6 +182,16 @@ app.get("/getcoursesarr", (req, res) => {
 app.get("/getcategoryarr", (req, res) => {
   colleges_model
     .getCategoriesarr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getcoursearr", (req, res) => {
+  colleges_model
+    .getCoursearr()
     .then((response) => {
       res.status(200).send(response);
     })

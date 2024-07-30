@@ -4,6 +4,17 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
+import {
+  Box,
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import axios from "axios";
 
@@ -103,15 +114,56 @@ function Collegelisting() {
     enableColumnOrdering: true, //enable some features
     enableRowSelection: false,
     enablePagination: false, //disable a default feature
+    enableRowActions: true,
     onRowSelectionChange: setRowSelection, //hoist internal state to your own state (optional)
     state: { rowSelection }, //manage your own state, pass it back to the table (optional)
+    renderRowActions: ({ row, table }) => (
+      <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Tooltip title="Edit">
+          <IconButton>
+            <EditIcon
+              onClick={() => {
+                // table.setEditingRow(row);
+                editDetails(row.original.cid);
+                //console.log("Edit======------>", row.original.rol_id);
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
+            <DeleteIcon
+              onClick={() => {
+                console.log("Delete======------>", row.original.rol_id);
+
+                // data.splice(row.index, 1); //assuming simple data table
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    ),
   });
+  const openDeleteConfirmModal = (row) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      deleteUser(row.original.id);
+    }
+  };
+  //edit role details
+
+  const editDetails = (editval) => {
+    console.log("Edit college id:", editval);
+    if (editval > 0) {
+      window.location.href = "/collegelisting/college/" + editval;
+    }
+  };
+  //end edit role details
 
   return (
     <>
       <div className="flex bg-white shadow">
         <div className="pageHeader p-3">
-          <h1 className="text-2xl font-semibold">Vehicles Listing</h1>
+          <h1 className="text-2xl font-semibold">College Listing</h1>
           <div className="actions">
             <span>
               <Link

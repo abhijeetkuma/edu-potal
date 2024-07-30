@@ -187,7 +187,7 @@ function LayoutType1(props) {
               </li>
               <li>
                 <NavLink
-                  to={`jobsapproval`}
+                  to={`location`}
                   className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                 >
                   Location
@@ -195,7 +195,7 @@ function LayoutType1(props) {
               </li>
               <li>
                 <NavLink
-                  to={`memonbilling`}
+                  to={`exam`}
                   className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                 >
                   Exam
@@ -203,7 +203,7 @@ function LayoutType1(props) {
               </li>
               <li>
                 <NavLink
-                  to={`csm`}
+                  to={`newsnevent`}
                   className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                 >
                   News & Articles
@@ -211,7 +211,7 @@ function LayoutType1(props) {
               </li>
               <li>
                 <NavLink
-                  to={`expenses`}
+                  to={`cms`}
                   className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                 >
                   CMS

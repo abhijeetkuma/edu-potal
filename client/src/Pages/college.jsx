@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -12,7 +12,33 @@ function College() {
   const [highLights, setHighLights] = useState([
     { highParameter: "", highDetails: "" },
   ]);
-  const [images, setImages] = useState([]);
+  const [logo, setLogo] = useState([]);
+  const [banner, setBanner] = useState([]);
+  const [catgoryarr, setCatgoryarr] = useState([]);
+  const [coursearr, setCoursearr] = useState([]);
+
+  useEffect(() => {
+    /*fetch("http://localhost:3001/")
+      .then((response) => response.json())
+      .then((json) => setData(json))
+      .catch((error) => console.error(error));*/
+    axios
+      .get("http://localhost:3007/getcategoryarr")
+      .then((response) => {
+        setCatgoryarr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("http://localhost:3007/getcoursearr")
+      .then((response) => {
+        setCoursearr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const handleClick = (e) => {
     setHighLights([...highLights, { highParameter: "", highDetails: "" }]);
@@ -31,8 +57,11 @@ function College() {
     setHighLights(deleteData);
   };
 
-  const onImageChange = (e) => {
-    setImages([...e.target.files]);
+  const onLogoChange = (e) => {
+    setLogo([...e.target.files]);
+  };
+  const onBannerChange = (e) => {
+    setBanner([...e.target.files]);
   };
 
   const addnew = (e) => {
@@ -42,30 +71,40 @@ function College() {
       college_url,
       tag_line,
       usp_remark,
+      college_descripton,
       meta_title,
       meta_keyword,
+      meta_description,
       found_year,
+      display_type,
+      address,
+      address2,
+      landmark,
+      pincode,
+      country,
+      state,
+      city,
+      contactno,
+      faxno,
+      email,
+      website,
     } = e.target.elements;
 
     let errorsForm = [];
     if (college_name.value === "") {
       errorsForm.push(
-        <div key="vehnameErr">Vahicle Name can not be blank!</div>
+        <div key="vehnameErr">College Name can not be blank!</div>
       );
     }
     if (college_url.value === "") {
-      errorsForm.push(
-        <div key="vehregErr">Registration no. can not be blank!</div>
-      );
+      errorsForm.push(<div key="vehregErr">College URL can not be blank!</div>);
     }
     if (tag_line.value === "") {
-      errorsForm.push(
-        <div key="vehchassErr">Chassis no. can not be blank!</div>
-      );
+      errorsForm.push(<div key="vehchassErr">Tag line can not be blank!</div>);
     }
     if (usp_remark.value === "") {
       errorsForm.push(
-        <div key="vehregdateErr">Registration date can not be blank!</div>
+        <div key="vehregdateErr">USP remark can not be blank!</div>
       );
     }
     if (errorsForm.length === 0) {
@@ -74,9 +113,24 @@ function College() {
         college_url: college_url.value,
         tag_line: tag_line.value,
         usp_remark: usp_remark.value,
-        meta_title: highLights,
-        meta_keyword: meta_keyword.value,
         found_year: found_year.value,
+        college_descripton: college_descripton.value,
+        meta_title: meta_title.value,
+        meta_keyword: meta_keyword.value,
+        meta_description: meta_description.value,
+        display_type: display_type.value,
+        highlights: highLights,
+        address: address.value,
+        address2: address2.value,
+        landmark: landmark.value,
+        pincode: pincode.value,
+        country: country.value,
+        state: state.value,
+        city: city.value,
+        contactno: contactno.value,
+        faxno: faxno.value,
+        email: email.value,
+        website: website.value,
       };
       axios({
         method: "post",
@@ -93,7 +147,7 @@ function College() {
       setErrorMsg(errorsForm);
     }
   };
-
+  console.log("logo-->", logo[0]);
   return (
     <>
       <div className="flex bg-white shadow">
@@ -131,7 +185,13 @@ function College() {
 
       <div className="p-2">
         <div className="mx-auto max-w-7xl py-6 sm:px-2 lg:px-2">
-          <form action="" method="post" id="vehicleForm" onSubmit={addnew}>
+          <form
+            action=""
+            method="post"
+            id="vehicleForm"
+            encType="multipart/form-data"
+            onSubmit={addnew}
+          >
             {errorMsg && <div className="errorDisp">{errorMsg}</div>}
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
               <div className="sm:col-span-4">
@@ -225,7 +285,7 @@ function College() {
                   <input
                     id="found_year"
                     name="found_year"
-                    type="number"
+                    type="text"
                     autoComplete="found_year"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -233,7 +293,7 @@ function College() {
               </div>
               <div className="sm:col-span-4">
                 <label
-                  htmlFor="found_year"
+                  htmlFor="college_descripton"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Description
@@ -242,7 +302,7 @@ function College() {
                   {/* <CKTextEditor /> */}
 
                   <textarea
-                    id="found_year"
+                    id="college_descripton"
                     name="college_descripton"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -254,7 +314,8 @@ function College() {
                   Display Type :
                 </label>
                 <input type="radio" value="Points" name="display_type" /> Bullet
-                Points <input type="radio" value="Points" name="display_type" />{" "}
+                Points
+                <input type="radio" value="Tabuller" name="display_type" />
                 Tabuller
               </div>
               <div className="sm:col-span-4">
@@ -263,11 +324,11 @@ function College() {
                     <div className="flex mb-2" key={`key-${i}`}>
                       <div className="sm:col-span-2 px-2">
                         <input
-                          id="meta_title"
+                          id="highParameter"
                           name="highParameter"
                           type="text"
                           placeholder="Parameter"
-                          autoComplete="meta_title"
+                          autoComplete="highParameter"
                           value={item.highParameter}
                           onChange={(e) => handleChange(e, i)}
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -275,11 +336,11 @@ function College() {
                       </div>
                       <div className="sm:col-span-2 px-2">
                         <input
-                          id="meta_title"
+                          id="highDetails"
                           name="highDetails"
                           type="text"
                           placeholder="Details"
-                          autoComplete="meta_title"
+                          autoComplete="highDetails"
                           value={item.highDetails}
                           onChange={(e) => handleChange(e, i)}
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -313,7 +374,54 @@ function College() {
                   &nbsp; Hints: Display data in bullets point user
                 </span>
               </div>
-
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="meta_title"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Category
+                </label>
+                <div className="flex ">
+                  {catgoryarr.map((item, i) => (
+                    <div key={i} className="mt-2 text-sm">
+                      <input
+                        type="checkbox"
+                        name="categories[]"
+                        value={item.cat_id}
+                        //onChange={(e) => handleCheckBox(e, i)}
+                        className="py-2  text-sm font-semibold"
+                      />
+                      <span className="py-2 px-2 text-sm font-normal text-justify">
+                        {item.category_name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>{" "}
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="meta_title"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Course
+                </label>
+                <div className="flex flex-wrap">
+                  {coursearr.map((item, i) => (
+                    <div key={i} className="col-span-8">
+                      <input
+                        type="checkbox"
+                        name="categories[]"
+                        value={item.cour_id}
+                        //onChange={(e) => handleCheckBox(e, i)}
+                        className="py-2  text-sm font-semibold"
+                      />
+                      <span className="py-2 px-2 text-sm font-normal text-justify">
+                        {item.course_name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <div className="sm:col-span-4">
                 <label
                   htmlFor="meta_title"
@@ -365,24 +473,232 @@ function College() {
                   />
                 </div>
               </div>
-
+              <div>
+                <h3>
+                  Contact Details
+                  <hr></hr>
+                </h3>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Address
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    id="address"
+                    name="address"
+                    type="text"
+                    autoComplete="address"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="address2"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Address2
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    id="address2"
+                    name="address2"
+                    type="text"
+                    autoComplete="address"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>{" "}
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="landmark"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Landmark
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    id="landmark"
+                    name="landmark"
+                    type="text"
+                    autoComplete="landmark"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="pincode"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Pin Code
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    id="pincode"
+                    name="pincode"
+                    type="text"
+                    autoComplete="pincode"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="country"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Country
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    id="country"
+                    name="country"
+                    type="text"
+                    autoComplete="country"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="state"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  State
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    id="state"
+                    name="state"
+                    type="text"
+                    autoComplete="state"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="city"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  City
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    id="city"
+                    name="city"
+                    type="text"
+                    autoComplete="city"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="contactno"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Contact No.
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    id="contactno"
+                    name="contactno"
+                    type="text"
+                    autoComplete="contactno"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="faxno"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Fax No.
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    id="faxno"
+                    name="faxno"
+                    type="text"
+                    autoComplete="faxno"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Email
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="website"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Website
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    id="website"
+                    name="website"
+                    type="website"
+                    autoComplete="website"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="logo"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Logo
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    name="logo"
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={onLogoChange}
+                  />
+                </div>
+              </div>
               <div className="sm:col-span-4">
                 <label
                   htmlFor="meta_keyword"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Upload Logo
+                  Banner
                 </label>
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
                     type="file"
                     multiple
                     accept="image/*"
-                    onChange={onImageChange}
+                    onChange={onBannerChange}
                   />
                 </div>
               </div>
-
               <div className="sm:col-span-2 mt-6 flex items-center ">
                 <button
                   type="button"

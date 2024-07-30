@@ -1,3 +1,5 @@
+const { query } = require("express");
+
 const Pool = require("pg").Pool;
 const pool = new Pool({
   user: "postgres", //timeofcollege
@@ -51,28 +53,7 @@ const Login = async (body) => {
     throw new Error("Internal server error");
   }
 };
-const Logins = (body) => {
-  //console.log('body',body);
-  return new Promise(function (resolve, reject) {
-    const { admin_email, admin_password } = body;
-    pool.query(
-      "select * from adminusers where admin_email = $1 and admin_password = $2 RETURNING *",
-      [admin_email, admin_password],
-      (error, results) => {
-        console.log("body", body);
-        console.log(results);
-        if (error) {
-          reject(error);
-        }
-        if (results && results.rows) {
-          resolve(`user details: ${JSON.stringify(results.rows[0])}`);
-        } else {
-          reject(new Error("No results found"));
-        }
-      }
-    );
-  });
-};
+
 //create a new merchant record in the databsse
 const college = (body) => {
   return new Promise(function (resolve, reject) {
@@ -83,10 +64,25 @@ const college = (body) => {
       usp_remark,
       meta_title,
       meta_keyword,
+      meta_description,
       found_year,
+      highlights,
+      display_type,
+      college_descripton,
+      address,
+      address2,
+      landmark,
+      pincode,
+      country,
+      state,
+      city,
+      contactno,
+      faxno,
+      email,
+      website,
     } = body;
     pool.query(
-      "INSERT INTO colleges(college_name,college_url,tag_line,usp_remark,meta_title,meta_keyword,found_year) VALUES ($1, $2, $3,$4,$5,$6,$7) RETURNING *",
+      "INSERT INTO colleges(college_name,college_url,tag_line,usp_remark,meta_title,meta_keyword,meta_description,found_year,highlights,display_type,college_descripton,address,address2,landmark,pincode,country,state,city,contactno,faxno,email,website) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22) RETURNING *",
       [
         college_name,
         college_url,
@@ -94,7 +90,22 @@ const college = (body) => {
         usp_remark,
         meta_title,
         meta_keyword,
+        meta_description,
         found_year,
+        highlights,
+        display_type,
+        college_descripton,
+        address,
+        address2,
+        landmark,
+        pincode,
+        country,
+        state,
+        city,
+        contactno,
+        faxno,
+        email,
+        website,
       ],
       (error, results) => {
         if (error) {
@@ -118,7 +129,7 @@ const deleteVehicle = (id) => {
   return new Promise(function (resolve, reject) {
     pool.query(
       "DELETE FROM colleges WHERE cid = $1",
-      [id],
+      [cid],
       (error, results) => {
         if (error) {
           reject(error);
@@ -126,6 +137,27 @@ const deleteVehicle = (id) => {
         resolve(`Vehicle deleted with ID: ${id}`);
       }
     );
+  });
+};
+
+const editroles = (rol_id) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM roles WHERE rol_id = $1",
+      [rol_id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit roles ID: ${id}`);
+      }
+    );
+    console.log(query);
   });
 };
 //update a merchant record
@@ -224,6 +256,28 @@ const getCategoriesarr = async () => {
     return await new Promise(function (resolve, reject) {
       pool.query(
         "SELECT cat_id,category_name FROM categories ORDER BY category_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const getCoursearr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT cour_id,course_name FROM courses ORDER BY course_name ASC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -654,4 +708,6 @@ module.exports = {
   getRolesrr,
   addNewcategories,
   addNewfacility,
+  editroles,
+  getCoursearr,
 };

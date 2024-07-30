@@ -16,9 +16,14 @@ import Jobsapproval from "./Pages/jobsapproval";
 import Memonbilling from "./Pages/memonbilling";
 import Vehicles from "./Pages/vehicles";
 import College from "./Pages/college";
-import Csm from "./Pages/csm";
+import Cms from "./Pages/cms";
 import Adminusers from "./Pages/adminusers";
+import Exam from "./Pages/exam";
+import Newsnevent from "./Pages/newsnevent";
+import Location from "./Pages/location";
 import Roles from "./Pages/roles";
+import Companys from "./Pages/companys";
+import Placement from "./Pages/placement";
 
 //-----------Website------------------
 
@@ -60,6 +65,22 @@ const router = createBrowserRouter([
         element: <Collegelisting />,
       },
       {
+        path: "/admin/exam",
+        element: <Exam />,
+      },
+      {
+        path: "/admin/newsnevent",
+        element: <Newsnevent />,
+      },
+      {
+        path: "/admin/location",
+        element: <Location />,
+      },
+      {
+        path: "/admin/placement",
+        element: <Placement />,
+      },
+      {
         path: "/admin/courses",
         element: <Courses />,
       },
@@ -88,12 +109,12 @@ const router = createBrowserRouter([
         element: <Memonbilling />,
       },
       {
-        path: "/admin/csm",
-        element: <Csm />,
+        path: "/admin/cms",
+        element: <Cms />,
       },
       {
-        path: "/admin/expenses",
-        element: <Expenses />,
+        path: "/admin/companys",
+        element: <Companys />,
       },
       {
         path: "/admin/vehicles",
