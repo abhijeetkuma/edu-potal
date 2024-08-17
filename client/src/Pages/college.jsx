@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 // import CKTextEditor from "../Components/ckTextEditor/editor";
@@ -8,6 +8,7 @@ function College() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
   }
+
   const [errorMsg, setErrorMsg] = useState([]);
   const [highLights, setHighLights] = useState([
     { highParameter: "", highDetails: "" },
@@ -16,12 +17,47 @@ function College() {
   const [banner, setBanner] = useState([]);
   const [catgoryarr, setCatgoryarr] = useState([]);
   const [coursearr, setCoursearr] = useState([]);
+  const [approvedbyarr, setApprovedbyarr] = useState([]);
+  const [tradingarr, setTradingarr] = useState([]);
+  //const [editdata, setEditdata] = useState([]);
+  const [editdata, setEditdata] = useState({
+    college_name: "",
+    college_url: "",
+    tag_line: "",
+    usp_remark: "",
+    found_year: "",
+    college_descripton: "",
+    meta_title: "",
+    meta_description: "",
+    meta_keyword: "",
+    address: "",
+    address2: "",
+    landmark: "",
+    pincode: "",
+    country: "",
+    state: "",
+    city: "",
+    contactno: "",
+    faxno: "",
+    email: "",
+    website: "",
+  });
+  const { cid } = useParams();
+  console.log("College id:", cid);
 
   useEffect(() => {
     /*fetch("http://localhost:3001/")
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
+    axios
+      .get("http://localhost:3007/getapprovedbyarr")
+      .then((response) => {
+        setApprovedbyarr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     axios
       .get("http://localhost:3007/getcategoryarr")
       .then((response) => {
@@ -38,7 +74,34 @@ function College() {
       .catch((error) => {
         console.error(error);
       });
+    axios
+      .get("http://localhost:3007/gettradingarr")
+      .then((response) => {
+        setTradingarr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    if (cid > 0) {
+      axios
+        .get("http://localhost:3007/editcolleges/" + cid)
+        .then((response) => {
+          setEditdata(response.data[0]);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }, []);
+
+  const handleChangeFormdata = (e) => {
+    const { name, value } = e.target;
+    setEditdata((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const handleClick = (e) => {
     setHighLights([...highLights, { highParameter: "", highDetails: "" }]);
@@ -63,10 +126,23 @@ function College() {
   const onBannerChange = (e) => {
     setBanner([...e.target.files]);
   };
-
+  const createUrl = (e) => {
+    var collegename = e.target.value;
+    var collegeurl = collegename
+      .replace(/[_\s]/g, "-")
+      .replace(/[^a-z0-9-\s]/gi, "");
+    editdata.college_url = collegeurl.toLowerCase();
+    console.log(
+      "college new url-->",
+      collegeurl.toLowerCase(),
+      editdata.college_url
+    );
+  };
+  //console.log("college edit url", editdata.college_url);
   const addnew = (e) => {
     e.preventDefault();
     const {
+      cid,
       college_name,
       college_url,
       tag_line,
@@ -109,6 +185,7 @@ function College() {
     }
     if (errorsForm.length === 0) {
       const payload = {
+        cid: cid.value,
         college_name: college_name.value,
         college_url: college_url.value,
         tag_line: tag_line.value,
@@ -119,7 +196,7 @@ function College() {
         meta_keyword: meta_keyword.value,
         meta_description: meta_description.value,
         display_type: display_type.value,
-        highlights: highLights,
+        //highlights: highLights,
         address: address.value,
         address2: address2.value,
         landmark: landmark.value,
@@ -132,27 +209,48 @@ function College() {
         email: email.value,
         website: website.value,
       };
-      axios({
-        method: "post",
-        url: "http://localhost:3007/addnewcollege",
-        data: payload,
-      })
-        .then(function (response) {
-          console.log(response);
+      if (cid.value > 0) {
+        //update form data
+        axios({
+          method: "PUT",
+          url: "http://localhost:3007/getupdatecollege/${cid}",
+          data: payload,
         })
-        .catch(function (error) {
-          console.log(error);
-        });
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        //end update form data
+      } else {
+        //add form data
+        axios({
+          method: "post",
+          url: "http://localhost:3007/addnewcollege",
+          data: payload,
+        })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        //end add form data
+      }
     } else {
       setErrorMsg(errorsForm);
     }
   };
-  console.log("logo-->", logo[0]);
+
+  //console.log("logo-->", logo[0]);
   return (
     <>
       <div className="flex bg-white shadow">
         <div className="pageHeader p-3">
-          <h1 className="text-2xl font-semibold">New College Details</h1>
+          <h1 className="text-2xl font-semibold">
+            {cid > 0 ? "Update" : "New"} College Details
+          </h1>
           <div className="action">
             <span>
               <Link
@@ -193,6 +291,11 @@ function College() {
             onSubmit={addnew}
           >
             {errorMsg && <div className="errorDisp">{errorMsg}</div>}
+            <input
+              type="hidden"
+              name="cid"
+              value={editdata.cid && editdata.cid}
+            />
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
               <div className="sm:col-span-4">
                 <label
@@ -207,9 +310,12 @@ function College() {
                       type="text"
                       name="college_name"
                       id="college_name"
-                      autoComplete="college_name"
+                      //autoComplete="college_name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder=""
+                      placeholder="Please enter college name"
+                      value={editdata.college_name && editdata.college_name}
+                      onBlur={createUrl}
+                      onChange={handleChangeFormdata}
                     />
                   </div>
                 </div>
@@ -229,7 +335,9 @@ function College() {
                       id="college_url"
                       autoComplete="college_url"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder=""
+                      placeholder="College Url not user space"
+                      value={editdata.college_url && editdata.college_url}
+                      onChange={handleChangeFormdata}
                     />
                   </div>
                 </div>
@@ -250,6 +358,8 @@ function College() {
                       autoComplete="tag_line"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       placeholder=""
+                      value={editdata.tag_line && editdata.tag_line}
+                      onChange={handleChangeFormdata}
                     />
                   </div>
                 </div>
@@ -270,6 +380,8 @@ function College() {
                       autoComplete="usp_remark"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       placeholder=""
+                      value={editdata.usp_remark && editdata.usp_remark}
+                      onChange={handleChangeFormdata}
                     />
                   </div>
                 </div>
@@ -288,6 +400,8 @@ function College() {
                     type="text"
                     autoComplete="found_year"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.found_year && editdata.found_year}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -305,6 +419,10 @@ function College() {
                     id="college_descripton"
                     name="college_descripton"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={
+                      editdata.college_descripton && editdata.college_descripton
+                    }
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -376,7 +494,55 @@ function College() {
               </div>
               <div className="sm:col-span-4">
                 <label
-                  htmlFor="meta_title"
+                  htmlFor="approvedby"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Trading
+                </label>
+                <div className="flex ">
+                  {tradingarr.map((item, i) => (
+                    <div key={i} className="mt-2 text-sm">
+                      <input
+                        type="checkbox"
+                        name="approvedby[]"
+                        value={item.tid}
+                        //onChange={(e) => handleCheckBox(e, i)}
+                        className="py-2  text-sm font-semibold"
+                      />
+                      <span className="py-2 px-2 text-sm font-normal text-justify">
+                        {item.trading_name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>{" "}
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="approvedby"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Approved By
+                </label>
+                <div className="flex ">
+                  {approvedbyarr.map((item, i) => (
+                    <div key={i} className="mt-2 text-sm">
+                      <input
+                        type="checkbox"
+                        name="approvedby[]"
+                        value={item.approv_id}
+                        //onChange={(e) => handleCheckBox(e, i)}
+                        className="py-2  text-sm font-semibold"
+                      />
+                      <span className="py-2 px-2 text-sm font-normal text-justify">
+                        {item.approved_name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>{" "}
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="categories"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Category
@@ -400,7 +566,7 @@ function College() {
               </div>{" "}
               <div className="sm:col-span-4">
                 <label
-                  htmlFor="meta_title"
+                  htmlFor="courses"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Course
@@ -410,7 +576,7 @@ function College() {
                     <div key={i} className="col-span-8">
                       <input
                         type="checkbox"
-                        name="categories[]"
+                        name="courses[]"
                         value={item.cour_id}
                         //onChange={(e) => handleCheckBox(e, i)}
                         className="py-2  text-sm font-semibold"
@@ -436,6 +602,8 @@ function College() {
                     type="text"
                     autoComplete="meta_title"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.meta_title && editdata.meta_title}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -453,6 +621,10 @@ function College() {
                     type="text"
                     autoComplete="meta_description"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={
+                      editdata.meta_description && editdata.meta_description
+                    }
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -470,6 +642,8 @@ function College() {
                     type="text"
                     autoComplete="meta_keyword"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.meta_keyword && editdata.meta_keyword}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -493,6 +667,8 @@ function College() {
                     type="text"
                     autoComplete="address"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.address && editdata.address}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -510,6 +686,8 @@ function College() {
                     type="text"
                     autoComplete="address"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.address2 && editdata.address2}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>{" "}
@@ -527,6 +705,8 @@ function College() {
                     type="text"
                     autoComplete="landmark"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.landmark && editdata.landmark}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -544,6 +724,8 @@ function College() {
                     type="text"
                     autoComplete="pincode"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.pincode && editdata.pincode}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -561,6 +743,8 @@ function College() {
                     type="text"
                     autoComplete="country"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.country && editdata.country}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -578,6 +762,8 @@ function College() {
                     type="text"
                     autoComplete="state"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.state && editdata.state}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -595,6 +781,8 @@ function College() {
                     type="text"
                     autoComplete="city"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.city && editdata.city}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -612,6 +800,8 @@ function College() {
                     type="text"
                     autoComplete="contactno"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.contactno && editdata.contactno}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -629,6 +819,8 @@ function College() {
                     type="text"
                     autoComplete="faxno"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.faxno && editdata.faxno}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -646,6 +838,8 @@ function College() {
                     type="email"
                     autoComplete="email"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.email && editdata.email}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -663,6 +857,8 @@ function College() {
                     type="website"
                     autoComplete="website"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={editdata.website && editdata.website}
+                    onChange={handleChangeFormdata}
                   />
                 </div>
               </div>
@@ -711,7 +907,7 @@ function College() {
                   type="submit"
                   className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Save
+                  {cid > 0 ? "Update" : "Save"}
                 </button>
               </div>
             </div>

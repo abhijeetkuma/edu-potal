@@ -154,7 +154,7 @@ function Collegelisting() {
   const editDetails = (editval) => {
     console.log("Edit college id:", editval);
     if (editval > 0) {
-      window.location.href = "/collegelisting/college/" + editval;
+      window.location.href = "/admin/collegelisting/college/" + editval;
     }
   };
   //end edit role details

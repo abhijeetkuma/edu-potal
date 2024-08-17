@@ -160,6 +160,91 @@ const editroles = (rol_id) => {
     console.log(query);
   });
 };
+const editcollege = (cid) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM colleges WHERE cid = $1",
+      [cid],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit college ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
+const updateCollege = (cid, body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      college_name,
+      college_url,
+      tag_line,
+      usp_remark,
+      found_year,
+      college_descripton,
+      meta_title,
+      meta_keyword,
+      meta_description,
+      display_type,
+      address,
+      address2,
+      landmark,
+      pincode,
+      country,
+      state,
+      city,
+      contactno,
+      faxno,
+      email,
+      website,
+      cid,
+    } = body;
+    pool.query(
+      "UPDATE colleges SET college_name = $1, college_url = $2,tag_line=$3,usp_remark=$4,found_year=$5,college_descripton=$6,meta_title=$7,meta_keyword=$8,meta_description=$9,display_type=$10,address=$11,address2=$12,landmark=$13,pincode=$14,country=$15,state=$16,city=$17,contactno=$18,faxno=$19,email=$20,website=$21 WHERE cid = $22 RETURNING *",
+      [
+        college_name,
+        college_url,
+        tag_line,
+        usp_remark,
+        found_year,
+        college_descripton,
+        meta_title,
+        meta_keyword,
+        meta_description,
+        display_type,
+        address,
+        address2,
+        landmark,
+        pincode,
+        country,
+        state,
+        city,
+        contactno,
+        faxno,
+        email,
+        website,
+        cid,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(`College updated: ${JSON.stringify(results.rows[0])}`);
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 //update a merchant record
 const updateVehicle = (id, body) => {
   return new Promise(function (resolve, reject) {
@@ -273,6 +358,28 @@ const getCategoriesarr = async () => {
     throw new Error("Internal server error");
   }
 };
+const getApprovedbyarr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT approv_id,approved_name FROM approvedby ORDER BY approved_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
 const getCoursearr = async () => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -300,6 +407,28 @@ const getRolesrr = async () => {
     return await new Promise(function (resolve, reject) {
       pool.query(
         "SELECT rol_id,role_name FROM roles WHERE role_status='A' ORDER BY role_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const getTradingarr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT tid,trading_name FROM trending WHERE trading_status='A' ORDER BY trading_name ASC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -688,6 +817,7 @@ module.exports = {
   Login,
   getColleges,
   college,
+  updateCollege,
   deleteVehicle,
   updateVehicle,
   getCourses,
@@ -705,9 +835,12 @@ module.exports = {
   addNewcourses,
   getModulearr,
   getCategoriesarr,
+  getApprovedbyarr,
+  getTradingarr,
   getRolesrr,
   addNewcategories,
   addNewfacility,
   editroles,
+  editcollege,
   getCoursearr,
 };

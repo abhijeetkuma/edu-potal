@@ -133,9 +133,33 @@ app.delete("/deletecollege/:id", (req, res) => {
     });
 });
 
+app.get("/editcolleges/:cid", (req, res) => {
+  colleges_model
+    .editcollege(req.params.cid)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/editroles/:rol_id", (req, res) => {
   colleges_model
     .editroles(req.params.rol_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.put("/getupdatecollege/:id", (req, res) => {
+  const cid = req.params.cid;
+  const body = req.body;
+  console.log("server cid", cid);
+  colleges_model
+    .updateCollege(cid, body)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -182,6 +206,26 @@ app.get("/getcoursesarr", (req, res) => {
 app.get("/getcategoryarr", (req, res) => {
   colleges_model
     .getCategoriesarr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getapprovedbyarr", (req, res) => {
+  colleges_model
+    .getApprovedbyarr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/gettradingarr", (req, res) => {
+  colleges_model
+    .getTradingarr()
     .then((response) => {
       res.status(200).send(response);
     })

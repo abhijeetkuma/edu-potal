@@ -121,7 +121,8 @@ const router = createBrowserRouter([
         element: <Vehicles />,
       },
       {
-        path: "/admin/collegelisting/college",
+        //path: "/admin/collegelisting/college",
+        path: "/admin/collegelisting/college?/:cid",
         element: <College />,
       },
       {
