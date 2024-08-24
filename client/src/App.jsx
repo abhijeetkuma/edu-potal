@@ -8,6 +8,8 @@ import Login from "./Pages/login";
 import Dashboard from "./Pages/dashboard";
 import Collegelisting from "./Pages/collegelisting";
 import Courses from "./Pages/courses";
+import Coursetype from "./Pages/coursetype";
+import Collegetype from "./Pages/collegetype";
 import Coursebranchs from "./Pages/coursebranchs";
 import Categories from "./Pages/categories";
 import Facility from "./Pages/facilites";
@@ -63,6 +65,14 @@ const router = createBrowserRouter([
       {
         path: "/admin/collegelisting",
         element: <Collegelisting />,
+      },
+      {
+        path: "/admin/collegetype",
+        element: <Collegetype />,
+      },
+      {
+        path: "/admin/coursetype",
+        element: <Coursetype />,
       },
       {
         path: "/admin/exam",

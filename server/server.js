@@ -264,6 +264,26 @@ app.get("/getmodulesarr", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/getcollegetypearr", (req, res) => {
+  colleges_model
+    .getCollegetypearr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getexamarr", (req, res) => {
+  colleges_model
+    .getExamlistarr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 
 app.get("/getcoursebranchs", (req, res) => {
   colleges_model
@@ -331,6 +351,26 @@ app.get("/getroleslist", (req, res) => {
 app.get("/getroleslist", (req, res) => {
   colleges_model
     .getAdminusers()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getcoursetype", (req, res) => {
+  colleges_model
+    .getCoursetype()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getcollegetype", (req, res) => {
+  colleges_model
+    .getCollegetype()
     .then((response) => {
       res.status(200).send(response);
     })

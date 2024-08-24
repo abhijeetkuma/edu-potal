@@ -112,6 +112,14 @@ function LayoutType1(props) {
                 >
                   College Listing
                 </NavLink>
+              </li>{" "}
+              <li>
+                <NavLink
+                  to={`collegetype`}
+                  className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                >
+                  College Type
+                </NavLink>
               </li>
               <li>
                 <NavLink
@@ -119,6 +127,14 @@ function LayoutType1(props) {
                   className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                 >
                   Courses
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={`coursetype`}
+                  className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                >
+                  Course Type
                 </NavLink>
               </li>
               <li>

@@ -188,6 +188,7 @@ const updateCollege = (cid, body) => {
       tag_line,
       usp_remark,
       found_year,
+      intake,
       college_descripton,
       meta_title,
       meta_keyword,
@@ -204,16 +205,23 @@ const updateCollege = (cid, body) => {
       faxno,
       email,
       website,
+      ctype,
+      trading,
+      approvedby,
+      categories,
+      courses,
+      hostel_available,
       cid,
     } = body;
     pool.query(
-      "UPDATE colleges SET college_name = $1, college_url = $2,tag_line=$3,usp_remark=$4,found_year=$5,college_descripton=$6,meta_title=$7,meta_keyword=$8,meta_description=$9,display_type=$10,address=$11,address2=$12,landmark=$13,pincode=$14,country=$15,state=$16,city=$17,contactno=$18,faxno=$19,email=$20,website=$21 WHERE cid = $22 RETURNING *",
+      "UPDATE colleges SET college_name = $1, college_url = $2,tag_line=$3,usp_remark=$4,found_year=$5,intake=$6,college_descripton=$7,meta_title=$8,meta_keyword=$9,meta_description=$10,display_type=$11,address=$12,address2=$13,landmark=$14,pincode=$15,country=$16,state=$17,city=$18,contactno=$19,faxno=$20,email=$21,website=$22,ctype=$23,trading=$24,approvedby=$25,categories=$26,courses=$27,hostel_available=$28 WHERE cid = $29 RETURNING *",
       [
         college_name,
         college_url,
         tag_line,
         usp_remark,
         found_year,
+        intake,
         college_descripton,
         meta_title,
         meta_keyword,
@@ -230,6 +238,12 @@ const updateCollege = (cid, body) => {
         faxno,
         email,
         website,
+        ctype,
+        trading,
+        approvedby,
+        categories,
+        courses,
+        hostel_available,
         cid,
       ],
       (error, results) => {
@@ -319,6 +333,50 @@ const getModulearr = async () => {
     return await new Promise(function (resolve, reject) {
       pool.query(
         "SELECT mod_id,module_title FROM modules WHERE module_status='A' ORDER BY module_title ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const getCollegetypearr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT col_type,college_type FROM collegetype WHERE college_type_status='A' ORDER BY college_type ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const getExamlistarr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT exam_id,exam_name FROM examnames ORDER BY exam_name ASC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -522,6 +580,29 @@ const getCoursetype = async () => {
     return await new Promise(function (resolve, reject) {
       pool.query(
         "SELECT * FROM coursetype ORDER BY course_type_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+//get all college type our database
+const getCollegetype = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT * FROM collegetype ORDER BY college_type ASC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -826,6 +907,7 @@ module.exports = {
   addCoursebrach,
   getCategories,
   getCoursetype,
+  getCollegetype,
   getFacility,
   getApprovedby,
   getAdminusers,
@@ -834,6 +916,8 @@ module.exports = {
   addRoles,
   addNewcourses,
   getModulearr,
+  getCollegetypearr,
+  getExamlistarr,
   getCategoriesarr,
   getApprovedbyarr,
   getTradingarr,
