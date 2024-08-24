@@ -183,6 +183,7 @@ const editcollege = (cid) => {
 const updateCollege = (cid, body) => {
   return new Promise(function (resolve, reject) {
     const {
+      cid,
       college_name,
       college_url,
       tag_line,
@@ -211,11 +212,13 @@ const updateCollege = (cid, body) => {
       categories,
       courses,
       hostel_available,
-      cid,
+      adminssiondetails,
+      scholarshipoffer,
     } = body;
     pool.query(
-      "UPDATE colleges SET college_name = $1, college_url = $2,tag_line=$3,usp_remark=$4,found_year=$5,intake=$6,college_descripton=$7,meta_title=$8,meta_keyword=$9,meta_description=$10,display_type=$11,address=$12,address2=$13,landmark=$14,pincode=$15,country=$16,state=$17,city=$18,contactno=$19,faxno=$20,email=$21,website=$22,ctype=$23,trading=$24,approvedby=$25,categories=$26,courses=$27,hostel_available=$28 WHERE cid = $29 RETURNING *",
+      "UPDATE colleges SET college_name = $2, college_url = $3,tag_line=$4,usp_remark=$5,found_year=$6,intake=$7,college_descripton=$8,meta_title=$9,meta_keyword=$10,meta_description=$11,display_type=$12,address=$13,address2=$14,landmark=$15,pincode=$16,country=$17,state=$18,city=$19,contactno=$20,faxno=$21,email=$22,website=$23,ctype=$24,trading=$25,approvedby=$26,categories=$27,courses=$28,hostel_available=$29,adminssiondetails=$30 ,scholarshipoffer=$31 WHERE cid = $1 RETURNING *",
       [
+        cid,
         college_name,
         college_url,
         tag_line,
@@ -244,7 +247,8 @@ const updateCollege = (cid, body) => {
         categories,
         courses,
         hostel_available,
-        cid,
+        adminssiondetails,
+        scholarshipoffer,
       ],
       (error, results) => {
         if (error) {

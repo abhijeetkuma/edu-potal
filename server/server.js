@@ -154,7 +154,7 @@ app.get("/editroles/:rol_id", (req, res) => {
     });
 });
 
-app.put("/getupdatecollege/:id", (req, res) => {
+app.put("/getupdatecollege/:cid", (req, res) => {
   const cid = req.params.cid;
   const body = req.body;
   console.log("server cid", cid);

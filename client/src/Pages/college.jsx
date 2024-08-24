@@ -45,6 +45,9 @@ function College() {
   const [categoryvalue, setCategoryvalue] = useState([]);
   const [coursevalue, setCoursevalue] = useState([]);
   const [examvalue, setExamvalue] = useState([]);
+  const [collegedescvalue, setCollegedescvalue] = useState();
+  const [admissiondetailsvalue, setAdmissiondetailsvalue] = useState();
+  const [scholarshipoffervalue, setScholarshipoffervalue] = useState();
 
   //const [editdata, setEditdata] = useState([]);
   const [editdata, setEditdata] = useState({
@@ -71,6 +74,7 @@ function College() {
     website: "",
     ctype: [],
     trading: [],
+    adminssiondetails: "",
   });
   const { cid } = useParams();
   console.log("College id:", cid);
@@ -191,7 +195,7 @@ function College() {
   const addnew = (e) => {
     e.preventDefault();
     /* file upload */
-    const url = "http://localhost:5173/colleges";
+    /*  const url = "http://localhost:5173/colleges";
     const formData = new FormData();
     formData.append("file", clogo);
     formData.append("fileName", clogo.name);
@@ -202,7 +206,7 @@ function College() {
     };
     axios.post(url, formData, config).then((response) => {
       console.log(response.data);
-    });
+    }); */
     /* end file upload */
     const {
       cid,
@@ -232,6 +236,7 @@ function College() {
       trading,
       approvedby,
       hostel_available,
+      adminssiondetails,
     } = e.target.elements;
 
     let errorsForm = [];
@@ -260,7 +265,8 @@ function College() {
         usp_remark: usp_remark.value,
         found_year: found_year.value,
         intake: intake.value,
-        college_descripton: college_descripton.value,
+        //college_descripton: college_descripton.value,
+        college_descripton: collegedescvalue,
         meta_title: meta_title.value,
         meta_keyword: meta_keyword.value,
         meta_description: meta_description.value,
@@ -283,6 +289,8 @@ function College() {
         categories: categoryvalue.join(","),
         courses: coursevalue.join(","),
         hostel_available: hostel_available.value,
+        adminssiondetails: admissiondetailsvalue,
+        scholarshipoffer: scholarshipoffervalue,
       };
       if (cid.value > 0) {
         //update form data
@@ -586,10 +594,57 @@ function College() {
                 >
                   Description
                 </label>
-                <div className="flex rounded-md ">
-                  {/* <CKTextEditor /> */}
+                <div className=" rounded-md ">
+                  <CKEditor
+                    editor={ClassicEditor}
+                    config={{
+                      plugins: [
+                        Essentials,
+                        Bold,
+                        Italic,
+                        Paragraph,
+                        Mention,
+                        List,
+                        Table,
+                      ],
 
-                  <textarea
+                      toolbar: [
+                        "bold",
+                        "italic",
+                        "|",
+                        "undo",
+                        "redo",
+                        "|",
+                        "numberedList",
+                        "bulletedList",
+                      ],
+                      menuBar: {
+                        isVisible: true,
+                      },
+                    }}
+                    data={
+                      editdata.college_descripton && editdata.college_descripton
+                    }
+                    name="college_descripton"
+                    id="college_descripton"
+                    /*  onReady={(editor) => {
+                      // You can store the "editor" and use when it is needed.
+                      console.log("Editor 1 is ready to use!", editor);
+                    }} */
+                    onChange={(event, editor) => {
+                      const college_descripton_data = editor.getData();
+                      setCollegedescvalue(college_descripton_data);
+                      //console.log({ event, editor, college_descripton_data });
+                    }}
+                    /*  onBlur={(event, editor) => {
+                      console.log("Blur.", editor);
+                    }}
+                    onFocus={(event, editor) => {
+                      console.log("Focus.", editor);
+                    }} */
+                  />
+
+                  {/* <textarea
                     id="college_descripton"
                     name="college_descripton"
                     className="block w-full "
@@ -598,7 +653,7 @@ function College() {
                       editdata.college_descripton && editdata.college_descripton
                     }
                     onChange={handleChangeFormdata}
-                  />
+                  /> */}
                 </div>
               </div>
               <h1> Highlights</h1>
@@ -827,15 +882,7 @@ function College() {
                   <CKEditor
                     editor={ClassicEditor}
                     config={{
-                      plugins: [
-                        Essentials,
-                        Bold,
-                        Italic,
-                        Paragraph,
-                        Mention,
-                        List,
-                        Table,
-                      ],
+                      plugins: [Essentials, Bold, Italic, Paragraph],
 
                       toolbar: [
                         "bold",
@@ -844,16 +891,24 @@ function College() {
                         "undo",
                         "redo",
                         "|",
-                        "Mention",
-                        "table",
+                        "numberedList",
+                        "bulletedList",
                       ],
+                      menuBar: {
+                        isVisible: true,
+                      },
                     }}
                     data={
                       editdata.adminssiondetails && editdata.adminssiondetails
                     }
                     onReady={(editor) => {
                       // You can store the "editor" and use when it is needed.
-                      console.log("Editor 1 is ready to use!", editor);
+                      //console.log("Editor 1 is ready to use!", editor);
+                    }}
+                    onChange={(event, editor) => {
+                      const adminssiondetails_data = editor.getData();
+                      setAdmissiondetailsvalue(adminssiondetails_data);
+                      //console.log({ event, editor, college_descripton_data });
                     }}
                   />
                 </div>
@@ -894,14 +949,7 @@ function College() {
                   <CKEditor
                     editor={ClassicEditor}
                     config={{
-                      plugins: [
-                        Essentials,
-                        Bold,
-                        Italic,
-                        Paragraph,
-                        List,
-                        Table,
-                      ],
+                      plugins: [Essentials, Bold, Italic, Paragraph],
 
                       toolbar: [
                         "bold",
@@ -910,10 +958,12 @@ function College() {
                         "undo",
                         "redo",
                         "|",
-
-                        "table",
-                        "list",
+                        "numberedList",
+                        "bulletedList",
                       ],
+                      menuBar: {
+                        isVisible: true,
+                      },
                     }}
                     data={
                       editdata.scholarshipoffer && editdata.scholarshipoffer
@@ -921,6 +971,11 @@ function College() {
                     onReady={(editor) => {
                       // You can store the "editor" and use when it is needed.
                       console.log("Editor 1 is ready to use!", editor);
+                    }}
+                    onChange={(event, editor) => {
+                      const scholarshipoffer_data = editor.getData();
+                      setScholarshipoffervalue(scholarshipoffer_data);
+                      //console.log({ event, editor, college_descripton_data });
                     }}
                   />
                   {/*<textarea
