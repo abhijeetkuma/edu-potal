@@ -17,7 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 
-function Newsnevent() {
+function Questionanswerlisting() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
   }
@@ -32,7 +32,7 @@ function Newsnevent() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getnewsarticleslisting")
+      .get("http://localhost:3007/getquestinlisting")
       .then((response) => {
         setDatas(response.data);
       })
@@ -46,23 +46,17 @@ function Newsnevent() {
 
   const columns = [
     {
-      accessorKey: "type", //simple recommended way to define a column
-      header: "Type",
+      accessorKey: "question", //simple recommended way to define a column
+      header: "Question",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
-      accessorKey: "na_title", //simple recommended way to define a column
-      header: "Title",
+      accessorKey: "answer", //simple recommended way to define a column
+      header: "Answer",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
-    /* {
-      accessorKey: "na_description", //simple recommended way to define a column
-      header: "Description",
-      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
-      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
-    }, */
 
     {
       accessorKey: "status", //simple recommended way to define a column
@@ -89,7 +83,7 @@ function Newsnevent() {
             <EditIcon
               onClick={() => {
                 // table.setEditingRow(row);
-                editDetails(row.original.na_id);
+                editDetails(row.original.qid);
                 //console.log("Edit======------>", row.original.rol_id);
               }}
             />
@@ -99,7 +93,7 @@ function Newsnevent() {
           <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
             <DeleteIcon
               onClick={() => {
-                console.log("Delete======------>", row.original.na_id);
+                console.log("Delete======------>", row.original.rol_id);
 
                 // data.splice(row.index, 1); //assuming simple data table
               }}
@@ -110,9 +104,10 @@ function Newsnevent() {
     ),
   });
   const editDetails = (editval) => {
-    console.log("Edit news article id:", editval);
+    console.log("Edit college id:", editval);
     if (editval > 0) {
-      window.location.href = "/admin/newsnevent/newsarticles/" + editval;
+      window.location.href =
+        "/admin/questionanswerlist/questionanswer/" + editval;
     }
   };
 
@@ -120,11 +115,11 @@ function Newsnevent() {
     <>
       <div className="flex bg-white shadow">
         <div className="pageHeader p-3">
-          <h1 className="text-2xl font-semibold">News & Article Listing</h1>
+          <h1 className="text-2xl font-semibold">Question & Answer Listing</h1>
           <div className="actions">
             <span onClick={() => setIsEditOpen(true)}>
               <Link
-                to={"newsarticles"}
+                to={"questionanswer"}
                 alt="Add New Question"
                 title="Add New Question"
               >
@@ -205,4 +200,4 @@ function Newsnevent() {
     </>
   );
 }
-export default Newsnevent;
+export default Questionanswerlisting;

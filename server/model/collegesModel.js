@@ -180,6 +180,46 @@ const editcollege = (cid) => {
     console.log(query);
   });
 };
+const editquestion = (cid) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM questions WHERE qid = $1",
+      [cid],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit college ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
+const editnewsarticle = (na_id) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM newsarticles WHERE na_id = $1",
+      [na_id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit college ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
 const updateCollege = (cid, body) => {
   return new Promise(function (resolve, reject) {
     const {
@@ -214,9 +254,19 @@ const updateCollege = (cid, body) => {
       hostel_available,
       adminssiondetails,
       scholarshipoffer,
+      facultyprofile,
+      faq,
+      facilities,
+      totalplacementratio,
+      averageplacementrecord,
+      higestplacementrecord,
+      lowestplacementrecord,
+      toprecruiters,
+      toprecuitingsectors,
+      topprofile,
     } = body;
     pool.query(
-      "UPDATE colleges SET college_name = $2, college_url = $3,tag_line=$4,usp_remark=$5,found_year=$6,intake=$7,college_descripton=$8,meta_title=$9,meta_keyword=$10,meta_description=$11,display_type=$12,address=$13,address2=$14,landmark=$15,pincode=$16,country=$17,state=$18,city=$19,contactno=$20,faxno=$21,email=$22,website=$23,ctype=$24,trading=$25,approvedby=$26,categories=$27,courses=$28,hostel_available=$29,adminssiondetails=$30 ,scholarshipoffer=$31 WHERE cid = $1 RETURNING *",
+      "UPDATE colleges SET college_name = $2, college_url = $3,tag_line=$4,usp_remark=$5,found_year=$6,intake=$7,college_descripton=$8,meta_title=$9,meta_keyword=$10,meta_description=$11,display_type=$12,address=$13,address2=$14,landmark=$15,pincode=$16,country=$17,state=$18,city=$19,contactno=$20,faxno=$21,email=$22,website=$23,ctype=$24,trading=$25,approvedby=$26,categories=$27,courses=$28,hostel_available=$29,adminssiondetails=$30 ,scholarshipoffer=$31,facultyprofile=$32,faq=$33,facilities=$34,totalplacementratio=$35,averageplacementrecord=$36,higestplacementrecord=$37,lowestplacementrecord=$38,toprecruiters=$39,toprecuitingsectors=$40,topprofile=$41, WHERE cid = $1 RETURNING *",
       [
         cid,
         college_name,
@@ -249,6 +299,16 @@ const updateCollege = (cid, body) => {
         hostel_available,
         adminssiondetails,
         scholarshipoffer,
+        facultyprofile,
+        faq,
+        facilities,
+        totalplacementratio,
+        averageplacementrecord,
+        higestplacementrecord,
+        lowestplacementrecord,
+        toprecruiters,
+        toprecuitingsectors,
+        topprofile,
       ],
       (error, results) => {
         if (error) {
@@ -256,6 +316,70 @@ const updateCollege = (cid, body) => {
         }
         if (results && results.rows) {
           resolve(`College updated: ${JSON.stringify(results.rows[0])}`);
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateQuestion = (qid, body) => {
+  return new Promise(function (resolve, reject) {
+    const { qid, question, answer, qstatus, trading, catgories } = body;
+    pool.query(
+      "UPDATE questions SET question = $2,answer=$3, qstatus=$4,trading=$5,catgories=$6 WHERE qid = $1 RETURNING *",
+      [qid, question, answer, qstatus, trading, catgories],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(`Question updated: ${JSON.stringify(results.rows[0])}`);
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateNewsarticles = (na_id, body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      na_id,
+      na_type,
+      na_title,
+      na_url,
+      na_brief_description,
+      na_description,
+      na_metatitle,
+      na_metadescription,
+      na_metakeyword,
+      na_status,
+      na_trends,
+      na_categories,
+    } = body;
+    pool.query(
+      "UPDATE newsarticles SET na_type = $2,na_title=$3, na_url=$4, na_brief_description=$5,na_description=$6,na_metatitle=$7,na_metadescription=$8,na_metakeyword=$9,na_status=$10,na_trends=$11,na_categories=$12 WHERE na_id = $1 RETURNING *",
+      [
+        na_id,
+        na_type,
+        na_title,
+        na_url,
+        na_brief_description,
+        na_description,
+        na_metatitle,
+        na_metadescription,
+        na_metakeyword,
+        na_status,
+        na_trends,
+        na_categories,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(`Question updated: ${JSON.stringify(results.rows[0])}`);
         } else {
           reject(new Error("No results found"));
         }
@@ -491,6 +615,28 @@ const getTradingarr = async () => {
     return await new Promise(function (resolve, reject) {
       pool.query(
         "SELECT tid,trading_name FROM trending WHERE trading_status='A' ORDER BY trading_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const getFacilityarr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT facility_id,facility_name FROM facility WHERE facility_status='A' ORDER BY facility_name ASC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -786,6 +932,68 @@ const addNewfacility = (body) => {
     );
   });
 };
+const addQuestion = (body) => {
+  return new Promise(function (resolve, reject) {
+    const { question, answer, qstatus, trading, catgories } = body;
+    pool.query(
+      "INSERT INTO questions(question,answer, qstatus,trading,catgories) VALUES ($1, $2,$3,$4,$5) RETURNING *",
+      [question, answer, qstatus, trading, catgories],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A new question has been added: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const addNewsarticle = (body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      na_type,
+      na_title,
+      na_url,
+      na_brief_description,
+      na_description,
+      na_metatitle,
+      na_metadescription,
+      na_metakeyword,
+      na_status,
+    } = body;
+    pool.query(
+      "INSERT INTO newsarticles(na_type,na_title,na_url,na_brief_description,na_description,na_metatitle,na_metadescription,na_metakeyword,na_status) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9) RETURNING *",
+      [
+        na_type,
+        na_title,
+        na_url,
+        na_brief_description,
+        na_description,
+        na_metatitle,
+        na_metadescription,
+        na_metakeyword,
+        na_status,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A new record has been added: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 const addNewcategories = (body) => {
   console.log("add category", body);
   return new Promise(function (resolve, reject) {
@@ -835,6 +1043,52 @@ const getFacility = async () => {
     return await new Promise(function (resolve, reject) {
       pool.query(
         "SELECT *,case when facility_status = 'A' then 'Active' else 'Inactive' end as status FROM facility ORDER BY facility_id DESC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+//get all question and answer our database
+const getQuestionlisting = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT *,case when qstatus = 'A' then 'Active' else 'Inactive' end as status FROM questions ORDER BY qid DESC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+//get all news and articles our database
+const getNewsarticleslisting = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT *,case when na_type = 'a' then 'Article' when na_type = 'n' then 'News' else 'Exam' end as type,case when na_status = 'A' then 'Active' else 'Inactive' end as status FROM newsarticles ORDER BY na_id DESC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -903,6 +1157,8 @@ module.exports = {
   getColleges,
   college,
   updateCollege,
+  updateQuestion,
+  updateNewsarticles,
   deleteVehicle,
   updateVehicle,
   getCourses,
@@ -913,6 +1169,8 @@ module.exports = {
   getCoursetype,
   getCollegetype,
   getFacility,
+  getQuestionlisting,
+  getNewsarticleslisting,
   getApprovedby,
   getAdminusers,
   getRolelist,
@@ -928,7 +1186,12 @@ module.exports = {
   getRolesrr,
   addNewcategories,
   addNewfacility,
+  addQuestion,
+  addNewsarticle,
   editroles,
   editcollege,
+  editquestion,
+  editnewsarticle,
   getCoursearr,
+  getFacilityarr,
 };

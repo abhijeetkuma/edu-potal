@@ -22,6 +22,11 @@ import Cms from "./Pages/cms";
 import Adminusers from "./Pages/adminusers";
 import Exam from "./Pages/exam";
 import Newsnevent from "./Pages/newsnevent";
+import Newsandevent from "./Pages/newsandevent";
+import Newsarticles from "./Pages/newsarticles";
+import Questionanswer from "./Pages/questionanswerlist";
+import Questionanser from "./Pages/questionanswer";
+
 import Location from "./Pages/location";
 import Roles from "./Pages/roles";
 import Companys from "./Pages/companys";
@@ -83,6 +88,14 @@ const router = createBrowserRouter([
         element: <Newsnevent />,
       },
       {
+        path: "/admin/newsandevent",
+        element: <Newsandevent />,
+      },
+      {
+        path: "/admin/questionanswerlist",
+        element: <Questionanswer />,
+      },
+      {
         path: "/admin/location",
         element: <Location />,
       },
@@ -134,6 +147,16 @@ const router = createBrowserRouter([
         //path: "/admin/collegelisting/college",
         path: "/admin/collegelisting/college?/:cid",
         element: <College />,
+      },
+      {
+        //path: "/admin/collegelisting/college",
+        path: "/admin/questionanswerlist/questionanswer?/:qid",
+        element: <Questionanser />,
+      },
+      {
+        //path: "/admin/collegelisting/college",
+        path: "/admin/newsnevent/newsarticles?/:na_id",
+        element: <Newsarticles />,
       },
       {
         path: "/admin/adminusers",

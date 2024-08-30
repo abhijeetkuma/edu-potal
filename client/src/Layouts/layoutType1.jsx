@@ -227,6 +227,14 @@ function LayoutType1(props) {
               </li>
               <li>
                 <NavLink
+                  to={`questionanswerlist`}
+                  className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                >
+                  Question & Answer
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to={`cms`}
                   className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                 >

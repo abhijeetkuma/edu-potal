@@ -38,16 +38,21 @@ function College() {
   const [approvedbyarr, setApprovedbyarr] = useState([]);
   const [tradingarr, setTradingarr] = useState([]);
   const [examarr, setExamarr] = useState([]);
+  const [facilityarr, setFacilityarr] = useState([]);
   const [collegetypearr, setCollegetypearr] = useState([]);
   const [collegetypevalue, setCollegetypevalue] = useState([]);
   const [tradingvalue, setTradingvalue] = useState([]);
   const [approvedbyvalue, setApprovedbyvalue] = useState([]);
+  const [facilityvalue, setFacilityvalue] = useState([]);
   const [categoryvalue, setCategoryvalue] = useState([]);
   const [coursevalue, setCoursevalue] = useState([]);
   const [examvalue, setExamvalue] = useState([]);
   const [collegedescvalue, setCollegedescvalue] = useState();
   const [admissiondetailsvalue, setAdmissiondetailsvalue] = useState();
   const [scholarshipoffervalue, setScholarshipoffervalue] = useState();
+  const [facultyprofilevalue, setFacultyprofilevalue] = useState();
+  const [faqvalue, setFaqvalue] = useState();
+  const [placementoverviewvalue, setPlacementoverviewvalue] = useState();
 
   //const [editdata, setEditdata] = useState([]);
   const [editdata, setEditdata] = useState({
@@ -75,9 +80,11 @@ function College() {
     ctype: [],
     trading: [],
     adminssiondetails: "",
+    facultyprofile: "",
+    faq: "",
   });
   const { cid } = useParams();
-  console.log("College id:", cid);
+  //console.log("College id:", cid);
 
   useEffect(() => {
     /*fetch("http://localhost:3001/")
@@ -120,6 +127,14 @@ function College() {
       .get("http://localhost:3007/getexamarr")
       .then((response) => {
         setExamarr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("http://localhost:3007/getfacilityarr")
+      .then((response) => {
+        setFacilityarr(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -214,7 +229,6 @@ function College() {
       college_url,
       tag_line,
       usp_remark,
-      college_descripton,
       meta_title,
       meta_keyword,
       meta_description,
@@ -232,11 +246,14 @@ function College() {
       faxno,
       email,
       website,
-      ctype,
-      trading,
-      approvedby,
       hostel_available,
-      adminssiondetails,
+      totalplacementratio,
+      averageplacementrecord,
+      higestplacementrecord,
+      lowestplacementrecord,
+      toprecruiters,
+      toprecuitingsectors,
+      topprofile,
     } = e.target.elements;
 
     let errorsForm = [];
@@ -291,6 +308,17 @@ function College() {
         hostel_available: hostel_available.value,
         adminssiondetails: admissiondetailsvalue,
         scholarshipoffer: scholarshipoffervalue,
+        facultyprofile: facultyprofilevalue,
+        faq: faqvalue,
+        facilities: facilityvalue.join(","),
+        placement_overview: placementoverviewvalue,
+        totalplacementratio: totalplacementratio.value,
+        averageplacementrecord: averageplacementrecord.value,
+        higestplacementrecord: higestplacementrecord.value,
+        lowestplacementrecord: lowestplacementrecord.value,
+        toprecruiters: toprecruiters.value,
+        toprecuitingsectors: toprecuitingsectors.value,
+        topprofile: topprofile.value,
       };
       if (cid.value > 0) {
         //update form data
@@ -353,6 +381,15 @@ function College() {
     }
     setApprovedbyvalue(approved_array);
   };
+  const facilityCheck = (event) => {
+    var faclity_array = [...facilityvalue];
+    if (event.target.checked) {
+      faclity_array = [...facilityvalue, event.target.value];
+    } else {
+      faclity_array.splice(facilityvalue.indexOf(event.target.value), 1);
+    }
+    setFacilityvalue(faclity_array);
+  };
   const categoryCheck = (event) => {
     var category_array = [...categoryvalue];
     if (event.target.checked) {
@@ -385,7 +422,8 @@ function College() {
     //setClogo(URL.createObjectURL(e.target.files[0]));
     setClogo(e.target.files[0]);
   }
-  console.log("logo-->", clogo);
+  //console.log("logo-->", clogo);
+  console.log("facilityvalue-->", facilityvalue);
   return (
     <>
       <div className="flex bg-white shadow">
@@ -456,7 +494,7 @@ function College() {
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       placeholder="Please enter college name"
                       value={editdata.college_name && editdata.college_name}
-                      onBlur={createUrl}
+                      onChangeCapture={createUrl}
                       onChange={handleChangeFormdata}
                     />
                   </div>
@@ -623,7 +661,9 @@ function College() {
                       },
                     }}
                     data={
-                      editdata.college_descripton && editdata.college_descripton
+                      editdata.college_descripton
+                        ? editdata.college_descripton
+                        : ""
                     }
                     name="college_descripton"
                     id="college_descripton"
@@ -670,7 +710,7 @@ function College() {
                 {highLights.map((item, i) => (
                   <>
                     <div className="flex mb-2" key={`key-${i}`}>
-                      <div className="sm:col-span-2 px-2">
+                      <div className="sm:col-span-4 px-2">
                         <input
                           id="highParameter"
                           name="highParameter"
@@ -687,11 +727,11 @@ function College() {
                           id="highDetails"
                           name="highDetails"
                           type="text"
-                          placeholder="Details"
+                          placeholder="Use colons for bullet points"
                           autoComplete="highDetails"
                           value={item.highDetails}
                           onChange={(e) => handleChange(e, i)}
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                         />
                       </div>
                       <div className="sm:col-span-2">
@@ -717,10 +757,6 @@ function College() {
                     </div>
                   </>
                 ))}
-
-                <span className="font-light sm:text-gray-dark">
-                  &nbsp; Hints: Display data in bullets point user
-                </span>
               </div>
               <div className="sm:col-span-4">
                 <label
@@ -756,7 +792,7 @@ function College() {
               </div>
               <div className="sm:col-span-4">
                 <label
-                  htmlFor="approvedby"
+                  htmlFor="trading"
                   className="block text-sm font-bold leading-6 text-gray-900"
                 >
                   Trading
@@ -766,7 +802,7 @@ function College() {
                     <div key={i} className="mt-2 text-sm">
                       <input
                         type="checkbox"
-                        name="approvedby"
+                        name="trading"
                         value={item.tid}
                         onClick={tradingCheck}
                         onChange={handleChangeFormdata}
@@ -804,7 +840,32 @@ function College() {
                     </div>
                   ))}
                 </div>
-              </div>{" "}
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="approvedby"
+                  className="block text-sm font-bold leading-6 text-gray-900"
+                >
+                  Facility Available
+                </label>
+                <div className="flex ">
+                  {facilityarr.map((item, i) => (
+                    <div key={i} className="mt-2 text-sm">
+                      <input
+                        type="checkbox"
+                        name="approvedby"
+                        onClick={facilityCheck}
+                        onChange={handleChangeFormdata}
+                        value={item.facility_id}
+                        className="py-2  text-sm font-semibold"
+                      />
+                      <span className="py-2 px-2 text-sm font-normal text-justify">
+                        {item.facility_name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <div className="sm:col-span-4">
                 <label
                   htmlFor="categories"
@@ -830,7 +891,7 @@ function College() {
                     </div>
                   ))}
                 </div>
-              </div>{" "}
+              </div>
               <div className="sm:col-span-4">
                 <label
                   htmlFor="courses"
@@ -868,21 +929,18 @@ function College() {
                   Admission Details
                 </label>
                 <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                  {/*  <textarea
-                    id="adminssiondetails"
-                    name="adminssiondetails"
-                    type="text"
-                    autoComplete="adminssiondetails"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={
-                      editdata.adminssiondetails && editdata.adminssiondetails
-                    }
-                    onChange={handleChangeFormdata}
-                  /> */}
                   <CKEditor
                     editor={ClassicEditor}
                     config={{
-                      plugins: [Essentials, Bold, Italic, Paragraph],
+                      plugins: [
+                        Essentials,
+                        Bold,
+                        Italic,
+                        Paragraph,
+                        Mention,
+                        List,
+                        Table,
+                      ],
 
                       toolbar: [
                         "bold",
@@ -899,7 +957,9 @@ function College() {
                       },
                     }}
                     data={
-                      editdata.adminssiondetails && editdata.adminssiondetails
+                      editdata.adminssiondetails
+                        ? editdata.adminssiondetails
+                        : ""
                     }
                     onReady={(editor) => {
                       // You can store the "editor" and use when it is needed.
@@ -949,7 +1009,15 @@ function College() {
                   <CKEditor
                     editor={ClassicEditor}
                     config={{
-                      plugins: [Essentials, Bold, Italic, Paragraph],
+                      plugins: [
+                        Essentials,
+                        Bold,
+                        Italic,
+                        Paragraph,
+                        Mention,
+                        List,
+                        Table,
+                      ],
 
                       toolbar: [
                         "bold",
@@ -966,11 +1034,11 @@ function College() {
                       },
                     }}
                     data={
-                      editdata.scholarshipoffer && editdata.scholarshipoffer
+                      editdata.scholarshipoffer ? editdata.scholarshipoffer : ""
                     }
                     onReady={(editor) => {
                       // You can store the "editor" and use when it is needed.
-                      console.log("Editor 1 is ready to use!", editor);
+                      // console.log("Editor 1 is ready to use!", editor);
                     }}
                     onChange={(event, editor) => {
                       const scholarshipoffer_data = editor.getData();
@@ -978,17 +1046,6 @@ function College() {
                       //console.log({ event, editor, college_descripton_data });
                     }}
                   />
-                  {/*<textarea
-                    id="scholarshipoffer"
-                    name="scholarshipoffer"
-                    type="text"
-                    autoComplete=""
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={
-                      editdata.scholarshipoffer && editdata.scholarshipoffer
-                    }
-                    onChange={handleChangeFormdata}
-                  />*/}
                 </div>
               </div>
               <div className="sm:col-span-4">
@@ -1018,30 +1075,28 @@ function College() {
                         "undo",
                         "redo",
                         "|",
-
-                        "table",
-                        "list",
+                        "numberedList",
+                        "bulletedList",
                       ],
+                      menuBar: {
+                        isVisible: true,
+                      },
                     }}
-                    data={editdata.facultyprofile && editdata.facultyprofile}
+                    data={
+                      editdata.facultyprofile ? editdata.facultyprofile : ""
+                    }
                     onReady={(editor) => {
                       // You can store the "editor" and use when it is needed.
-                      console.log("Editor 1 is ready to use!", editor);
+                      //console.log("Editor 1 is ready to use!", editor);
+                    }}
+                    onChange={(event, editor) => {
+                      const facultyprofile_data = editor.getData();
+                      setFacultyprofilevalue(facultyprofile_data);
+                      //console.log({ event, editor, college_descripton_data });
                     }}
                   />
-                  {/*<textarea
-                    id="scholarshipoffer"
-                    name="scholarshipoffer"
-                    type="text"
-                    autoComplete=""
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={
-                      editdata.scholarshipoffer && editdata.scholarshipoffer
-                    }
-                    onChange={handleChangeFormdata}
-                  />*/}
                 </div>
-              </div>{" "}
+              </div>
               <div className="sm:col-span-4">
                 <label
                   htmlFor="faq"
@@ -1069,28 +1124,24 @@ function College() {
                         "undo",
                         "redo",
                         "|",
-
-                        "table",
-                        "list",
+                        "numberedList",
+                        "bulletedList",
                       ],
+                      menuBar: {
+                        isVisible: true,
+                      },
                     }}
-                    data={editdata.faq && editdata.faq}
+                    data={editdata.faq ? editdata.faq : ""}
                     onReady={(editor) => {
                       // You can store the "editor" and use when it is needed.
-                      console.log("Editor 1 is ready to use!", editor);
+                      //console.log("Editor 1 is ready to use!", editor);
+                    }}
+                    onChange={(event, editor) => {
+                      const faq_data = editor.getData();
+                      setFaqvalue(faq_data);
+                      //console.log({ event, editor, college_descripton_data });
                     }}
                   />
-                  {/*<textarea
-                    id="scholarshipoffer"
-                    name="scholarshipoffer"
-                    type="text"
-                    autoComplete=""
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={
-                      editdata.scholarshipoffer && editdata.scholarshipoffer
-                    }
-                    onChange={handleChangeFormdata}
-                  />*/}
                 </div>
               </div>
               <div className="sm:col-span-4">
@@ -1411,46 +1462,52 @@ function College() {
               </div>
               <div className="sm:col-span-4">
                 <label
-                  htmlFor="placement"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Placement
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="placement"
-                      id="placement"
-                      autoComplete="tag_line"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder=""
-                      value={editdata.placement && editdata.placement}
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
                   htmlFor="placementdescription"
                   className="block text-sm font-bold leading-6 text-gray-900"
                 >
-                  Description
+                  Overview
                 </label>
                 <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                  <textarea
-                    id="placementdescription"
-                    name="placementdescription"
-                    type="text"
-                    autoComplete=""
-                    rows={5}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={
-                      editdata.placementdescription &&
-                      editdata.placementdescription
+                  <CKEditor
+                    editor={ClassicEditor}
+                    config={{
+                      plugins: [
+                        Essentials,
+                        Bold,
+                        Italic,
+                        Paragraph,
+                        List,
+                        Table,
+                      ],
+
+                      toolbar: [
+                        "bold",
+                        "italic",
+                        "|",
+                        "undo",
+                        "redo",
+                        "|",
+                        "numberedList",
+                        "bulletedList",
+                      ],
+                      menuBar: {
+                        isVisible: true,
+                      },
+                    }}
+                    data={
+                      editdata.placement_overview
+                        ? editdata.placement_overview
+                        : ""
                     }
-                    onChange={handleChangeFormdata}
+                    onReady={(editor) => {
+                      // You can store the "editor" and use when it is needed.
+                      // console.log("Editor 1 is ready to use!", editor);
+                    }}
+                    onChange={(event, editor) => {
+                      const placedesc_data = editor.getData();
+                      setPlacementoverviewvalue(placedesc_data);
+                      //console.log({ event, editor, college_descripton_data });
+                    }}
                   />
                 </div>
               </div>
@@ -1634,6 +1691,22 @@ function College() {
                   htmlFor="gallery_image1"
                   className="block text- font-bold leading-6 text-gray-900"
                 >
+                  Upload Brouchure
+                </label>
+                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={onBannerChange}
+                  />
+                </div>
+              </div>
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="gallery_image1"
+                  className="block text- font-bold leading-6 text-gray-900"
+                >
                   Gallery Image1
                 </label>
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -1684,7 +1757,7 @@ function College() {
                 >
                   Gallery Image4
                 </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <div className=" rounded-md shadow-sm  ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
                   <input
                     type="file"
                     multiple
@@ -1700,7 +1773,7 @@ function College() {
                 >
                   Gallery Image5
                 </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <div className=" rounded-md  ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
                   <input
                     type="file"
                     multiple
