@@ -47,6 +47,8 @@ function College() {
   const [categoryvalue, setCategoryvalue] = useState([]);
   const [coursevalue, setCoursevalue] = useState([]);
   const [examvalue, setExamvalue] = useState([]);
+  const [subcoursesarr, setSubcoursesarr] = useState([]);
+  const [dispsubcourse, setDispsubcourse] = useState([]);
   const [collegedescvalue, setCollegedescvalue] = useState();
   const [admissiondetailsvalue, setAdmissiondetailsvalue] = useState();
   const [scholarshipoffervalue, setScholarshipoffervalue] = useState();
@@ -407,6 +409,46 @@ function College() {
       course_array.splice(coursevalue.indexOf(event.target.value), 1);
     }
     setCoursevalue(course_array);
+    axios
+      .get("http://localhost:3007/fetchsubcourese/" + event.target.value)
+      .then((response) => {
+        console.log("data-->", response.data);
+        setSubcoursesarr(response.data);
+        const coursebody =
+          '<label htmlFor="courses" className="block text-sm font-bold leading-6 text-gray-900">Courses</label><div className="flex flex-wrap"><input type="text"></div>';
+        setDispsubcourse(coursebody);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    //fetch sub courses
+    /* axios;
+    .get("http://localhost:3007/editcolleges/" + cid)
+      .then((response) => {
+        setEditdata(response.data[0]);
+      })
+      .catch((error) => {
+        console.error(error);
+      }); */
+
+    /* const payload = {
+      couser_id: event.target.value,
+    };
+    axios({
+      method: "get",
+      url: "http://localhost:3007/fetchsubcourese",
+      //data: { couser_id: course_array },
+      data: payload,
+    })
+      .then(function (response) {
+        //console.log(response);
+        console.log("subcourse-->", response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    //end add form data
+    //end fetch sub courses */
   };
   const examCheck = (event) => {
     var exam_array = [...examvalue];
@@ -871,7 +913,7 @@ function College() {
                   htmlFor="categories"
                   className="block text-sm font-bold leading-6 text-gray-900"
                 >
-                  Category
+                  Categories
                 </label>
                 <div className="flex ">
                   {catgoryarr.map((item, i) => (
@@ -897,7 +939,7 @@ function College() {
                   htmlFor="courses"
                   className="block text-sm font-bold leading-6 text-gray-900"
                 >
-                  Course
+                  Courses
                 </label>
                 <div className="flex flex-wrap">
                   {coursearr.map((item, i) => (
@@ -918,6 +960,7 @@ function College() {
                   ))}
                 </div>
               </div>
+              <div className="sm:col-span-4">{dispsubcourse}</div>
               <div className="text-left font-extrabold border-x-blue border-spacing-5">
                 <h3>Adminssion Process</h3>
               </div>

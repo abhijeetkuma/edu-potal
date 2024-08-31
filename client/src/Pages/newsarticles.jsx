@@ -144,6 +144,7 @@ function Newsarticles() {
       na_status: na_status.value,
       na_trends: tradingvalue.join(","),
       na_categories: categoryvalue.join(","),
+      added_by: localStorage.login_id,
     };
     if (na_id.value > 0) {
       //update form data

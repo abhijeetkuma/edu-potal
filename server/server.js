@@ -156,7 +156,27 @@ app.post("/addnewsarticle", (req, res) => {
       res.status(500).send(error);
     });
 });
-
+app.get("/fetchsubcourese/:course_id", (req, res) => {
+  colleges_model
+    //.fetchSubcourese(req.body)
+    .fetchSubcourese(req.params.course_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getcoursesarr", (req, res) => {
+  colleges_model
+    .getCoursesarr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.delete("/deletecollege/:id", (req, res) => {
   colleges_model
     .deleteVehicle(req.params.id)

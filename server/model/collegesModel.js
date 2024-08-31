@@ -34,7 +34,7 @@ const Login = async (body) => {
     return await new Promise(function (resolve, reject) {
       const { admin_email, admin_password } = body;
       pool.query(
-        "select admin_id,admin_email,admin_contact from adminusers where admin_status='A' and admin_email=$1 and admin_password=$2",
+        "select au_id,admin_id,admin_email,admin_contact from adminusers where admin_status='A' and admin_email=$1 and admin_password=$2",
         [admin_email, admin_password],
         (error, results) => {
           if (error) {
@@ -160,6 +160,55 @@ const editroles = (rol_id) => {
     console.log(query);
   });
 };
+
+const fetchSubcourese = async (course_id) => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      //const { course_id } = body;
+      pool.query(
+        "SELECT courb_id,branch_name FROM coursebranches where course_id=$1",
+        [course_id],
+        (error, results) => {
+          //console.log("results", body);
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+/* const getCoursesarrs = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT cour_id,course_name FROM courses WHERE cstatus='A' ORDER BY course_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+}; */
+
 const editcollege = (cid) => {
   //const rol_id = rol_id;
   return new Promise(function (resolve, reject) {
@@ -357,9 +406,10 @@ const updateNewsarticles = (na_id, body) => {
       na_status,
       na_trends,
       na_categories,
+      added_by,
     } = body;
     pool.query(
-      "UPDATE newsarticles SET na_type = $2,na_title=$3, na_url=$4, na_brief_description=$5,na_description=$6,na_metatitle=$7,na_metadescription=$8,na_metakeyword=$9,na_status=$10,na_trends=$11,na_categories=$12 WHERE na_id = $1 RETURNING *",
+      "UPDATE newsarticles SET na_type = $2,na_title=$3, na_url=$4, na_brief_description=$5,na_description=$6,na_metatitle=$7,na_metadescription=$8,na_metakeyword=$9,na_status=$10,na_trends=$11,na_categories=$12,added_by=$13 WHERE na_id = $1 RETURNING *",
       [
         na_id,
         na_type,
@@ -373,6 +423,7 @@ const updateNewsarticles = (na_id, body) => {
         na_status,
         na_trends,
         na_categories,
+        added_by,
       ],
       (error, results) => {
         if (error) {
@@ -965,9 +1016,10 @@ const addNewsarticle = (body) => {
       na_metadescription,
       na_metakeyword,
       na_status,
+      added_by,
     } = body;
     pool.query(
-      "INSERT INTO newsarticles(na_type,na_title,na_url,na_brief_description,na_description,na_metatitle,na_metadescription,na_metakeyword,na_status) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9) RETURNING *",
+      "INSERT INTO newsarticles(na_type,na_title,na_url,na_brief_description,na_description,na_metatitle,na_metadescription,na_metakeyword,na_status,added_by) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *",
       [
         na_type,
         na_title,
@@ -1194,4 +1246,5 @@ module.exports = {
   editnewsarticle,
   getCoursearr,
   getFacilityarr,
+  fetchSubcourese,
 };
