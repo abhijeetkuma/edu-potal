@@ -26,7 +26,7 @@ function College() {
     window.location = "login";
   }
 
-  const [errorMsg, setErrorMsg] = useState([]);
+  //const [errorMsg, setErrorMsg] = useState([]);
   const [highLights, setHighLights] = useState([
     { highParameter: "", highDetails: "" },
   ]);
@@ -45,6 +45,7 @@ function College() {
   const [approvedbyvalue, setApprovedbyvalue] = useState([]);
   const [facilityvalue, setFacilityvalue] = useState([]);
   const [categoryvalue, setCategoryvalue] = useState([]);
+  const [subcourcevalue, setSubcourcevalue] = useState([]);
   const [coursevalue, setCoursevalue] = useState([]);
   const [examvalue, setExamvalue] = useState([]);
   const [subcoursesarr, setSubcoursesarr] = useState([]);
@@ -55,6 +56,7 @@ function College() {
   const [facultyprofilevalue, setFacultyprofilevalue] = useState();
   const [faqvalue, setFaqvalue] = useState();
   const [placementoverviewvalue, setPlacementoverviewvalue] = useState();
+  const [subcoursecheckbox, setSubcoursecheckbox] = useState();
 
   //const [editdata, setEditdata] = useState([]);
   const [editdata, setEditdata] = useState({
@@ -352,7 +354,7 @@ function College() {
         //end add form data
       }
     } else {
-      setErrorMsg(errorsForm);
+      //setErrorMsg(errorsForm);
     }
   };
 
@@ -401,53 +403,59 @@ function College() {
     }
     setCategoryvalue(category_array);
   };
+  const subcourseCheck = (event) => {
+    var subcour_array = [...subcourcevalue];
+    if (event.target.checked) {
+      subcour_array = [...subcourcevalue, event.target.value];
+
+      console.log("data set-->", event.target.dataset.value);
+
+      /*  var coursebodytext = {
+        __html:
+          '<div><label htmlFor="courses" className="block text-sm font-bold leading-6 text-gray-900">Courses</label><div className="flex flex-wrap"><input type="text"></div>',
+      }; */
+
+      const bodyhtml = (
+        <div
+          dangerouslySetInnerHTML={{
+            __html:
+              event.target.dataset.value +
+              '<p><input type="text" placeholder="Course Duration"> <input type="text" placeholder="Fee"><input type="text" placeholder="Seats"><textarea placeholder="Description"></textarea><textarea  placeholder="Selection Criteria"></textarea><textarea type="text" placeholder="Selection Eligibility"></textarea><select name="course_type" class="form-control"><option value="1" selected="">Regular</option><option value="2">Distance</option><option value="3">Morning</option><option value="4">Evening</option><option value="5">Part Time</option><option value="6">Online</option><option value="7">On Campus</option></select></p>',
+          }}
+        ></div>
+      );
+      setDispsubcourse(bodyhtml);
+    } else {
+      subcour_array.splice(subcourcevalue.indexOf(event.target.value), 1);
+    }
+    setSubcourcevalue(subcour_array);
+  };
+
+  console.log("sub course --> ", subcourcevalue);
   const courseCheck = (event) => {
+    let selectedcourse_id = "";
     var course_array = [...coursevalue];
     if (event.target.checked) {
       course_array = [...coursevalue, event.target.value];
+      selectedcourse_id = event.target.value;
     } else {
       course_array.splice(coursevalue.indexOf(event.target.value), 1);
     }
     setCoursevalue(course_array);
+    var subcorarr = [...subcoursesarr];
     axios
-      .get("http://localhost:3007/fetchsubcourese/" + event.target.value)
+      .get("http://localhost:3007/fetchsubcourese/" + selectedcourse_id)
       .then((response) => {
-        console.log("data-->", response.data);
-        setSubcoursesarr(response.data);
-        const coursebody =
-          '<label htmlFor="courses" className="block text-sm font-bold leading-6 text-gray-900">Courses</label><div className="flex flex-wrap"><input type="text"></div>';
-        setDispsubcourse(coursebody);
+        console.log("sub course data-->", response.data);
+        var subcorarrs = subcorarr.concat(response.data);
+        //setSubcoursesarr(response.data);
+        setSubcoursesarr(subcorarrs);
       })
       .catch((error) => {
         console.error(error);
       });
     //fetch sub courses
-    /* axios;
-    .get("http://localhost:3007/editcolleges/" + cid)
-      .then((response) => {
-        setEditdata(response.data[0]);
-      })
-      .catch((error) => {
-        console.error(error);
-      }); */
 
-    /* const payload = {
-      couser_id: event.target.value,
-    };
-    axios({
-      method: "get",
-      url: "http://localhost:3007/fetchsubcourese",
-      //data: { couser_id: course_array },
-      data: payload,
-    })
-      .then(function (response) {
-        //console.log(response);
-        console.log("subcourse-->", response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    //end add form data
     //end fetch sub courses */
   };
   const examCheck = (event) => {
@@ -466,6 +474,7 @@ function College() {
   }
   //console.log("logo-->", clogo);
   console.log("facilityvalue-->", facilityvalue);
+
   return (
     <>
       <div className="flex bg-white shadow">
@@ -512,7 +521,6 @@ function College() {
             //encType="multipart/form-data"
             onSubmit={addnew}
           >
-            {errorMsg && <div className="errorDisp">{errorMsg}</div>}
             <input
               type="hidden"
               name="cid"
@@ -960,7 +968,39 @@ function College() {
                   ))}
                 </div>
               </div>
-              <div className="sm:col-span-4">{dispsubcourse}</div>
+              {subcoursesarr.length > 0 && (
+                <div className="sm:col-span-4">
+                  <label
+                    htmlFor="subcourses"
+                    className="block text-sm font-bold leading-6 text-gray-900"
+                  >
+                    Sub Courses
+                  </label>
+                  <div className="flex flex-wrap">
+                    {subcoursesarr.map((item, i) => (
+                      <div key={i} className="col-span-8">
+                        <input
+                          type="checkbox"
+                          name="subcourses"
+                          value={item.courb_id}
+                          data-value={item.branch_name}
+                          onClick={subcourseCheck}
+                          onChange={handleChangeFormdata}
+                          //onChange={(e) => handleCheckBox(e, i)}
+                          className="py-2  text-sm font-semibold"
+                        />
+                        <span className="py-2 px-2 text-sm font-normal text-justify">
+                          {item.branch_name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              <div className="sm:col-span-4">
+                <div />
+                <> {dispsubcourse} ---</>
+              </div>
               <div className="text-left font-extrabold border-x-blue border-spacing-5">
                 <h3>Adminssion Process</h3>
               </div>

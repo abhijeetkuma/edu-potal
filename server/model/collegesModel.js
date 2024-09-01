@@ -167,6 +167,8 @@ const fetchSubcourese = async (course_id) => {
       //const { course_id } = body;
       pool.query(
         "SELECT courb_id,branch_name FROM coursebranches where course_id=$1",
+        //"SELECT courb_id,branch_name FROM coursebranches where course_id in($1)",
+        //"SELECT courb_id,branch_name FROM coursebranches where course_id = ANY($1::int[])",
         [course_id],
         (error, results) => {
           //console.log("results", body);
