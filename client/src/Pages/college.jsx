@@ -25,16 +25,22 @@ function College() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
   }
-
   //const [errorMsg, setErrorMsg] = useState([]);
   const [highLights, setHighLights] = useState([
     { highParameter: "", highDetails: "" },
   ]);
-  const [logo, setLogo] = useState([]);
-  const [clogo, setClogo] = useState();
-  const [banner, setBanner] = useState([]);
+  const [logo, setLogo] = useState();
+  const [banner, setBanner] = useState();
+  const [gallery1, setGallery1] = useState();
+  const [gallery2, setGallery2] = useState();
+  const [gallery3, setGallery3] = useState();
+  const [gallery4, setGallery4] = useState();
+  const [gallery5, setGallery5] = useState();
+  const [brouchure, setBrouchure] = useState();
+  const [, set] = useState();
   const [catgoryarr, setCatgoryarr] = useState([]);
   const [coursearr, setCoursearr] = useState([]);
+  const [subcoursearr, setSubcoursearr] = useState([]);
   const [approvedbyarr, setApprovedbyarr] = useState([]);
   const [tradingarr, setTradingarr] = useState([]);
   const [examarr, setExamarr] = useState([]);
@@ -57,6 +63,25 @@ function College() {
   const [faqvalue, setFaqvalue] = useState();
   const [placementoverviewvalue, setPlacementoverviewvalue] = useState();
   const [subcoursecheckbox, setSubcoursecheckbox] = useState();
+  const [isBasic, setIsBasic] = useState(true);
+  const [isContact, setIsContact] = useState(false);
+  const [isPlacement, setIsPlacement] = useState(false);
+  const [isGallery, setIsGallery] = useState(false);
+  const [isAdmission, setIsAdmission] = useState(false);
+  const [isHighlights, setIsHighLights] = useState(false);
+  const [isFaq, setIsFaq] = useState(false);
+  const [isCourse, setIsCourse] = useState(false);
+
+  const [insertActivetabs, setInsertActivetabs] = useState(false);
+  const [basicActive, setBasicActive] = useState("active");
+  const [contactActive, setContactActive] = useState();
+  const [highlightsActive, setHighlightsActive] = useState();
+  const [galleryActive, setGalleryActive] = useState();
+  const [admissionActive, setAdmissionActive] = useState();
+  const [placementActive, setPlacementActive] = useState();
+  const [faqActive, setFaqActive] = useState();
+  const [courseActive, setCourseActive] = useState();
+  const [successmsg, setSuccessmsg] = useState();
 
   //const [editdata, setEditdata] = useState([]);
   const [editdata, setEditdata] = useState({
@@ -86,9 +111,18 @@ function College() {
     adminssiondetails: "",
     facultyprofile: "",
     faq: "",
+    facilityvalue: [],
+    exams: [],
+    gallery1: "",
+    gallery2: "",
+    gallery3: "",
+    gallery4: "",
+    gallery5: "",
+    brouchure: "",
+    youtube: "",
   });
   const { cid } = useParams();
-  //console.log("College id:", cid);
+  console.log("College id:", cid);
 
   useEffect(() => {
     /*fetch("http://localhost:3001/")
@@ -115,6 +149,14 @@ function College() {
       .get("http://localhost:3007/getcoursearr")
       .then((response) => {
         setCoursearr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("http://localhost:3007/getsubcoursearr")
+      .then((response) => {
+        setSubcoursearr(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -157,6 +199,10 @@ function College() {
         .get("http://localhost:3007/editcolleges/" + cid)
         .then((response) => {
           setEditdata(response.data[0]);
+          //console.log("sd-->", response.data[0].facilities);
+          //setFacilityvalue(JSON.stringify(response.data[0].facilities));
+          let resArr = response.data[0].facilities;
+          setFacilityvalue(resArr.length > 0 ? resArr.split(",") : []);
         })
         .catch((error) => {
           console.error(error);
@@ -190,14 +236,10 @@ function College() {
     setHighLights(deleteData);
   };
 
-  const onLogoChange = (e) => {
-    //setLogo([...e.target.files]);
-    setLogo(e.target.files[0].name);
-    //setLogo(URL.createObjectURL(e.target.files[0]));
-  };
   const onBannerChange = (e) => {
     setBanner([...e.target.files]);
   };
+
   const createUrl = (e) => {
     var collegename = e.target.value;
     var collegeurl = collegename
@@ -210,6 +252,7 @@ function College() {
       editdata.college_url
     );
   };
+
   //console.log("college edit url", editdata.college_url);
   const addnew = (e) => {
     e.preventDefault();
@@ -357,6 +400,328 @@ function College() {
       //setErrorMsg(errorsForm);
     }
   };
+  const submitbasicinformation = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("cid", cid);
+    formData.append("logo", logo);
+    formData.append("banner", banner);
+    formData.append("college_name", event.target.college_name.value);
+    formData.append("college_url", event.target.college_url.value);
+    formData.append("tag_line", event.target.tag_line.value);
+    formData.append("usp_remark", event.target.usp_remark.value);
+    formData.append("found_year", event.target.found_year.value);
+    formData.append("intake", event.target.intake.value);
+    formData.append("hostel_available", event.target.hostel_available.value);
+    formData.append("college_descripton", collegedescvalue);
+    formData.append("facultyprofile", facultyprofilevalue);
+    formData.append("ctype", collegetypevalue.join(","));
+    formData.append("trading", tradingvalue.join(","));
+    formData.append("approvedby", approvedbyvalue.join(","));
+    formData.append("facilities", facilityvalue.join(","));
+    formData.append("categories", categoryvalue.join(","));
+    formData.append("exams", examvalue.join(","));
+    formData.append("meta_title", event.target.meta_title.value);
+    formData.append("meta_keyword", event.target.meta_keyword.value);
+    formData.append("meta_description", event.target.meta_description.value);
+
+    if (cid > 0) {
+      //update form data
+      console.log("update query ");
+      await axios({
+        method: "post",
+        url: "http://localhost:3007/updatebasicinformation",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+        .then(function (response) {
+          //console.log(response);
+          console.log(response.statusText);
+          if (response.statusText === "OK") {
+            /*  setSuccessmsg("Successfully Updated.");
+            setTimeout(function () {
+              window.location.replace("../../collegelisting");
+            }, 3000); */
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //end update form data
+    } else {
+      console.log("insert query ");
+      //insert basicinformation data
+      await axios({
+        method: "post",
+        url: "http://localhost:3007/insertbasicinformation",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+        .then(function (response) {
+          console.log("response.data.cid-->", response.data["cid"]);
+          if (response.data["cid"] > 0 && response.statusText === "OK") {
+            setSuccessmsg("Successfully Updated.");
+            window.location.href =
+              "/admin/collegelisting/college/" + response.data["cid"];
+            //cid = response.data["cid"];
+            //setInsertActivetabs(true);
+          }
+
+          /* console.log(response.statusText);
+          if (response.statusText === "OK") {
+            setSuccessmsg("Successfully Updated.");
+            setTimeout(function () {
+              window.location.replace("../../collegelisting");
+            }, 3000);
+          } */
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //end basicinformation form data
+    }
+  };
+  const submitGallery = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("cid", cid);
+    formData.append("gallery1", gallery1);
+    formData.append("gallery2", gallery2);
+    formData.append("gallery3", gallery3);
+    formData.append("gallery4", gallery4);
+    formData.append("gallery5", gallery5);
+    formData.append("brouchure", brouchure);
+    formData.append("youtube", event.target.youtube.value);
+    formData.append("old_gallery1", event.target.old_gallery1.value);
+    formData.append("old_gallery2", event.target.old_gallery2.value);
+    formData.append("old_gallery3", event.target.old_gallery3.value);
+    formData.append("old_gallery4", event.target.old_gallery4.value);
+    formData.append("old_gallery5", event.target.old_gallery5.value);
+    formData.append("old_brouchure", event.target.old_brouchure.value);
+    if (cid > 0) {
+      //update form data
+      await axios({
+        method: "post",
+        url: "http://localhost:3007/updategallery",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+        .then(function (response) {
+          //console.log(response);
+          console.log(response.statusText);
+          if (response.statusText === "OK") {
+            /*  setSuccessmsg("Successfully Updated.");
+            setTimeout(function () {
+              window.location.replace("../../collegelisting");
+            }, 3000); */
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //end update form data
+    }
+  };
+
+  const submitcontactus = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("cid", cid);
+    formData.append("address", event.target.address.value);
+    formData.append("address2", event.target.address2.value);
+    formData.append("landmark", event.target.landmark.value);
+    formData.append("pincode", event.target.pincode.value);
+    formData.append("state", event.target.state.value);
+    formData.append("city", event.target.city.value);
+    formData.append("contactno", event.target.contactno.value);
+    formData.append("faxno", event.target.faxno.value);
+    formData.append("email", event.target.email.value);
+    formData.append("website", event.target.website.value);
+    console.log("event value", event.target.address.value);
+    const payload = {
+      cid: cid,
+      address: event.target.address.value,
+      address2: event.target.address2.value,
+      landmark: event.target.landmark.value,
+      pincode: event.target.pincode.value,
+      country: event.target.country.value,
+      state: event.target.state.value,
+      city: event.target.city.value,
+      contactno: event.target.contactno.value,
+      faxno: event.target.faxno.value,
+      email: event.target.email.value,
+      website: event.target.website.value,
+    };
+
+    if (cid > 0) {
+      //update form data
+      /* axios({
+        method: "post",
+        url: "http://localhost:3007/updatecontactus",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      }) */
+      /*  axios({
+        method: "post",
+        url: "http://localhost:3007/updatecontactus",
+        data: formData,
+      }) */
+      axios({
+        method: "POST",
+        url: "http://localhost:3007/updatecontactus",
+        data: payload,
+      })
+        .then(function (response) {
+          //console.log(response);
+          console.log(response.statusText);
+          if (response.statusText === "OK") {
+            /*  setSuccessmsg("Successfully Updated.");
+            setTimeout(function () {
+              window.location.replace("../../collegelisting");
+            }, 3000); */
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //end update form data
+    }
+  };
+  const submithightlight = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+
+    const payload = {
+      cid: cid,
+      display_type: event.target.display_type.value,
+      highlights: JSON.stringify(highLights),
+    };
+
+    if (cid > 0) {
+      //update form data
+      axios({
+        method: "POST",
+        url: "http://localhost:3007/updatehighlight",
+        data: payload,
+      })
+        .then(function (response) {
+          //console.log(response);
+          console.log(response.statusText);
+          if (response.statusText === "OK") {
+            /*  setSuccessmsg("Successfully Updated.");
+            setTimeout(function () {
+              window.location.replace("../../collegelisting");
+            }, 3000); */
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //end update form data
+    }
+  };
+  const submitadmission = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+
+    const payload = {
+      cid: cid,
+      adminssiondetails: admissiondetailsvalue,
+      scholarshipoffer: scholarshipoffervalue,
+    };
+
+    if (cid > 0) {
+      //update form data
+      axios({
+        method: "POST",
+        url: "http://localhost:3007/updateadmission",
+        data: payload,
+      })
+        .then(function (response) {
+          //console.log(response);
+          console.log(response.statusText);
+          if (response.statusText === "OK") {
+            /*  setSuccessmsg("Successfully Updated.");
+            setTimeout(function () {
+              window.location.replace("../../collegelisting");
+            }, 3000); */
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //end update form data
+    }
+  };
+  const submitplacement = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    const payload = {
+      cid: cid,
+      placement_overview: placementoverviewvalue,
+      totalplacementratio: event.target.totalplacementratio.value,
+      averageplacementrecord: event.target.averageplacementrecord.value,
+      higestplacementrecord: event.target.higestplacementrecord.value,
+      lowestplacementrecord: event.target.lowestplacementrecord.value,
+      toprecruiters: event.target.toprecruiters.value,
+      toprecuitingsectors: event.target.toprecuitingsectors.value,
+      topprofile: event.target.topprofile.value,
+    };
+
+    if (cid > 0) {
+      //update form data
+      axios({
+        method: "POST",
+        url: "http://localhost:3007/updateplacement",
+        data: payload,
+      })
+        .then(function (response) {
+          //console.log(response);
+          console.log(response.statusText);
+          if (response.statusText === "OK") {
+            /*  setSuccessmsg("Successfully Updated.");
+            setTimeout(function () {
+              window.location.replace("../../collegelisting");
+            }, 3000); */
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //end update form data
+    }
+  };
+  const submitfaq = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    const payload = {
+      cid: cid,
+      faq: faqvalue,
+    };
+
+    if (cid > 0) {
+      //update form data
+      axios({
+        method: "POST",
+        url: "http://localhost:3007/updatefaq",
+        data: payload,
+      })
+        .then(function (response) {
+          //console.log(response);
+          console.log(response.statusText);
+          if (response.statusText === "OK") {
+            /*  setSuccessmsg("Successfully Updated.");
+            setTimeout(function () {
+              window.location.replace("../../collegelisting");
+            }, 3000); */
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //end update form data
+    }
+  };
 
   const collegetypeCheck = (event) => {
     var colltype_array = [...collegetypevalue];
@@ -367,6 +732,7 @@ function College() {
     }
     setCollegetypevalue(colltype_array);
   };
+
   const tradingCheck = (event) => {
     var trading_array = [...tradingvalue];
     if (event.target.checked) {
@@ -376,6 +742,7 @@ function College() {
     }
     setTradingvalue(trading_array);
   };
+
   const approvedbyCheck = (event) => {
     var approved_array = [...approvedbyvalue];
     if (event.target.checked) {
@@ -385,15 +752,24 @@ function College() {
     }
     setApprovedbyvalue(approved_array);
   };
+
   const facilityCheck = (event) => {
-    var faclity_array = [...facilityvalue];
+    // var faclity_array = [...facilityvalue];
+    // var faclity_array = facilityvalue;
     if (event.target.checked) {
-      faclity_array = [...facilityvalue, event.target.value];
+      // faclity_array = [...facilityvalue, event.target.value];
+
+      setFacilityvalue((facilityvalue) => [
+        ...facilityvalue,
+        event.target.value,
+      ]);
     } else {
-      faclity_array.splice(facilityvalue.indexOf(event.target.value), 1);
+      setFacilityvalue(
+        facilityvalue.splice(facilityvalue.indexOf(event.target.value), 1)
+      );
     }
-    setFacilityvalue(faclity_array);
   };
+  console.log("facility -->", facilityvalue);
   const categoryCheck = (event) => {
     var category_array = [...categoryvalue];
     if (event.target.checked) {
@@ -403,6 +779,7 @@ function College() {
     }
     setCategoryvalue(category_array);
   };
+
   const subcourseCheck = (event) => {
     var subcour_array = [...subcourcevalue];
     if (event.target.checked) {
@@ -412,7 +789,7 @@ function College() {
 
       /*  var coursebodytext = {
         __html:
-          '<div><label htmlFor="courses" className="block text-sm font-bold leading-6 text-gray-900">Courses</label><div className="flex flex-wrap"><input type="text"></div>',
+          '<div><label htmlFor="courses" className="block text-lg font-semibold leading-6 text-gray-900">Courses</label><div className="flex flex-wrap"><input type="text"></div>',
       }; */
 
       const bodyhtml = (
@@ -431,7 +808,6 @@ function College() {
     setSubcourcevalue(subcour_array);
   };
 
-  console.log("sub course --> ", subcourcevalue);
   const courseCheck = (event) => {
     let selectedcourse_id = "";
     var course_array = [...coursevalue];
@@ -458,6 +834,7 @@ function College() {
 
     //end fetch sub courses */
   };
+
   const examCheck = (event) => {
     var exam_array = [...examvalue];
     if (event.target.checked) {
@@ -467,274 +844,311 @@ function College() {
     }
     setExamvalue(exam_array);
   };
-  function handleChangelogo(e) {
-    //console.log(e.target.files);
-    //setClogo(URL.createObjectURL(e.target.files[0]));
-    setClogo(e.target.files[0]);
-  }
-  //console.log("logo-->", clogo);
-  console.log("facilityvalue-->", facilityvalue);
 
-  return (
-    <>
-      <div className="flex bg-white shadow">
-        <div className="pageHeader p-3">
-          <h1 className="text-2xl font-semibold">
-            {cid > 0 ? "Update" : "New"} College Details
-          </h1>
-          <div className="action">
-            <span>
-              <Link
-                to={"../collegelisting"}
-                alt="Back To College Listing"
-                title="Back To College Listing"
-              >
-                <svg
-                  className="h-6 w-6 text-stone-600"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  strokeWidth="2"
-                  stroke="currentColor"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+  const renderPageHeader = () => {
+    return (
+      <>
+        <div className="flex bg-white shadow">
+          <div className="pageHeader p-3">
+            <h1 className="text-2xl font-semibold">
+              {cid > 0 ? "Update" : "New"} College Details
+            </h1>
+            <div className="action">
+              <span>
+                <Link
+                  to={"../collegelisting"}
+                  alt="Back To College Listing"
+                  title="Back To College Listing"
                 >
-                  {" "}
-                  <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                  <line x1="4" y1="6" x2="20" y2="6" />{" "}
-                  <line x1="4" y1="12" x2="20" y2="12" />{" "}
-                  <line x1="4" y1="18" x2="20" y2="18" />
-                </svg>
-              </Link>
-            </span>
+                  <svg
+                    className="h-6 w-6 text-stone-600"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    {" "}
+                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                    <line x1="4" y1="6" x2="20" y2="6" />{" "}
+                    <line x1="4" y1="12" x2="20" y2="12" />{" "}
+                    <line x1="4" y1="18" x2="20" y2="18" />
+                  </svg>
+                </Link>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+      </>
+    );
+  };
 
-      <div className="p-2">
-        <div className="mx-auto max-w-7xl py-6 sm:px-2 lg:px-2">
+  const renderSteps = () => {
+    return (
+      <>
+        <div className="flex-grow gap-10 step-tabs">
+          <Link to="#" className={basicActive} onClick={showBasic}>
+            <span>Basic Info</span>
+          </Link>
+          <Link to="#" className={contactActive} onClick={showContacts}>
+            <span>Contacts</span>
+          </Link>
+          <Link to="#" className={highlightsActive} onClick={showHighlights}>
+            <span>Highlights</span>
+          </Link>
+          <Link to="#" className={galleryActive} onClick={showGallery}>
+            <span>Gallery / Brouchure</span>
+          </Link>
+          <Link to="#" className={admissionActive} onClick={showAdmissions}>
+            <span>Admissions / Scholarship</span>
+          </Link>
+
+          <Link to="#" className={placementActive} onClick={showPlacements}>
+            <span>Placements</span>
+          </Link>
+          <Link to="#" className={faqActive} onClick={showFAQ}>
+            <span>FAQ</span>
+          </Link>
+          <Link to="#" className={courseActive} onClick={showCourse}>
+            <span>Courses</span>
+          </Link>
+        </div>
+      </>
+    );
+  };
+
+  const renderBasicInfo = () => {
+    return (
+      <>
+        <div className="sm:col-span-4 basic-info step-1 formcontener">
+          {successmsg && (
+            <div className="text-green font-normal text-lg"> {successmsg} </div>
+          )}
           <form
-            action=""
-            method="post"
-            id="vehicleForm"
-            //encType="multipart/form-data"
-            onSubmit={addnew}
+            name="basicinformation"
+            id="basicinformation"
+            onSubmit={submitbasicinformation}
+            encType="multipart/form-data"
           >
             <input
               type="hidden"
               name="cid"
               value={editdata.cid && editdata.cid}
             />
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="college_name"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  College Name
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="college_name"
-                      id="college_name"
-                      //autoComplete="college_name"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="Please enter college name"
-                      value={editdata.college_name && editdata.college_name}
-                      onChangeCapture={createUrl}
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="college_url"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  College URL
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="college_url"
-                      id="college_url"
-                      autoComplete="college_url"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="College Url not user space"
-                      value={editdata.college_url && editdata.college_url}
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="tag_line"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Tag Line
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="tag_line"
-                      id="tag_line"
-                      autoComplete="tag_line"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder=""
-                      value={editdata.tag_line && editdata.tag_line}
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="usp_remark"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  USP Remark
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="usp_remark"
-                      id="usp_remark"
-                      autoComplete="usp_remark"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder=""
-                      value={editdata.usp_remark && editdata.usp_remark}
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="found_year"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Foundation Year
-                </label>
-                <div className="flex rounded-md">
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="college_name"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                College Name *
+              </label>
+              <div className="mt-2">
+                <div className="flex rounded-md mt-1">
                   <input
-                    id="found_year"
-                    name="found_year"
                     type="text"
-                    autoComplete="found_year"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.found_year && editdata.found_year}
+                    name="college_name"
+                    id="college_name"
+                    //autoComplete="college_name"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    placeholder="Please enter college name"
+                    value={editdata.college_name && editdata.college_name}
+                    onChangeCapture={createUrl}
                     onChange={handleChangeFormdata}
+                    required
                   />
                 </div>
               </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="intake"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Intake
-                </label>
-                <div className="flex rounded-md">
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="college_url"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                College URL *
+              </label>
+              <div className="mt-2">
+                <div className="flex rounded-md mt-1">
                   <input
-                    id="intake"
-                    name="intake"
                     type="text"
-                    autoComplete="intake"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.intake && editdata.intake}
+                    name="college_url"
+                    id="college_url"
+                    autoComplete="college_url"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    placeholder="College Url not user space"
+                    value={editdata.college_url && editdata.college_url}
                     onChange={handleChangeFormdata}
+                    required
                   />
                 </div>
               </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="hostel_available"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Hostel Available
-                </label>
-                <div className="flex rounded-md">
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="tag_line"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Tag Line *
+              </label>
+              <div className="mt-2">
+                <div className="flex rounded-md mt-1">
                   <input
-                    id="hostel_available"
-                    name="hostel_available"
                     type="text"
-                    autoComplete="hostel_available"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={
-                      editdata.hostel_available && editdata.hostel_available
-                    }
+                    name="tag_line"
+                    id="tag_line"
+                    autoComplete="tag_line"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    placeholder=""
+                    value={editdata.tag_line && editdata.tag_line}
                     onChange={handleChangeFormdata}
+                    required
                   />
                 </div>
               </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="college_descripton"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Description
-                </label>
-                <div className=" rounded-md ">
-                  <CKEditor
-                    editor={ClassicEditor}
-                    config={{
-                      plugins: [
-                        Essentials,
-                        Bold,
-                        Italic,
-                        Paragraph,
-                        Mention,
-                        List,
-                        Table,
-                      ],
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="usp_remark"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                USP Remark *
+              </label>
+              <div className="mt-2">
+                <div className="flex rounded-md mt-1">
+                  <input
+                    type="text"
+                    name="usp_remark"
+                    id="usp_remark"
+                    autoComplete="usp_remark"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    placeholder=""
+                    value={editdata.usp_remark && editdata.usp_remark}
+                    onChange={handleChangeFormdata}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="found_year"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Foundation Year *
+              </label>
+              <div className="flex rounded-md mt-1">
+                <input
+                  id="found_year"
+                  name="found_year"
+                  type="text"
+                  autoComplete="found_year"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  value={editdata.found_year && editdata.found_year}
+                  onChange={handleChangeFormdata}
+                  required
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="intake"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Intake
+              </label>
+              <div className="flex rounded-md mt-1">
+                <input
+                  id="intake"
+                  name="intake"
+                  type="text"
+                  autoComplete="intake"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  value={editdata.intake && editdata.intake}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="hostel_available"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Hostel Available
+              </label>
+              <div className="flex rounded-md mt-1">
+                <input
+                  id="hostel_available"
+                  name="hostel_available"
+                  type="text"
+                  autoComplete="hostel_available"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  value={editdata.hostel_available && editdata.hostel_available}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="college_descripton"
+                className="block text-lg font-semibold leading-6 text-gray-900 mt-1"
+              >
+                Description
+              </label>
+              <div className=" rounded-md  mt-1">
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    plugins: [
+                      Essentials,
+                      Bold,
+                      Italic,
+                      Paragraph,
+                      Mention,
+                      List,
+                      Table,
+                    ],
 
-                      toolbar: [
-                        "bold",
-                        "italic",
-                        "|",
-                        "undo",
-                        "redo",
-                        "|",
-                        "numberedList",
-                        "bulletedList",
-                      ],
-                      menuBar: {
-                        isVisible: true,
-                      },
-                    }}
-                    data={
-                      editdata.college_descripton
-                        ? editdata.college_descripton
-                        : ""
-                    }
-                    name="college_descripton"
-                    id="college_descripton"
-                    /*  onReady={(editor) => {
+                    toolbar: [
+                      "bold",
+                      "italic",
+                      "|",
+                      "undo",
+                      "redo",
+                      "|",
+                      "numberedList",
+                      "bulletedList",
+                    ],
+                    menuBar: {
+                      isVisible: true,
+                    },
+                  }}
+                  data={
+                    editdata.college_descripton
+                      ? editdata.college_descripton
+                      : ""
+                  }
+                  name="college_descripton"
+                  id="college_descripton"
+                  /*  onReady={(editor) => {
                       // You can store the "editor" and use when it is needed.
                       console.log("Editor 1 is ready to use!", editor);
                     }} */
-                    onChange={(event, editor) => {
-                      const college_descripton_data = editor.getData();
-                      setCollegedescvalue(college_descripton_data);
-                      //console.log({ event, editor, college_descripton_data });
-                    }}
-                    /*  onBlur={(event, editor) => {
+                  onChange={(event, editor) => {
+                    const college_descripton_data = editor.getData();
+                    setCollegedescvalue(college_descripton_data);
+                    //console.log({ event, editor, college_descripton_data });
+                  }}
+                  /*  onBlur={(event, editor) => {
                       console.log("Blur.", editor);
                     }}
                     onFocus={(event, editor) => {
                       console.log("Focus.", editor);
                     }} */
-                  />
+                />
 
-                  {/* <textarea
+                {/* <textarea
                     id="college_descripton"
                     name="college_descripton"
                     className="block w-full "
@@ -744,1144 +1158,1652 @@ function College() {
                     }
                     onChange={handleChangeFormdata}
                   /> */}
-                </div>
               </div>
-              <h1> Highlights</h1>
-              <div className="sm:col-span-4">
-                <label className="block text-sm font-bold leading-6 text-gray-900">
-                  Display Type :
-                </label>
-                <input type="radio" value="Points" name="display_type" /> Bullet
-                Points
-                <input type="radio" value="Tabuller" name="display_type" />
-                Tabuller
-              </div>
-              <div className="sm:col-span-4">
-                {highLights.map((item, i) => (
-                  <>
-                    <div className="flex mb-2" key={`key-${i}`}>
-                      <div className="sm:col-span-4 px-2">
-                        <input
-                          id="highParameter"
-                          name="highParameter"
-                          type="text"
-                          placeholder="Parameter"
-                          autoComplete="highParameter"
-                          value={item.highParameter}
-                          onChange={(e) => handleChange(e, i)}
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                        />
-                      </div>
-                      <div className="sm:col-span-2 px-2">
-                        <input
-                          id="highDetails"
-                          name="highDetails"
-                          type="text"
-                          placeholder="Use colons for bullet points"
-                          autoComplete="highDetails"
-                          value={item.highDetails}
-                          onChange={(e) => handleChange(e, i)}
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                        />
-                      </div>
-                      <div className="sm:col-span-2">
-                        {i === 0 && (
-                          <button
-                            type="button"
-                            onClick={handleClick}
-                            className="addButton"
-                          >
-                            Add
-                          </button>
-                        )}
-                        {i !== 0 && (
-                          <button
-                            type="button"
-                            onClick={() => handleDelete(i)}
-                            className="removeButton"
-                          >
-                            Delete
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="collegetype"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                College Type
+              </label>
+              <div className="flex ">
+                {collegetypearr.map((item, i) => (
+                  <div key={i} className="mt-2 text-sm">
+                    <input
+                      type="checkbox"
+                      name="collegetype"
+                      value={item.col_type}
+                      onClick={collegetypeCheck}
+                      onChange={handleChangeFormdata}
+                      defaultChecked={
+                        editdata.ctype?.length
+                          ? editdata.ctype.includes(
+                              JSON.stringify(item.col_type)
+                            )
+                          : false
+                      }
+                      className="py-2  text-sm font-semibold"
+                    />
+                    <span className="py-2 px-2 text-sm font-normal text-justify">
+                      {item.college_type}
+                    </span>
+                  </div>
                 ))}
               </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="collegetype"
-                  className="block text-sm leading-6 text-gray-900 font-bold"
-                >
-                  College Type
-                </label>
-                <div className="flex ">
-                  {collegetypearr.map((item, i) => (
-                    <div key={i} className="mt-2 text-sm">
-                      <input
-                        type="checkbox"
-                        name="collegetype"
-                        value={item.col_type}
-                        onClick={collegetypeCheck}
-                        onChange={handleChangeFormdata}
-                        /*checked={
-                          editdata.ctype?.length
-                            ? editdata.ctype.includes(
-                                JSON.stringify(item.col_type)
-                              )
-                            : false
-                        }*/
-                        className="py-2  text-sm font-semibold"
-                      />
-                      <span className="py-2 px-2 text-sm font-normal text-justify">
-                        {item.college_type}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="trading"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Trading
+              </label>
+              <div className="flex ">
+                {tradingarr.map((item, i) => (
+                  <div key={i} className="mt-2 text-sm">
+                    <input
+                      type="checkbox"
+                      name="trading"
+                      value={item.tid}
+                      onClick={tradingCheck}
+                      onChange={handleChangeFormdata}
+                      defaultChecked={
+                        editdata.trading?.length
+                          ? editdata.trading.includes(JSON.stringify(item.tid))
+                          : false
+                      }
+                      className="py-2  text-sm font-semibold"
+                    />
+                    <span className="py-2 px-2 text-sm font-normal text-justify">
+                      {item.trading_name}
+                    </span>
+                  </div>
+                ))}
               </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="trading"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Trading
-                </label>
-                <div className="flex ">
-                  {tradingarr.map((item, i) => (
-                    <div key={i} className="mt-2 text-sm">
-                      <input
-                        type="checkbox"
-                        name="trading"
-                        value={item.tid}
-                        onClick={tradingCheck}
-                        onChange={handleChangeFormdata}
-                        className="py-2  text-sm font-semibold"
-                      />
-                      <span className="py-2 px-2 text-sm font-normal text-justify">
-                        {item.trading_name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="approvedby"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Approved By
+              </label>
+              <div className="flex ">
+                {approvedbyarr.map((item, i) => (
+                  <div key={i} className="mt-2 text-sm">
+                    <input
+                      type="checkbox"
+                      name="approvedby"
+                      onClick={approvedbyCheck}
+                      onChange={handleChangeFormdata}
+                      value={item.approv_id}
+                      //onChange={(e) => handleCheckBox(e, i)}
+                      defaultChecked={
+                        editdata.approvedby?.length
+                          ? editdata.approvedby.includes(
+                              JSON.stringify(item.approv_id)
+                            )
+                          : false
+                      }
+                      className="py-2  text-sm font-semibold"
+                    />
+                    <span className="py-2 px-2 text-sm font-normal text-justify">
+                      {item.approved_name}
+                    </span>
+                  </div>
+                ))}
               </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="approvedby"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Approved By
-                </label>
-                <div className="flex ">
-                  {approvedbyarr.map((item, i) => (
-                    <div key={i} className="mt-2 text-sm">
-                      <input
-                        type="checkbox"
-                        name="approvedby"
-                        onClick={approvedbyCheck}
-                        onChange={handleChangeFormdata}
-                        value={item.approv_id}
-                        //onChange={(e) => handleCheckBox(e, i)}
-                        className="py-2  text-sm font-semibold"
-                      />
-                      <span className="py-2 px-2 text-sm font-normal text-justify">
-                        {item.approved_name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="approvedby"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Facility Available
+              </label>
+              <div className="flex ">
+                {facilityarr.map((item, i) => (
+                  <div key={i} className="mt-2 text-sm">
+                    <input
+                      type="checkbox"
+                      name="facilities"
+                      onClick={facilityCheck}
+                      onChange={handleChangeFormdata}
+                      value={item.facility_id}
+                      defaultChecked={
+                        editdata.facilities?.length
+                          ? editdata.facilities.includes(
+                              JSON.stringify(item.facility_id)
+                            )
+                          : false
+                      }
+                      className="py-2  text-sm font-semibold"
+                    />
+                    <span className="py-2 px-2 text-sm font-normal text-justify">
+                      {item.facility_name}
+                    </span>
+                  </div>
+                ))}
               </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="approvedby"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Facility Available
-                </label>
-                <div className="flex ">
-                  {facilityarr.map((item, i) => (
-                    <div key={i} className="mt-2 text-sm">
-                      <input
-                        type="checkbox"
-                        name="approvedby"
-                        onClick={facilityCheck}
-                        onChange={handleChangeFormdata}
-                        value={item.facility_id}
-                        className="py-2  text-sm font-semibold"
-                      />
-                      <span className="py-2 px-2 text-sm font-normal text-justify">
-                        {item.facility_name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="categories"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Categories
+              </label>
+              <div className="flex ">
+                {catgoryarr.map((item, i) => (
+                  <div key={i} className="mt-2 text-sm">
+                    <input
+                      type="checkbox"
+                      name="categories"
+                      value={item.cat_id}
+                      onClick={categoryCheck}
+                      onChange={handleChangeFormdata}
+                      //onChange={(e) => handleCheckBox(e, i)}
+                      defaultChecked={
+                        editdata.categories?.length
+                          ? editdata.categories.includes(
+                              JSON.stringify(item.cat_id)
+                            )
+                          : false
+                      }
+                      className="py-2  text-sm font-semibold"
+                    />
+                    <span className="py-2 px-2 text-sm font-normal text-justify">
+                      {item.category_name}
+                    </span>
+                  </div>
+                ))}
               </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="categories"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Categories
-                </label>
-                <div className="flex ">
-                  {catgoryarr.map((item, i) => (
-                    <div key={i} className="mt-2 text-sm">
-                      <input
-                        type="checkbox"
-                        name="categories"
-                        value={item.cat_id}
-                        onClick={categoryCheck}
-                        onChange={handleChangeFormdata}
-                        //onChange={(e) => handleCheckBox(e, i)}
-                        className="py-2  text-sm font-semibold"
-                      />
-                      <span className="py-2 px-2 text-sm font-normal text-justify">
-                        {item.category_name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="exams"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Exam
+              </label>
+              <div className="flex ">
+                {examarr.map((item, i) => (
+                  <div key={i} className="mt-2 text-sm">
+                    <input
+                      type="checkbox"
+                      name="exams"
+                      value={item.exam_id}
+                      onClick={examCheck}
+                      onChange={handleChangeFormdata}
+                      defaultChecked={
+                        editdata.exams?.length
+                          ? editdata.exams.includes(
+                              JSON.stringify(item.exam_id)
+                            )
+                          : false
+                      }
+                      className="py-2  text-sm font-semibold"
+                    />
+                    <span className="py-2 px-2 text-sm font-normal text-justify">
+                      {item.exam_name}
+                    </span>
+                  </div>
+                ))}
               </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="facultyprofile"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Faculty Profile
+              </label>
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-1">
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    plugins: [Essentials, Bold, Italic, Paragraph, List, Table],
+
+                    toolbar: [
+                      "bold",
+                      "italic",
+                      "|",
+                      "undo",
+                      "redo",
+                      "|",
+                      "numberedList",
+                      "bulletedList",
+                    ],
+                    menuBar: {
+                      isVisible: true,
+                    },
+                  }}
+                  data={editdata.facultyprofile ? editdata.facultyprofile : ""}
+                  onReady={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    //console.log("Editor 1 is ready to use!", editor);
+                  }}
+                  onChange={(event, editor) => {
+                    const facultyprofile_data = editor.getData();
+                    setFacultyprofilevalue(facultyprofile_data);
+                    //console.log({ event, editor, college_descripton_data });
+                  }}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="meta_title"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Meta Title
+              </label>
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-1">
+                <input
+                  id="meta_title"
+                  name="meta_title"
+                  type="text"
+                  autoComplete="meta_title"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  value={editdata.meta_title && editdata.meta_title}
+                  onChange={handleChangeFormdata}
+                  required
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="meta_description"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Meta Description
+              </label>
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-1">
+                <textarea
+                  id="meta_description"
+                  name="meta_description"
+                  type="text"
+                  rows={5}
+                  autoComplete="meta_description"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  value={editdata.meta_description && editdata.meta_description}
+                  onChange={handleChangeFormdata}
+                  required
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="meta_keyword"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Meta Keyword
+              </label>
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-1">
+                <input
+                  id="meta_keyword"
+                  name="meta_keyword"
+                  type="text"
+                  autoComplete="meta_keyword"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  value={editdata.meta_keyword && editdata.meta_keyword}
+                  onChange={handleChangeFormdata}
+                  required
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="logo"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Logo *
+              </label>
+              <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md mt-1">
+                <input
+                  name="logo"
+                  type="file"
+                  filename={logo}
+                  onChange={(e) => setLogo(e.target.files[0])}
+                  accept="image/*"
+                  required
+                />
+                <input type="hidden" name="old_logo" value={editdata.logo} />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="banner"
+                className="block text- font-bold leading-6 text-gray-900"
+              >
+                Banner *
+              </label>
+              <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md mt-1">
+                <input
+                  type="file"
+                  filename={banner}
+                  onChange={(e) => setBanner(e.target.files[0])}
+                  accept="image/*"
+                  required
+                />
+                <input
+                  type="hidden"
+                  name="old_banner"
+                  value={editdata.banner}
+                />
+              </div>
+            </div>
+            <div className="flex mt-5 gap-4 space-x-1">
+              <button
+                type="button"
+                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Exit
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Next
+              </button>
+            </div>
+          </form>
+        </div>
+      </>
+    );
+  };
+
+  const renderCourse = () => {
+    return (
+      <>
+        <div className="sm:col-span-4 highlights step-2 formcontener">
+          <form name="courseForm" id="courseForm">
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="courses"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Courses
+              </label>
+              <div className="flex flex-wrap">
+                {coursearr.map((item, i) => (
+                  <div key={i} className="col-span-8">
+                    <input
+                      type="checkbox"
+                      name="courses"
+                      value={item.cour_id}
+                      onClick={courseCheck}
+                      onChange={handleChangeFormdata}
+                      //onChange={(e) => handleCheckBox(e, i)}
+                      className="py-2 text-sm font-semibold"
+                    />
+                    <span className="py-2 px-2 text-sm font-normal text-justify">
+                      {item.course_name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-5">
+              <label
+                htmlFor="courses"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Courses Braches
+              </label>
+              <div className="flex flex-wrap">
+                {subcoursearr.map((item, i) => (
+                  <div key={i} className="col-span-8">
+                    <input
+                      type="checkbox"
+                      name="courses"
+                      value={item.courb_id}
+                      //onClick={courseCheck}
+                      onChange={handleChangeFormdata}
+                      //onChange={(e) => handleCheckBox(e, i)}
+                      className="py-2  text-sm font-semibold"
+                    />
+                    <span className="py-2 px-2 text-sm font-normal text-justify">
+                      {item.branch_name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {subcoursesarr.length > 0 && (
               <div className="sm:col-span-4">
                 <label
-                  htmlFor="courses"
-                  className="block text-sm font-bold leading-6 text-gray-900"
+                  htmlFor="subcourses"
+                  className="block text-lg font-semibold leading-6 text-gray-900"
                 >
-                  Courses
+                  Sub Courses
                 </label>
                 <div className="flex flex-wrap">
-                  {coursearr.map((item, i) => (
+                  {subcoursesarr.map((item, i) => (
                     <div key={i} className="col-span-8">
                       <input
                         type="checkbox"
-                        name="courses"
-                        value={item.cour_id}
-                        onClick={courseCheck}
+                        name="subcourses"
+                        value={item.courb_id}
+                        data-value={item.branch_name}
+                        //onClick={subcourseCheck}
                         onChange={handleChangeFormdata}
                         //onChange={(e) => handleCheckBox(e, i)}
                         className="py-2  text-sm font-semibold"
                       />
                       <span className="py-2 px-2 text-sm font-normal text-justify">
-                        {item.course_name}
+                        {item.branch_name}
                       </span>
                     </div>
                   ))}
                 </div>
               </div>
-              {subcoursesarr.length > 0 && (
-                <div className="sm:col-span-4">
-                  <label
-                    htmlFor="subcourses"
-                    className="block text-sm font-bold leading-6 text-gray-900"
-                  >
-                    Sub Courses
-                  </label>
-                  <div className="flex flex-wrap">
-                    {subcoursesarr.map((item, i) => (
-                      <div key={i} className="col-span-8">
-                        <input
-                          type="checkbox"
-                          name="subcourses"
-                          value={item.courb_id}
-                          data-value={item.branch_name}
-                          onClick={subcourseCheck}
-                          onChange={handleChangeFormdata}
-                          //onChange={(e) => handleCheckBox(e, i)}
-                          className="py-2  text-sm font-semibold"
-                        />
-                        <span className="py-2 px-2 text-sm font-normal text-justify">
-                          {item.branch_name}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-              <div className="sm:col-span-4">
-                <div />
-                <> {dispsubcourse} ---</>
-              </div>
-              <div className="text-left font-extrabold border-x-blue border-spacing-5">
-                <h3>Adminssion Process</h3>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="adminssiondetails"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Admission Details
-                </label>
-                <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                  <CKEditor
-                    editor={ClassicEditor}
-                    config={{
-                      plugins: [
-                        Essentials,
-                        Bold,
-                        Italic,
-                        Paragraph,
-                        Mention,
-                        List,
-                        Table,
-                      ],
-
-                      toolbar: [
-                        "bold",
-                        "italic",
-                        "|",
-                        "undo",
-                        "redo",
-                        "|",
-                        "numberedList",
-                        "bulletedList",
-                      ],
-                      menuBar: {
-                        isVisible: true,
-                      },
-                    }}
-                    data={
-                      editdata.adminssiondetails
-                        ? editdata.adminssiondetails
-                        : ""
-                    }
-                    onReady={(editor) => {
-                      // You can store the "editor" and use when it is needed.
-                      //console.log("Editor 1 is ready to use!", editor);
-                    }}
-                    onChange={(event, editor) => {
-                      const adminssiondetails_data = editor.getData();
-                      setAdmissiondetailsvalue(adminssiondetails_data);
-                      //console.log({ event, editor, college_descripton_data });
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="approvedby"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Exam
-                </label>
-                <div className="flex ">
-                  {examarr.map((item, i) => (
-                    <div key={i} className="mt-2 text-sm">
-                      <input
-                        type="checkbox"
-                        name="approvedby"
-                        value={item.exam_id}
-                        onClick={examCheck}
-                        onChange={handleChangeFormdata}
-                        className="py-2  text-sm font-semibold"
-                      />
-                      <span className="py-2 px-2 text-sm font-normal text-justify">
-                        {item.exam_name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="scholarshipoffer"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Scholarship Offers
-                </label>
-                <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                  <CKEditor
-                    editor={ClassicEditor}
-                    config={{
-                      plugins: [
-                        Essentials,
-                        Bold,
-                        Italic,
-                        Paragraph,
-                        Mention,
-                        List,
-                        Table,
-                      ],
-
-                      toolbar: [
-                        "bold",
-                        "italic",
-                        "|",
-                        "undo",
-                        "redo",
-                        "|",
-                        "numberedList",
-                        "bulletedList",
-                      ],
-                      menuBar: {
-                        isVisible: true,
-                      },
-                    }}
-                    data={
-                      editdata.scholarshipoffer ? editdata.scholarshipoffer : ""
-                    }
-                    onReady={(editor) => {
-                      // You can store the "editor" and use when it is needed.
-                      // console.log("Editor 1 is ready to use!", editor);
-                    }}
-                    onChange={(event, editor) => {
-                      const scholarshipoffer_data = editor.getData();
-                      setScholarshipoffervalue(scholarshipoffer_data);
-                      //console.log({ event, editor, college_descripton_data });
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="facultyprofile"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Faculty Profile
-                </label>
-                <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                  <CKEditor
-                    editor={ClassicEditor}
-                    config={{
-                      plugins: [
-                        Essentials,
-                        Bold,
-                        Italic,
-                        Paragraph,
-                        List,
-                        Table,
-                      ],
-
-                      toolbar: [
-                        "bold",
-                        "italic",
-                        "|",
-                        "undo",
-                        "redo",
-                        "|",
-                        "numberedList",
-                        "bulletedList",
-                      ],
-                      menuBar: {
-                        isVisible: true,
-                      },
-                    }}
-                    data={
-                      editdata.facultyprofile ? editdata.facultyprofile : ""
-                    }
-                    onReady={(editor) => {
-                      // You can store the "editor" and use when it is needed.
-                      //console.log("Editor 1 is ready to use!", editor);
-                    }}
-                    onChange={(event, editor) => {
-                      const facultyprofile_data = editor.getData();
-                      setFacultyprofilevalue(facultyprofile_data);
-                      //console.log({ event, editor, college_descripton_data });
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="faq"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  FAQ
-                </label>
-                <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                  <CKEditor
-                    editor={ClassicEditor}
-                    config={{
-                      plugins: [
-                        Essentials,
-                        Bold,
-                        Italic,
-                        Paragraph,
-                        List,
-                        Table,
-                      ],
-
-                      toolbar: [
-                        "bold",
-                        "italic",
-                        "|",
-                        "undo",
-                        "redo",
-                        "|",
-                        "numberedList",
-                        "bulletedList",
-                      ],
-                      menuBar: {
-                        isVisible: true,
-                      },
-                    }}
-                    data={editdata.faq ? editdata.faq : ""}
-                    onReady={(editor) => {
-                      // You can store the "editor" and use when it is needed.
-                      //console.log("Editor 1 is ready to use!", editor);
-                    }}
-                    onChange={(event, editor) => {
-                      const faq_data = editor.getData();
-                      setFaqvalue(faq_data);
-                      //console.log({ event, editor, college_descripton_data });
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="meta_title"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Meta Title
-                </label>
-                <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                  <input
-                    id="meta_title"
-                    name="meta_title"
-                    type="text"
-                    autoComplete="meta_title"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.meta_title && editdata.meta_title}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>{" "}
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="meta_description"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Meta Description
-                </label>
-                <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                  <textarea
-                    id="meta_description"
-                    name="meta_description"
-                    type="text"
-                    rows={5}
-                    autoComplete="meta_description"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={
-                      editdata.meta_description && editdata.meta_description
-                    }
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="meta_keyword"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Meta Keyword
-                </label>
-                <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
-                  <input
-                    id="meta_keyword"
-                    name="meta_keyword"
-                    type="text"
-                    autoComplete="meta_keyword"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.meta_keyword && editdata.meta_keyword}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="text-left font-extrabold">
-                <h3>
-                  Contact Details
-                  <hr></hr>
-                </h3>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="address"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Address*
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    id="address"
-                    name="address"
-                    type="text"
-                    autoComplete="address"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.address && editdata.address}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="address2"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Address2
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    id="address2"
-                    name="address2"
-                    type="text"
-                    autoComplete="address"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.address2 && editdata.address2}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>{" "}
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="landmark"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Landmark
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    id="landmark"
-                    name="landmark"
-                    type="text"
-                    autoComplete="landmark"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.landmark && editdata.landmark}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="country"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Country
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    id="country"
-                    name="country"
-                    type="text"
-                    autoComplete="country"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.country && editdata.country}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="state"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  State
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    id="state"
-                    name="state"
-                    type="text"
-                    autoComplete="state"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.state && editdata.state}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="city"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  City
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    id="city"
-                    name="city"
-                    type="text"
-                    autoComplete="city"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.city && editdata.city}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="pincode"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Pin Code
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    id="pincode"
-                    name="pincode"
-                    type="text"
-                    autoComplete="pincode"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.pincode && editdata.pincode}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="contactno"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Contact No.
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    id="contactno"
-                    name="contactno"
-                    type="text"
-                    autoComplete="contactno"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.contactno && editdata.contactno}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="faxno"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Fax No.
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    id="faxno"
-                    name="faxno"
-                    type="text"
-                    autoComplete="faxno"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.faxno && editdata.faxno}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Email
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.email && editdata.email}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="website"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Website
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    id="website"
-                    name="website"
-                    type="website"
-                    autoComplete="website"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={editdata.website && editdata.website}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="logo"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Logo
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    name="logo"
-                    type="file"
-                    //multiple
-                    //accept="image/*"
-                    // onChange={onLogoChange}
-                    onChange={handleChangelogo}
-                  />
-                  <img src={clogo} />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="meta_keyword"
-                  className="block text- font-bold leading-6 text-gray-900"
-                >
-                  Banner
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={onBannerChange}
-                  />
-                </div>
-              </div>
-              <div className="text-left font-extrabold">
-                <h3>
-                  Placements
-                  <hr></hr>
-                </h3>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="placementdescription"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Overview
-                </label>
-                <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                  <CKEditor
-                    editor={ClassicEditor}
-                    config={{
-                      plugins: [
-                        Essentials,
-                        Bold,
-                        Italic,
-                        Paragraph,
-                        List,
-                        Table,
-                      ],
-
-                      toolbar: [
-                        "bold",
-                        "italic",
-                        "|",
-                        "undo",
-                        "redo",
-                        "|",
-                        "numberedList",
-                        "bulletedList",
-                      ],
-                      menuBar: {
-                        isVisible: true,
-                      },
-                    }}
-                    data={
-                      editdata.placement_overview
-                        ? editdata.placement_overview
-                        : ""
-                    }
-                    onReady={(editor) => {
-                      // You can store the "editor" and use when it is needed.
-                      // console.log("Editor 1 is ready to use!", editor);
-                    }}
-                    onChange={(event, editor) => {
-                      const placedesc_data = editor.getData();
-                      setPlacementoverviewvalue(placedesc_data);
-                      //console.log({ event, editor, college_descripton_data });
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="totalplacementratio"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Total Placement Ratio
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="totalplacementratio"
-                      id="totalplacementratio"
-                      autoComplete="tag_line"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="like- d%"
-                      value={
-                        editdata.totalplacementratio &&
-                        editdata.totalplacementratio
-                      }
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="averageplacementrecord"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Average Placement Record
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="averageplacementrecord"
-                      id="averageplacementrecord"
-                      autoComplete="tag_line"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="Like- d LPA"
-                      value={
-                        editdata.averageplacementrecord &&
-                        editdata.averageplacementrecord
-                      }
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="higestplacementrecord"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Higest Placement Record
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="higestplacementrecord"
-                      id="higestplacementrecord"
-                      autoComplete="tag_line"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="Like- d LPA"
-                      value={
-                        editdata.higestplacementrecord &&
-                        editdata.higestplacementrecord
-                      }
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="lowestplacementrecord"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Lowest Placement Record
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="lowestplacementrecord"
-                      id="lowestplacementrecord"
-                      autoComplete="tag_line"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="Like- d LPA"
-                      value={
-                        editdata.lowestplacementrecord &&
-                        editdata.lowestplacementrecord
-                      }
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="toprecruiters"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Top Recruiters
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="toprecruiters"
-                      id="toprecruiters"
-                      autoComplete="tag_line"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="Like- Google, IBM, Microsoft, Delloit etc."
-                      value={editdata.toprecruiters && editdata.toprecruiters}
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="toprecuitingsectors"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Top Recruiting Sectors
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="toprecuitingsectors"
-                      id="toprecuitingsectors"
-                      autoComplete="tag_line"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="Finance, IT etc."
-                      value={
-                        editdata.toprecuitingsectors &&
-                        editdata.toprecuitingsectors
-                      }
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="topprofile"
-                  className="block text-sm font-bold leading-6 text-gray-900"
-                >
-                  Top Profile
-                </label>
-                <div className="mt-2">
-                  <div className="flex rounded-md">
-                    <input
-                      type="text"
-                      name="topprofile"
-                      id="topprofile"
-                      autoComplete="tag_line"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="Trainee, Accounts, Marketing Heads"
-                      value={editdata.topprofile && editdata.topprofile}
-                      onChange={handleChangeFormdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="text-left font-extrabold">
-                <h3>
-                  Gallery
-                  <hr></hr>
-                </h3>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="gallery_image1"
-                  className="block text- font-bold leading-6 text-gray-900"
-                >
-                  Upload Brouchure
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={onBannerChange}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="gallery_image1"
-                  className="block text- font-bold leading-6 text-gray-900"
-                >
-                  Gallery Image1
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={onBannerChange}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="gallery_image2"
-                  className="block text- font-bold leading-6 text-gray-900"
-                >
-                  Gallery Image2
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={onBannerChange}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="gallery_image3"
-                  className="block text- font-bold leading-6 text-gray-900"
-                >
-                  Gallery Image3
-                </label>
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={onBannerChange}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="gallery_image4"
-                  className="block text- font-bold leading-6 text-gray-900"
-                >
-                  Gallery Image4
-                </label>
-                <div className=" rounded-md shadow-sm  ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={onBannerChange}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="gallery_image5"
-                  className="block text- font-bold leading-6 text-gray-900"
-                >
-                  Gallery Image5
-                </label>
-                <div className=" rounded-md  ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={onBannerChange}
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-2 mt-6 flex items-center ">
-                <button
-                  type="button"
-                  className="text-sm font-semibold leading-6 text-gray-900"
-                >
-                  Cancel
-                </button>
-                &nbsp;
-                <button
-                  type="submit"
-                  className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  {cid > 0 ? "Update" : "Save"}
-                </button>
-              </div>
+            )}
+            <div className="sm:col-span-4">
+              {dispsubcourse}
+              <div />
+            </div>
+            <div className="flex mt-5 gap-4 space-x-1">
+              <button
+                type="button"
+                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Exit
+              </button>
             </div>
           </form>
+        </div>
+      </>
+    );
+  };
+
+  const renderHighlights = () => {
+    return (
+      <>
+        <div className="sm:col-span-4 highlights step-2 formcontener">
+          <form
+            name="contactusform"
+            id="contactusform"
+            onSubmit={submithightlight}
+            //encType="multipart/form-data"
+          >
+            <div className="sm:col-span-4">
+              <label className="block text-lg font-semibold leading-6 text-gray-900">
+                Display Type :
+              </label>
+              <input
+                type="radio"
+                value="Points"
+                name="display_type"
+                defaultChecked={
+                  editdata.display_type == "Points" ? true : false
+                }
+              />{" "}
+              Bullet Points
+              <input
+                type="radio"
+                value="Tabuller"
+                name="display_type"
+                defaultChecked={
+                  editdata.display_type == "Tabuller" ? true : false
+                }
+              />
+              Tabuller
+            </div>
+            <div className="sm:col-span-4">
+              <div>{console.log("data=-=-=-=-=-=", editdata.highlights)}</div>
+              {highLights.map((item, i) => (
+                <>
+                  <div className="flex mb-2" key={`key-${i}`}>
+                    <div className="sm:col-span-4 px-2">
+                      <input
+                        id="highParameter"
+                        name="highParameter"
+                        type="text"
+                        placeholder="Parameter"
+                        autoComplete="highParameter"
+                        value={item.highParameter}
+                        onChange={(e) => handleChange(e, i)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      />
+                    </div>
+                    <div className="sm:col-span-2 px-2">
+                      <input
+                        id="highDetails"
+                        name="highDetails"
+                        type="text"
+                        placeholder="Use colons for bullet points"
+                        autoComplete="highDetails"
+                        value={item.highDetails}
+                        onChange={(e) => handleChange(e, i)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      {i === 0 && (
+                        <button
+                          type="button"
+                          onClick={handleClick}
+                          className="addButton"
+                        >
+                          Add
+                        </button>
+                      )}
+                      {i !== 0 && (
+                        <button
+                          type="button"
+                          onClick={() => handleDelete(i)}
+                          className="removeButton"
+                        >
+                          Delete
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              ))}
+            </div>
+            <div className="flex mt-5 gap-4 space-x-1">
+              <button
+                type="button"
+                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Exit
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Next
+              </button>
+            </div>
+          </form>
+        </div>
+      </>
+    );
+  };
+
+  const renderAdmission = () => {
+    return (
+      <>
+        <div className="sm:col-span-4 admission step-3 formcontener">
+          <form
+            name="admissionform"
+            id="admissionform"
+            method="post"
+            onSubmit={submitadmission}
+          >
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="adminssiondetails"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Admission Details
+              </label>
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-2">
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    plugins: [
+                      Essentials,
+                      Bold,
+                      Italic,
+                      Paragraph,
+                      Mention,
+                      List,
+                      Table,
+                    ],
+
+                    toolbar: [
+                      "bold",
+                      "italic",
+                      "|",
+                      "undo",
+                      "redo",
+                      "|",
+                      "numberedList",
+                      "bulletedList",
+                    ],
+                    menuBar: {
+                      isVisible: true,
+                    },
+                  }}
+                  data={
+                    editdata.adminssiondetails ? editdata.adminssiondetails : ""
+                  }
+                  onReady={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    //console.log("Editor 1 is ready to use!", editor);
+                  }}
+                  onChange={(event, editor) => {
+                    const adminssiondetails_data = editor.getData();
+                    setAdmissiondetailsvalue(adminssiondetails_data);
+                    //console.log({ event, editor, college_descripton_data });
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="scholarshipoffer"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Scholarship Offers
+              </label>
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-2">
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    plugins: [
+                      Essentials,
+                      Bold,
+                      Italic,
+                      Paragraph,
+                      Mention,
+                      List,
+                      Table,
+                    ],
+
+                    toolbar: [
+                      "bold",
+                      "italic",
+                      "|",
+                      "undo",
+                      "redo",
+                      "|",
+                      "numberedList",
+                      "bulletedList",
+                    ],
+                    menuBar: {
+                      isVisible: true,
+                    },
+                  }}
+                  data={
+                    editdata.scholarshipoffer ? editdata.scholarshipoffer : ""
+                  }
+                  onReady={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    // console.log("Editor 1 is ready to use!", editor);
+                  }}
+                  onChange={(event, editor) => {
+                    const scholarshipoffer_data = editor.getData();
+                    setScholarshipoffervalue(scholarshipoffer_data);
+                    //console.log({ event, editor, college_descripton_data });
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex mt-5 gap-4 space-x-1">
+              <button
+                type="button"
+                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Exit
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Next
+              </button>
+            </div>
+          </form>
+        </div>
+      </>
+    );
+  };
+  const renderFAQ = () => {
+    return (
+      <>
+        <div className="sm:col-span-4 admission step-3 formcontener">
+          <form name="faqForm" id="faqForm" onSubmit={submitfaq}>
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="faq"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                FAQ
+              </label>
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    plugins: [Essentials, Bold, Italic, Paragraph, List, Table],
+
+                    toolbar: [
+                      "bold",
+                      "italic",
+                      "|",
+                      "undo",
+                      "redo",
+                      "|",
+                      "numberedList",
+                      "bulletedList",
+                    ],
+                    menuBar: {
+                      isVisible: true,
+                    },
+                  }}
+                  data={editdata.faq ? editdata.faq : ""}
+                  onReady={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    //console.log("Editor 1 is ready to use!", editor);
+                  }}
+                  onChange={(event, editor) => {
+                    const faq_data = editor.getData();
+                    setFaqvalue(faq_data);
+                    //console.log({ event, editor, college_descripton_data });
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex mt-5 gap-4 space-x-1">
+              <button
+                type="button"
+                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Exit
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Next
+              </button>
+            </div>
+          </form>
+        </div>
+      </>
+    );
+  };
+
+  const renderContact = () => {
+    return (
+      <>
+        <div className="sm:col-span-4 contact step-4 formcontener">
+          <form
+            name="contactusform"
+            id="contactusform"
+            onSubmit={submitcontactus}
+            //encType="multipart/form-data"
+          >
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="address"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Address*
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="address"
+                  name="address"
+                  type="text"
+                  autoComplete="address"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.address && editdata.address}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="address2"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Address2
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="address2"
+                  name="address2"
+                  type="text"
+                  autoComplete="address"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.address2 && editdata.address2}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>{" "}
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="landmark"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Landmark
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="landmark"
+                  name="landmark"
+                  type="text"
+                  autoComplete="landmark"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.landmark && editdata.landmark}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="country"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Country
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="country"
+                  name="country"
+                  type="text"
+                  autoComplete="country"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.country && editdata.country}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="state"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                State
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="state"
+                  name="state"
+                  type="text"
+                  autoComplete="state"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.state && editdata.state}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="city"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                City
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="city"
+                  name="city"
+                  type="text"
+                  autoComplete="city"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.city && editdata.city}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="pincode"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Pin Code
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="pincode"
+                  name="pincode"
+                  type="text"
+                  autoComplete="pincode"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.pincode && editdata.pincode}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="contactno"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Contact No.
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="contactno"
+                  name="contactno"
+                  type="text"
+                  autoComplete="contactno"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.contactno && editdata.contactno}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="faxno"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Fax No.
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="faxno"
+                  name="faxno"
+                  type="text"
+                  autoComplete="faxno"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.faxno && editdata.faxno}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="email"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Email
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.email && editdata.email}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="website"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Website
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="website"
+                  name="website"
+                  type="website"
+                  autoComplete="website"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.website && editdata.website}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="flex mt-5 gap-4 space-x-1">
+              <button
+                type="button"
+                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Exit
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Next
+              </button>
+            </div>
+          </form>
+        </div>
+      </>
+    );
+  };
+
+  const renderPlacements = () => {
+    return (
+      <>
+        <div className="sm:col-span-4 placements step-5 formcontener">
+          <form
+            name="placementForm"
+            id="placementForm"
+            onSubmit={submitplacement}
+          >
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="placementdescription"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Overview
+              </label>
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    plugins: [Essentials, Bold, Italic, Paragraph, List, Table],
+
+                    toolbar: [
+                      "bold",
+                      "italic",
+                      "|",
+                      "undo",
+                      "redo",
+                      "|",
+                      "numberedList",
+                      "bulletedList",
+                    ],
+                    menuBar: {
+                      isVisible: true,
+                    },
+                  }}
+                  data={
+                    editdata.placement_overview
+                      ? editdata.placement_overview
+                      : ""
+                  }
+                  onReady={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    // console.log("Editor 1 is ready to use!", editor);
+                  }}
+                  onChange={(event, editor) => {
+                    const placedesc_data = editor.getData();
+                    setPlacementoverviewvalue(placedesc_data);
+                    //console.log({ event, editor, college_descripton_data });
+                  }}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="totalplacementratio"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Total Placement Ratio
+              </label>
+              <div className="mb-2">
+                <div className="flex rounded-md">
+                  <input
+                    type="text"
+                    name="totalplacementratio"
+                    id="totalplacementratio"
+                    autoComplete="tag_line"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    placeholder="like- d%"
+                    value={
+                      editdata.totalplacementratio &&
+                      editdata.totalplacementratio
+                    }
+                    onChange={handleChangeFormdata}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="averageplacementrecord"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Average Placement Record
+              </label>
+              <div className="mb-2">
+                <div className="flex rounded-md">
+                  <input
+                    type="text"
+                    name="averageplacementrecord"
+                    id="averageplacementrecord"
+                    autoComplete="tag_line"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    placeholder="Like- d LPA"
+                    value={
+                      editdata.averageplacementrecord &&
+                      editdata.averageplacementrecord
+                    }
+                    onChange={handleChangeFormdata}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="higestplacementrecord"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Higest Placement Record
+              </label>
+              <div className="mb-2">
+                <div className="flex rounded-md">
+                  <input
+                    type="text"
+                    name="higestplacementrecord"
+                    id="higestplacementrecord"
+                    autoComplete="tag_line"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    placeholder="Like- d LPA"
+                    value={
+                      editdata.higestplacementrecord &&
+                      editdata.higestplacementrecord
+                    }
+                    onChange={handleChangeFormdata}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="lowestplacementrecord"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Lowest Placement Record
+              </label>
+              <div className="mb-2">
+                <div className="flex rounded-md">
+                  <input
+                    type="text"
+                    name="lowestplacementrecord"
+                    id="lowestplacementrecord"
+                    autoComplete="tag_line"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    placeholder="Like- d LPA"
+                    value={
+                      editdata.lowestplacementrecord &&
+                      editdata.lowestplacementrecord
+                    }
+                    onChange={handleChangeFormdata}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="toprecruiters"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Top Recruiters
+              </label>
+              <div className="mb-2">
+                <div className="flex rounded-md">
+                  <input
+                    type="text"
+                    name="toprecruiters"
+                    id="toprecruiters"
+                    autoComplete="tag_line"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    placeholder="Like- Google, IBM, Microsoft, Delloit etc."
+                    value={editdata.toprecruiters && editdata.toprecruiters}
+                    onChange={handleChangeFormdata}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="toprecuitingsectors"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Top Recruiting Sectors
+              </label>
+              <div className="mb-2">
+                <div className="flex rounded-md">
+                  <input
+                    type="text"
+                    name="toprecuitingsectors"
+                    id="toprecuitingsectors"
+                    autoComplete="tag_line"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    placeholder="Finance, IT etc."
+                    value={
+                      editdata.toprecuitingsectors &&
+                      editdata.toprecuitingsectors
+                    }
+                    onChange={handleChangeFormdata}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="topprofile"
+                className="block text-lg font-semibold leading-6 text-gray-900"
+              >
+                Top Profile
+              </label>
+              <div className="mb-2">
+                <div className="flex rounded-md">
+                  <input
+                    type="text"
+                    name="topprofile"
+                    id="topprofile"
+                    autoComplete="tag_line"
+                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    placeholder="Trainee, Accounts, Marketing Heads"
+                    value={editdata.topprofile && editdata.topprofile}
+                    onChange={handleChangeFormdata}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex mt-5 gap-4 space-x-1">
+              <button
+                type="button"
+                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Exit
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Next
+              </button>
+            </div>
+          </form>
+        </div>
+      </>
+    );
+  };
+
+  const renderGallery = () => {
+    return (
+      <>
+        <div className="sm:col-span-4 gallery step-6  formcontener">
+          <form
+            name="galleryForm"
+            id="galleryForm"
+            onSubmit={submitGallery}
+            encType="multipart/form-data"
+          >
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="gallery_image1"
+                className="block text- font-bold leading-6 text-gray-900"
+              >
+                Gallery Image1
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  name="gallery1"
+                  type="file"
+                  filename={gallery1}
+                  onChange={(e) => setGallery1(e.target.files[0])}
+                  accept="image/*"
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="gallery_image2"
+                className="block text- font-bold leading-6 text-gray-900"
+              >
+                Gallery Image2
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  name="gallery2"
+                  type="file"
+                  filename={gallery2}
+                  onChange={(e) => setGallery2(e.target.files[0])}
+                  accept="image/*"
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="gallery_image3"
+                className="block text- font-bold leading-6 text-gray-900"
+              >
+                Gallery Image3
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  name="gallery3"
+                  type="file"
+                  filename={gallery3}
+                  onChange={(e) => setGallery3(e.target.files[0])}
+                  accept="image/*"
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="gallery_image4"
+                className="block text- font-bold leading-6 text-gray-900"
+              >
+                Gallery Image4
+              </label>
+              <div className=" rounded-md shadow-sm  ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                <input
+                  name="gallery4"
+                  type="file"
+                  filename={gallery4}
+                  onChange={(e) => setGallery4(e.target.files[0])}
+                  accept="image/*"
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="gallery_image5"
+                className="block text- font-bold leading-6 text-gray-900"
+              >
+                Gallery Image5
+              </label>
+              <div className=" rounded-md  ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                <input
+                  name="gallery5"
+                  type="file"
+                  filename={gallery5}
+                  onChange={(e) => setGallery5(e.target.files[0])}
+                  accept="image/*"
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="gallery_image1"
+                className="block text- font-bold leading-6 text-gray-900"
+              >
+                Upload Brouchure
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  name="brouchure"
+                  type="file"
+                  filename={brouchure}
+                  onChange={(e) => setBrouchure(e.target.files[0])}
+                  accept="image/*"
+                />
+                <input
+                  type="hidden"
+                  name="old_gallery1"
+                  value={editdata.gallery1}
+                />
+                <input
+                  type="hidden"
+                  name="old_gallery2"
+                  value={editdata.gallery2}
+                />
+                <input
+                  type="hidden"
+                  name="old_gallery3"
+                  value={editdata.gallery3}
+                />
+                <input
+                  type="hidden"
+                  name="old_gallery4"
+                  value={editdata.gallery4}
+                />
+                <input
+                  type="hidden"
+                  name="old_gallery5"
+                  value={editdata.gallery5}
+                />
+                <input
+                  type="hidden"
+                  name="old_brouchure"
+                  value={editdata.brouchure}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 mt-2">
+              <label
+                htmlFor="gallery_image1"
+                className="block text- font-bold leading-6 text-gray-900"
+              >
+                Youtube
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  type="text"
+                  name="youtube"
+                  value={editdata.youtube && editdata.youtube}
+                  onChange={handleChangeFormdata}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div className="flex mt-5 gap-4 space-x-1">
+              <button
+                type="button"
+                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Exit
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Next
+              </button>
+            </div>
+          </form>
+        </div>
+      </>
+    );
+  };
+  const showBasic = () => {
+    setIsBasic(true);
+    setIsContact(false);
+    setIsHighLights(false);
+    setIsGallery(false);
+    setIsAdmission(false);
+    setIsPlacement(false);
+    setIsFaq(false);
+    setIsCourse(false);
+
+    setBasicActive("active");
+    setContactActive("");
+    setHighlightsActive("");
+    setGalleryActive("");
+    setAdmissionActive("");
+    setPlacementActive("");
+    setFaqActive("");
+    setCourseActive("");
+  };
+  const showContacts = () => {
+    setIsBasic(false);
+    setIsHighLights(false);
+    setIsContact(true);
+    setIsGallery(false);
+    setIsAdmission(false);
+    setIsPlacement(false);
+    setIsFaq(false);
+    setIsCourse(false);
+
+    setBasicActive("");
+    setContactActive("active");
+    setHighlightsActive("");
+    setGalleryActive("");
+    setAdmissionActive("");
+    setPlacementActive("");
+    setFaqActive("");
+    setCourseActive("");
+  };
+  const showHighlights = () => {
+    setIsBasic(false);
+    setIsContact(false);
+    setIsHighLights(true);
+    setIsGallery(false);
+    setIsAdmission(false);
+    setIsPlacement(false);
+    setIsFaq(false);
+    setIsCourse(false);
+
+    setBasicActive("");
+    setContactActive("");
+    setHighlightsActive("active");
+    setGalleryActive("");
+    setAdmissionActive("");
+    setPlacementActive("");
+    setFaqActive("");
+    setCourseActive("");
+  };
+  const showGallery = () => {
+    setIsBasic(false);
+    setIsContact(false);
+    setIsHighLights(false);
+    setIsGallery(true);
+    setIsAdmission(false);
+    setIsPlacement(false);
+    setIsFaq(false);
+    setIsCourse(false);
+
+    setBasicActive("");
+    setContactActive("");
+    setHighlightsActive("");
+    setGalleryActive("active");
+    setAdmissionActive("");
+    setPlacementActive("");
+    setFaqActive("");
+    setCourseActive("");
+  };
+  const showAdmissions = () => {
+    setIsBasic(false);
+    setIsContact(false);
+    setIsHighLights(false);
+    setIsGallery(false);
+    setIsAdmission(true);
+    setIsPlacement(false);
+    setIsFaq(false);
+    setIsCourse(false);
+
+    setBasicActive("");
+    setContactActive("");
+    setHighlightsActive("");
+    setGalleryActive("");
+    setAdmissionActive("active");
+    setPlacementActive("");
+    setFaqActive("");
+    setCourseActive("");
+  };
+  const showPlacements = () => {
+    setIsBasic(false);
+    setIsContact(false);
+    setIsHighLights(false);
+    setIsGallery(false);
+    setIsAdmission(false);
+    setIsPlacement(true);
+    setIsFaq(false);
+    setIsCourse(false);
+
+    setBasicActive("");
+    setContactActive("");
+    setHighlightsActive("");
+    setGalleryActive("");
+    setAdmissionActive("");
+    setPlacementActive("active");
+    setFaqActive("");
+    setCourseActive("");
+  };
+  const showFAQ = () => {
+    setIsBasic(false);
+    setIsContact(false);
+    setIsHighLights(false);
+    setIsGallery(false);
+    setIsAdmission(false);
+    setIsPlacement(false);
+    setIsFaq(true);
+    setIsCourse(false);
+
+    setBasicActive("");
+    setContactActive("");
+    setHighlightsActive("");
+    setGalleryActive("");
+    setAdmissionActive("");
+    setPlacementActive("");
+    setFaqActive("active");
+    setCourseActive("");
+  };
+  const showCourse = () => {
+    setIsBasic(false);
+    setIsContact(false);
+    setIsHighLights(false);
+    setIsGallery(false);
+    setIsAdmission(false);
+    setIsPlacement(false);
+    setIsFaq(false);
+    setIsCourse(true);
+
+    setBasicActive("");
+    setContactActive("");
+    setHighlightsActive("");
+    setGalleryActive("");
+    setAdmissionActive("");
+    setPlacementActive("");
+    setFaqActive("");
+    setCourseActive("active");
+  };
+
+  return (
+    <>
+      {renderPageHeader()}
+
+      <div className="p-2">
+        <div className="mx-auto max-w-7xl py-6 sm:px-2 lg:px-2">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 college-details">
+            {renderSteps()}
+
+            {isBasic && renderBasicInfo()}
+
+            {isHighlights && renderHighlights()}
+
+            {isAdmission && renderAdmission()}
+
+            {isContact && renderContact()}
+
+            {isPlacement && renderPlacements()}
+
+            {isGallery && renderGallery()}
+
+            {isFaq && renderFAQ()}
+
+            {isCourse && renderCourse()}
+          </div>
         </div>
       </div>
     </>

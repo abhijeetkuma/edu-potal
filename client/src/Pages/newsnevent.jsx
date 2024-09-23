@@ -57,6 +57,16 @@ function Newsnevent() {
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
+    {
+      accessorKey: "na_image", //simple recommended way to define a column
+      header: "Image",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      Cell: ({ cell }) => (
+        <span>
+          <img src={"/images/newsevents/" + cell.getValue()} />
+        </span>
+      ), //optional custom cell render
+    },
     /* {
       accessorKey: "na_description", //simple recommended way to define a column
       header: "Description",

@@ -13,16 +13,19 @@ const pool = new Pool({
 const getColleges = async () => {
   try {
     return await new Promise(function (resolve, reject) {
-      pool.query("select * from colleges", (error, results) => {
-        if (error) {
-          reject(error);
+      pool.query(
+        "select * from colleges order by cid desc",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
         }
-        if (results && results.rows) {
-          resolve(results.rows);
-        } else {
-          reject(new Error("No results found"));
-        }
-      });
+      );
     });
   } catch (error_1) {
     console.error(error_1);
@@ -54,7 +57,7 @@ const Login = async (body) => {
   }
 };
 
-//create a new merchant record in the databsse
+/* //create a new merchant record in the databsse
 const college = (body) => {
   return new Promise(function (resolve, reject) {
     const {
@@ -123,7 +126,7 @@ const college = (body) => {
       }
     );
   });
-};
+}; */
 //delete a merchant
 const deleteVehicle = (id) => {
   return new Promise(function (resolve, reject) {
@@ -271,6 +274,326 @@ const editnewsarticle = (na_id) => {
     console.log(query);
   });
 };
+const insertCollegebasicinformation = (body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      college_name,
+      college_url,
+      tag_line,
+      usp_remark,
+      found_year,
+      intake,
+      hostel_available,
+      college_descripton,
+      facultyprofile,
+      ctype,
+      trading,
+      approvedby,
+      facilities,
+      categories,
+      exams,
+      meta_title,
+      meta_keyword,
+      meta_description,
+      logo,
+      banner,
+    } = body;
+    pool.query(
+      "INSERT INTO colleges(college_name,college_url,tag_line,usp_remark,found_year,intake,hostel_available,college_descripton,facultyprofile,ctype,trading,approvedby,facilities,categories,exams,meta_title,meta_keyword,meta_description,logo,banner) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20) RETURNING *",
+      [
+        college_name,
+        college_url,
+        tag_line,
+        usp_remark,
+        found_year,
+        intake,
+        hostel_available,
+        college_descripton,
+        facultyprofile,
+        ctype,
+        trading,
+        approvedby,
+        facilities,
+        categories,
+        exams,
+        meta_title,
+        meta_keyword,
+        meta_description,
+        logo,
+        banner,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          //resolve(`College basic insert: ${JSON.stringify(results.rows[0])}`);
+          resolve(JSON.stringify(results.rows[0]));
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateCollegebasicinformation = (body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      cid,
+      college_name,
+      college_url,
+      tag_line,
+      usp_remark,
+      found_year,
+      intake,
+      hostel_available,
+      college_descripton,
+      facultyprofile,
+      ctype,
+      trading,
+      approvedby,
+      facilities,
+      categories,
+      exams,
+      meta_title,
+      meta_keyword,
+      meta_description,
+      logo,
+      banner,
+    } = body;
+    pool.query(
+      "UPDATE colleges SET college_name = $2, college_url = $3,tag_line=$4,usp_remark=$5,found_year=$6,intake=$7,hostel_available=$8,college_descripton=$9,facultyprofile=$10,ctype=$11,trading=$12,approvedby=$13,facilities=$14,categories=$15,exams=$16,meta_title=$17,meta_keyword=$18,meta_description=$19,logo=$20,banner=$21 WHERE cid = $1 RETURNING *",
+      [
+        cid,
+        college_name,
+        college_url,
+        tag_line,
+        usp_remark,
+        found_year,
+        intake,
+        hostel_available,
+        college_descripton,
+        facultyprofile,
+        ctype,
+        trading,
+        approvedby,
+        facilities,
+        categories,
+        exams,
+        meta_title,
+        meta_keyword,
+        meta_description,
+        logo,
+        banner,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(`College basic updated: ${JSON.stringify(results.rows[0])}`);
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateGallery = (body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      cid,
+      gallery1,
+      gallery2,
+      gallery3,
+      gallery4,
+      gallery5,
+      brouchure,
+      youtube,
+    } = body;
+    pool.query(
+      "UPDATE colleges SET gallery1 = $2, gallery2 = $3,gallery3=$4,gallery4=$5,gallery5=$6,brouchure=$7,youtube=$8 WHERE cid = $1 RETURNING *",
+      [
+        cid,
+        gallery1,
+        gallery2,
+        gallery3,
+        gallery4,
+        gallery5,
+        brouchure,
+        youtube,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `College gallery updated: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateContactus = (body) => {
+  //console.log("contact us body-->", body);
+  return new Promise(function (resolve, reject) {
+    const {
+      cid,
+      address,
+      address2,
+      landmark,
+      pincode,
+      country,
+      state,
+      city,
+      contactno,
+      faxno,
+      email,
+      website,
+    } = body;
+    pool.query(
+      "UPDATE colleges SET address = $2, address2 = $3,landmark=$4,pincode=$5,country=$6,state=$7,city=$8,contactno=$9,faxno=$10,email=$11,website=$12 WHERE cid = $1 RETURNING *",
+      [
+        cid,
+        address,
+        address2,
+        landmark,
+        pincode,
+        country,
+        state,
+        city,
+        contactno,
+        faxno,
+        email,
+        website,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `College contact updated: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateHighlight = (body) => {
+  console.log("Highlight body-->", body);
+  return new Promise(function (resolve, reject) {
+    const { cid, display_type, highlights } = body;
+    pool.query(
+      "UPDATE colleges SET display_type = $2, highlights = $3 WHERE cid = $1 RETURNING *",
+      [cid, display_type, highlights],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `College admission updated: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateAdmission = (body) => {
+  //console.log("contact us body-->", body);
+  return new Promise(function (resolve, reject) {
+    const { cid, adminssiondetails, scholarshipoffer } = body;
+    pool.query(
+      "UPDATE colleges SET adminssiondetails = $2, scholarshipoffer = $3 WHERE cid = $1 RETURNING *",
+      [cid, adminssiondetails, scholarshipoffer],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `College admission updated: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updatePlacement = (body) => {
+  //console.log("Placement body-->", body);
+  return new Promise(function (resolve, reject) {
+    const {
+      cid,
+      placement_overview,
+      totalplacementratio,
+      averageplacementrecord,
+      higestplacementrecord,
+      lowestplacementrecord,
+      toprecruiters,
+      toprecuitingsectors,
+      topprofile,
+    } = body;
+    pool.query(
+      "UPDATE colleges SET placement_overview = $2, totalplacementratio = $3,averageplacementrecord=$4,higestplacementrecord=$5,lowestplacementrecord=$6,toprecruiters=$7,toprecuitingsectors=$8,topprofile=$9 WHERE cid = $1 RETURNING *",
+      [
+        cid,
+        placement_overview,
+        totalplacementratio,
+        averageplacementrecord,
+        higestplacementrecord,
+        lowestplacementrecord,
+        toprecruiters,
+        toprecuitingsectors,
+        topprofile,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `College admission updated: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateFaq = (body) => {
+  //console.log("Placement body-->", body);
+  return new Promise(function (resolve, reject) {
+    const { cid, faq } = body;
+    pool.query(
+      "UPDATE colleges SET faq = $2 WHERE cid = $1 RETURNING *",
+      [cid, faq],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `College admission updated: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 const updateCollege = (cid, body) => {
   return new Promise(function (resolve, reject) {
     const {
@@ -393,7 +716,59 @@ const updateQuestion = (qid, body) => {
     );
   });
 };
-const updateNewsarticles = (na_id, body) => {
+const addNewsarticle = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log("body", body);
+    const {
+      na_type,
+      na_title,
+      na_url,
+      na_brief_description,
+      na_description,
+      na_metatitle,
+      na_metadescription,
+      na_metakeyword,
+      na_status,
+      added_by,
+      na_trends,
+      na_categories,
+      na_image,
+    } = body;
+    pool.query(
+      "INSERT INTO newsarticles(na_type,na_title,na_url,na_brief_description,na_description,na_metatitle,na_metadescription,na_metakeyword,na_status,added_by,na_trends,na_categories,na_image) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *",
+      [
+        na_type,
+        na_title,
+        na_url,
+        na_brief_description,
+        na_description,
+        na_metatitle,
+        na_metadescription,
+        na_metakeyword,
+        na_status,
+        added_by,
+        na_trends,
+        na_categories,
+        na_image,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A new record has been added: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+//const updateNewsarticles = (na_id, body) => {
+const updateNewsarticles = (body) => {
+  console.log("body", body);
   return new Promise(function (resolve, reject) {
     const {
       na_id,
@@ -409,9 +784,10 @@ const updateNewsarticles = (na_id, body) => {
       na_trends,
       na_categories,
       added_by,
+      na_image,
     } = body;
     pool.query(
-      "UPDATE newsarticles SET na_type = $2,na_title=$3, na_url=$4, na_brief_description=$5,na_description=$6,na_metatitle=$7,na_metadescription=$8,na_metakeyword=$9,na_status=$10,na_trends=$11,na_categories=$12,added_by=$13 WHERE na_id = $1 RETURNING *",
+      "UPDATE newsarticles SET na_type = $2,na_title=$3, na_url=$4, na_brief_description=$5,na_description=$6,na_metatitle=$7,na_metadescription=$8,na_metakeyword=$9,na_status=$10,na_trends=$11,na_categories=$12,added_by=$13,na_image=$14 WHERE na_id = $1 RETURNING *",
       [
         na_id,
         na_type,
@@ -426,6 +802,7 @@ const updateNewsarticles = (na_id, body) => {
         na_trends,
         na_categories,
         added_by,
+        na_image,
       ],
       (error, results) => {
         if (error) {
@@ -624,6 +1001,28 @@ const getCoursearr = async () => {
     return await new Promise(function (resolve, reject) {
       pool.query(
         "SELECT cour_id,course_name FROM courses ORDER BY course_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const getSubcoursearr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT courb_id,branch_name FROM coursebranches ORDER BY branch_name ASC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -1006,48 +1405,7 @@ const addQuestion = (body) => {
     );
   });
 };
-const addNewsarticle = (body) => {
-  return new Promise(function (resolve, reject) {
-    const {
-      na_type,
-      na_title,
-      na_url,
-      na_brief_description,
-      na_description,
-      na_metatitle,
-      na_metadescription,
-      na_metakeyword,
-      na_status,
-      added_by,
-    } = body;
-    pool.query(
-      "INSERT INTO newsarticles(na_type,na_title,na_url,na_brief_description,na_description,na_metatitle,na_metadescription,na_metakeyword,na_status,added_by) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *",
-      [
-        na_type,
-        na_title,
-        na_url,
-        na_brief_description,
-        na_description,
-        na_metatitle,
-        na_metadescription,
-        na_metakeyword,
-        na_status,
-      ],
-      (error, results) => {
-        if (error) {
-          reject(error);
-        }
-        if (results && results.rows) {
-          resolve(
-            `A new record has been added: ${JSON.stringify(results.rows[0])}`
-          );
-        } else {
-          reject(new Error("No results found"));
-        }
-      }
-    );
-  });
-};
+
 const addNewcategories = (body) => {
   console.log("add category", body);
   return new Promise(function (resolve, reject) {
@@ -1209,8 +1567,16 @@ const getApprovedby = async () => {
 module.exports = {
   Login,
   getColleges,
-  college,
+  //college,
   updateCollege,
+  insertCollegebasicinformation,
+  updateCollegebasicinformation,
+  updateGallery,
+  updateContactus,
+  updateHighlight,
+  updateAdmission,
+  updatePlacement,
+  updateFaq,
   updateQuestion,
   updateNewsarticles,
   deleteVehicle,
@@ -1247,6 +1613,7 @@ module.exports = {
   editquestion,
   editnewsarticle,
   getCoursearr,
+  getSubcoursearr,
   getFacilityarr,
   fetchSubcourese,
 };

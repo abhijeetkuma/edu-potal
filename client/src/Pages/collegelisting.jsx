@@ -63,6 +63,12 @@ function Collegelisting() {
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
+      accessorKey: "college_url", //simple recommended way to define a column
+      header: "URL",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
       accessorKey: "tag_line", //simple recommended way to define a column
       header: "Tag Line",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
@@ -81,6 +87,26 @@ function Collegelisting() {
       Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
+      accessorKey: "logo", //simple recommended way to define a column
+      header: "Logo",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      Cell: ({ cell }) => (
+        <span>
+          <img src={"/colleges/banner/" + cell.getValue()} />
+        </span>
+      ), //optional custom cell render
+    },
+    {
+      accessorKey: "banner", //simple recommended way to define a column
+      header: "Banner",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      Cell: ({ cell }) => (
+        <span>
+          <img src={"/colleges/banner/" + cell.getValue()} />
+        </span>
+      ), //optional custom cell render
+    },
+    /*  {
       accessorKey: "approv_by", //simple recommended way to define a column
       header: "Approved By",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
@@ -91,7 +117,7 @@ function Collegelisting() {
       header: "Type",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
-    },
+    }, 
 
     {
       accessorKey: "featured",
@@ -104,7 +130,7 @@ function Collegelisting() {
       header: "scholarship",
       enableEditing: false,
       size: 80,
-    },
+    },*/
   ];
   const [rowSelection, setRowSelection] = useState({});
 

@@ -14,6 +14,9 @@ import {
 
 import axios from "axios";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function Newsarticles() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
@@ -26,6 +29,9 @@ function Newsarticles() {
   const [tradingarr, setTradingarr] = useState([]);
   const [tradingvalue, setTradingvalue] = useState([]);
   const [descriptionvalue, setDescriptionvalue] = useState();
+  const [title, setTitle] = useState();
+  const [successmsg, setSuccessmsg] = useState();
+
   const [editdata, setEditdata] = useState({
     na_id: "",
     na_type: "",
@@ -39,6 +45,10 @@ function Newsarticles() {
     na_metakeyword: "",
     na_status: "A",
   });
+
+  const [na_image, setNa_image] = useState();
+  const [imageName, setImageName] = useState();
+
   const { na_id } = useParams();
   useEffect(() => {
     /*fetch("http://localhost:3001/")
@@ -190,6 +200,81 @@ function Newsarticles() {
     } */
   };
   // end add new question
+  const submit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    //console.log("formData", formData);
+    formData.append("image", na_image);
+    formData.append("na_id", event.target.na_id.value);
+    formData.append("na_type", event.target.na_type.value);
+    formData.append("na_title", event.target.na_title.value);
+    formData.append("na_url", event.target.na_url.value);
+    formData.append(
+      "na_brief_description",
+      event.target.na_brief_description.value
+    );
+    formData.append("na_description", descriptionvalue);
+    formData.append("na_metatitle", event.target.na_metatitle.value);
+    formData.append(
+      "na_metadescription",
+      event.target.na_metadescription.value
+    );
+    formData.append("na_metakeyword", event.target.na_metakeyword.value);
+    formData.append("na_status", event.target.na_status.value);
+    formData.append("added_by", localStorage.login_id);
+    formData.append("na_trends", tradingvalue.join(","));
+    formData.append("na_categories", categoryvalue.join(","));
+    formData.append("old_image", event.target.old_image.value);
+
+    //const result = await axios.post("/api/images", formData, {
+    if (event.target.na_id.value > 0) {
+      //update form data
+      await axios({
+        method: "post",
+        url: "http://localhost:3007/getupdatenewsarticles",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+        .then(function (response) {
+          //console.log(response);
+          console.log(response.statusText);
+          if (response.statusText === "OK") {
+            setSuccessmsg("Successfully Updated.");
+
+            /*   toast.success("Successfully Updated.", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              // transition: Bounce,
+            }); */
+
+            setTimeout(function () {
+              window.location.replace("../../newsnevent");
+            }, 3000);
+            //window.location.href = "../../newsnevent";
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //end update form data
+    } else {
+      const result = await axios.post(
+        "http://localhost:3007/addnewsarticle",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      setImageName(result.data.imageName);
+    }
+  };
 
   return (
     <>
@@ -226,8 +311,18 @@ function Newsarticles() {
 
       <div className="p-2">
         <div className="mx-auto max-w-7xl py-6 sm:px-2 lg:px-2"></div>
-        <form action="" method="post" id="facilitesForm" onSubmit={addnews}>
-          {returndspmsg && returndspmsg}
+        {successmsg && (
+          <div className="text-green font-normal text-lg"> {successmsg} </div>
+        )}
+        <form
+          action=""
+          method="post"
+          id="facilitesForm"
+          // onSubmit_={addnews}
+          onSubmit={submit}
+          encType="multipart/form-data"
+        >
+          {/* returndspmsg && returndspmsg */}
           <div className="mt-2">
             <label
               htmlFor="college_url"
@@ -285,6 +380,7 @@ function Newsarticles() {
               value={editdata.na_title ? editdata.na_title : ""}
               required="required"
               onChange={handleChangeFormdata}
+              // onChange={(e) => setTitle(e.target.value)}
               onChangeCapture={createUrl}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
@@ -442,9 +538,10 @@ function Newsarticles() {
             >
               Meta Description
             </label>
-            <input
+            <textarea
               type="text"
               name="na_metadescription"
+              rows={5}
               value={
                 editdata.na_metadescription ? editdata.na_metadescription : ""
               }
@@ -481,11 +578,18 @@ function Newsarticles() {
             <input
               type="file"
               name="na_image"
-              value=""
-              onChange={handleChangeFormdata}
+              filename={na_image}
+              //onChange={handleChangeFormdata}
+              onChange={(e) => setNa_image(e.target.files[0])}
+              accept="image/*"
               className="ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
             />
-            <div className="errmsg">{errorMsg[0]}</div>
+            <input
+              type="hidden"
+              name="old_image"
+              value={editdata.na_image ? editdata.na_image : ""}
+            ></input>
+            {/* <div className="errmsg">{imageName && <img src={imageName} />}</div> */}
           </div>
           <div className="flex mt-2 sm:size-4 lx zl alt ars ary">
             <div className="lk acf cct cgl chn chu">
@@ -495,34 +599,36 @@ function Newsarticles() {
               >
                 Status
               </label>
-              <div className="lx zg">
-                <input
-                  type="radio"
-                  name="na_status"
-                  value="A"
-                  checked={editdata.na_status == "A" && true}
-                  required="required"
-                  onChange={handleChangeFormdata}
-                  className="oc se agc ayn bnu"
-                />
-                <label className="jw lu awg awk awv ayb">Active</label>
-              </div>
-              <div className="lx zg">
-                <input
-                  type="radio"
-                  name="na_status"
-                  value="D"
-                  checked={editdata.na_status == "D" && true}
-                  required="required"
-                  onChange={handleChangeFormdata}
-                  className="oc se agc ayn bnu"
-                />
-                <label className="jw lu awg awk awv ayb">Inactive</label>
+              <div className="flex">
+                <div className="lx zg">
+                  <input
+                    type="radio"
+                    name="na_status"
+                    value="A"
+                    checked={editdata.na_status == "A" && true}
+                    required="required"
+                    onChange={handleChangeFormdata}
+                    className="oc se agc ayn bnu"
+                  />
+                  <label className="jw lu awg awk awv ayb">Active</label>
+                </div>
+                <div className="lx zg">
+                  <input
+                    type="radio"
+                    name="na_status"
+                    value="D"
+                    checked={editdata.na_status == "D" && true}
+                    required="required"
+                    onChange={handleChangeFormdata}
+                    className=""
+                  />
+                  <label className="jw lu awg awk awv ayb">Inactive</label>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="btn-section">
+          <div className="btn-section flex">
             <button type="button">Cancle</button>
             <button
               type="submit"

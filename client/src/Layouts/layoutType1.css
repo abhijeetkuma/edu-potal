@@ -186,3 +186,40 @@ dialog {
 .ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
   min-height: 200px;
 }
+
+/*------Common------*/
+
+.college-details {
+  height: 100px;
+  .step-tabs {
+    display: flex;
+    gap: 2px;
+
+    /* > a:before {
+      display: block;
+      content: " ";
+      width: 80px;
+      height: 10px;
+      background-color: #5c5959;
+      position: absolute;
+    } */
+    > a {
+      display: flex;
+      white-space: nowrap;
+      background-color: #bbb4c1;
+      color: #f1f1f1;
+      border-radius: 0px;
+      padding: 10px 20px;
+      border-radius: 3px;
+      &.active {
+        background-color: #5c3a7c;
+      }
+    }
+  }
+}
+.formcontener {
+  order: 1px solid #e8e2e2;
+  padding: 20px;
+  background-color: #fffcfc;
+  border-radius: 10px;
+}

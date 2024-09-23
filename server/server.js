@@ -1,8 +1,93 @@
 const express = require("express");
+const fs = require("fs");
 const multer = require("multer");
 const app = express();
 const port = 3007;
 const colleges_model = require("./model/collegesModel");
+
+// news & article image upload
+var fname, mtype;
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    //cb(null, "/tmp/my-uploads");
+    cb(null, "../client/public/images/newsevents");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    //cb(null, file.fieldname + "-" + uniqueSuffix);
+    fname =
+      uniqueSuffix + file.originalname.replace(/[$* !@#%^&*()+=<>?/,]/g, "_");
+    mtype = file.mimetype;
+    cb(null, fname);
+  },
+});
+//const upload = multer({ dest: "./public/images/newsevents" });
+const upload = multer({ storage: storage });
+// end news & article image upload
+
+// college logo upload
+var logofname, logomtype;
+const logostorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    //cb(null, "/tmp/my-uploads");
+    cb(null, "../client/public/colleges/logo");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix =
+      "logo_" + Date.now() + "-" + Math.round(Math.random() * 1e9);
+    //cb(null, file.fieldname + "-" + uniqueSuffix);
+    logofname =
+      uniqueSuffix + file.originalname.replace(/[$* !@#%^&*()+=<>?/,]/g, "_");
+    logomtype = file.mimetype;
+    cb(null, logofname);
+  },
+});
+//const upload = multer({ dest: "./public/images/newsevents" });
+const logoupload = multer({ storage: logostorage });
+// end college logo upload
+
+// college banner upload
+var bannerfname, bannermtype;
+const bannerstorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    //cb(null, "/tmp/my-uploads");
+    cb(null, "../client/public/colleges/banner");
+  },
+  filename: (req, file, cb) => {
+    const img_perfixe = file.fieldname === "logo" ? "logo_" : "banner_";
+    const uniqueSuffix =
+      img_perfixe + Date.now() + "-" + Math.round(Math.random() * 1e9);
+    //cb(null, file.fieldname + "-" + uniqueSuffix);
+    bannerfname =
+      uniqueSuffix + file.originalname.replace(/[$* !@#%^&*()+=<>?/,]/g, "_");
+    bannermtype = file.mimetype;
+    cb(null, bannerfname);
+  },
+});
+const bannerupload = multer({ storage: bannerstorage });
+// end college banner upload
+
+// college gallery upload
+var galleryfname, gallerymtype;
+const gallerystorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    //cb(null, "/tmp/my-uploads");
+    cb(null, "../client/public/colleges/gallery");
+  },
+  filename: (req, file, cb) => {
+    const img_perfixe =
+      file.fieldname === "brouchure" ? "brouchure_" : "gallery_";
+    const uniqueSuffix =
+      img_perfixe + Date.now() + "-" + Math.round(Math.random() * 1e9);
+    //cb(null, file.fieldname + "-" + uniqueSuffix);
+    galleryfname =
+      uniqueSuffix + file.originalname.replace(/[$* !@#%^&*()+=<>?/,]/g, "_");
+    gallerymtype = file.mimetype;
+    cb(null, galleryfname);
+  },
+});
+const galleryupload = multer({ storage: gallerystorage });
+// end college gallery upload
 
 /*app.get('/', (req, res) => {
   res.status(200).send('Welcome Node');
@@ -37,20 +122,6 @@ app.get("/", (req, res) => {
       res.status(500).send(error);
     });
 });
-// File Upload Endpoint
-/* app.post("/newsevents", upload.single("file"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: "No file uploaded" });
-  }
-  res.json({
-    message: "File uploaded successfully",
-    filename: req.file.filename,
-  });
-}); 
-
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});*/
 
 app.post("/login", (req, res) => {
   colleges_model
@@ -146,16 +217,7 @@ app.post("/addquestion", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/addnewsarticle", (req, res) => {
-  colleges_model
-    .addNewsarticle(req.body)
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
+
 app.get("/fetchsubcourese/:course_id", (req, res) => {
   colleges_model
     //.fetchSubcourese(req.body)
@@ -229,6 +291,179 @@ app.get("/editroles/:rol_id", (req, res) => {
     });
 });
 
+app.post(
+  "/insertbasicinformation/",
+  bannerupload.fields([
+    { name: "logo", maxCount: 1 },
+    { name: "banner", maxCount: 1 },
+  ]),
+  (req, res) => {
+    const cid = req.body.cid;
+    //const body = req.body;
+    //console.log("files Property -->", req.files);
+    //console.log("files name -->", req.files.logo[0].filename);
+    req.body.logo = req.files.logo[0].filename
+      ? req.files.logo[0].filename
+      : req.body.old_logo;
+    req.body.banner = req.files
+      ? req.files.banner[0].filename
+      : req.body.old_banner;
+    console.log("req.body", req.body);
+    //console.log("college id", cid);
+
+    colleges_model
+      .insertCollegebasicinformation(req.body)
+      .then((response) => {
+        res.status(200).send(response);
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+  }
+);
+app.post(
+  "/updatebasicinformation/",
+  //logoupload.single("logo"),
+  //bannerupload.single("banner"),
+  bannerupload.fields([
+    { name: "logo", maxCount: 1 },
+    { name: "banner", maxCount: 1 },
+  ]),
+  (req, res) => {
+    const cid = req.body.cid;
+    //const body = req.body;
+    //console.log("files Property -->", req.files);
+    //console.log("files name -->", req.files.logo[0].filename);
+    req.body.logo = req.files.logo[0].filename
+      ? req.files.logo[0].filename
+      : req.body.old_logo;
+    req.body.banner = req.files
+      ? req.files.banner[0].filename
+      : req.body.old_banner;
+    console.log("req.body", req.body);
+    //console.log("college id", cid);
+
+    colleges_model
+      .updateCollegebasicinformation(req.body)
+      .then((response) => {
+        res.status(200).send(response);
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+  }
+);
+app.post(
+  "/updategallery/",
+  //logoupload.single("logo"),
+  //bannerupload.single("banner"),
+  galleryupload.fields([
+    { name: "gallery1", maxCount: 1 },
+    { name: "gallery2", maxCount: 1 },
+    { name: "gallery3", maxCount: 1 },
+    { name: "gallery4", maxCount: 1 },
+    { name: "gallery5", maxCount: 1 },
+    { name: "brouchure", maxCount: 1 },
+  ]),
+  (req, res) => {
+    const cid = req.body.cid;
+    //const body = req.body;
+    console.log("files Property -->", req.files);
+    //console.log("files name -->", req.files.logo[0].filename);
+    req.body.gallery1 =
+      req.files.gallery1 && req.files.gallery1[0].filename
+        ? req.files.gallery1[0].filename
+        : req.body.old_gallery1;
+    req.body.gallery2 =
+      req.files.gallery2 && req.files.gallery2[0].filename
+        ? req.files.gallery2[0].filename
+        : req.body.old_gallery2;
+    req.body.gallery3 =
+      req.files.gallery3 && req.files.gallery3[0].filename
+        ? req.files.gallery3[0].filename
+        : req.body.old_gallery3;
+    req.body.gallery4 =
+      req.files.gallery4 && req.files.gallery4[0].filename
+        ? req.files.gallery4[0].filename
+        : req.body.old_gallery4;
+    req.body.gallery5 =
+      req.files.gallery5 && req.files.gallery5[0].filename
+        ? req.files.gallery5[0].filename
+        : req.body.old_gallery5;
+    req.body.brouchure =
+      req.files.brouchure && req.files.brouchure[0].filename
+        ? req.files.brouchure[0].filename
+        : req.body.old_brouchure;
+
+    console.log("req.body", req.body);
+    //console.log("college id", cid);
+
+    colleges_model
+      .updateGallery(req.body)
+      .then((response) => {
+        res.status(200).send(response);
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+  }
+);
+app.post("/updatecontactus", (req, res) => {
+  //console.log("contact us details-->", req.body);
+  colleges_model
+    .updateContactus(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/updatehighlight", (req, res) => {
+  //console.log("contact us details-->", req.body);
+  colleges_model
+    .updateHighlight(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/updateadmission", (req, res) => {
+  //console.log("contact us details-->", req.body);
+  colleges_model
+    .updateAdmission(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/updateplacement", (req, res) => {
+  //console.log("contact us details-->", req.body);
+  colleges_model
+    .updatePlacement(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/updatefaq", (req, res) => {
+  //console.log("contact us details-->", req.body);
+  colleges_model
+    .updateFaq(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
 app.put("/getupdatecollege/:cid", (req, res) => {
   const cid = req.params.cid;
   const body = req.body;
@@ -255,12 +490,29 @@ app.put("/getupdatequestion/:qid", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.put("/getupdatenewsarticles/:na_id", (req, res) => {
-  const na_id = req.params.na_id;
-  const body = req.body;
-  console.log("server na_id", na_id);
+//app.post("/addnewsarticle", (req, res) => {
+//app.post("/addnewsarticle", upload.single("image"), (req, res) => {
+app.post("/addnewsarticle", upload.single("image"), (req, res) => {
+  req.body.na_image = req.file ? req.file.filename : "";
   colleges_model
-    .updateNewsarticles(na_id, body)
+    .addNewsarticle(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+//app.put("/getupdatenewsarticles/:na_id", (req, res) => {
+app.post("/getupdatenewsarticles/", upload.single("image"), (req, res) => {
+  const na_id = req.body.na_id;
+  //const body = req.body;
+  console.log("req.body", req.body);
+  console.log("server na_id", na_id);
+  req.body.na_image = req.file ? req.file.filename : req.body.old_image;
+  colleges_model
+    .updateNewsarticles(req.body)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -337,6 +589,16 @@ app.get("/gettradingarr", (req, res) => {
 app.get("/getcoursearr", (req, res) => {
   colleges_model
     .getCoursearr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getsubcoursearr", (req, res) => {
+  colleges_model
+    .getSubcoursearr()
     .then((response) => {
       res.status(200).send(response);
     })
