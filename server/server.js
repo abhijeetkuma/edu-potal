@@ -334,12 +334,14 @@ app.post(
     //const body = req.body;
     //console.log("files Property -->", req.files);
     //console.log("files name -->", req.files.logo[0].filename);
-    req.body.logo = req.files.logo[0].filename
-      ? req.files.logo[0].filename
-      : req.body.old_logo;
-    req.body.banner = req.files
-      ? req.files.banner[0].filename
-      : req.body.old_banner;
+    req.body.logo =
+      req.files.logo && req.files.logo[0].filename
+        ? req.files.logo[0].filename
+        : req.body.old_logo;
+    req.body.banner =
+      req.files.banner && req.files.banner[0].filename
+        ? req.files.banner[0].filename
+        : req.body.old_banner;
     console.log("req.body", req.body);
     //console.log("college id", cid);
 

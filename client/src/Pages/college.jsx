@@ -199,10 +199,31 @@ function College() {
         .get("http://localhost:3007/editcolleges/" + cid)
         .then((response) => {
           setEditdata(response.data[0]);
+          setHighLights(response.data[0]?.highlights);
           //console.log("sd-->", response.data[0].facilities);
           //setFacilityvalue(JSON.stringify(response.data[0].facilities));
-          let resArr = response.data[0].facilities;
-          setFacilityvalue(resArr.length > 0 ? resArr.split(",") : []);
+          let editfacilityArr = response.data[0].facilities;
+          let editcollegetypeArr = response.data[0].ctype;
+          let edittradingArr = response.data[0].trading;
+          let editapprovedArr = response.data[0].approvedby;
+          let editcategoriesArr = response.data[0].categories;
+          let editexamsArr = response.data[0].exams;
+          setFacilityvalue(
+            editfacilityArr.length > 0 ? editfacilityArr.split(",") : []
+          );
+          setCollegetypevalue(
+            editcollegetypeArr.length > 0 ? editcollegetypeArr.split(",") : []
+          );
+          setTradingvalue(
+            edittradingArr.length > 0 ? edittradingArr.split(",") : []
+          );
+          setApprovedbyvalue(
+            editapprovedArr.length > 0 ? editapprovedArr.split(",") : []
+          );
+          setCategoryvalue(
+            editcategoriesArr.length > 0 ? editcategoriesArr.split(",") : []
+          );
+          setExamvalue(editexamsArr.length > 0 ? editexamsArr.split(",") : []);
         })
         .catch((error) => {
           console.error(error);
@@ -724,38 +745,54 @@ function College() {
   };
 
   const collegetypeCheck = (event) => {
-    var colltype_array = [...collegetypevalue];
+    //var colltype_array = [...collegetypevalue];
+    let index = collegetypevalue.indexOf(event.target.value);
     if (event.target.checked) {
-      colltype_array = [...collegetypevalue, event.target.value];
+      //colltype_array = [...collegetypevalue, event.target.value];
+      setCollegetypevalue((collegetypevalue) => [
+        ...collegetypevalue,
+        event.target.value,
+      ]);
     } else {
-      colltype_array.splice(collegetypevalue.indexOf(event.target.value), 1);
+      //colltype_array.splice(collegetypevalue.indexOf(event.target.value), 1);
+      collegetypevalue.splice(index, 1);
     }
-    setCollegetypevalue(colltype_array);
+    //setCollegetypevalue(colltype_array);
   };
 
   const tradingCheck = (event) => {
-    var trading_array = [...tradingvalue];
+    // var trading_array = [...tradingvalue];
+    let index = tradingvalue.indexOf(event.target.value);
     if (event.target.checked) {
-      trading_array = [...tradingvalue, event.target.value];
+      //trading_array = [...tradingvalue, event.target.value];
+      setTradingvalue((tradingvalue) => [...tradingvalue, event.target.value]);
     } else {
-      trading_array.splice(tradingvalue.indexOf(event.target.value), 1);
+      //trading_array.splice(tradingvalue.indexOf(event.target.value), 1);
+      tradingvalue.splice(index, 1);
     }
-    setTradingvalue(trading_array);
+    //setTradingvalue(trading_array);
   };
 
   const approvedbyCheck = (event) => {
-    var approved_array = [...approvedbyvalue];
+    //var approved_array = [...approvedbyvalue];
+    let index = approvedbyvalue.indexOf(event.target.value);
     if (event.target.checked) {
-      approved_array = [...approvedbyvalue, event.target.value];
+      //approved_array = [...approvedbyvalue, event.target.value];
+      setApprovedbyvalue((approvedbyvalue) => [
+        ...approvedbyvalue,
+        event.target.value,
+      ]);
     } else {
-      approved_array.splice(approvedbyvalue.indexOf(event.target.value), 1);
+      //approved_array.splice(approvedbyvalue.indexOf(event.target.value), 1);
+      approvedbyvalue.splice(index, 1);
     }
-    setApprovedbyvalue(approved_array);
+    //setApprovedbyvalue(approved_array);
   };
 
   const facilityCheck = (event) => {
     // var faclity_array = [...facilityvalue];
     // var faclity_array = facilityvalue;
+    let index = facilityvalue.indexOf(event.target.value);
     if (event.target.checked) {
       // faclity_array = [...facilityvalue, event.target.value];
 
@@ -764,20 +801,35 @@ function College() {
         event.target.value,
       ]);
     } else {
-      setFacilityvalue(
-        facilityvalue.splice(facilityvalue.indexOf(event.target.value), 1)
-      );
+      facilityvalue.splice(index, 1);
     }
   };
-  console.log("facility -->", facilityvalue);
   const categoryCheck = (event) => {
-    var category_array = [...categoryvalue];
+    //var category_array = [...categoryvalue];
+    let index = categoryvalue.indexOf(event.target.value);
     if (event.target.checked) {
-      category_array = [...categoryvalue, event.target.value];
+      //category_array = [...categoryvalue, event.target.value];
+      setCategoryvalue((categoryvalue) => [
+        ...categoryvalue,
+        event.target.value,
+      ]);
     } else {
-      category_array.splice(categoryvalue.indexOf(event.target.value), 1);
+      //category_array.splice(categoryvalue.indexOf(event.target.value), 1);
+      categoryvalue.splice(index, 1);
     }
-    setCategoryvalue(category_array);
+    //setCategoryvalue(category_array);
+  };
+  const examCheck = (event) => {
+    //var exam_array = [...examvalue];
+    let index = examvalue.indexOf(event.target.value);
+    if (event.target.checked) {
+      // exam_array = [...examvalue, event.target.value];
+      setExamvalue((examvalue) => [...examvalue, event.target.value]);
+    } else {
+      //exam_array.splice(examvalue.indexOf(event.target.value), 1);
+      examvalue.splice(index, 1);
+    }
+    //setExamvalue(exam_array);
   };
 
   const subcourseCheck = (event) => {
@@ -835,16 +887,6 @@ function College() {
     //end fetch sub courses */
   };
 
-  const examCheck = (event) => {
-    var exam_array = [...examvalue];
-    if (event.target.checked) {
-      exam_array = [...examvalue, event.target.value];
-    } else {
-      exam_array.splice(examvalue.indexOf(event.target.value), 1);
-    }
-    setExamvalue(exam_array);
-  };
-
   const renderPageHeader = () => {
     return (
       <>
@@ -889,6 +931,7 @@ function College() {
   const renderSteps = () => {
     return (
       <>
+        {console.log("sd-->", approvedbyvalue)}
         <div className="flex-grow gap-10 step-tabs">
           <Link to="#" className={basicActive} onClick={showBasic}>
             <span>Basic Info</span>
@@ -1467,7 +1510,7 @@ function College() {
                   filename={logo}
                   onChange={(e) => setLogo(e.target.files[0])}
                   accept="image/*"
-                  required
+                  required={cid > 0 ? false : true}
                 />
                 <input type="hidden" name="old_logo" value={editdata.logo} />
               </div>
@@ -1485,7 +1528,7 @@ function College() {
                   filename={banner}
                   onChange={(e) => setBanner(e.target.files[0])}
                   accept="image/*"
-                  required
+                  required={cid > 0 ? false : true}
                 />
                 <input
                   type="hidden"
