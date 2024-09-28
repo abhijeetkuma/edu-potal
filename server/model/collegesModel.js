@@ -511,10 +511,10 @@ const updateHighlight = (body) => {
 const updateCourses = (body) => {
   console.log("Highlight body-->", body);
   return new Promise(function (resolve, reject) {
-    const { cid, sub_course_details } = body;
+    const { cid, courses, sub_course_details } = body;
     pool.query(
-      "UPDATE colleges SET sub_course_details = $2 WHERE cid = $1 RETURNING *",
-      [cid, sub_course_details],
+      "UPDATE colleges SET courses=$2, sub_course_details = $3 WHERE cid = $1 RETURNING *",
+      [cid, courses, sub_course_details],
       (error, results) => {
         if (error) {
           reject(error);
@@ -980,6 +980,28 @@ const getExamlistarr = async () => {
     return await new Promise(function (resolve, reject) {
       pool.query(
         "SELECT exam_id,exam_name FROM examnames ORDER BY exam_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const getFeetypearr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT feetype_id,fee_type FROM fee_type ORDER BY fee_type ASC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -1647,6 +1669,7 @@ module.exports = {
   getModulearr,
   getCollegetypearr,
   getExamlistarr,
+  getFeetypearr,
   getCategoriesarr,
   getApprovedbyarr,
   getTradingarr,

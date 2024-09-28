@@ -38,6 +38,7 @@ function College() {
       subcourseId: "",
       course_duration: "",
       course_fee: "",
+      feetype_id: "",
       course_seats: "",
       subcoursedescription: "",
       subcourseselectioncriteria: "",
@@ -62,6 +63,7 @@ function College() {
   const [approvedbyarr, setApprovedbyarr] = useState([]);
   const [tradingarr, setTradingarr] = useState([]);
   const [examarr, setExamarr] = useState([]);
+  const [feetypearr, setFeetypearr] = useState([]);
   const [facilityarr, setFacilityarr] = useState([]);
   const [collegetypearr, setCollegetypearr] = useState([]);
   const [collegetypevalue, setCollegetypevalue] = useState([]);
@@ -204,6 +206,14 @@ function College() {
         console.error(error);
       });
     axios
+      .get("http://localhost:3007/getfeetypearr")
+      .then((response) => {
+        setFeetypearr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
       .get("http://localhost:3007/getfacilityarr")
       .then((response) => {
         setFacilityarr(response.data);
@@ -235,6 +245,7 @@ function College() {
           let editapprovedArr = response.data[0].approvedby;
           let editcategoriesArr = response.data[0].categories;
           let editexamsArr = response.data[0].exams;
+          let editcourseArr = response.data[0].courses;
           setFacilityvalue(
             editfacilityArr.length > 0 ? editfacilityArr.split(",") : []
           );
@@ -251,6 +262,9 @@ function College() {
             editcategoriesArr.length > 0 ? editcategoriesArr.split(",") : []
           );
           setExamvalue(editexamsArr.length > 0 ? editexamsArr.split(",") : []);
+          setCoursevalue(
+            editcourseArr.length > 0 ? editcourseArr.split(",") : []
+          );
         })
         .catch((error) => {
           console.error(error);
@@ -274,6 +288,7 @@ function College() {
         subcourseId: "",
         course_duration: "",
         course_fee: "",
+        feetype_id: "",
         course_seats: "",
         subcoursedescription: "",
         subcourseselectioncriteria: "",
@@ -1019,15 +1034,15 @@ function College() {
   };
 
   const courseCheck = (event) => {
-    let selectedcourse_id = "";
-    var course_array = [...coursevalue];
+    //var course_array = [...coursevalue];
     if (event.target.checked) {
-      course_array = [...coursevalue, event.target.value];
-      selectedcourse_id = event.target.value;
+      //course_array = [...coursevalue, event.target.value];
+      setCoursevalue((coursevalue) => [...coursevalue, event.target.value]);
     } else {
-      course_array.splice(coursevalue.indexOf(event.target.value), 1);
+      //course_array.splice(coursevalue.indexOf(event.target.value), 1);
+      coursevalue.splice(index, 1);
     }
-    setCoursevalue(course_array);
+    //setCoursevalue(course_array);
     var subcorarr = [...subcoursesarr];
     axios
       .get("http://localhost:3007/fetchsubcourese/" + selectedcourse_id)
@@ -1704,10 +1719,18 @@ function College() {
                     <input
                       type="checkbox"
                       name="courses"
+                      id="courses"
                       value={item.cour_id}
                       onClick={courseCheck}
                       onChange={handleChangeFormdata}
                       //onChange={(e) => handleCheckBox(e, i)}
+                      defaultChecked={
+                        editdata.courses?.length
+                          ? editdata.courses.includes(
+                              JSON.stringify(item.cour_id)
+                            )
+                          : false
+                      }
                       className="py-2 text-sm font-semibold"
                     />
                     <span className="py-2 px-2 text-sm font-normal text-justify">
@@ -1779,7 +1802,27 @@ function College() {
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                       />
                     </div>
-
+                    <div className="sm:col-span-2 px-2">
+                      <select
+                        id="feetype_id"
+                        name="feetype_id"
+                        type="text"
+                        onChange={(e) => handlesubcourseChange(e, i)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      >
+                        <option value="">Select Type</option>
+                        {feetypearr.map((items, i) => (
+                          <option
+                            value={items.feetype_id}
+                            selected={
+                              items.feetype_id == item.feetype_id ? true : false
+                            }
+                          >
+                            {items.fee_type}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                     <div className="sm:col-span-4 px-2">
                       <input
                         id="course_seats"
@@ -1847,6 +1890,7 @@ function College() {
                         ))}
                       </select>
                     </div>
+
                     <div className="sm:col-span-2">
                       {i === 0 && (
                         <button

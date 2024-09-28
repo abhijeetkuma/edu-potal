@@ -670,6 +670,16 @@ app.get("/getexamarr", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/getfeetypearr", (req, res) => {
+  colleges_model
+    .getFeetypearr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/getfacilityarr", (req, res) => {
   colleges_model
     .getFacilityarr()
