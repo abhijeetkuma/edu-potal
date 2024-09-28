@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   ClassicEditor,
   Bold,
@@ -126,9 +128,23 @@ function Questionanswer() {
       })
         .then(function (response) {
           //console.log(response);
-          console.log(response.statusText);
+          //console.log(response.statusText);
           if (response.statusText === "OK") {
-            window.location.href = "../../questionanswerlist";
+            //window.location.href = "../../questionanswerlist";
+            toast.success("Successfully Updated.", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              // transition: Bounce,
+            });
+            setTimeout(function () {
+              window.location.replace("../../questionanswerlist");
+            }, 3000);
           }
         })
         .catch(function (error) {
@@ -357,6 +373,7 @@ function Questionanswer() {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </>
   );
 }

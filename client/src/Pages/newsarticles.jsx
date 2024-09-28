@@ -15,7 +15,8 @@ import {
 import axios from "axios";
 
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+//import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/ReactToastify.min.css";
 
 function Newsarticles() {
   if (localStorage.getItem("logedin") == "") {
@@ -47,7 +48,6 @@ function Newsarticles() {
   });
 
   const [na_image, setNa_image] = useState();
-  const [imageName, setImageName] = useState();
 
   const { na_id } = useParams();
   useEffect(() => {
@@ -240,9 +240,7 @@ function Newsarticles() {
           //console.log(response);
           console.log(response.statusText);
           if (response.statusText === "OK") {
-            setSuccessmsg("Successfully Updated.");
-
-            /*   toast.success("Successfully Updated.", {
+            toast.success("Successfully Updated.", {
               position: "top-right",
               autoClose: 3000,
               hideProgressBar: false,
@@ -252,7 +250,7 @@ function Newsarticles() {
               progress: undefined,
               theme: "light",
               // transition: Bounce,
-            }); */
+            });
 
             setTimeout(function () {
               window.location.replace("../../newsnevent");
@@ -265,14 +263,34 @@ function Newsarticles() {
         });
       //end update form data
     } else {
-      const result = await axios.post(
-        "http://localhost:3007/addnewsarticle",
-        formData,
-        {
+      const result = await axios
+        .post("http://localhost:3007/addnewsarticle", formData, {
           headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      setImageName(result.data.imageName);
+        })
+        .then(function (response) {
+          //console.log(response);
+          console.log(response.statusText);
+          if (response.statusText === "OK") {
+            toast.success("Successfully added.", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              // transition: Bounce,
+            });
+
+            setTimeout(function () {
+              window.location.replace("../newsnevent");
+            }, 3000);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   };
 
@@ -639,6 +657,7 @@ function Newsarticles() {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </>
   );
 }

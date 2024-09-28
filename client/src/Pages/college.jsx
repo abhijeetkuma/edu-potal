@@ -21,7 +21,7 @@ import "ckeditor5/ckeditor5.css";
 //import "ckeditor5-premium-features/ckeditor5-premium-features.css";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-import "react-toastify/ReactToastify.css";
+//import "react-toastify/ReactToastify.css";
 
 // import CKTextEditor from "../Components/ckTextEditor/editor";
 
@@ -471,20 +471,7 @@ function College() {
       //setErrorMsg(errorsForm);
     }
   };
-  const options = {
-    onOpen: (props) => console.log(props.foo),
-    onClose: (props) => console.log(props.foo),
 
-    autoClose: 6000,
-    //closeButton: FontAwesomeCloseButton,
-    type: toast.TYPE.INFO,
-    hideProgressBar: false,
-    position: "top-left",
-    pauseOnHover: true,
-    //transition: MyCustomTransition,
-    progress: 0.2,
-    // and so on ...
-  };
   const submitbasicinformation = async (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -523,22 +510,22 @@ function College() {
       })
         .then(function (response) {
           //console.log(response);
-          console.log(response.statusText);
+          // console.log(response.statusText);
           if (response.statusText === "OK") {
-            //toast.success("Successfully Updated", options);
-            toast.success("Successfully Updated", {
-              position: "bottom-right",
-              autoClose: 5000,
+            toast.success("Basic info. sucessfully updated", {
+              position: "top-right",
+              autoClose: 3000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
               draggable: true,
               progress: undefined,
-              theme: "colored",
+              theme: "light",
+              //transition: Bounce,
             });
             //return;
-            setSuccessmsg("Successfully Updated.");
-            /*setTimeout(function () {
+            //setSuccessmsg("Successfully Updated.");
+            /*  setTimeout(function () {
               window.location.replace("../../collegelisting");
             }, 3000); */
           }
@@ -548,7 +535,7 @@ function College() {
         });
       //end update form data
     } else {
-      console.log("insert query ");
+      //console.log("insert query ");
       //insert basicinformation data
       await axios({
         method: "post",
@@ -559,7 +546,18 @@ function College() {
         .then(function (response) {
           console.log("response.data.cid-->", response.data["cid"]);
           if (response.data["cid"] > 0 && response.statusText === "OK") {
-            setSuccessmsg("Successfully Updated.");
+            //setSuccessmsg("Successfully Updated.");
+            toast.success("Basic info. sucessfully inserted", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
             window.location.href =
               "/admin/collegelisting/college/" + response.data["cid"];
             //cid = response.data["cid"];
@@ -609,6 +607,17 @@ function College() {
           //console.log(response);
           console.log(response.statusText);
           if (response.statusText === "OK") {
+            toast.success("Gallery sucessfully updated", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
             /*  setSuccessmsg("Successfully Updated.");
             setTimeout(function () {
               window.location.replace("../../collegelisting");
@@ -674,6 +683,17 @@ function College() {
           //console.log(response);
           console.log(response.statusText);
           if (response.statusText === "OK") {
+            toast.success("Contact details sucessfully updated", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
             /*  setSuccessmsg("Successfully Updated.");
             setTimeout(function () {
               window.location.replace("../../collegelisting");
@@ -707,6 +727,17 @@ function College() {
           //console.log(response);
           console.log(response.statusText);
           if (response.statusText === "OK") {
+            toast.success("Highlights sucessfully updated", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
             /*  setSuccessmsg("Successfully Updated.");
             setTimeout(function () {
               window.location.replace("../../collegelisting");
@@ -740,6 +771,17 @@ function College() {
           //console.log(response);
           console.log(response.statusText);
           if (response.statusText === "OK") {
+            toast.success("Course sucessfully updated", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
             /*  setSuccessmsg("Successfully Updated.");
             setTimeout(function () {
               window.location.replace("../../collegelisting");
@@ -773,6 +815,17 @@ function College() {
           //console.log(response);
           console.log(response.statusText);
           if (response.statusText === "OK") {
+            toast.success("Admission details sucessfully updated", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
             /*  setSuccessmsg("Successfully Updated.");
             setTimeout(function () {
               window.location.replace("../../collegelisting");
@@ -811,6 +864,17 @@ function College() {
           //console.log(response);
           console.log(response.statusText);
           if (response.statusText === "OK") {
+            toast.success("Placement details sucessfully updated", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
             /*  setSuccessmsg("Successfully Updated.");
             setTimeout(function () {
               window.location.replace("../../collegelisting");
@@ -842,6 +906,17 @@ function College() {
           //console.log(response);
           console.log(response.statusText);
           if (response.statusText === "OK") {
+            toast.success("FAQ sucessfully updated", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
             /*  setSuccessmsg("Successfully Updated.");
             setTimeout(function () {
               window.location.replace("../../collegelisting");
@@ -2989,6 +3064,7 @@ function College() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }

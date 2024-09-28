@@ -1,8 +1,24 @@
 import React from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Cms() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
+  }
+  if (localStorage.getItem("logedin")) {
+    console.log("sdf");
+    toast.success("Successfully Updated.", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      // transition: Bounce,
+    });
   }
   return (
     <>
@@ -12,6 +28,7 @@ export default function Cms() {
         </div>
       </div>
       <h1 className="p-3">CSM under construction </h1>
+      <ToastContainer />
     </>
   );
 }
