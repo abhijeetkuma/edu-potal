@@ -508,6 +508,28 @@ const updateHighlight = (body) => {
     );
   });
 };
+const updateCourses = (body) => {
+  console.log("Highlight body-->", body);
+  return new Promise(function (resolve, reject) {
+    const { cid, sub_course_details } = body;
+    pool.query(
+      "UPDATE colleges SET sub_course_details = $2 WHERE cid = $1 RETURNING *",
+      [cid, sub_course_details],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `College admission updated: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 const updateAdmission = (body) => {
   //console.log("contact us body-->", body);
   return new Promise(function (resolve, reject) {
@@ -868,6 +890,29 @@ const getCoursesarr = async () => {
     return await new Promise(function (resolve, reject) {
       pool.query(
         "SELECT cour_id,course_name FROM courses WHERE cstatus='A' ORDER BY course_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+//get all sud course array our database
+const getSubcoursestypearr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT coursetype_id,course_type_name FROM coursetype ORDER BY course_type_name ASC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -1574,6 +1619,7 @@ module.exports = {
   updateGallery,
   updateContactus,
   updateHighlight,
+  updateCourses,
   updateAdmission,
   updatePlacement,
   updateFaq,
@@ -1583,6 +1629,7 @@ module.exports = {
   updateVehicle,
   getCourses,
   getCoursesarr,
+  getSubcoursestypearr,
   getCoursebranchs,
   addCoursebrach,
   getCategories,

@@ -308,7 +308,7 @@ app.post(
     req.body.banner = req.files
       ? req.files.banner[0].filename
       : req.body.old_banner;
-    console.log("req.body", req.body);
+    //console.log("req.body", req.body);
     //console.log("college id", cid);
 
     colleges_model
@@ -342,7 +342,7 @@ app.post(
       req.files.banner && req.files.banner[0].filename
         ? req.files.banner[0].filename
         : req.body.old_banner;
-    console.log("req.body", req.body);
+    //console.log("req.body", req.body);
     //console.log("college id", cid);
 
     colleges_model
@@ -370,7 +370,7 @@ app.post(
   (req, res) => {
     const cid = req.body.cid;
     //const body = req.body;
-    console.log("files Property -->", req.files);
+    //console.log("files Property -->", req.files);
     //console.log("files name -->", req.files.logo[0].filename);
     req.body.gallery1 =
       req.files.gallery1 && req.files.gallery1[0].filename
@@ -397,7 +397,7 @@ app.post(
         ? req.files.brouchure[0].filename
         : req.body.old_brouchure;
 
-    console.log("req.body", req.body);
+    //console.log("req.body", req.body);
     //console.log("college id", cid);
 
     colleges_model
@@ -425,6 +425,17 @@ app.post("/updatehighlight", (req, res) => {
   //console.log("contact us details-->", req.body);
   colleges_model
     .updateHighlight(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/updatecourses", (req, res) => {
+  //console.log("contact us details-->", req.body);
+  colleges_model
+    .updateCourses(req.body)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -550,6 +561,16 @@ app.get("/getcourses", (req, res) => {
 app.get("/getcoursesarr", (req, res) => {
   colleges_model
     .getCoursesarr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getsubcoursestypearr", (req, res) => {
+  colleges_model
+    .getSubcoursestypearr()
     .then((response) => {
       res.status(200).send(response);
     })

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
+//import { Slide, toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 import {
   ClassicEditor,
@@ -18,6 +20,8 @@ import {
 import "ckeditor5/ckeditor5.css";
 //import "ckeditor5-premium-features/ckeditor5-premium-features.css";
 import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/ReactToastify.css";
 
 // import CKTextEditor from "../Components/ckTextEditor/editor";
 
@@ -29,6 +33,19 @@ function College() {
   const [highLights, setHighLights] = useState([
     { highParameter: "", highDetails: "" },
   ]);
+  const [subcoursesoptions, setSubcoursesoptions] = useState([
+    {
+      subcourseId: "",
+      course_duration: "",
+      course_fee: "",
+      course_seats: "",
+      subcoursedescription: "",
+      subcourseselectioncriteria: "",
+      subcourseselectiioneligibility: "",
+      subcoursestype: "",
+    },
+  ]);
+
   const [logo, setLogo] = useState();
   const [banner, setBanner] = useState();
   const [gallery1, setGallery1] = useState();
@@ -40,6 +57,7 @@ function College() {
   const [, set] = useState();
   const [catgoryarr, setCatgoryarr] = useState([]);
   const [coursearr, setCoursearr] = useState([]);
+  const [subcoursestypearr, setSubcoursestypearr] = useState([]);
   const [subcoursearr, setSubcoursearr] = useState([]);
   const [approvedbyarr, setApprovedbyarr] = useState([]);
   const [tradingarr, setTradingarr] = useState([]);
@@ -122,7 +140,7 @@ function College() {
     youtube: "",
   });
   const { cid } = useParams();
-  console.log("College id:", cid);
+  //console.log("College id:", cid);
 
   useEffect(() => {
     /*fetch("http://localhost:3001/")
@@ -149,6 +167,14 @@ function College() {
       .get("http://localhost:3007/getcoursearr")
       .then((response) => {
         setCoursearr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("http://localhost:3007/getsubcoursestypearr")
+      .then((response) => {
+        setSubcoursestypearr(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -200,6 +226,7 @@ function College() {
         .then((response) => {
           setEditdata(response.data[0]);
           setHighLights(response.data[0]?.highlights);
+          setSubcoursesoptions(response.data[0]?.sub_course_details);
           //console.log("sd-->", response.data[0].facilities);
           //setFacilityvalue(JSON.stringify(response.data[0].facilities));
           let editfacilityArr = response.data[0].facilities;
@@ -240,6 +267,33 @@ function College() {
     }));
   };
 
+  const handleSubcoursesClick = (e) => {
+    setSubcoursesoptions([
+      ...subcoursesoptions,
+      {
+        subcourseId: "",
+        course_duration: "",
+        course_fee: "",
+        course_seats: "",
+        subcoursedescription: "",
+        subcourseselectioncriteria: "",
+        subcourseselectiioneligibility: "",
+        subcoursestype: "",
+      },
+    ]);
+  };
+  const handlesubcourseChange = (e, i) => {
+    const { name, value } = e.target;
+    const onChangeData = [...subcoursesoptions];
+    onChangeData[i][name] = value;
+    setSubcoursesoptions(onChangeData);
+  };
+  const handleSubcoursesDelete = (i) => {
+    const deleteData = [...subcoursesoptions];
+    deleteData.splice(i, 1);
+    setSubcoursesoptions(deleteData);
+  };
+
   const handleClick = (e) => {
     setHighLights([...highLights, { highParameter: "", highDetails: "" }]);
   };
@@ -255,10 +309,6 @@ function College() {
     const deleteData = [...highLights];
     deleteData.splice(i, 1);
     setHighLights(deleteData);
-  };
-
-  const onBannerChange = (e) => {
-    setBanner([...e.target.files]);
   };
 
   const createUrl = (e) => {
@@ -421,6 +471,20 @@ function College() {
       //setErrorMsg(errorsForm);
     }
   };
+  const options = {
+    onOpen: (props) => console.log(props.foo),
+    onClose: (props) => console.log(props.foo),
+
+    autoClose: 6000,
+    //closeButton: FontAwesomeCloseButton,
+    type: toast.TYPE.INFO,
+    hideProgressBar: false,
+    position: "top-left",
+    pauseOnHover: true,
+    //transition: MyCustomTransition,
+    progress: 0.2,
+    // and so on ...
+  };
   const submitbasicinformation = async (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -445,6 +509,8 @@ function College() {
     formData.append("meta_title", event.target.meta_title.value);
     formData.append("meta_keyword", event.target.meta_keyword.value);
     formData.append("meta_description", event.target.meta_description.value);
+    formData.append("old_logo", event.target.old_logo.value);
+    formData.append("old_banner", event.target.old_banner.value);
 
     if (cid > 0) {
       //update form data
@@ -459,8 +525,20 @@ function College() {
           //console.log(response);
           console.log(response.statusText);
           if (response.statusText === "OK") {
-            /*  setSuccessmsg("Successfully Updated.");
-            setTimeout(function () {
+            //toast.success("Successfully Updated", options);
+            toast.success("Successfully Updated", {
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+            //return;
+            setSuccessmsg("Successfully Updated.");
+            /*setTimeout(function () {
               window.location.replace("../../collegelisting");
             }, 3000); */
           }
@@ -623,6 +701,39 @@ function College() {
       axios({
         method: "POST",
         url: "http://localhost:3007/updatehighlight",
+        data: payload,
+      })
+        .then(function (response) {
+          //console.log(response);
+          console.log(response.statusText);
+          if (response.statusText === "OK") {
+            /*  setSuccessmsg("Successfully Updated.");
+            setTimeout(function () {
+              window.location.replace("../../collegelisting");
+            }, 3000); */
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //end update form data
+    }
+  };
+  const submitcouses = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+
+    const payload = {
+      cid: cid,
+      courses: coursevalue.join(","),
+      sub_course_details: JSON.stringify(subcoursesoptions),
+    };
+
+    if (cid > 0) {
+      //update form data
+      axios({
+        method: "POST",
+        url: "http://localhost:3007/updatecourses",
         data: payload,
       })
         .then(function (response) {
@@ -832,34 +943,6 @@ function College() {
     //setExamvalue(exam_array);
   };
 
-  const subcourseCheck = (event) => {
-    var subcour_array = [...subcourcevalue];
-    if (event.target.checked) {
-      subcour_array = [...subcourcevalue, event.target.value];
-
-      console.log("data set-->", event.target.dataset.value);
-
-      /*  var coursebodytext = {
-        __html:
-          '<div><label htmlFor="courses" className="block text-lg font-semibold leading-6 text-gray-900">Courses</label><div className="flex flex-wrap"><input type="text"></div>',
-      }; */
-
-      const bodyhtml = (
-        <div
-          dangerouslySetInnerHTML={{
-            __html:
-              event.target.dataset.value +
-              '<p><input type="text" placeholder="Course Duration"> <input type="text" placeholder="Fee"><input type="text" placeholder="Seats"><textarea placeholder="Description"></textarea><textarea  placeholder="Selection Criteria"></textarea><textarea type="text" placeholder="Selection Eligibility"></textarea><select name="course_type" class="form-control"><option value="1" selected="">Regular</option><option value="2">Distance</option><option value="3">Morning</option><option value="4">Evening</option><option value="5">Part Time</option><option value="6">Online</option><option value="7">On Campus</option></select></p>',
-          }}
-        ></div>
-      );
-      setDispsubcourse(bodyhtml);
-    } else {
-      subcour_array.splice(subcourcevalue.indexOf(event.target.value), 1);
-    }
-    setSubcourcevalue(subcour_array);
-  };
-
   const courseCheck = (event) => {
     let selectedcourse_id = "";
     var course_array = [...coursevalue];
@@ -931,7 +1014,6 @@ function College() {
   const renderSteps = () => {
     return (
       <>
-        {console.log("sd-->", approvedbyvalue)}
         <div className="flex-grow gap-10 step-tabs">
           <Link to="#" className={basicActive} onClick={showBasic}>
             <span>Basic Info</span>
@@ -994,7 +1076,6 @@ function College() {
                     type="text"
                     name="college_name"
                     id="college_name"
-                    //autoComplete="college_name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                     placeholder="Please enter college name"
                     value={editdata.college_name && editdata.college_name}
@@ -1018,7 +1099,6 @@ function College() {
                     type="text"
                     name="college_url"
                     id="college_url"
-                    autoComplete="college_url"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                     placeholder="College Url not user space"
                     value={editdata.college_url && editdata.college_url}
@@ -1041,7 +1121,6 @@ function College() {
                     type="text"
                     name="tag_line"
                     id="tag_line"
-                    autoComplete="tag_line"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                     placeholder=""
                     value={editdata.tag_line && editdata.tag_line}
@@ -1064,7 +1143,6 @@ function College() {
                     type="text"
                     name="usp_remark"
                     id="usp_remark"
-                    autoComplete="usp_remark"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                     placeholder=""
                     value={editdata.usp_remark && editdata.usp_remark}
@@ -1086,7 +1164,6 @@ function College() {
                   id="found_year"
                   name="found_year"
                   type="text"
-                  autoComplete="found_year"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                   value={editdata.found_year && editdata.found_year}
                   onChange={handleChangeFormdata}
@@ -1106,7 +1183,6 @@ function College() {
                   id="intake"
                   name="intake"
                   type="text"
-                  autoComplete="intake"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                   value={editdata.intake && editdata.intake}
                   onChange={handleChangeFormdata}
@@ -1125,7 +1201,6 @@ function College() {
                   id="hostel_available"
                   name="hostel_available"
                   type="text"
-                  autoComplete="hostel_available"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                   value={editdata.hostel_available && editdata.hostel_available}
                   onChange={handleChangeFormdata}
@@ -1133,10 +1208,7 @@ function College() {
               </div>
             </div>
             <div className="sm:col-span-4 mt-5">
-              <label
-                htmlFor="college_descripton"
-                className="block text-lg font-semibold leading-6 text-gray-900 mt-1"
-              >
+              <label className="block text-lg font-semibold leading-6 text-gray-900 mt-1">
                 Description
               </label>
               <div className=" rounded-md  mt-1">
@@ -1204,10 +1276,7 @@ function College() {
               </div>
             </div>
             <div className="sm:col-span-4 mt-5">
-              <label
-                htmlFor="collegetype"
-                className="block text-lg font-semibold leading-6 text-gray-900"
-              >
+              <label className="block text-lg font-semibold leading-6 text-gray-900">
                 College Type
               </label>
               <div className="flex ">
@@ -1236,10 +1305,7 @@ function College() {
               </div>
             </div>
             <div className="sm:col-span-4 mt-5">
-              <label
-                htmlFor="trading"
-                className="block text-lg font-semibold leading-6 text-gray-900"
-              >
+              <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Trading
               </label>
               <div className="flex ">
@@ -1266,10 +1332,7 @@ function College() {
               </div>
             </div>
             <div className="sm:col-span-4 mt-5">
-              <label
-                htmlFor="approvedby"
-                className="block text-lg font-semibold leading-6 text-gray-900"
-              >
+              <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Approved By
               </label>
               <div className="flex ">
@@ -1299,10 +1362,7 @@ function College() {
               </div>
             </div>
             <div className="sm:col-span-4 mt-5">
-              <label
-                htmlFor="approvedby"
-                className="block text-lg font-semibold leading-6 text-gray-900"
-              >
+              <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Facility Available
               </label>
               <div className="flex ">
@@ -1331,10 +1391,7 @@ function College() {
               </div>
             </div>
             <div className="sm:col-span-4 mt-5">
-              <label
-                htmlFor="categories"
-                className="block text-lg font-semibold leading-6 text-gray-900"
-              >
+              <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Categories
               </label>
               <div className="flex ">
@@ -1364,10 +1421,7 @@ function College() {
               </div>
             </div>
             <div className="sm:col-span-4 mt-5">
-              <label
-                htmlFor="exams"
-                className="block text-lg font-semibold leading-6 text-gray-900"
-              >
+              <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Exam
               </label>
               <div className="flex ">
@@ -1396,10 +1450,7 @@ function College() {
               </div>
             </div>
             <div className="sm:col-span-4 mt-5">
-              <label
-                htmlFor="facultyprofile"
-                className="block text-lg font-semibold leading-6 text-gray-900"
-              >
+              <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Faculty Profile
               </label>
               <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-1">
@@ -1447,7 +1498,6 @@ function College() {
                   id="meta_title"
                   name="meta_title"
                   type="text"
-                  autoComplete="meta_title"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                   value={editdata.meta_title && editdata.meta_title}
                   onChange={handleChangeFormdata}
@@ -1468,7 +1518,6 @@ function College() {
                   name="meta_description"
                   type="text"
                   rows={5}
-                  autoComplete="meta_description"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                   value={editdata.meta_description && editdata.meta_description}
                   onChange={handleChangeFormdata}
@@ -1488,7 +1537,6 @@ function College() {
                   id="meta_keyword"
                   name="meta_keyword"
                   type="text"
-                  autoComplete="meta_keyword"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                   value={editdata.meta_keyword && editdata.meta_keyword}
                   onChange={handleChangeFormdata}
@@ -1497,10 +1545,7 @@ function College() {
               </div>
             </div>
             <div className="sm:col-span-4 mt-5">
-              <label
-                htmlFor="logo"
-                className="block text-lg font-semibold leading-6 text-gray-900"
-              >
+              <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Logo *
               </label>
               <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md mt-1">
@@ -1513,13 +1558,13 @@ function College() {
                   required={cid > 0 ? false : true}
                 />
                 <input type="hidden" name="old_logo" value={editdata.logo} />
+                {editdata.logo && (
+                  <img src={"/colleges/banner/" + editdata.logo} />
+                )}
               </div>
             </div>
             <div className="sm:col-span-4 mt-5">
-              <label
-                htmlFor="banner"
-                className="block text- font-bold leading-6 text-gray-900"
-              >
+              <label className="block text- font-bold leading-6 text-gray-900">
                 Banner *
               </label>
               <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md mt-1">
@@ -1535,6 +1580,9 @@ function College() {
                   name="old_banner"
                   value={editdata.banner}
                 />
+                {editdata.logo && (
+                  <img src={"/colleges/banner/" + editdata.banner} />
+                )}
               </div>
             </div>
             <div className="flex mt-5 gap-4 space-x-1">
@@ -1567,7 +1615,7 @@ function College() {
     return (
       <>
         <div className="sm:col-span-4 highlights step-2 formcontener">
-          <form name="courseForm" id="courseForm">
+          <form name="courseForm" id="courseForm" onSubmit={submitcouses}>
             <div className="sm:col-span-4">
               <label
                 htmlFor="courses"
@@ -1601,58 +1649,154 @@ function College() {
               >
                 Courses Braches
               </label>
-              <div className="flex flex-wrap">
-                {subcoursearr.map((item, i) => (
-                  <div key={i} className="col-span-8">
-                    <input
-                      type="checkbox"
-                      name="courses"
-                      value={item.courb_id}
-                      //onClick={courseCheck}
-                      onChange={handleChangeFormdata}
-                      //onChange={(e) => handleCheckBox(e, i)}
-                      className="py-2  text-sm font-semibold"
-                    />
-                    <span className="py-2 px-2 text-sm font-normal text-justify">
-                      {item.branch_name}
-                    </span>
-                  </div>
-                ))}
-              </div>
             </div>
-            {subcoursesarr.length > 0 && (
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="subcourses"
-                  className="block text-lg font-semibold leading-6 text-gray-900"
-                >
-                  Sub Courses
-                </label>
-                <div className="flex flex-wrap">
-                  {subcoursesarr.map((item, i) => (
-                    <div key={i} className="col-span-8">
-                      <input
-                        type="checkbox"
-                        name="subcourses"
-                        value={item.courb_id}
-                        data-value={item.branch_name}
-                        //onClick={subcourseCheck}
-                        onChange={handleChangeFormdata}
-                        //onChange={(e) => handleCheckBox(e, i)}
-                        className="py-2  text-sm font-semibold"
-                      />
-                      <span className="py-2 px-2 text-sm font-normal text-justify">
-                        {item.branch_name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+
             <div className="sm:col-span-4">
-              {dispsubcourse}
-              <div />
+              <div>
+                {console.log(
+                  "Sub course data =-=-=-=-=-=",
+                  editdata.subcoursesoptions,
+                  subcoursesoptions
+                )}
+              </div>
+              {subcoursesoptions.map((item, i) => (
+                <>
+                  <div className="flex mb-2" key={`key-${i}`}>
+                    <div className="sm:col-span-4 px-2">
+                      <select
+                        name="subcourseId"
+                        id="subcourseId"
+                        onChange={(e) => handlesubcourseChange(e, i)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      >
+                        <option value="">Select Branch</option>
+                        {subcoursearr.map((items, i) => (
+                          <option
+                            value={items.courb_id}
+                            selected={
+                              items.courb_id == item.subcourseId ? true : false
+                            }
+                          >
+                            {items.branch_name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="sm:col-span-4 px-2">
+                      <input
+                        type="text"
+                        value={item.course_duration}
+                        name="course_duration"
+                        id="course_duration"
+                        placeholder="Course Duration"
+                        onChange={(e) => handlesubcourseChange(e, i)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      />
+                    </div>
+                    <div className="sm:col-span-4 px-2">
+                      <input
+                        type="text"
+                        value={item.course_fee}
+                        name="course_fee"
+                        id="course_fee"
+                        placeholder="Fee"
+                        onChange={(e) => handlesubcourseChange(e, i)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      />
+                    </div>
+
+                    <div className="sm:col-span-4 px-2">
+                      <input
+                        id="course_seats"
+                        name="course_seats"
+                        type="number"
+                        placeholder="Available Seats"
+                        value={item.course_seats}
+                        onChange={(e) => handlesubcourseChange(e, i)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      />
+                    </div>
+                    <div className="sm:col-span-4 px-2">
+                      <input
+                        id="subcoursedescription"
+                        name="subcoursedescription"
+                        type="text"
+                        placeholder="Description"
+                        value={item.subcoursedescription}
+                        onChange={(e) => handlesubcourseChange(e, i)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      />
+                    </div>
+                    <div className="sm:col-span-2 px-2">
+                      <input
+                        id="subcourseselectioncriteria"
+                        name="subcourseselectioncriteria"
+                        type="text"
+                        placeholder="Selection Criteria"
+                        value={item.subcourseselectioncriteria}
+                        onChange={(e) => handlesubcourseChange(e, i)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      />
+                    </div>
+                    <div className="sm:col-span-2 px-2">
+                      <input
+                        id="subcourseselectiioneligibility"
+                        name="subcourseselectiioneligibility"
+                        type="text"
+                        placeholder="Selection Eligibility"
+                        value={item.subcourseselectiioneligibility}
+                        onChange={(e) => handlesubcourseChange(e, i)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      />
+                    </div>
+                    <div className="sm:col-span-2 px-2">
+                      <select
+                        id="subcoursestype"
+                        name="subcoursestype"
+                        type="text"
+                        onChange={(e) => handlesubcourseChange(e, i)}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                      >
+                        <option value="">Select Type</option>
+                        {subcoursestypearr.map((items, i) => (
+                          <option
+                            value={items.coursetype_id}
+                            selected={
+                              items.coursetype_id == item.subcoursestype
+                                ? true
+                                : false
+                            }
+                          >
+                            {items.course_type_name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="sm:col-span-2">
+                      {i === 0 && (
+                        <button
+                          type="button"
+                          onClick={handleSubcoursesClick}
+                          className="addButton"
+                        >
+                          Add
+                        </button>
+                      )}
+                      {i !== 0 && (
+                        <button
+                          type="button"
+                          onClick={() => handleSubcoursesDelete(i)}
+                          className="removeButton"
+                        >
+                          Delete
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              ))}
             </div>
+
             <div className="flex mt-5 gap-4 space-x-1">
               <button
                 type="button"
@@ -1717,7 +1861,6 @@ function College() {
                         name="highParameter"
                         type="text"
                         placeholder="Parameter"
-                        autoComplete="highParameter"
                         value={item.highParameter}
                         onChange={(e) => handleChange(e, i)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
@@ -1729,7 +1872,6 @@ function College() {
                         name="highDetails"
                         type="text"
                         placeholder="Use colons for bullet points"
-                        autoComplete="highDetails"
                         value={item.highDetails}
                         onChange={(e) => handleChange(e, i)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
@@ -2014,7 +2156,6 @@ function College() {
                   id="address"
                   name="address"
                   type="text"
-                  autoComplete="address"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.address && editdata.address}
                   onChange={handleChangeFormdata}
@@ -2033,7 +2174,6 @@ function College() {
                   id="address2"
                   name="address2"
                   type="text"
-                  autoComplete="address"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.address2 && editdata.address2}
                   onChange={handleChangeFormdata}
@@ -2052,7 +2192,6 @@ function College() {
                   id="landmark"
                   name="landmark"
                   type="text"
-                  autoComplete="landmark"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.landmark && editdata.landmark}
                   onChange={handleChangeFormdata}
@@ -2071,7 +2210,6 @@ function College() {
                   id="country"
                   name="country"
                   type="text"
-                  autoComplete="country"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.country && editdata.country}
                   onChange={handleChangeFormdata}
@@ -2090,7 +2228,6 @@ function College() {
                   id="state"
                   name="state"
                   type="text"
-                  autoComplete="state"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.state && editdata.state}
                   onChange={handleChangeFormdata}
@@ -2109,7 +2246,6 @@ function College() {
                   id="city"
                   name="city"
                   type="text"
-                  autoComplete="city"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.city && editdata.city}
                   onChange={handleChangeFormdata}
@@ -2128,7 +2264,6 @@ function College() {
                   id="pincode"
                   name="pincode"
                   type="text"
-                  autoComplete="pincode"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.pincode && editdata.pincode}
                   onChange={handleChangeFormdata}
@@ -2147,7 +2282,6 @@ function College() {
                   id="contactno"
                   name="contactno"
                   type="text"
-                  autoComplete="contactno"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.contactno && editdata.contactno}
                   onChange={handleChangeFormdata}
@@ -2166,7 +2300,6 @@ function College() {
                   id="faxno"
                   name="faxno"
                   type="text"
-                  autoComplete="faxno"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.faxno && editdata.faxno}
                   onChange={handleChangeFormdata}
@@ -2185,7 +2318,6 @@ function College() {
                   id="email"
                   name="email"
                   type="email"
-                  autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.email && editdata.email}
                   onChange={handleChangeFormdata}
@@ -2204,7 +2336,6 @@ function College() {
                   id="website"
                   name="website"
                   type="website"
-                  autoComplete="website"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.website && editdata.website}
                   onChange={handleChangeFormdata}
@@ -2303,7 +2434,6 @@ function College() {
                     type="text"
                     name="totalplacementratio"
                     id="totalplacementratio"
-                    autoComplete="tag_line"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                     placeholder="like- d%"
                     value={
@@ -2328,7 +2458,6 @@ function College() {
                     type="text"
                     name="averageplacementrecord"
                     id="averageplacementrecord"
-                    autoComplete="tag_line"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                     placeholder="Like- d LPA"
                     value={
@@ -2353,7 +2482,6 @@ function College() {
                     type="text"
                     name="higestplacementrecord"
                     id="higestplacementrecord"
-                    autoComplete="tag_line"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                     placeholder="Like- d LPA"
                     value={
@@ -2378,7 +2506,6 @@ function College() {
                     type="text"
                     name="lowestplacementrecord"
                     id="lowestplacementrecord"
-                    autoComplete="tag_line"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                     placeholder="Like- d LPA"
                     value={
@@ -2403,7 +2530,6 @@ function College() {
                     type="text"
                     name="toprecruiters"
                     id="toprecruiters"
-                    autoComplete="tag_line"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                     placeholder="Like- Google, IBM, Microsoft, Delloit etc."
                     value={editdata.toprecruiters && editdata.toprecruiters}
@@ -2425,7 +2551,6 @@ function College() {
                     type="text"
                     name="toprecuitingsectors"
                     id="toprecuitingsectors"
-                    autoComplete="tag_line"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                     placeholder="Finance, IT etc."
                     value={
@@ -2450,7 +2575,6 @@ function College() {
                     type="text"
                     name="topprofile"
                     id="topprofile"
-                    autoComplete="tag_line"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
                     placeholder="Trainee, Accounts, Marketing Heads"
                     value={editdata.topprofile && editdata.topprofile}
@@ -2510,6 +2634,9 @@ function College() {
                   onChange={(e) => setGallery1(e.target.files[0])}
                   accept="image/*"
                 />
+                {editdata.gallery1 && (
+                  <img src={"/colleges/gallery/" + editdata.gallery1} />
+                )}
               </div>
             </div>
             <div className="sm:col-span-4 mt-2">
@@ -2527,6 +2654,9 @@ function College() {
                   onChange={(e) => setGallery2(e.target.files[0])}
                   accept="image/*"
                 />
+                {editdata.gallery2 && (
+                  <img src={"/colleges/gallery/" + editdata.gallery2} />
+                )}
               </div>
             </div>
             <div className="sm:col-span-4 mt-2">
@@ -2544,6 +2674,9 @@ function College() {
                   onChange={(e) => setGallery3(e.target.files[0])}
                   accept="image/*"
                 />
+                {editdata.gallery3 && (
+                  <img src={"/colleges/gallery/" + editdata.gallery3} />
+                )}
               </div>
             </div>
             <div className="sm:col-span-4 mt-2">
@@ -2561,6 +2694,9 @@ function College() {
                   onChange={(e) => setGallery4(e.target.files[0])}
                   accept="image/*"
                 />
+                {editdata.gallery4 && (
+                  <img src={"/colleges/gallery/" + editdata.gallery4} />
+                )}
               </div>
             </div>
             <div className="sm:col-span-4 mt-2">
@@ -2578,6 +2714,9 @@ function College() {
                   onChange={(e) => setGallery5(e.target.files[0])}
                   accept="image/*"
                 />
+                {editdata.gallery5 && (
+                  <img src={"/colleges/gallery/" + editdata.gallery5} />
+                )}
               </div>
             </div>
             <div className="sm:col-span-4 mt-2">
@@ -2595,6 +2734,7 @@ function College() {
                   onChange={(e) => setBrouchure(e.target.files[0])}
                   accept="image/*"
                 />
+
                 <input
                   type="hidden"
                   name="old_gallery1"
