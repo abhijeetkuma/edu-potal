@@ -891,6 +891,73 @@ const getCourses = async () => {
     throw new Error("Internal server error");
   }
 };
+//get country array
+const getCountryarr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT cout_id,country_name FROM countrylist ORDER BY country_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const getStatearr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT sta_id,state_name FROM state_list ORDER BY state_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const getCityarr = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT cit_id,city_name FROM city_list ORDER BY city_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
 //get all course arra our database
 const getCoursesarr = async () => {
   try {
@@ -1400,6 +1467,30 @@ const addRoles = (body) => {
     );
   });
 };
+const updateRoles = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const { rol_id, role_name, modules_access_ids, role_status } = body;
+    pool.query(
+      "UPDATE roles SET role_name=$2,modules_access_ids=$3,role_status=$4 WHERE rol_id=$1 RETURNING *",
+      [rol_id, role_name, modules_access_ids, role_status],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A role details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 const addNewcourses = (body) => {
   return new Promise(function (resolve, reject) {
     const {
@@ -1659,6 +1750,9 @@ module.exports = {
   getCourses,
   getCoursesarr,
   getSubcoursestypearr,
+  getCountryarr,
+  getStatearr,
+  getCityarr,
   getCoursebranchs,
   addCoursebrach,
   getCategories,
@@ -1672,6 +1766,7 @@ module.exports = {
   getRolelist,
   addNewusers,
   addRoles,
+  updateRoles,
   addNewcourses,
   getModulearr,
   getCollegetypearr,

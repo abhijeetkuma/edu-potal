@@ -175,6 +175,16 @@ app.post("/addroles", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.post("/updateroles", (req, res) => {
+  colleges_model
+    .updateRoles(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 
 app.post("/addcourse", (req, res) => {
   colleges_model
@@ -683,6 +693,36 @@ app.get("/getfeetypearr", (req, res) => {
 app.get("/getfacilityarr", (req, res) => {
   colleges_model
     .getFacilityarr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getcountryarr", (req, res) => {
+  colleges_model
+    .getCountryarr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getstatearr", (req, res) => {
+  colleges_model
+    .getStatearr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getcityarr", (req, res) => {
+  colleges_model
+    .getCityarr()
     .then((response) => {
       res.status(200).send(response);
     })

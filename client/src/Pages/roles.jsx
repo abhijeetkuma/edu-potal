@@ -16,20 +16,26 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 function Roles() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
   }
   const [datas, setDatas] = useState([]);
-  const [editdata, setEditdata] = useState([]);
+  //const [editdata, setEditdata] = useState([]);
   const [returndspmsg, setReturndspmsg] = useState();
   const [modulearr, setModulearr] = useState([]);
   const [rolesarr, setRolesarr] = useState([]);
   const [edmodulsarr, setEdmodulsarr] = useState([]);
-  const [permissions, setPermissions] = useState([]);
+  const [assignmodul, setAssignmodul] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
+  const [editdata, setEditdata] = useState({
+    rol_id: "",
+    role_name: "",
+    modules_access_ids: [],
+  });
 
   useEffect(() => {
     /*fetch("http://localhost:3001/")
@@ -53,6 +59,13 @@ function Roles() {
         console.error(error);
       });
   }, []);
+  const handleChangeFormdata = (e) => {
+    const { name, value } = e.target;
+    setEditdata((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   //const data = JSON.parse(datas);
   //const keys = Object.keys(data.length ? data[0] : {});
   const data = datas;
@@ -98,60 +111,101 @@ function Roles() {
     }
   };
 
-  const table = useMaterialReactTable({
-    columns,
-    data,
-    enableColumnOrdering: true, //enable some features
-    enableRowSelection: false,
-    enablePagination: false, //disable a default feature
-    enableRowActions: true,
-    onRowSelectionChange: setRowSelection, //hoist internal state to your own state (optional)
-    state: { rowSelection }, //manage your own state, pass it back to the table (optional)
-    renderRowActions: ({ row, table }) => (
-      <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="Edit">
-          <IconButton onClick={() => setIsEditOpen(true)}>
-            <EditIcon
-              onClick={() => {
-                // table.setEditingRow(row);
-                editDetails(row.original.rol_id);
-
-                //console.log("Edit======------>", row.original.rol_id);
-              }}
-            />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Delete">
-          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
-            <DeleteIcon
-              onClick={() => {
-                // data.splice(row.index, 1); //assuming simple data table
-              }}
-            />
-          </IconButton>
-        </Tooltip>
-      </Box>
-    ),
-  });
   // add new roles
   const [errorMsg, setErrorMsg] = useState([]);
   const addroles = (e) => {
     e.preventDefault();
     const { role_name } = e.target.elements;
-
-    let errorsForm = [];
+    const { rol_id } = e.target.elements;
     if (role_name.value === "") {
-      errorsForm.push(<div key="branameErr">Role cann't be blank!</div>);
-    } else {
-      errorsForm.push();
+      toast.error("Role cann't be blank!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        //transition: Bounce,
+      });
+      return;
     }
-
+    console.log("role id ", rol_id.value);
     // console.log("errorsForm", errorsForm);
-    if (errorsForm.length === 0) {
-      // console.log("--------------------->", permissions.join(","));
+    if (rol_id.value > 0) {
+      // console.log("--------------------->", assignmodul.join(","));
+      const payload = {
+        rol_id: rol_id.value,
+        role_name: role_name.value,
+        modules_access_ids: assignmodul.join(","),
+        role_status: "A",
+      };
+      axios({
+        method: "post",
+        url: "http://localhost:3007/updateroles",
+        data: payload,
+      })
+        .then(function (response) {
+          console.log(response);
+          console.log("respose text", response.statusText);
+          if (response.statusText == "OK") {
+            toast.success("Role details updated!", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
+            //get results
+            axios
+              .get("http://localhost:3007/getroleslist")
+              .then((response) => {
+                setDatas(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            //end get results
+          } else {
+            toast.error("Role details not updated!", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
+          }
+        })
+        .catch(function (error) {
+          //console.log(error);
+          setReturndspmsg('<div className"errmsg"></div>');
+          toast.error("Error in update record!", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            //transition: Bounce,
+          });
+        });
+    }
+    if (role_name.value != "" && rol_id.value == "") {
+      // console.log("--------------------->", assignmodul.join(","));
       const payload = {
         role_name: role_name.value,
-        modules_access_ids: permissions.join(","),
+        modules_access_ids: assignmodul.join(","),
         role_status: "A",
       };
       axios({
@@ -194,6 +248,10 @@ function Roles() {
       .get("http://localhost:3007/editroles/" + editval)
       .then((response) => {
         setEditdata(response.data[0]);
+        let editmodulesArr = response.data[0].modules_access_ids;
+        setAssignmodul(
+          editmodulesArr.length > 0 ? editmodulesArr.split(",") : []
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -201,31 +259,52 @@ function Roles() {
   };
   //end edit role details
 
-  const handleCheck = (event) => {
-    var permissions_array = [...permissions];
+  const assingeModulvalue = (event) => {
+    let index = assignmodul.indexOf(event.target.value);
     if (event.target.checked) {
-      permissions_array = [...permissions, event.target.value];
+      setAssignmodul((assignmodul) => [...assignmodul, event.target.value]);
     } else {
-      permissions_array.splice(permissions.indexOf(event.target.value), 1);
+      assignmodul.splice(index, 1);
     }
-    setPermissions(permissions_array);
   };
 
-  // const addEditModel = (row) => {
-  //   return (
+  const table = useMaterialReactTable({
+    columns,
+    data,
+    enableColumnOrdering: true, //enable some features
+    enableRowSelection: false,
+    enablePagination: false, //disable a default feature
+    enableRowActions: true,
+    onRowSelectionChange: setRowSelection, //hoist internal state to your own state (optional)
+    state: { rowSelection }, //manage your own state, pass it back to the table (optional)
+    renderRowActions: ({ row, table }) => (
+      <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Tooltip title="Edit">
+          <IconButton onClick={() => setIsEditOpen(true)}>
+            <EditIcon
+              onClick={() => {
+                // table.setEditingRow(row);
+                editDetails(row.original.rol_id);
 
-  //   );
-  // };
-  const check =
-    editdata.modules_access_ids && editdata.modules_access_ids.split(",");
-  if (check) {
-    var createarr = [];
-    check.map((item, i) => createarr.push(item));
-  }
-  //setEdmodulsarr(createarr);
-  // console.log("createarr", createarr);
+                //console.log("Edit======------>", row.original.rol_id);
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
+            <DeleteIcon
+              onClick={() => {
+                // data.splice(row.index, 1); //assuming simple data table
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    ),
+  });
 
-  const checks = [5, 11];
+  console.log("modul -->", assignmodul);
 
   return (
     <>
@@ -280,58 +359,6 @@ function Roles() {
           <MaterialReactTable table={table} />
         </div>
       </div>
-      {/* <dialog id="users_modal" className="modal">
-        <div className="modal-box">
-          <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h3 className="font-bold text-lg">Role Details</h3>
-          <form action="" method="post" id="roleForm" onSubmit={addroles}>
-            {returndspmsg && returndspmsg}
-            <div className="mt-2">
-              <input
-                type="text"
-                placeholder="Role Name"
-                name="role_name"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-            <div className="errmsg">{errorMsg[0]}</div>
-
-            <div htmlFor="module" className="mt-2">
-              <label
-                htmlFor="model"
-                className="block text-sm font-semibold leading-6 text-gray-900"
-              >
-                Module
-              </label>
-              {modulearr.map((item, i) => (
-                <div key={i} className="mt-2 text-sm">
-                  <input
-                    type="checkbox"
-                    name="modules[]"
-                    value={item.mod_id}
-                    //onChange={(e) => handleCheckBox(e, i)}
-                    onChange={handleCheck}
-                    className="py-2  text-sm font-semibold"
-                  />
-                  <span className="py-2 px-2 text-sm font-normal text-justify">
-                    {item.module_title}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div className="btn-section">
-              <button>Cancle</button>
-              <button className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                Submit
-              </button>
-            </div>
-          </form>
-        </div>
-      </dialog> */}
 
       {isEditOpen && (
         <DialogContent>
@@ -346,13 +373,15 @@ function Roles() {
               </button>
             </form>
             <h3 className="font-bold text-lg">Role Details</h3>
-            <form action="" method="post" id="roleForm" onSubmit={addroles}>
+            <form method="roleForm" id="roleForm" onSubmit={addroles}>
               {returndspmsg && returndspmsg}
               <div className="mt-2">
+                <input type="hidden" value={editdata.rol_id} name="rol_id" />
                 <input
                   type="text"
                   placeholder="Role Name"
                   name="role_name"
+                  onChange={handleChangeFormdata}
                   value={editdata.role_name && editdata.role_name}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -373,21 +402,17 @@ function Roles() {
                       name="modules[]"
                       value={item.mod_id}
                       //onChange={(e) => handleCheckBox(e, i)}
-                      onChange={handleCheck}
-                      checked={
-                        createarr?.length
-                          ? createarr.includes(JSON.stringify(item.mod_id))
+                      onChange={handleChangeFormdata}
+                      onClick={assingeModulvalue}
+                      defaultChecked={
+                        editdata.modules_access_ids?.length
+                          ? editdata.modules_access_ids.includes(
+                              JSON.stringify(item.mod_id)
+                            )
                           : false
                       }
-                      // checked={
-                      //   createarr && createarr.includes(item.mod_id)
-                      //     ? "checked"
-                      //     : ""
-                      // }
                       className="py-2  text-sm font-semibold"
                     />
-                    {/* <span>{createarr && createarr}</span> */}
-                    {/* {console.log("createarr valuessss--", createarr)} */}
                     <span className="py-2 px-2 text-sm font-normal text-justify">
                       {item.module_title}
                     </span>
@@ -423,6 +448,7 @@ function Roles() {
               <input
                 type="text"
                 placeholder="Search by role name"
+                onChange={handleChangeFormdata}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
               <div className="btn-section">
@@ -437,6 +463,7 @@ function Roles() {
           </div>
         </DialogContent>
       )}
+      <ToastContainer />
     </>
   );
 }

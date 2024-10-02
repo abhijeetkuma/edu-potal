@@ -76,6 +76,9 @@ function College() {
   const [examvalue, setExamvalue] = useState([]);
   const [subcoursesarr, setSubcoursesarr] = useState([]);
   const [dispsubcourse, setDispsubcourse] = useState([]);
+  const [countryarr, setCountryarr] = useState([]);
+  const [statearr, setStatearr] = useState([]);
+  const [cityarr, setCityarr] = useState([]);
   const [collegedescvalue, setCollegedescvalue] = useState();
   const [admissiondetailsvalue, setAdmissiondetailsvalue] = useState();
   const [scholarshipoffervalue, setScholarshipoffervalue] = useState();
@@ -225,6 +228,30 @@ function College() {
       .get("http://localhost:3007/getcollegetypearr")
       .then((response) => {
         setCollegetypearr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("http://localhost:3007/getcountryarr")
+      .then((response) => {
+        setCountryarr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("http://localhost:3007/getstatearr")
+      .then((response) => {
+        setStatearr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("http://localhost:3007/getcityarr")
+      .then((response) => {
+        setCityarr(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -2325,14 +2352,24 @@ function College() {
                 Country
               </label>
               <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <input
-                  id="country"
+                <select
                   name="country"
-                  type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.country && editdata.country}
+                  id="country"
                   onChange={handleChangeFormdata}
-                />
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                >
+                  <option value="">Select Country</option>
+                  {countryarr.map((items, i) => (
+                    <option
+                      value={items.cout_id}
+                      selected={
+                        items.cout_id == editdata.country ? true : false
+                      }
+                    >
+                      {items.country_name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="sm:col-span-4">
@@ -2343,14 +2380,30 @@ function College() {
                 State
               </label>
               <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <input
+                {/*  <input
                   id="state"
                   name="state"
                   type="text"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.state && editdata.state}
                   onChange={handleChangeFormdata}
-                />
+                /> */}
+                <select
+                  name="state"
+                  id="state"
+                  onChange={handleChangeFormdata}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                >
+                  <option value="">Select State</option>
+                  {statearr.map((items, i) => (
+                    <option
+                      value={items.sta_id}
+                      selected={items.sta_id == editdata.state ? true : false}
+                    >
+                      {items.state_name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="sm:col-span-4">
@@ -2361,14 +2414,30 @@ function College() {
                 City
               </label>
               <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <input
+                {/*  <input
                   id="city"
                   name="city"
                   type="text"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.city && editdata.city}
                   onChange={handleChangeFormdata}
-                />
+                /> */}
+                <select
+                  name="city"
+                  id="city"
+                  onChange={handleChangeFormdata}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                >
+                  <option value="">Select City</option>
+                  {cityarr.map((items, i) => (
+                    <option
+                      value={items.cit_id}
+                      selected={items.cit_id == editdata.city ? true : false}
+                    >
+                      {items.city_name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="sm:col-span-4">
