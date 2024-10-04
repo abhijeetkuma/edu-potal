@@ -1113,10 +1113,9 @@ function College() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
-                    {" "}
-                    <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                    <line x1="4" y1="6" x2="20" y2="6" />{" "}
-                    <line x1="4" y1="12" x2="20" y2="12" />{" "}
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <line x1="4" y1="6" x2="20" y2="6" />
+                    <line x1="4" y1="12" x2="20" y2="12" />
                     <line x1="4" y1="18" x2="20" y2="18" />
                   </svg>
                 </Link>
@@ -1984,7 +1983,7 @@ function College() {
                 defaultChecked={
                   editdata.display_type == "Points" ? true : false
                 }
-              />{" "}
+              />
               Bullet Points
               <input
                 type="radio"
@@ -2325,7 +2324,7 @@ function College() {
                   onChange={handleChangeFormdata}
                 />
               </div>
-            </div>{" "}
+            </div>
             <div className="sm:col-span-4">
               <label
                 htmlFor="landmark"
