@@ -260,6 +260,16 @@ app.delete("/deletecollege/:id", (req, res) => {
     });
 });
 
+app.get("/getstatecitylist/:stateid", (req, res) => {
+  colleges_model
+    .getstatewisecity(req.params.stateid)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/editcolleges/:cid", (req, res) => {
   colleges_model
     .editcollege(req.params.cid)

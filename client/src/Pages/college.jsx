@@ -248,14 +248,14 @@ function College() {
       .catch((error) => {
         console.error(error);
       });
-    axios
+    /*  axios
       .get("http://localhost:3007/getcityarr")
       .then((response) => {
         setCityarr(response.data);
       })
       .catch((error) => {
         console.error(error);
-      });
+      }); */
 
     if (cid > 0) {
       axios
@@ -1085,6 +1085,22 @@ function College() {
     //fetch sub courses
 
     //end fetch sub courses */
+  };
+  const changeStateid = (e) => {
+    //console.log("state id-->", e.target.value);
+    if (e.target.value > 0) {
+      axios
+        .get("http://localhost:3007/getstatecitylist/" + e.target.value)
+        .then((response) => {
+          //console.log("city list data-->", response.data);
+          //var subcorarrs = subcorarr.concat(response.data);
+          setCityarr(response.data);
+          //setSubcoursesarr(subcorarrs);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   const renderPageHeader = () => {
@@ -2390,7 +2406,8 @@ function College() {
                 <select
                   name="state"
                   id="state"
-                  onChange={handleChangeFormdata}
+                  //onChange={handleChangeFormdata}
+                  onChange={changeStateid}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                 >
                   <option value="">Select State</option>

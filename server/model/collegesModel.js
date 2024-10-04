@@ -170,6 +170,26 @@ const editroles = (rol_id) => {
     console.log(query);
   });
 };
+const getstatewisecity = (stat_id) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT cit_id,city_name FROM city_list WHERE stat_id = $1",
+      [stat_id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit roles ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
 
 const fetchSubcourese = async (course_id) => {
   try {
@@ -1788,4 +1808,5 @@ module.exports = {
   getSubcoursearr,
   getFacilityarr,
   fetchSubcourese,
+  getstatewisecity,
 };
