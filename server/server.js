@@ -1,8 +1,12 @@
 const express = require("express");
 const fs = require("fs");
 const multer = require("multer");
+//import { config } from "../server/config/config";
+//var config = require("./config/config.js");
+//import * as config from "./config/config.js";
 const app = express();
-const port = 3007;
+const port = 80;
+//const port = config.PORT;
 const colleges_model = require("./model/collegesModel");
 
 // news & article image upload
@@ -99,7 +103,8 @@ app.listen(port, () => {
 
 app.use(express.json());
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  //res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
   res.setHeader(
     "Access-Control-Allow-Headers",

@@ -32,7 +32,7 @@ export default function Login() {
       };
       axios({
         method: "post",
-        url: "http://localhost:3007/login",
+        url: "https://beta.timesofcollege.com:80/login",
         data: payload,
       })
         .then(function (response) {
