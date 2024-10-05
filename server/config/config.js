@@ -1,6 +1,6 @@
 module.exports = {
   port: 3007,
-  api_link: "https://localhost",
+  api_link: "http://localhost",
   dbhost: "164.121.168.184.host.secureserver.net",
   dbname: "tocprddb",
   dbuser: "tocadmin",
