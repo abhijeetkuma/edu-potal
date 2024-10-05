@@ -1,4 +1,5 @@
 const { query } = require("express");
+const config = require("./../config/config.js");
 
 const Pool = require("pg").Pool;
 /* const pool = new Pool({
@@ -7,13 +8,21 @@ const Pool = require("pg").Pool;
   database: "edupotal", //tocdatabase
   password: "password", //Navi2212
   port: 5432,
-}); */
+}); 
 const pool = new Pool({
   user: "tocadmin", //timeofcollege
   host: "164.121.168.184.host.secureserver.net",
   database: "tocprddb", //tocdatabase
   password: "Avi@1985", //Navi2212
   port: 5432,
+});*/
+
+const pool = new Pool({
+  user: config.dbuser,
+  host: config.dbhost,
+  database: config.dbname,
+  password: config.dbpassword,
+  port: config.dbport,
 });
 
 //get all colleges our database

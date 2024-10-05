@@ -24,7 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 //import "react-toastify/ReactToastify.css";
 
 // import CKTextEditor from "../Components/ckTextEditor/editor";
-
+const apiurl = "http://localhost:3007";
 function College() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
@@ -153,7 +153,7 @@ function College() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getapprovedbyarr")
+      .get(apiurl + "/getapprovedbyarr")
       .then((response) => {
         setApprovedbyarr(response.data);
       })
@@ -161,7 +161,7 @@ function College() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getcategoryarr")
+      .get(apiurl + "/getcategoryarr")
       .then((response) => {
         setCatgoryarr(response.data);
       })
@@ -169,7 +169,7 @@ function College() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getcoursearr")
+      .get(apiurl + "/getcoursearr")
       .then((response) => {
         setCoursearr(response.data);
       })
@@ -177,7 +177,7 @@ function College() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getsubcoursestypearr")
+      .get(apiurl + "/getsubcoursestypearr")
       .then((response) => {
         setSubcoursestypearr(response.data);
       })
@@ -185,7 +185,7 @@ function College() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getsubcoursearr")
+      .get(apiurl + "/getsubcoursearr")
       .then((response) => {
         setSubcoursearr(response.data);
       })
@@ -193,7 +193,7 @@ function College() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/gettradingarr")
+      .get(apiurl + "/gettradingarr")
       .then((response) => {
         setTradingarr(response.data);
       })
@@ -201,7 +201,7 @@ function College() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getexamarr")
+      .get(apiurl + "/getexamarr")
       .then((response) => {
         setExamarr(response.data);
       })
@@ -209,7 +209,7 @@ function College() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getfeetypearr")
+      .get(apiurl + "/getfeetypearr")
       .then((response) => {
         setFeetypearr(response.data);
       })
@@ -217,7 +217,7 @@ function College() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getfacilityarr")
+      .get(apiurl + "/getfacilityarr")
       .then((response) => {
         setFacilityarr(response.data);
       })
@@ -225,7 +225,7 @@ function College() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getcollegetypearr")
+      .get(apiurl + "/getcollegetypearr")
       .then((response) => {
         setCollegetypearr(response.data);
       })
@@ -233,7 +233,7 @@ function College() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getcountryarr")
+      .get(apiurl + "/getcountryarr")
       .then((response) => {
         setCountryarr(response.data);
       })
@@ -241,7 +241,7 @@ function College() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getstatearr")
+      .get(apiurl + "/getstatearr")
       .then((response) => {
         setStatearr(response.data);
       })
@@ -249,7 +249,7 @@ function College() {
         console.error(error);
       });
     /*  axios
-      .get("http://localhost:3007/getcityarr")
+      .get(apiurl+"/getcityarr")
       .then((response) => {
         setCityarr(response.data);
       })
@@ -259,7 +259,7 @@ function College() {
 
     if (cid > 0) {
       axios
-        .get("http://localhost:3007/editcolleges/" + cid)
+        .get(apiurl + "/editcolleges/" + cid)
         .then((response) => {
           setEditdata(response.data[0]);
           setHighLights(response.data[0]?.highlights);
@@ -484,7 +484,7 @@ function College() {
         //update form data
         axios({
           method: "PUT",
-          url: "http://localhost:3007/getupdatecollege/${cid}",
+          url: apiurl + "/getupdatecollege/${cid}",
           data: payload,
         })
           .then(function (response) {
@@ -498,7 +498,7 @@ function College() {
         //add form data
         axios({
           method: "post",
-          url: "http://localhost:3007/addnewcollege",
+          url: apiurl + "/addnewcollege",
           data: payload,
         })
           .then(function (response) {
@@ -546,7 +546,7 @@ function College() {
       console.log("update query ");
       await axios({
         method: "post",
-        url: "http://localhost:3007/updatebasicinformation",
+        url: apiurl + "/updatebasicinformation",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -581,7 +581,7 @@ function College() {
       //insert basicinformation data
       await axios({
         method: "post",
-        url: "http://localhost:3007/insertbasicinformation",
+        url: apiurl + "/insertbasicinformation",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -641,7 +641,7 @@ function College() {
       //update form data
       await axios({
         method: "post",
-        url: "http://localhost:3007/updategallery",
+        url: apiurl + "/updategallery",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -707,18 +707,18 @@ function College() {
       //update form data
       /* axios({
         method: "post",
-        url: "http://localhost:3007/updatecontactus",
+        url: apiurl+"/updatecontactus",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       }) */
       /*  axios({
         method: "post",
-        url: "http://localhost:3007/updatecontactus",
+        url: apiurl+"/updatecontactus",
         data: formData,
       }) */
       axios({
         method: "POST",
-        url: "http://localhost:3007/updatecontactus",
+        url: apiurl + "/updatecontactus",
         data: payload,
       })
         .then(function (response) {
@@ -762,7 +762,7 @@ function College() {
       //update form data
       axios({
         method: "POST",
-        url: "http://localhost:3007/updatehighlight",
+        url: apiurl + "/updatehighlight",
         data: payload,
       })
         .then(function (response) {
@@ -806,7 +806,7 @@ function College() {
       //update form data
       axios({
         method: "POST",
-        url: "http://localhost:3007/updatecourses",
+        url: apiurl + "/updatecourses",
         data: payload,
       })
         .then(function (response) {
@@ -850,7 +850,7 @@ function College() {
       //update form data
       axios({
         method: "POST",
-        url: "http://localhost:3007/updateadmission",
+        url: apiurl + "/updateadmission",
         data: payload,
       })
         .then(function (response) {
@@ -899,7 +899,7 @@ function College() {
       //update form data
       axios({
         method: "POST",
-        url: "http://localhost:3007/updateplacement",
+        url: apiurl + "/updateplacement",
         data: payload,
       })
         .then(function (response) {
@@ -941,7 +941,7 @@ function College() {
       //update form data
       axios({
         method: "POST",
-        url: "http://localhost:3007/updatefaq",
+        url: apiurl + "/updatefaq",
         data: payload,
       })
         .then(function (response) {
@@ -1072,7 +1072,7 @@ function College() {
     //setCoursevalue(course_array);
     var subcorarr = [...subcoursesarr];
     axios
-      .get("http://localhost:3007/fetchsubcourese/" + selectedcourse_id)
+      .get(apiurl + "/fetchsubcourese/" + selectedcourse_id)
       .then((response) => {
         console.log("sub course data-->", response.data);
         var subcorarrs = subcorarr.concat(response.data);
@@ -1090,7 +1090,7 @@ function College() {
     //console.log("state id-->", e.target.value);
     if (e.target.value > 0) {
       axios
-        .get("http://localhost:3007/getstatecitylist/" + e.target.value)
+        .get(apiurl + "/getstatecitylist/" + e.target.value)
         .then((response) => {
           //console.log("city list data-->", response.data);
           //var subcorarrs = subcorarr.concat(response.data);

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+//const config = require("../../../server/config/config.js");
+//import * as config from "../../../server/config/config.js";
+//import { port, api_link } from "../../../server/config/config.js";
+const apiurl = "http://localhost:3007";
+
 export default function Login() {
   const [errorMsg, setErrorMsg] = useState([]);
   const [returndspmsg, setReturndspmsg] = useState();
@@ -32,7 +37,8 @@ export default function Login() {
       };
       axios({
         method: "post",
-        url: "https://beta.timesofcollege.com:80/login",
+        //url: "https://beta.timesofcollege.com:3007/login",
+        url: apiurl + "/login",
         data: payload,
       })
         .then(function (response) {

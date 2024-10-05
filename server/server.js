@@ -1,11 +1,9 @@
 const express = require("express");
 const fs = require("fs");
 const multer = require("multer");
-//import { config } from "../server/config/config";
-//var config = require("./config/config.js");
-//import * as config from "./config/config.js";
 const app = express();
-const port = 80;
+const config = require("./config/config.js");
+const port = config.port;
 //const port = config.PORT;
 const colleges_model = require("./model/collegesModel");
 

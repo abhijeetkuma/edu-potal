@@ -1,2 +1,10 @@
-export const API_URL = "http://localhost";
-export const PORT = 3007;
+module.exports = {
+  port: 3007,
+  api_link: "https://localhost",
+  dbhost: "164.121.168.184.host.secureserver.net",
+  dbname: "tocprddb",
+  dbuser: "tocadmin",
+  dbpassword: "Avi@1985",
+  dbport: 5432,
+  envorment: "local",
+};
