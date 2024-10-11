@@ -1,11 +1,17 @@
 const express = require("express");
+var cors = require('cors')
+
 const fs = require("fs");
 const multer = require("multer");
 const app = express();
 const config = require("./config/config.js");
-const port = config.port;
+const port = process.env.PORT || config.port;
 //const port = config.PORT;
 const colleges_model = require("./model/collegesModel");
+
+
+
+app.use(cors())
 
 // news & article image upload
 var fname, mtype;
@@ -126,7 +132,7 @@ app.get("/", (req, res) => {
     });
 });
 
-app.post("/login", (req, res) => {
+app.post("/api/auth", (req, res) => {
   colleges_model
     .Login(req.body)
     .then((response) => {

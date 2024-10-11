@@ -3,7 +3,6 @@ import axios from "axios";
 //const config = require("../../../server/config/config.js");
 //import * as config from "../../../server/config/config.js";
 //import { port, api_link } from "../../../server/config/config.js";
-const apiurl = "http://localhost:3007";
 
 export default function Login() {
   const [errorMsg, setErrorMsg] = useState([]);
@@ -38,7 +37,7 @@ export default function Login() {
       axios({
         method: "post",
         //url: "https://beta.timesofcollege.com:3007/login",
-        url: apiurl + "/login",
+        url: '/api/auth',
         data: payload,
       })
         .then(function (response) {
