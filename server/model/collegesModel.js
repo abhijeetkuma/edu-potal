@@ -1600,6 +1600,43 @@ const addQuestion = (body) => {
   });
 };
 
+const addCms = (body) => {
+  console.log("body->", body);
+  return new Promise(function (resolve, reject) {
+    const {
+      cms_title,
+      cms_url,
+      cms_description,
+      cms_meta_title,
+      cms_meta_description,
+      cms_meta_keyword,
+    } = body;
+    pool.query(
+      "INSERT INTO cms(cms_title,cms_url,cms_description,cms_meta_title,cms_meta_description,cms_meta_keyword) VALUES ( $2,$3,$4,$5,$5,$6) RETURNING *",
+      [
+        cms_title,
+        cms_url,
+        cms_description,
+        cms_meta_title,
+        cms_meta_description,
+        cms_meta_keyword,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A new question has been added: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+
 const addNewcategories = (body) => {
   console.log("add category", body);
   return new Promise(function (resolve, reject) {
@@ -1758,6 +1795,25 @@ const getApprovedby = async () => {
     throw new Error("Internal server error");
   }
 };
+const getCMSListing = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query("SELECT * FROM cms ORDER BY cmsid DESC", (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        } else {
+          reject(new Error("No results found"));
+        }
+      });
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
 module.exports = {
   Login,
   getColleges,
@@ -1818,4 +1874,6 @@ module.exports = {
   getFacilityarr,
   fetchSubcourese,
   getstatewisecity,
+  getCMSListing,
+  addCms,
 };

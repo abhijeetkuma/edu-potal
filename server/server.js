@@ -230,6 +230,16 @@ app.post("/addquestion", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.post("/addnewcms", (req, res) => {
+  colleges_model
+    .addCms(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 
 app.get("/fetchsubcourese/:course_id", (req, res) => {
   colleges_model
@@ -573,6 +583,16 @@ app.put("/getvehicledetails/:id", (req, res) => {
 app.get("/getcourses", (req, res) => {
   colleges_model
     .getCourses()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getcmslisting", (req, res) => {
+  colleges_model
+    .getCMSListing()
     .then((response) => {
       res.status(200).send(response);
     })

@@ -18,6 +18,7 @@ import Jobsapproval from "./Pages/jobsapproval";
 import Memonbilling from "./Pages/memonbilling";
 import Vehicles from "./Pages/vehicles";
 import College from "./Pages/college";
+import Addcms from "./Pages/addcms";
 import Cms from "./Pages/cms";
 import Adminusers from "./Pages/adminusers";
 import Exam from "./Pages/exam";
@@ -130,6 +131,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/memonbilling",
         element: <Memonbilling />,
+      },
+      {
+        path: "/admin/cms/addcms",
+        element: <Addcms />,
       },
       {
         path: "/admin/cms",
