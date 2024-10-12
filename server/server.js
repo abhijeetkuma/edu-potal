@@ -303,6 +303,16 @@ app.get("/editquestion/:qid", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/editcms/:cmsid", (req, res) => {
+  colleges_model
+    .editcms(req.params.cmsid)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/editnewsart/:na_id", (req, res) => {
   colleges_model
     .editnewsarticle(req.params.na_id)
@@ -529,6 +539,19 @@ app.put("/getupdatequestion/:qid", (req, res) => {
   console.log("server qid", qid);
   colleges_model
     .updateQuestion(qid, body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.put("/getupdatecms/:cmsid", (req, res) => {
+  const cmsid = req.params.cmsid;
+  const body = req.body;
+  console.log("server cmsid", cmsid);
+  colleges_model
+    .updateCMS(cmsid, body)
     .then((response) => {
       res.status(200).send(response);
     })

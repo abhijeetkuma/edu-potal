@@ -133,7 +133,7 @@ const router = createBrowserRouter([
         element: <Memonbilling />,
       },
       {
-        path: "/admin/cms/addcms",
+        path: "/admin/cms/addcms?/:cmsid",
         element: <Addcms />,
       },
       {

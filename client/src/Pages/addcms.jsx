@@ -41,7 +41,7 @@ function Addcms() {
 
     if (cmsid > 0) {
       axios
-        .get("http://localhost:3007/editquestion/" + cmsid)
+        .get("http://localhost:3007/editcms/" + cmsid)
         .then((response) => {
           setEditdata(response.data[0]);
         })
@@ -51,24 +51,6 @@ function Addcms() {
       //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
     }
   }, []);
-  const categoryCheck = (event) => {
-    var category_array = [...categoryvalue];
-    if (event.target.checked) {
-      category_array = [...categoryvalue, event.target.value];
-    } else {
-      category_array.splice(categoryvalue.indexOf(event.target.value), 1);
-    }
-    setCategoryvalue(category_array);
-  };
-  const tradingCheck = (event) => {
-    var trading_array = [...tradingvalue];
-    if (event.target.checked) {
-      trading_array = [...tradingvalue, event.target.value];
-    } else {
-      trading_array.splice(tradingvalue.indexOf(event.target.value), 1);
-    }
-    setTradingvalue(trading_array);
-  };
   const handleChangeFormdata = (e) => {
     const { name, value } = e.target;
     setEditdata((prevState) => ({
@@ -113,14 +95,13 @@ function Addcms() {
       //update form data
       axios({
         method: "PUT",
-        url: "http://localhost:3007/getupdatequestion/${cmsid}",
+        url: "http://localhost:3007/getupdatecms/${cmsid}",
         data: payload,
       })
         .then(function (response) {
           //console.log(response);
           //console.log(response.statusText);
           if (response.statusText === "OK") {
-            //window.location.href = "../../questionanswerlist";
             toast.success("Successfully Updated.", {
               position: "top-right",
               autoClose: 3000,
@@ -163,7 +144,7 @@ function Addcms() {
               // transition: Bounce,
             });
             setTimeout(function () {
-              window.location.replace("../../cms");
+              window.location.replace("../cms");
             }, 3000);
           }
         })
@@ -176,7 +157,7 @@ function Addcms() {
       setErrorMsg(errorsForm);
     } */
   };
-  // end add new question
+  // end add new Cms
 
   return (
     <>
@@ -187,9 +168,9 @@ function Addcms() {
           </h1>
           <div className="actions">
             <Link
-              to={"../questionanswerlist"}
-              alt="Back To Question Listing"
-              title="Back To Question Listing"
+              to={"../cms"}
+              alt="Back To cms Listing"
+              title="Back To Cms Listing"
             >
               <svg
                 className="h-6 w-6 text-stone-600"

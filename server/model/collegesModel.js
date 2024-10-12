@@ -290,6 +290,26 @@ const editquestion = (cid) => {
     console.log(query);
   });
 };
+const editcms = (cmsid) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM cms WHERE cmsid = $1",
+      [cmsid],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit college ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
 const editnewsarticle = (na_id) => {
   //const rol_id = rol_id;
   return new Promise(function (resolve, reject) {
@@ -761,6 +781,41 @@ const updateQuestion = (qid, body) => {
     pool.query(
       "UPDATE questions SET question = $2,answer=$3, qstatus=$4,trading=$5,catgories=$6 WHERE qid = $1 RETURNING *",
       [qid, question, answer, qstatus, trading, catgories],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(`Question updated: ${JSON.stringify(results.rows[0])}`);
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateCMS = (cmsid, body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      cmsid,
+      cms_title,
+      cms_url,
+      cms_description,
+      cms_meta_title,
+      cms_meta_description,
+      cms_meta_keyword,
+    } = body;
+    pool.query(
+      "UPDATE cms SET cms_title = $2,cms_url=$3, cms_description=$4,cms_meta_title=$5,cms_meta_description=$6,cms_meta_keyword=$7 WHERE cmsid = $1 RETURNING *",
+      [
+        cmsid,
+        cms_title,
+        cms_url,
+        cms_description,
+        cms_meta_title,
+        cms_meta_description,
+        cms_meta_keyword,
+      ],
       (error, results) => {
         if (error) {
           reject(error);
@@ -1612,7 +1667,7 @@ const addCms = (body) => {
       cms_meta_keyword,
     } = body;
     pool.query(
-      "INSERT INTO cms(cms_title,cms_url,cms_description,cms_meta_title,cms_meta_description,cms_meta_keyword) VALUES ( $2,$3,$4,$5,$5,$6) RETURNING *",
+      "INSERT INTO cms(cms_title,cms_url,cms_description,cms_meta_title,cms_meta_description,cms_meta_keyword) VALUES ( $1,$2,$3,$4,$5,$6) RETURNING *",
       [
         cms_title,
         cms_url,
@@ -1876,4 +1931,6 @@ module.exports = {
   getstatewisecity,
   getCMSListing,
   addCms,
+  editcms,
+  updateCMS,
 };

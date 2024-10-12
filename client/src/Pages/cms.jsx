@@ -99,8 +99,7 @@ function Cms() {
   const editDetails = (editval) => {
     console.log("Edit college id:", editval);
     if (editval > 0) {
-      window.location.href =
-        "/admin/questionanswerlist/questionanswer/" + editval;
+      window.location.href = "/admin/cms/addcms/" + editval;
     }
   };
 
