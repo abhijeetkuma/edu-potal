@@ -18,6 +18,7 @@ import Jobsapproval from "./Pages/jobsapproval";
 import Memonbilling from "./Pages/memonbilling";
 import Vehicles from "./Pages/vehicles";
 import College from "./Pages/college";
+import Addcms from "./Pages/addcms";
 import Cms from "./Pages/cms";
 import Adminusers from "./Pages/adminusers";
 import Exam from "./Pages/exam";
@@ -31,6 +32,8 @@ import Location from "./Pages/location";
 import Roles from "./Pages/roles";
 import Companys from "./Pages/companys";
 import Placement from "./Pages/placement";
+import Notifications from "./Pages/notifications";
+import Notificationsadd from "./Pages/notificationadd";
 
 //-----------Website------------------
 
@@ -132,6 +135,10 @@ const router = createBrowserRouter([
         element: <Memonbilling />,
       },
       {
+        path: "/admin/cms/addcms?/:cmsid",
+        element: <Addcms />,
+      },
+      {
         path: "/admin/cms",
         element: <Cms />,
       },
@@ -165,6 +172,14 @@ const router = createBrowserRouter([
       {
         path: "/admin/roles",
         element: <Roles />,
+      },
+      {
+        path: "/admin/notifications",
+        element: <Notifications />,
+      },
+      {
+        path: "/admin/notifications/notificationadd?/:notif_id",
+        element: <Notificationsadd />,
       },
     ],
   },

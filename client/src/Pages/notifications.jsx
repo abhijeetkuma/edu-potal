@@ -17,22 +17,16 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 
-function Cms() {
+function Notifications() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
   }
   const [datas, setDatas] = useState([]);
-  const [returndspmsg, setReturndspmsg] = useState();
-  const [errorMsg, setErrorMsg] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
   useEffect(() => {
-    /*fetch("http://localhost:3001/")
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getcmslisting")
+      .get("http://localhost:3007/getnotificationlisting")
       .then((response) => {
         setDatas(response.data);
       })
@@ -46,13 +40,13 @@ function Cms() {
 
   const columns = [
     {
-      accessorKey: "cms_title", //simple recommended way to define a column
+      accessorKey: "notification_title", //simple recommended way to define a column
       header: "Title",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
-      accessorKey: "cms_url", //simple recommended way to define a column
+      accessorKey: "notification_url", //simple recommended way to define a column
       header: "URL",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
@@ -76,7 +70,7 @@ function Cms() {
             <EditIcon
               onClick={() => {
                 // table.setEditingRow(row);
-                editDetails(row.original.cmsid);
+                editDetails(row.original.notif_id);
                 //console.log("Edit======------>", row.original.rol_id);
               }}
             />
@@ -97,9 +91,9 @@ function Cms() {
     ),
   });
   const editDetails = (editval) => {
-    console.log("Edit college id:", editval);
+    console.log("Edit notification id:", editval);
     if (editval > 0) {
-      window.location.href = "/admin/cms/addcms/" + editval;
+      window.location.href = "/admin/notifications/notificationadd/" + editval;
     }
   };
 
@@ -107,10 +101,14 @@ function Cms() {
     <>
       <div className="flex bg-white shadow">
         <div className="pageHeader p-3">
-          <h1 className="text-2xl font-semibold">CMS Listing</h1>
+          <h1 className="text-2xl font-semibold">Notification Listing</h1>
           <div className="actions">
             <span onClick={() => setIsEditOpen(true)}>
-              <Link to={"addcms"} alt="Add New Cms" title="Add New Cms">
+              <Link
+                to={"notificationadd"}
+                alt="Add New Notification"
+                title="Add New Notification"
+              >
                 <svg
                   className="h-6 w-6 text-stone-600"
                   width="24"
@@ -188,4 +186,4 @@ function Cms() {
     </>
   );
 }
-export default Cms;
+export default Notifications;

@@ -240,6 +240,14 @@ function LayoutType1(props) {
                 >
                   CMS
                 </NavLink>
+              </li>{" "}
+              <li>
+                <NavLink
+                  to={`notifications`}
+                  className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                >
+                  Notifications
+                </NavLink>
               </li>
             </ul>
           </aside>

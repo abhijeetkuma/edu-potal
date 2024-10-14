@@ -8,6 +8,7 @@ const config = require("./config/config.js");
 const port = process.env.PORT || config.port;
 //const port = config.PORT;
 const colleges_model = require("./model/collegesModel");
+const notification_model = require("./model/notificationModel");
 
 
 
@@ -236,6 +237,16 @@ app.post("/addquestion", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.post("/addnewcms", (req, res) => {
+  colleges_model
+    .addCms(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 
 app.get("/fetchsubcourese/:course_id", (req, res) => {
   colleges_model
@@ -292,6 +303,16 @@ app.get("/editcolleges/:cid", (req, res) => {
 app.get("/editquestion/:qid", (req, res) => {
   colleges_model
     .editquestion(req.params.qid)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/editcms/:cmsid", (req, res) => {
+  colleges_model
+    .editcms(req.params.cmsid)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -532,6 +553,19 @@ app.put("/getupdatequestion/:qid", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.put("/getupdatecms/:cmsid", (req, res) => {
+  const cmsid = req.params.cmsid;
+  const body = req.body;
+  console.log("server cmsid", cmsid);
+  colleges_model
+    .updateCMS(cmsid, body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 //app.post("/addnewsarticle", (req, res) => {
 //app.post("/addnewsarticle", upload.single("image"), (req, res) => {
 app.post("/addnewsarticle", upload.single("image"), (req, res) => {
@@ -579,6 +613,49 @@ app.put("/getvehicledetails/:id", (req, res) => {
 app.get("/getcourses", (req, res) => {
   colleges_model
     .getCourses()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getcmslisting", (req, res) => {
+  colleges_model
+    .getCMSListing()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getnotificationlisting", (req, res) => {
+  notification_model
+    .getNotificationlisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/editnotification/:notif_id", (req, res) => {
+  notification_model
+    .geteditnotification(req.params.notif_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.put("/getupdatenotification/:notif_id", (req, res) => {
+  const notif_id = req.params.notif_id;
+  const body = req.body;
+  console.log("server notif_id", notif_id);
+  notification_model
+    .updateNotification(notif_id, body)
     .then((response) => {
       res.status(200).send(response);
     })
