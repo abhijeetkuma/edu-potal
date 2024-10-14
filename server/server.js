@@ -6,6 +6,7 @@ const config = require("./config/config.js");
 const port = config.port;
 //const port = config.PORT;
 const colleges_model = require("./model/collegesModel");
+const notification_model = require("./model/notificationModel");
 
 // news & article image upload
 var fname, mtype;
@@ -616,6 +617,39 @@ app.get("/getcourses", (req, res) => {
 app.get("/getcmslisting", (req, res) => {
   colleges_model
     .getCMSListing()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/getnotificationlisting", (req, res) => {
+  notification_model
+    .getNotificationlisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/editnotification/:notif_id", (req, res) => {
+  notification_model
+    .geteditnotification(req.params.notif_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.put("/getupdatenotification/:notif_id", (req, res) => {
+  const notif_id = req.params.notif_id;
+  const body = req.body;
+  console.log("server notif_id", notif_id);
+  notification_model
+    .updateNotification(notif_id, body)
     .then((response) => {
       res.status(200).send(response);
     })

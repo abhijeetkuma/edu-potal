@@ -32,6 +32,8 @@ import Location from "./Pages/location";
 import Roles from "./Pages/roles";
 import Companys from "./Pages/companys";
 import Placement from "./Pages/placement";
+import Notifications from "./Pages/notifications";
+import Notificationsadd from "./Pages/notificationadd";
 
 //-----------Website------------------
 
@@ -170,6 +172,14 @@ const router = createBrowserRouter([
       {
         path: "/admin/roles",
         element: <Roles />,
+      },
+      {
+        path: "/admin/notifications",
+        element: <Notifications />,
+      },
+      {
+        path: "/admin/notifications/notificationadd?/:notif_id",
+        element: <Notificationsadd />,
       },
     ],
   },
