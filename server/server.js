@@ -127,7 +127,7 @@ app.get("/", (req, res) => {
     });
 });
 
-app.post("/login", (req, res) => {
+app.post("/api/auth", (req, res) => {
   colleges_model
     .Login(req.body)
     .then((response) => {
