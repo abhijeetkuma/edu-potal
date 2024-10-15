@@ -24,7 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 //import "react-toastify/ReactToastify.css";
 
 // import CKTextEditor from "../Components/ckTextEditor/editor";
-const apiurl = "/api/";
+const apiurl = "/api";
 function College() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
