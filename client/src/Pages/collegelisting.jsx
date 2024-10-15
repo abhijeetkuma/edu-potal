@@ -31,7 +31,8 @@ function Collegelisting() {
       .catch((error) => console.error(error));*/
     axios
       //.get("https://jsonplaceholder.typicode.com/posts")
-      .get("http://localhost:3007/")
+      //.get("http://localhost:3007/")
+      .get("/api/")
       .then((response) => {
         setDatas(response.data);
       })

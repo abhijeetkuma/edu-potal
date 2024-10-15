@@ -26,7 +26,7 @@ function Categories() {
   const [isFilter, setIsFilter] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:3007/getcategories")
+      .get("/api/getcategories")
       .then((response) => {
         setDatas(response.data);
       })
@@ -152,7 +152,7 @@ function Categories() {
       };
       axios({
         method: "post",
-        url: "http://localhost:3007/addcategories",
+        url: "/api/addcategories",
         data: payload,
       })
         .then(function (response) {
@@ -170,7 +170,7 @@ function Categories() {
           );
           //get results
           axios
-            .get("http://localhost:3007/getcategories")
+            .get("/api/getcategories")
             .then((response) => {
               setDatas(response.data);
             })

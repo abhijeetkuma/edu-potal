@@ -42,7 +42,7 @@ function Questionanswer() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getcategoryarr")
+      .get("/api/getcategoryarr")
       .then((response) => {
         setCatgoryarr(response.data);
       })
@@ -50,7 +50,7 @@ function Questionanswer() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/gettradingarr")
+      .get("/api/gettradingarr")
       .then((response) => {
         setTradingarr(response.data);
       })
@@ -59,7 +59,7 @@ function Questionanswer() {
       });
     if (qid > 0) {
       axios
-        .get("http://localhost:3007/editquestion/" + qid)
+        .get("/api/editquestion/" + qid)
         .then((response) => {
           setEditdata(response.data[0]);
         })
@@ -123,7 +123,7 @@ function Questionanswer() {
       //update form data
       axios({
         method: "PUT",
-        url: "http://localhost:3007/getupdatequestion/${qid}",
+        url: "/api/getupdatequestion/${qid}",
         data: payload,
       })
         .then(function (response) {
@@ -154,8 +154,8 @@ function Questionanswer() {
     } else {
       axios({
         method: "post",
-        //url: "http://localhost:3007/addfacitly",
-        url: "http://localhost:3007/addquestion",
+        //url: "/api/addfacitly",
+        url: "/api/addquestion",
         data: payload,
       })
         .then(function (response) {

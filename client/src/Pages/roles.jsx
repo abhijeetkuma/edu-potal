@@ -43,7 +43,7 @@ function Roles() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getroleslist")
+      .get("/api/getroleslist")
       .then((response) => {
         setDatas(response.data);
       })
@@ -51,7 +51,7 @@ function Roles() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getmodulesarr")
+      .get("/api/getmodulesarr")
       .then((response) => {
         setModulearr(response.data);
       })
@@ -143,7 +143,7 @@ function Roles() {
       };
       axios({
         method: "post",
-        url: "http://localhost:3007/updateroles",
+        url: "/api/updateroles",
         data: payload,
       })
         .then(function (response) {
@@ -163,7 +163,7 @@ function Roles() {
             });
             //get results
             axios
-              .get("http://localhost:3007/getroleslist")
+              .get("/api/getroleslist")
               .then((response) => {
                 setDatas(response.data);
               })
@@ -210,7 +210,7 @@ function Roles() {
       };
       axios({
         method: "post",
-        url: "http://localhost:3007/addroles",
+        url: "/api/addroles",
         data: payload,
       })
         .then(function (response) {
@@ -221,7 +221,7 @@ function Roles() {
           );
           //get results
           axios
-            .get("http://localhost:3007/getroleslist")
+            .get("/api/getroleslist")
             .then((response) => {
               setDatas(response.data);
             })
@@ -245,7 +245,7 @@ function Roles() {
   const editDetails = (editval) => {
     console.log("Edit role id:", editval);
     axios
-      .get("http://localhost:3007/editroles/" + editval)
+      .get("/api/editroles/" + editval)
       .then((response) => {
         setEditdata(response.data[0]);
         let editmodulesArr = response.data[0].modules_access_ids;

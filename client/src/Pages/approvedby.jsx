@@ -29,7 +29,7 @@ function Approvedby() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getapprovedby")
+      .get("/api/getapprovedby")
       .then((response) => {
         setDatas(response.data);
       })

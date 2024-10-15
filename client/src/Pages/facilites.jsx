@@ -30,7 +30,7 @@ function Facilites() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getfacilitys")
+      .get("/api/getfacilitys")
       .then((response) => {
         setDatas(response.data);
       })
@@ -93,7 +93,7 @@ function Facilites() {
       };
       axios({
         method: "post",
-        url: "http://localhost:3007/addfacitly",
+        url: "/api/addfacitly",
         data: payload,
       })
         .then(function (response) {
@@ -104,7 +104,7 @@ function Facilites() {
           );
           //get results
           axios
-            .get("http://localhost:3007/getfacilitys")
+            .get("/api/getfacilitys")
             .then((response) => {
               setDatas(response.data);
             })

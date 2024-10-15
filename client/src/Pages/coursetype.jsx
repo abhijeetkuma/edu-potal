@@ -32,7 +32,7 @@ function Courses() {
       .catch((error) => console.error(error));*/
     axios
       //.get("https://jsonplaceholder.typicode.com/posts")
-      .get("http://localhost:3007/getcoursetype")
+      .get("/api/getcoursetype")
       .then((response) => {
         setDatas(response.data);
       })
@@ -41,7 +41,7 @@ function Courses() {
       });
     axios
       //.get("https://jsonplaceholder.typicode.com/posts")
-      .get("http://localhost:3007/getcategoryarr")
+      .get("/api/getcategoryarr")
       .then((response) => {
         setCatarr(response.data);
       })
@@ -128,7 +128,7 @@ function Courses() {
       };
       axios({
         method: "post",
-        url: "http://localhost:3007/addcourse",
+        url: "/api/addcourse",
         data: payload,
       })
         .then(function (response) {
@@ -143,7 +143,7 @@ function Courses() {
           );
           //get results
           axios
-            .get("http://localhost:3007/getcourses")
+            .get("/api/getcourses")
             .then((response) => {
               setDatas(response.data);
             })

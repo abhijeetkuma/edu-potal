@@ -32,7 +32,7 @@ function Newsnevent() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getnewsarticleslisting")
+      .get("/api/getnewsarticleslisting")
       .then((response) => {
         setDatas(response.data);
       })

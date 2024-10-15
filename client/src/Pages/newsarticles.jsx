@@ -56,7 +56,7 @@ function Newsarticles() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getcategoryarr")
+      .get("/api/getcategoryarr")
       .then((response) => {
         setCatgoryarr(response.data);
       })
@@ -64,7 +64,7 @@ function Newsarticles() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/gettradingarr")
+      .get("/api/gettradingarr")
       .then((response) => {
         setTradingarr(response.data);
       })
@@ -73,7 +73,7 @@ function Newsarticles() {
       });
     if (na_id > 0) {
       axios
-        .get("http://localhost:3007/editnewsart/" + na_id)
+        .get("/api/editnewsart/" + na_id)
         .then((response) => {
           setEditdata(response.data[0]);
         })
@@ -160,7 +160,7 @@ function Newsarticles() {
       //update form data
       axios({
         method: "PUT",
-        url: "http://localhost:3007/getupdatenewsarticles/${qid}",
+        url: "/api/getupdatenewsarticles/${qid}",
         data: payload,
       })
         .then(function (response) {
@@ -177,8 +177,8 @@ function Newsarticles() {
     } else {
       axios({
         method: "post",
-        //url: "http://localhost:3007/addfacitly",
-        url: "http://localhost:3007/addnewsarticle",
+        //url: "/api/addfacitly",
+        url: "/api/addnewsarticle",
         data: payload,
       })
         .then(function (response) {
@@ -232,7 +232,7 @@ function Newsarticles() {
       //update form data
       await axios({
         method: "post",
-        url: "http://localhost:3007/getupdatenewsarticles",
+        url: "/api/getupdatenewsarticles",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -264,7 +264,7 @@ function Newsarticles() {
       //end update form data
     } else {
       const result = await axios
-        .post("http://localhost:3007/addnewsarticle", formData, {
+        .post("/api/addnewsarticle", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then(function (response) {
