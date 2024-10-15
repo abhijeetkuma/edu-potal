@@ -122,7 +122,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get("/", (req, res) => {
+app.get("/api/", (req, res) => {
   colleges_model
     .getColleges()
     .then((response) => {
@@ -143,7 +143,7 @@ app.post("/api/auth", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/addnewcollege", (req, res) => {
+app.post("/api/addnewcollege", (req, res) => {
   colleges_model
     .college(req.body)
     .then((response) => {
@@ -154,7 +154,7 @@ app.post("/addnewcollege", (req, res) => {
     });
 });
 
-app.post("/addcoursebranches", (req, res) => {
+app.post("/api/addcoursebranches", (req, res) => {
   colleges_model
     .addCoursebrach(req.body)
     .then((response) => {
@@ -165,7 +165,7 @@ app.post("/addcoursebranches", (req, res) => {
     });
 });
 
-app.post("/addusers", (req, res) => {
+app.post("/api/addusers", (req, res) => {
   colleges_model
     .addNewusers(req.body)
     .then((response) => {
@@ -175,7 +175,7 @@ app.post("/addusers", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/addroles", (req, res) => {
+app.post("/api/addroles", (req, res) => {
   colleges_model
     .addRoles(req.body)
     .then((response) => {
@@ -185,7 +185,7 @@ app.post("/addroles", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/updateroles", (req, res) => {
+app.post("/api/updateroles", (req, res) => {
   colleges_model
     .updateRoles(req.body)
     .then((response) => {
@@ -196,7 +196,7 @@ app.post("/updateroles", (req, res) => {
     });
 });
 
-app.post("/addcourse", (req, res) => {
+app.post("/api/addcourse", (req, res) => {
   colleges_model
     .addNewcourses(req.body)
     .then((response) => {
@@ -206,7 +206,7 @@ app.post("/addcourse", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/addcategories", (req, res) => {
+app.post("/api/addcategories", (req, res) => {
   colleges_model
     .addNewcategories(req.body)
     .then((response) => {
@@ -217,7 +217,7 @@ app.post("/addcategories", (req, res) => {
     });
 });
 
-app.post("/addfacitly", (req, res) => {
+app.post("/api/addfacitly", (req, res) => {
   colleges_model
     .addNewfacility(req.body)
     .then((response) => {
@@ -227,7 +227,7 @@ app.post("/addfacitly", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/addquestion", (req, res) => {
+app.post("/api/addquestion", (req, res) => {
   colleges_model
     .addQuestion(req.body)
     .then((response) => {
@@ -237,7 +237,7 @@ app.post("/addquestion", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/addnewcms", (req, res) => {
+app.post("/api/addnewcms", (req, res) => {
   colleges_model
     .addCms(req.body)
     .then((response) => {
@@ -248,7 +248,7 @@ app.post("/addnewcms", (req, res) => {
     });
 });
 
-app.get("/fetchsubcourese/:course_id", (req, res) => {
+app.get("/api/fetchsubcourese/:course_id", (req, res) => {
   colleges_model
     //.fetchSubcourese(req.body)
     .fetchSubcourese(req.params.course_id)
@@ -259,7 +259,7 @@ app.get("/fetchsubcourese/:course_id", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getcoursesarr", (req, res) => {
+app.get("/api/getcoursesarr", (req, res) => {
   colleges_model
     .getCoursesarr()
     .then((response) => {
@@ -269,7 +269,7 @@ app.get("/getcoursesarr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.delete("/deletecollege/:id", (req, res) => {
+app.delete("/api/deletecollege/:id", (req, res) => {
   colleges_model
     .deleteVehicle(req.params.id)
     .then((response) => {
@@ -280,7 +280,7 @@ app.delete("/deletecollege/:id", (req, res) => {
     });
 });
 
-app.get("/getstatecitylist/:stateid", (req, res) => {
+app.get("/api/getstatecitylist/:stateid", (req, res) => {
   colleges_model
     .getstatewisecity(req.params.stateid)
     .then((response) => {
@@ -290,7 +290,7 @@ app.get("/getstatecitylist/:stateid", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/editcolleges/:cid", (req, res) => {
+app.get("/api/editcolleges/:cid", (req, res) => {
   colleges_model
     .editcollege(req.params.cid)
     .then((response) => {
@@ -300,7 +300,7 @@ app.get("/editcolleges/:cid", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/editquestion/:qid", (req, res) => {
+app.get("/api/editquestion/:qid", (req, res) => {
   colleges_model
     .editquestion(req.params.qid)
     .then((response) => {
@@ -310,7 +310,7 @@ app.get("/editquestion/:qid", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/editcms/:cmsid", (req, res) => {
+app.get("/api/editcms/:cmsid", (req, res) => {
   colleges_model
     .editcms(req.params.cmsid)
     .then((response) => {
@@ -320,7 +320,7 @@ app.get("/editcms/:cmsid", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/editnewsart/:na_id", (req, res) => {
+app.get("/api/editnewsart/:na_id", (req, res) => {
   colleges_model
     .editnewsarticle(req.params.na_id)
     .then((response) => {
@@ -330,7 +330,7 @@ app.get("/editnewsart/:na_id", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/editroles/:rol_id", (req, res) => {
+app.get("/api/editroles/:rol_id", (req, res) => {
   colleges_model
     .editroles(req.params.rol_id)
     .then((response) => {
@@ -342,7 +342,7 @@ app.get("/editroles/:rol_id", (req, res) => {
 });
 
 app.post(
-  "/insertbasicinformation/",
+  "/api/insertbasicinformation/",
   bannerupload.fields([
     { name: "logo", maxCount: 1 },
     { name: "banner", maxCount: 1 },
@@ -372,7 +372,7 @@ app.post(
   }
 );
 app.post(
-  "/updatebasicinformation/",
+  "/api/updatebasicinformation/",
   //logoupload.single("logo"),
   //bannerupload.single("banner"),
   bannerupload.fields([
@@ -406,7 +406,7 @@ app.post(
   }
 );
 app.post(
-  "/updategallery/",
+  "/api/updategallery/",
   //logoupload.single("logo"),
   //bannerupload.single("banner"),
   galleryupload.fields([
@@ -460,7 +460,7 @@ app.post(
       });
   }
 );
-app.post("/updatecontactus", (req, res) => {
+app.post("/api/updatecontactus", (req, res) => {
   //console.log("contact us details-->", req.body);
   colleges_model
     .updateContactus(req.body)
@@ -471,7 +471,7 @@ app.post("/updatecontactus", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/updatehighlight", (req, res) => {
+app.post("/api/updatehighlight", (req, res) => {
   //console.log("contact us details-->", req.body);
   colleges_model
     .updateHighlight(req.body)
@@ -482,7 +482,7 @@ app.post("/updatehighlight", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/updatecourses", (req, res) => {
+app.post("/api/updatecourses", (req, res) => {
   //console.log("contact us details-->", req.body);
   colleges_model
     .updateCourses(req.body)
@@ -493,7 +493,7 @@ app.post("/updatecourses", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/updateadmission", (req, res) => {
+app.post("/api/updateadmission", (req, res) => {
   //console.log("contact us details-->", req.body);
   colleges_model
     .updateAdmission(req.body)
@@ -504,7 +504,7 @@ app.post("/updateadmission", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/updateplacement", (req, res) => {
+app.post("/api/updateplacement", (req, res) => {
   //console.log("contact us details-->", req.body);
   colleges_model
     .updatePlacement(req.body)
@@ -515,7 +515,7 @@ app.post("/updateplacement", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.post("/updatefaq", (req, res) => {
+app.post("/api/updatefaq", (req, res) => {
   //console.log("contact us details-->", req.body);
   colleges_model
     .updateFaq(req.body)
@@ -527,7 +527,7 @@ app.post("/updatefaq", (req, res) => {
     });
 });
 
-app.put("/getupdatecollege/:cid", (req, res) => {
+app.put("/api/getupdatecollege/:cid", (req, res) => {
   const cid = req.params.cid;
   const body = req.body;
   console.log("server cid", cid);
@@ -540,7 +540,7 @@ app.put("/getupdatecollege/:cid", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.put("/getupdatequestion/:qid", (req, res) => {
+app.put("/api/getupdatequestion/:qid", (req, res) => {
   const qid = req.params.qid;
   const body = req.body;
   console.log("server qid", qid);
@@ -553,7 +553,7 @@ app.put("/getupdatequestion/:qid", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.put("/getupdatecms/:cmsid", (req, res) => {
+app.put("/api/getupdatecms/:cmsid", (req, res) => {
   const cmsid = req.params.cmsid;
   const body = req.body;
   console.log("server cmsid", cmsid);
@@ -568,7 +568,7 @@ app.put("/getupdatecms/:cmsid", (req, res) => {
 });
 //app.post("/addnewsarticle", (req, res) => {
 //app.post("/addnewsarticle", upload.single("image"), (req, res) => {
-app.post("/addnewsarticle", upload.single("image"), (req, res) => {
+app.post("/api/addnewsarticle", upload.single("image"), (req, res) => {
   req.body.na_image = req.file ? req.file.filename : "";
   colleges_model
     .addNewsarticle(req.body)
@@ -581,7 +581,7 @@ app.post("/addnewsarticle", upload.single("image"), (req, res) => {
 });
 
 //app.put("/getupdatenewsarticles/:na_id", (req, res) => {
-app.post("/getupdatenewsarticles/", upload.single("image"), (req, res) => {
+app.post("/api/getupdatenewsarticles/", upload.single("image"), (req, res) => {
   const na_id = req.body.na_id;
   //const body = req.body;
   console.log("req.body", req.body);
@@ -597,7 +597,7 @@ app.post("/getupdatenewsarticles/", upload.single("image"), (req, res) => {
     });
 });
 
-app.put("/getvehicledetails/:id", (req, res) => {
+app.put("/api/getvehicledetails/:id", (req, res) => {
   const id = req.params.id;
   const body = req.body;
   colleges_model
@@ -610,7 +610,7 @@ app.put("/getvehicledetails/:id", (req, res) => {
     });
 });
 
-app.get("/getcourses", (req, res) => {
+app.get("/api/getcourses", (req, res) => {
   colleges_model
     .getCourses()
     .then((response) => {
@@ -620,7 +620,7 @@ app.get("/getcourses", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getcmslisting", (req, res) => {
+app.get("/api/getcmslisting", (req, res) => {
   colleges_model
     .getCMSListing()
     .then((response) => {
@@ -630,7 +630,7 @@ app.get("/getcmslisting", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getnotificationlisting", (req, res) => {
+app.get("/api/getnotificationlisting", (req, res) => {
   notification_model
     .getNotificationlisting()
     .then((response) => {
@@ -640,7 +640,7 @@ app.get("/getnotificationlisting", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/editnotification/:notif_id", (req, res) => {
+app.get("/api/editnotification/:notif_id", (req, res) => {
   notification_model
     .geteditnotification(req.params.notif_id)
     .then((response) => {
@@ -650,7 +650,7 @@ app.get("/editnotification/:notif_id", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.put("/getupdatenotification/:notif_id", (req, res) => {
+app.put("/api/getupdatenotification/:notif_id", (req, res) => {
   const notif_id = req.params.notif_id;
   const body = req.body;
   console.log("server notif_id", notif_id);
@@ -664,7 +664,7 @@ app.put("/getupdatenotification/:notif_id", (req, res) => {
     });
 });
 
-app.get("/getcoursesarr", (req, res) => {
+app.get("/api/getcoursesarr", (req, res) => {
   colleges_model
     .getCoursesarr()
     .then((response) => {
@@ -674,7 +674,7 @@ app.get("/getcoursesarr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getsubcoursestypearr", (req, res) => {
+app.get("/api/getsubcoursestypearr", (req, res) => {
   colleges_model
     .getSubcoursestypearr()
     .then((response) => {
@@ -685,7 +685,7 @@ app.get("/getsubcoursestypearr", (req, res) => {
     });
 });
 
-app.get("/getcategoryarr", (req, res) => {
+app.get("/api/getcategoryarr", (req, res) => {
   colleges_model
     .getCategoriesarr()
     .then((response) => {
@@ -695,7 +695,7 @@ app.get("/getcategoryarr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getapprovedbyarr", (req, res) => {
+app.get("/api/getapprovedbyarr", (req, res) => {
   colleges_model
     .getApprovedbyarr()
     .then((response) => {
@@ -705,7 +705,7 @@ app.get("/getapprovedbyarr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/gettradingarr", (req, res) => {
+app.get("/api/gettradingarr", (req, res) => {
   colleges_model
     .getTradingarr()
     .then((response) => {
@@ -715,7 +715,7 @@ app.get("/gettradingarr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getcoursearr", (req, res) => {
+app.get("/api/getcoursearr", (req, res) => {
   colleges_model
     .getCoursearr()
     .then((response) => {
@@ -725,7 +725,7 @@ app.get("/getcoursearr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getsubcoursearr", (req, res) => {
+app.get("/api/getsubcoursearr", (req, res) => {
   colleges_model
     .getSubcoursearr()
     .then((response) => {
@@ -736,7 +736,7 @@ app.get("/getsubcoursearr", (req, res) => {
     });
 });
 
-app.get("/getrolesarr", (req, res) => {
+app.get("/api/getrolesarr", (req, res) => {
   colleges_model
     .getRolesrr()
     .then((response) => {
@@ -746,7 +746,7 @@ app.get("/getrolesarr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getmodulesarr", (req, res) => {
+app.get("/api/getmodulesarr", (req, res) => {
   colleges_model
     .getModulearr()
     .then((response) => {
@@ -756,7 +756,7 @@ app.get("/getmodulesarr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getcollegetypearr", (req, res) => {
+app.get("/api/getcollegetypearr", (req, res) => {
   colleges_model
     .getCollegetypearr()
     .then((response) => {
@@ -766,7 +766,7 @@ app.get("/getcollegetypearr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getexamarr", (req, res) => {
+app.get("/api/getexamarr", (req, res) => {
   colleges_model
     .getExamlistarr()
     .then((response) => {
@@ -776,7 +776,7 @@ app.get("/getexamarr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getfeetypearr", (req, res) => {
+app.get("/api/getfeetypearr", (req, res) => {
   colleges_model
     .getFeetypearr()
     .then((response) => {
@@ -786,7 +786,7 @@ app.get("/getfeetypearr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getfacilityarr", (req, res) => {
+app.get("/api/getfacilityarr", (req, res) => {
   colleges_model
     .getFacilityarr()
     .then((response) => {
@@ -796,7 +796,7 @@ app.get("/getfacilityarr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getcountryarr", (req, res) => {
+app.get("/api/getcountryarr", (req, res) => {
   colleges_model
     .getCountryarr()
     .then((response) => {
@@ -806,7 +806,7 @@ app.get("/getcountryarr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getstatearr", (req, res) => {
+app.get("/api/getstatearr", (req, res) => {
   colleges_model
     .getStatearr()
     .then((response) => {
@@ -816,7 +816,7 @@ app.get("/getstatearr", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getcityarr", (req, res) => {
+app.get("/api/getcityarr", (req, res) => {
   colleges_model
     .getCityarr()
     .then((response) => {
@@ -827,7 +827,7 @@ app.get("/getcityarr", (req, res) => {
     });
 });
 
-app.get("/getcoursebranchs", (req, res) => {
+app.get("/api/getcoursebranchs", (req, res) => {
   colleges_model
     .getCoursebranchs()
     .then((response) => {
@@ -838,7 +838,7 @@ app.get("/getcoursebranchs", (req, res) => {
     });
 });
 
-app.get("/getcategories", (req, res) => {
+app.get("/api/getcategories", (req, res) => {
   colleges_model
     .getCategories()
     .then((response) => {
@@ -849,7 +849,7 @@ app.get("/getcategories", (req, res) => {
     });
 });
 
-app.get("/getfacilitys", (req, res) => {
+app.get("/api/getfacilitys", (req, res) => {
   colleges_model
     .getFacility()
     .then((response) => {
@@ -859,7 +859,7 @@ app.get("/getfacilitys", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getquestinlisting", (req, res) => {
+app.get("/api/getquestinlisting", (req, res) => {
   colleges_model
     .getQuestionlisting()
     .then((response) => {
@@ -869,7 +869,7 @@ app.get("/getquestinlisting", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getnewsarticleslisting", (req, res) => {
+app.get("/api/getnewsarticleslisting", (req, res) => {
   colleges_model
     .getNewsarticleslisting()
     .then((response) => {
@@ -880,7 +880,7 @@ app.get("/getnewsarticleslisting", (req, res) => {
     });
 });
 
-app.get("/getapprovedby", (req, res) => {
+app.get("/api/getapprovedby", (req, res) => {
   colleges_model
     .getApprovedby()
     .then((response) => {
@@ -890,7 +890,7 @@ app.get("/getapprovedby", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getadminuserslist", (req, res) => {
+app.get("/api/getadminuserslist", (req, res) => {
   colleges_model
     .getAdminusers()
     .then((response) => {
@@ -900,7 +900,7 @@ app.get("/getadminuserslist", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getroleslist", (req, res) => {
+app.get("/api/getroleslist", (req, res) => {
   colleges_model
     .getRolelist()
     .then((response) => {
@@ -910,7 +910,7 @@ app.get("/getroleslist", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getroleslist", (req, res) => {
+app.get("/api/getroleslist", (req, res) => {
   colleges_model
     .getAdminusers()
     .then((response) => {
@@ -920,7 +920,7 @@ app.get("/getroleslist", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getcoursetype", (req, res) => {
+app.get("/api/getcoursetype", (req, res) => {
   colleges_model
     .getCoursetype()
     .then((response) => {
@@ -930,7 +930,7 @@ app.get("/getcoursetype", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/getcollegetype", (req, res) => {
+app.get("/api/getcollegetype", (req, res) => {
   colleges_model
     .getCollegetype()
     .then((response) => {

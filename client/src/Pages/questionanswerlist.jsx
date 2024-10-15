@@ -32,7 +32,7 @@ function Questionanswerlisting() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getquestinlisting")
+      .get("/api/getquestinlisting")
       .then((response) => {
         setDatas(response.data);
       })

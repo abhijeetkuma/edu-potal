@@ -26,7 +26,7 @@ function Notifications() {
   const [isFilter, setIsFilter] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:3007/getnotificationlisting")
+      .get("/api/getnotificationlisting")
       .then((response) => {
         setDatas(response.data);
       })

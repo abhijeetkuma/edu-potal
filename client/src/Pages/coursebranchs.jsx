@@ -27,7 +27,7 @@ function Coursebranchs() {
   const [isFilter, setIsFilter] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:3007/getcoursebranchs")
+      .get("/api/getcoursebranchs")
       .then((response) => {
         setDatas(response.data);
       })
@@ -36,7 +36,7 @@ function Coursebranchs() {
       });
 
     axios
-      .get("http://localhost:3007/getcoursesarr")
+      .get("/api/getcoursesarr")
       .then((response) => {
         setCourarr(response.data);
       })
@@ -166,7 +166,7 @@ function Coursebranchs() {
       };
       axios({
         method: "post",
-        url: "http://localhost:3007/addcoursebranches",
+        url: "/api/addcoursebranches",
         data: payload,
       })
         .then(function (response) {
@@ -182,7 +182,7 @@ function Coursebranchs() {
           );
           //get results
           axios
-            .get("http://localhost:3007/getcoursebranchs")
+            .get("/api/getcoursebranchs")
             .then((response) => {
               setDatas(response.data);
             })

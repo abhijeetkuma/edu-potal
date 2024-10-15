@@ -32,7 +32,7 @@ function Cms() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getcmslisting")
+      .get("/api/getcmslisting")
       .then((response) => {
         setDatas(response.data);
       })

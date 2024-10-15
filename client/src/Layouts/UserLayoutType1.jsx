@@ -231,17 +231,14 @@ function UserLayoutType1(props) {
                   <img src={inIcon} alt="" />
                 </span>
               </div>
-              <p>
-                530, 5th Floor Vipul Trade Center, Sohna Rd, Sector 48,
-                Gurugram, Haryana 122018
-              </p>
+              <p>Plot 90, 3rd Floor, Rohini Sector-24, New Delhi-110085</p>
               <div className="contact">
                 <img src={phoneIcon} alt="" fill="red" />
-                <span>11111-000-2222</span>
+                <span>+91-9266424348</span>
               </div>
               <div className="contact">
                 <img src={emailIcon} alt="" fill="red" />
-                <span>info@dialeducation.com</span>
+                <span>info@timesofcollege.com</span>
               </div>
             </div>
           </div>

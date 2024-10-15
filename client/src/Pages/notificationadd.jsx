@@ -22,7 +22,7 @@ function Notificationadd() {
   useEffect(() => {
     if (notif_id > 0) {
       axios
-        .get("http://localhost:3007/editnotification/" + notif_id)
+        .get("/api/editnotification/" + notif_id)
         .then((response) => {
           setEditdata(response.data[0]);
         })
@@ -63,7 +63,7 @@ function Notificationadd() {
       //update form data
       axios({
         method: "PUT",
-        url: "http://localhost:3007/getupdatenotification/${notif_id}",
+        url: "/api/getupdatenotification/${notif_id}",
         data: payload,
       })
         .then(function (response) {
@@ -93,7 +93,7 @@ function Notificationadd() {
     } else {
       axios({
         method: "post",
-        url: "http://localhost:3007/addnewcms",
+        url: "/api/addnewcms",
         data: payload,
       })
         .then(function (response) {

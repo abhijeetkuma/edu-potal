@@ -34,7 +34,7 @@ function Adminusers() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("http://localhost:3007/getadminuserslist")
+      .get("/api/getadminuserslist")
       .then((response) => {
         setDatas(response.data);
       })
@@ -42,7 +42,7 @@ function Adminusers() {
         console.error(error);
       });
     axios
-      .get("http://localhost:3007/getmodulesarr")
+      .get("/api/getmodulesarr")
       .then((response) => {
         setModulearr(response.data);
       })
@@ -51,7 +51,7 @@ function Adminusers() {
       });
 
     axios
-      .get("http://localhost:3007/getrolesarr")
+      .get("/api/getrolesarr")
       .then((response) => {
         setRolesarr(response.data);
       })
@@ -144,7 +144,7 @@ function Adminusers() {
       };
       axios({
         method: "post",
-        url: "http://localhost:3007/addusers",
+        url: "/api/addusers",
         data: payload,
       })
         .then(function (response) {
@@ -158,7 +158,7 @@ function Adminusers() {
           );
           //get results
           axios
-            .get("http://localhost:3007/getadminuserslist")
+            .get("/api/getadminuserslist")
             .then((response) => {
               setDatas(response.data);
             })

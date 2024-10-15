@@ -41,7 +41,7 @@ function Addcms() {
 
     if (cmsid > 0) {
       axios
-        .get("http://localhost:3007/editcms/" + cmsid)
+        .get("/api/editcms/" + cmsid)
         .then((response) => {
           setEditdata(response.data[0]);
         })
@@ -95,7 +95,7 @@ function Addcms() {
       //update form data
       axios({
         method: "PUT",
-        url: "http://localhost:3007/getupdatecms/${cmsid}",
+        url: "/api/getupdatecms/${cmsid}",
         data: payload,
       })
         .then(function (response) {
@@ -125,7 +125,7 @@ function Addcms() {
     } else {
       axios({
         method: "post",
-        url: "http://localhost:3007/addnewcms",
+        url: "/api/addnewcms",
         data: payload,
       })
         .then(function (response) {

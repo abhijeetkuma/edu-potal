@@ -34,7 +34,7 @@ function Courses() {
       .catch((error) => console.error(error));*/
     axios
       //.get("https://jsonplaceholder.typicode.com/posts")
-      .get("http://localhost:3007/getcollegetype")
+      .get("/api/getcollegetype")
       .then((response) => {
         setDatas(response.data);
       })
@@ -43,7 +43,7 @@ function Courses() {
       });
     axios
       //.get("https://jsonplaceholder.typicode.com/posts")
-      .get("http://localhost:3007/getcategoryarr")
+      .get("/api/getcategoryarr")
       .then((response) => {
         setCatarr(response.data);
       })

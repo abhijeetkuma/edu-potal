@@ -12,7 +12,7 @@ const Newsandevent = () => {
     // e.preventDefault();
     // fileUploadRef.current.click();
     try {
-      axios.post("http://localhost:3007/image-upload", {
+      axios.post("/api/image-upload", {
         //ADD AXIOS POST REQUEST
         value: "This is my awesome test value!",
       });
@@ -28,7 +28,7 @@ const Newsandevent = () => {
       formData.append("file", uploadedfile);
       const cashedImg = URL.createObjectURL(uploadedfile);
       setImage(cashedImg);
-      const response = await fetch("http://localhost:3007/newsevents", {
+      const response = await fetch("/api/newsevents", {
         method: "post",
         body: formData,
       });
