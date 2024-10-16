@@ -37,7 +37,7 @@ export default function Login() {
       axios({
         method: "post",
         //url: "https://beta.timesofcollege.com:3007/login",
-        url: '/api/auth',
+        url: "/api/auth",
         data: payload,
       })
         .then(function (response) {
