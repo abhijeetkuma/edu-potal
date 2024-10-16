@@ -1678,7 +1678,7 @@ function College() {
             </div>
             <div className="sm:col-span-4 mt-5">
               <label className="block text-lg font-semibold leading-6 text-gray-900">
-                Logo *
+                Logo
               </label>
               <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md mt-1">
                 <input
@@ -1687,7 +1687,7 @@ function College() {
                   filename={logo}
                   onChange={(e) => setLogo(e.target.files[0])}
                   accept="image/*"
-                  required={cid > 0 ? false : true}
+                  //required={cid > 0 ? false : true}
                 />
                 <input type="hidden" name="old_logo" value={editdata.logo} />
                 {editdata.logo && (
@@ -1697,7 +1697,7 @@ function College() {
             </div>
             <div className="sm:col-span-4 mt-5">
               <label className="block text- font-bold leading-6 text-gray-900">
-                Banner *
+                Banner
               </label>
               <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md mt-1">
                 <input
@@ -1705,7 +1705,7 @@ function College() {
                   filename={banner}
                   onChange={(e) => setBanner(e.target.files[0])}
                   accept="image/*"
-                  required={cid > 0 ? false : true}
+                  //required={cid > 0 ? false : true}
                 />
                 <input
                   type="hidden"
