@@ -33,7 +33,7 @@ function UserLayoutType1(props) {
                 to={`/listing`}
                 className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
               >
-                Collages
+                Colleges
               </NavLink>
             </li>
             <li>
@@ -49,7 +49,7 @@ function UserLayoutType1(props) {
                 to={`/`}
                 className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
               >
-                Cources
+                Courses
               </NavLink>
             </li>
             <li>
@@ -231,7 +231,10 @@ function UserLayoutType1(props) {
                   <img src={inIcon} alt="" />
                 </span>
               </div>
-              <p>Plot 90, 3rd Floor, Rohini Sector-24, New Delhi-110085</p>
+              <p>
+                Times of College 91st Floor, Ruparel Niwas, Valuiladha Road,
+                Near Hera Mongi Hospital,Mulund West, Mumbai- 400080
+              </p>
               <div className="contact">
                 <img src={phoneIcon} alt="" fill="red" />
                 <span>+91-9266424348</span>
