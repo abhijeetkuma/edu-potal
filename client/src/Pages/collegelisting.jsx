@@ -93,7 +93,7 @@ function Collegelisting() {
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       Cell: ({ cell }) => (
         <span>
-          <img src={"/colleges/banner/" + cell.getValue()} />
+          <img src={"../colleges/banner/" + cell.getValue()} />
         </span>
       ), //optional custom cell render
     },
@@ -103,7 +103,7 @@ function Collegelisting() {
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       Cell: ({ cell }) => (
         <span>
-          <img src={"/colleges/banner/" + cell.getValue()} />
+          <img src={"../colleges/banner/" + cell.getValue()} />
         </span>
       ), //optional custom cell render
     },

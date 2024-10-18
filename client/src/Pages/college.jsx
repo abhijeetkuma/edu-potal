@@ -1691,7 +1691,7 @@ function College() {
                 />
                 <input type="hidden" name="old_logo" value={editdata.logo} />
                 {editdata.logo && (
-                  <img src={"/colleges/banner/" + editdata.logo} />
+                  <img src={"../../../colleges/banner/" + editdata.logo} />
                 )}
               </div>
             </div>
@@ -1713,7 +1713,7 @@ function College() {
                   value={editdata.banner}
                 />
                 {editdata.logo && (
-                  <img src={"/colleges/banner/" + editdata.banner} />
+                  <img src={"../../../colleges/banner/" + editdata.banner} />
                 )}
               </div>
             </div>
