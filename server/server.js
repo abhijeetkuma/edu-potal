@@ -54,7 +54,7 @@ var bannerfname, bannermtype;
 const bannerstorage = multer.diskStorage({
   destination: (req, file, cb) => {
     //cb(null, "/tmp/my-uploads");
-    cb(null, "../client/public/colleges/banner");
+    cb(null, "./public/colleges/banner");
   },
   filename: (req, file, cb) => {
     const img_perfixe = file.fieldname === "logo" ? "logo_" : "banner_";
