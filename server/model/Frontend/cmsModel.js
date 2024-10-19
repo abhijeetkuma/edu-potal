@@ -25,28 +25,23 @@ const pool = new Pool({
   port: config.dbport,
 });
 
-const listing = async () => {
-  try {
-    return await new Promise(function (resolve, reject) {
-      pool.query(
-        "SELECT * FROM colleges ORDER BY cid DESC",
-        (error, results) => {
-          if (error) {
-            reject(error);
-          }
-          if (results && results.rows) {
-            resolve(results.rows);
-          } else {
-            reject(new Error("No results found"));
-          }
+const cmsdetails = (cms_url) => {
+  //const cms_url = cms_url;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM cms WHERE cms_url = $1",
+      [cms_url],
+      (error, results) => {
+        if (error) {
+          reject(error);
         }
-      );
-    });
-  } catch (error_1) {
-    console.error(error_1);
-    throw new Error("Internal server error");
-  }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+      }
+    );
+  });
 };
 module.exports = {
-  listing,
+  cmsdetails,
 };

@@ -86,7 +86,7 @@ function UserLayoutType1(props) {
               <ul>
                 <li>
                   <NavLink
-                    to={`/`}
+                    to={`/cms/about-us`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                   >
                     About Us
@@ -118,19 +118,19 @@ function UserLayoutType1(props) {
                 </li>
                 <li>
                   <NavLink
-                    to={`/`}
+                    to={`/cms/privacy-policy`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                   >
                     Privacy Policy
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink
-                    to={`/`}
+                  <Link
+                    to={`/cms/terms-conditions`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                   >
                     Terms & Conditions
-                  </NavLink>
+                  </Link>
                 </li>
               </ul>
             </nav>
