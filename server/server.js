@@ -9,6 +9,8 @@ const port = process.env.PORT || config.port;
 //const port = config.PORT;
 const colleges_model = require("./model/collegesModel");
 const notification_model = require("./model/notificationModel");
+const cms_model = require("./model/Frontend/cmsModel");
+const landing_model = require("./model/Frontend/landingModel");
 
 
 
@@ -643,6 +645,16 @@ app.get("/api/getnotificationlisting", (req, res) => {
 app.get("/api/editnotification/:notif_id", (req, res) => {
   notification_model
     .geteditnotification(req.params.notif_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/cmsdetails/:cms_url", (req, res) => {
+  cms_model
+    .cmsdetails(req.params.cms_url)
     .then((response) => {
       res.status(200).send(response);
     })

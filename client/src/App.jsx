@@ -39,6 +39,7 @@ import Notificationsadd from "./Pages/notificationadd";
 
 import Home from "./Pages/website/home";
 import Listing from "./Pages/website/listing";
+import CMS from "./Pages/website/cms";
 
 import Expenses from "./Pages/expenses";
 import ErrorPage from "./Components/errorComp";
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "/listing",
         element: <Listing />,
+      },
+      {
+        path: "/cms?/:cms_url",
+        element: <CMS />,
       },
     ],
   },
