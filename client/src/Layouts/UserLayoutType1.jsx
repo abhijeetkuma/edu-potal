@@ -71,7 +71,7 @@ function UserLayoutType1(props) {
           </ul>
         </nav>
         <div className="profile">
-          <Link to="/login">Logout</Link>
+          <Link to="/login">Login</Link>
         </div>
       </header>
       <div className="website-wrapper">
@@ -246,7 +246,7 @@ function UserLayoutType1(props) {
             </div>
           </div>
           <div className="copy-right">
-            copyright &copy; 2024 All rights reserved!
+            copyright &copy; {new Date().getFullYear()} All rights reserved!
           </div>
         </footer>
       </div>
