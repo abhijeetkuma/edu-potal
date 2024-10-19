@@ -21,7 +21,18 @@ function Cms(props) {
       });
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
   }, []);
-  console.log(displaycontant);
+  useEffect(() => {
+    axios
+      .get("/api/cmsdetails/" + cms_url)
+      .then((response) => {
+        setDisplaycontant(response.data[0]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
+  }, [cms_url]);
+  //console.log(cms_url);
   return (
     <>
       <section className="container college-filter-wrapper">
