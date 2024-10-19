@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { getImageURL } from "../utils/utils-image";
 
 import axios from "axios";
 
@@ -93,7 +94,8 @@ function Collegelisting() {
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       Cell: ({ cell }) => (
         <span>
-          <img src={"./../../server/colleges/banner/" + cell.getValue()} />
+          {/* <img src={".assets/colleges/banner/" + cell.getValue()} /> */}
+          <img src={getImageURL(cell.getValue())} />
         </span>
       ), //optional custom cell render
     },
@@ -103,7 +105,8 @@ function Collegelisting() {
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       Cell: ({ cell }) => (
         <span>
-          <img src={"../colleges/banner/" + cell.getValue()} />
+          {/* <img src={"../colleges/banner/" + cell.getValue()} /> */}
+          <img src={getImageURL(cell.getValue())} />
         </span>
       ), //optional custom cell render
     },

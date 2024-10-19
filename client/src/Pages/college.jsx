@@ -22,6 +22,7 @@ import "ckeditor5/ckeditor5.css";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 //import "react-toastify/ReactToastify.css";
+import { getImageURL } from "../utils/utils-image";
 
 // import CKTextEditor from "../Components/ckTextEditor/editor";
 const apiurl = "/api";
@@ -1690,9 +1691,7 @@ function College() {
                   //required={cid > 0 ? false : true}
                 />
                 <input type="hidden" name="old_logo" value={editdata.logo} />
-                {editdata.logo && (
-                  <img src={"../../../colleges/banner/" + editdata.logo} />
-                )}
+                {editdata.logo && <img src={getImageURL(editdata.logo)} />}
               </div>
             </div>
             <div className="sm:col-span-4 mt-5">
@@ -1712,9 +1711,10 @@ function College() {
                   name="old_banner"
                   value={editdata.banner}
                 />
-                {editdata.logo && (
+                {editdata.banner && <img src={getImageURL(editdata.banner)} />}
+                {/* {editdata.logo && (
                   <img src={"../../../colleges/banner/" + editdata.banner} />
-                )}
+                )} */}
               </div>
             </div>
             <div className="flex mt-5 gap-4 space-x-1">
