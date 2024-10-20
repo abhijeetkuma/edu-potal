@@ -29,7 +29,7 @@ const listing = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT c.cid,c.college_name,s.state_name,ct.city_name FROM colleges c  LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar ORDER BY c.cid DESC",
+        "SELECT c.cid,c.college_name,c.college_url,c.logo,c.totalplacementratio,c.lowestplacementrecord,c.higestplacementrecord,regexp_count(c.courses, ',') + 1  total_courses, string_agg(e.exam_name,', ') exam_name,c.banner,s.state_name,ct.city_name FROM colleges c  LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar LEFT JOIN examnames e ON e.exam_id = any(string_to_array(c.exams,',')::int[]) GROUP BY c.cid ,s.state_name,ct.city_name ORDER BY c.cid DESC",
         (error, results) => {
           if (error) {
             reject(error);
