@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 import PropTypes from "prop-types";
 
 import arrowUpIcon from "/images/arrowUp.svg";
@@ -15,6 +17,25 @@ import phoneIcon from "/images/phone-icon.svg";
 import adsImg from "/images/ads.svg";
 
 function Listing(props) {
+  const [collegelisting, setCollegelisting] = useState({
+    cid: "",
+    college_name: "",
+    state_name: "",
+    city_name: "",
+  });
+  useEffect(() => {
+    axios
+      //.get("/api/cmsdetails/" + cms_url)
+      .get("/api/collegelisting/")
+      .then((response) => {
+        setCollegelisting(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
+  }, []);
+  console.log("collegelisting", collegelisting.length);
   return (
     <>
       <section className="header"></section>
@@ -413,617 +434,78 @@ function Listing(props) {
         </section>
         <section className="college-list-wrapper">
           <div className="applied-filters"></div>
-          <div className="college-list-card">
-            <div className="title-section">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
+          {collegelisting.length > 0 &&
+            collegelisting.map((item, id) => (
+              <div className="college-list-card" id={item.cid}>
+                <div className="title-section">
+                  <div className="img-box">
+                    <img src={clgSmallImg} alt="" />
+                  </div>
 
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>IIT Kharagpur - Indian Institute of Technology</h2>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kharagpur, West Bengal</span>
-                  </span>
-                  <span className="tieup">AICTE, UGC</span>
-                  <span className="owner medium">Govt.</span>
-                  <span className="rank bold green">#1 NIRF</span>
-                  <span className="rating">
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Accepted Exams</span>
-                  <span>JEE Ma..., JEE Adv...</span>
-                </div>
-                <div>
-                  <span>Courses Offered</span>
-                  <span>20 Courses</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span> 10 L - 12 L</span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> 12 L - 70 L</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">89%</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src={downlaod} alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  <div className="compare">
-                    <img src={compare} alt="" />
-                    <span>Compare</span>
+                  <div className="heart"></div>
+                  <div className="title-details">
+                    <h2>{item.college_name}</h2>
+                    <div>
+                      <span className="location">
+                        <img src={mapIcon} alt="" />
+                        <span>
+                          {item.city_name}, {item.state_name}
+                        </span>
+                      </span>
+                      <span className="tieup">AICTE, UGC</span>
+                      <span className="owner medium">Govt.</span>
+                      <span className="rank bold green">#1 NIRF</span>
+                      <span className="rating">
+                        <img src={star} alt="" />
+                        <img src={star} alt="" />
+                        <img src={star} alt="" />
+                        <img src={star} alt="" />
+                        <img src={star} alt="" />
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <div className="apply-btn">
-                  <button>Apply</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="college-list-card">
-            <div className="title-section">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>IIT Kharagpur - Indian Institute of Technology</h2>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kharagpur, West Bengal</span>
-                  </span>
-                  <span className="tieup">AICTE, UGC</span>
-                  <span className="owner medium">Govt.</span>
-                  <span className="rank bold green">#1 NIRF</span>
-                  <span className="rating">
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Accepted Exams</span>
-                  <span>JEE Ma..., JEE Adv...</span>
-                </div>
-                <div>
-                  <span>Courses Offered</span>
-                  <span>20 Courses</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span> 10 L - 12 L</span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> 12 L - 70 L</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">89%</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src={downlaod} alt="" />
-                    <span>Download Brochure</span>
+                <div className="other-details">
+                  <div className="highlights">
+                    <div>
+                      <span>Accepted Exams</span>
+                      <span>JEE Ma..., JEE Adv...</span>
+                    </div>
+                    <div>
+                      <span>Courses Offered</span>
+                      <span>20 Courses</span>
+                    </div>
+                    <div>
+                      <span>Total Fees Range</span>
+                      <span> 10 L - 12 L</span>
+                    </div>
+                    <div>
+                      <span>Package Range</span>
+                      <span> 12 L - 70 L</span>
+                    </div>
+                    <div>
+                      <span>Placement %</span>
+                      <span className="green">89%</span>
+                    </div>
                   </div>
-                  <div className="compare">
-                    <img src={compare} alt="" />
-                    <span>Compare</span>
+                  <div className="action-btns">
+                    <div>
+                      <div className="download">
+                        <img src={downlaod} alt="" />
+                        <span>Download Brochure</span>
+                      </div>
+                      <div className="compare">
+                        <img src={compare} alt="" />
+                        <span>Compare</span>
+                      </div>
+                    </div>
+                    <div className="apply-btn">
+                      <button>Apply</button>
+                    </div>
                   </div>
                 </div>
-                <div className="apply-btn">
-                  <button>Apply</button>
-                </div>
               </div>
-            </div>
-          </div>
-
-          <div className="college-list-card">
-            <div className="title-section">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>IIT Kharagpur - Indian Institute of Technology</h2>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kharagpur, West Bengal</span>
-                  </span>
-                  <span className="tieup">AICTE, UGC</span>
-                  <span className="owner medium">Govt.</span>
-                  <span className="rank bold green">#1 NIRF</span>
-                  <span className="rating">
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Accepted Exams</span>
-                  <span>JEE Ma..., JEE Adv...</span>
-                </div>
-                <div>
-                  <span>Courses Offered</span>
-                  <span>20 Courses</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span> 10 L - 12 L</span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> 12 L - 70 L</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">89%</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src={downlaod} alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  <div className="compare">
-                    <img src={compare} alt="" />
-                    <span>Compare</span>
-                  </div>
-                </div>
-                <div className="apply-btn">
-                  <button>Apply</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="college-list-card">
-            <div className="title-section">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>IIT Kharagpur - Indian Institute of Technology</h2>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kharagpur, West Bengal</span>
-                  </span>
-                  <span className="tieup">AICTE, UGC</span>
-                  <span className="owner medium">Govt.</span>
-                  <span className="rank bold green">#1 NIRF</span>
-                  <span className="rating">
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Accepted Exams</span>
-                  <span>JEE Ma..., JEE Adv...</span>
-                </div>
-                <div>
-                  <span>Courses Offered</span>
-                  <span>20 Courses</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span> 10 L - 12 L</span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> 12 L - 70 L</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">89%</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src={downlaod} alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  <div className="compare">
-                    <img src={compare} alt="" />
-                    <span>Compare</span>
-                  </div>
-                </div>
-                <div className="apply-btn">
-                  <button>Apply</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="college-list-card">
-            <div className="title-section">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>IIT Kharagpur - Indian Institute of Technology</h2>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kharagpur, West Bengal</span>
-                  </span>
-                  <span className="tieup">AICTE, UGC</span>
-                  <span className="owner medium">Govt.</span>
-                  <span className="rank bold green">#1 NIRF</span>
-                  <span className="rating">
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Accepted Exams</span>
-                  <span>JEE Ma..., JEE Adv...</span>
-                </div>
-                <div>
-                  <span>Courses Offered</span>
-                  <span>20 Courses</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span> 10 L - 12 L</span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> 12 L - 70 L</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">89%</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src={downlaod} alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  <div className="compare">
-                    <img src={compare} alt="" />
-                    <span>Compare</span>
-                  </div>
-                </div>
-                <div className="apply-btn">
-                  <button>Apply</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="college-list-card">
-            <div className="title-section">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>IIT Kharagpur - Indian Institute of Technology</h2>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kharagpur, West Bengal</span>
-                  </span>
-                  <span className="tieup">AICTE, UGC</span>
-                  <span className="owner medium">Govt.</span>
-                  <span className="rank bold green">#1 NIRF</span>
-                  <span className="rating">
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Accepted Exams</span>
-                  <span>JEE Ma..., JEE Adv...</span>
-                </div>
-                <div>
-                  <span>Courses Offered</span>
-                  <span>20 Courses</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span> 10 L - 12 L</span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> 12 L - 70 L</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">89%</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src={downlaod} alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  <div className="compare">
-                    <img src={compare} alt="" />
-                    <span>Compare</span>
-                  </div>
-                </div>
-                <div className="apply-btn">
-                  <button>Apply</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="college-list-card">
-            <div className="title-section">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>IIT Kharagpur - Indian Institute of Technology</h2>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kharagpur, West Bengal</span>
-                  </span>
-                  <span className="tieup">AICTE, UGC</span>
-                  <span className="owner medium">Govt.</span>
-                  <span className="rank bold green">#1 NIRF</span>
-                  <span className="rating">
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Accepted Exams</span>
-                  <span>JEE Ma..., JEE Adv...</span>
-                </div>
-                <div>
-                  <span>Courses Offered</span>
-                  <span>20 Courses</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span> 10 L - 12 L</span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> 12 L - 70 L</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">89%</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src={downlaod} alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  <div className="compare">
-                    <img src={compare} alt="" />
-                    <span>Compare</span>
-                  </div>
-                </div>
-                <div className="apply-btn">
-                  <button>Apply</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="college-list-card">
-            <div className="title-section">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>IIT Kharagpur - Indian Institute of Technology</h2>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kharagpur, West Bengal</span>
-                  </span>
-                  <span className="tieup">AICTE, UGC</span>
-                  <span className="owner medium">Govt.</span>
-                  <span className="rank bold green">#1 NIRF</span>
-                  <span className="rating">
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Accepted Exams</span>
-                  <span>JEE Ma..., JEE Adv...</span>
-                </div>
-                <div>
-                  <span>Courses Offered</span>
-                  <span>20 Courses</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span> 10 L - 12 L</span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> 12 L - 70 L</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">89%</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src={downlaod} alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  <div className="compare">
-                    <img src={compare} alt="" />
-                    <span>Compare</span>
-                  </div>
-                </div>
-                <div className="apply-btn">
-                  <button>Apply</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="college-list-card">
-            <div className="title-section">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>IIT Kharagpur - Indian Institute of Technology</h2>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kharagpur, West Bengal</span>
-                  </span>
-                  <span className="tieup">AICTE, UGC</span>
-                  <span className="owner medium">Govt.</span>
-                  <span className="rank bold green">#1 NIRF</span>
-                  <span className="rating">
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Accepted Exams</span>
-                  <span>JEE Ma..., JEE Adv...</span>
-                </div>
-                <div>
-                  <span>Courses Offered</span>
-                  <span>20 Courses</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span> 10 L - 12 L</span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> 12 L - 70 L</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">89%</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src={downlaod} alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  <div className="compare">
-                    <img src={compare} alt="" />
-                    <span>Compare</span>
-                  </div>
-                </div>
-                <div className="apply-btn">
-                  <button>Apply</button>
-                </div>
-              </div>
-            </div>
-          </div>
+            ))}
         </section>
         <div className="others">
           <div className="ads">
