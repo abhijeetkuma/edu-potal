@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { getImageURL } from "../../../utils/utils-image";
 
 import arrowUpIcon from "/images/arrowUp.svg";
 import clgSmallImg from "/images/img-dummy-sm.png";
@@ -20,8 +21,16 @@ function Listing(props) {
   const [collegelisting, setCollegelisting] = useState({
     cid: "",
     college_name: "",
+    college_url: "",
+    logo: "",
+    banner: "",
     state_name: "",
     city_name: "",
+    totalplacementratio: "",
+    exam_name: "",
+    total_courses: "",
+    lowestplacementrecord: "",
+    higestplacementrecord: "",
   });
   useEffect(() => {
     axios
@@ -439,7 +448,7 @@ function Listing(props) {
               <div className="college-list-card" id={item.cid}>
                 <div className="title-section">
                   <div className="img-box">
-                    <img src={clgSmallImg} alt="" />
+                    <img src={getImageURL(item.logo)} alt="" />
                   </div>
 
                   <div className="heart"></div>
@@ -469,11 +478,13 @@ function Listing(props) {
                   <div className="highlights">
                     <div>
                       <span>Accepted Exams</span>
-                      <span>JEE Ma..., JEE Adv...</span>
+                      <span>{item.exam_name ? item.exam_name : "NA"}</span>
                     </div>
                     <div>
                       <span>Courses Offered</span>
-                      <span>20 Courses</span>
+                      <span>
+                        {item.total_courses ? item.total_courses : 0} Courses
+                      </span>
                     </div>
                     <div>
                       <span>Total Fees Range</span>
@@ -481,11 +492,19 @@ function Listing(props) {
                     </div>
                     <div>
                       <span>Package Range</span>
-                      <span> 12 L - 70 L</span>
+                      <span>
+                        {" "}
+                        {item.lowestplacementrecord} -
+                        {item.higestplacementrecord}
+                      </span>
                     </div>
                     <div>
                       <span>Placement %</span>
-                      <span className="green">89%</span>
+                      <span className="green">
+                        {item.totalplacementratio
+                          ? item.totalplacementratio
+                          : "NA"}
+                      </span>
                     </div>
                   </div>
                   <div className="action-btns">
