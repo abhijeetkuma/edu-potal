@@ -11,6 +11,7 @@ const colleges_model = require("./model/collegesModel");
 const notification_model = require("./model/notificationModel");
 const cms_model = require("./model/Frontend/cmsModel");
 const landing_model = require("./model/Frontend/landingModel");
+const collegelisting_model = require("./model/Frontend/collegelistingModel");
 
 
 
@@ -652,16 +653,7 @@ app.get("/api/editnotification/:notif_id", (req, res) => {
       res.status(500).send(error);
     });
 });
-app.get("/api/cmsdetails/:cms_url", (req, res) => {
-  cms_model
-    .cmsdetails(req.params.cms_url)
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
+
 app.put("/api/getupdatenotification/:notif_id", (req, res) => {
   const notif_id = req.params.notif_id;
   const body = req.body;
@@ -952,7 +944,28 @@ app.get("/api/getcollegetype", (req, res) => {
       res.status(500).send(error);
     });
 });
-
+//front end apis
+app.get("/api/cmsdetails/:cms_url", (req, res) => {
+  cms_model
+    .cmsdetails(req.params.cms_url)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/collegelisting/", (req, res) => {
+  collegelisting_model
+    .listing()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+//end front end apis
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
