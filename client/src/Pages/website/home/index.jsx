@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 import PropTypes from "prop-types";
+import { getImageURL } from "../../../utils/utils-image";
 
 import handSpeaker from "/images/hand-speaker.png";
 import leftArrow from "/images/left-arrow.png";
@@ -17,6 +20,49 @@ import emailIcon from "/images/email-icon.svg";
 import phoneIcon from "/images/phone-icon.svg";
 
 function Home(props) {
+  const [topnotification, setTopnotification] = useState({
+    notif_id: "",
+    notification_target: "",
+    notification_title: "",
+    notification_url: "",
+  });
+  const [toppopularcollegelisting, setToppopularcollegelisting] = useState({
+    cid: "",
+    college_name: "",
+    college_url: "",
+    logo: "",
+    banner: "",
+    state_name: "",
+    city_name: "",
+    totalplacementratio: "",
+    exam_name: "",
+    total_courses: "",
+    lowestplacementrecord: "",
+    higestplacementrecord: "",
+    approved_by: "",
+    exam_name: "",
+  });
+  useEffect(() => {
+    axios
+      //.get("/api/cmsdetails/" + cms_url)
+      .get("/api/topnotifications/")
+      .then((response) => {
+        setTopnotification(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      //.get("/api/cmsdetails/" + cms_url)
+      .get("/api/toppopulercolleges/")
+      .then((response) => {
+        setToppopularcollegelisting(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
+  }, []);
   return (
     <>
       <section className="sliding-banner">
@@ -58,12 +104,20 @@ function Home(props) {
             <img src={leftArrow} alt="" />
           </span>
           <div className="news-list">
-            <span>Common Application form</span>
-            <span>JEE Main 2024 Date</span>
-            <span>JEE Main Syllabus 2024</span>
-            <span>NEET 2024 Exam Date</span>
-            <span>NEET Syllabus 2024</span>
-            <span>GATE 2024 Exam Date</span>
+            {topnotification.length > 0 &&
+              topnotification.map((nitem) => (
+                <span>
+                  <a
+                    href={nitem.notification_url}
+                    alt={nitem.notification_title}
+                    target={
+                      nitem.notification_target != "Pairent" ? "_blank" : ""
+                    }
+                  >
+                    {nitem.notification_title}
+                  </a>
+                </span>
+              ))}
           </div>
           <span>
             <img src={rightArrow} alt="" />
@@ -229,357 +283,54 @@ function Home(props) {
       <section className="container popular-colleges">
         <div className="head-line">Most Popular Featured Collages</div>
         <div className="popular-clg-container">
-          <div className="popular-clg">
-            <div
-              className="header"
-              style={{
-                backgroundImage: `url(${clgBanner})`,
-                backgroundRepeat: "no-repeat",
-              }}
-            >
-              <div>
-                <img src={clgSmallImg} alt="" />
-                <div className="details">
-                  <h3>IIT Kharagpur </h3>
-                  <p>Kharagpur, West Bengal</p>
-                  <p>AICTE, UGC</p>
+          {toppopularcollegelisting.length > 0 &&
+            toppopularcollegelisting.map((item, id) => (
+              <div className="popular-clg">
+                <div
+                  className="header"
+                  style={{
+                    backgroundImage: `url(${getImageURL(item.banner) ? getImageURL(item.banner) : clgBanner})`,
+                    backgroundRepeat: "no-repeat",
+                  }}
+                >
+                  <div>
+                    <img src={getImageURL(item.logo)} alt="" />
+                    <div className="details">
+                      <h3>{item.college_name} </h3>
+                      <p>
+                        {item.city_name}, {item.state_name}
+                      </p>
+                      <p>{item.approved_by}</p>
+                    </div>
+                  </div>
+                  <div className="heart"></div>
+                </div>
+                <div className="other-details">
+                  <div className="clg-type-rating">
+                    <span>BE/B.Tech</span>
+                    <span className="clg-rating">
+                      <img src={star} alt="" />
+                      <span>4.5 (55)</span>
+                    </span>
+                  </div>
+                  <ul className="links">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                  </ul>
+                  <div className="action-btns">
+                    <div className="download">
+                      <img src={downlaod} alt="" />
+                      <span>Download Brochure</span>
+                    </div>
+                    <div className="compare">
+                      <img src={compare} alt="" />
+                      <span>Compare</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="heart"></div>
-            </div>
-            <div className="other-details">
-              <div className="clg-type-rating">
-                <span>BE/B.Tech</span>
-                <span className="clg-rating">
-                  <img src={star} alt="" />
-                  <span>4.5 (55)</span>
-                </span>
-              </div>
-              <ul className="links">
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-              <div className="action-btns">
-                <div className="download">
-                  <img src={downlaod} alt="" />
-                  <span>Download Brochure</span>
-                </div>
-                <div className="compare">
-                  <img src={compare} alt="" />
-                  <span>Compare</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="popular-clg">
-            <div
-              className="header"
-              style={{
-                backgroundImage: `url(${clgBanner})`,
-                backgroundRepeat: "no-repeat",
-              }}
-            >
-              <div>
-                <img src={clgSmallImg} alt="" />
-                <div className="details">
-                  <h3>IIT Kharagpur </h3>
-                  <p>Kharagpur, West Bengal</p>
-                  <p>AICTE, UGC</p>
-                </div>
-              </div>
-              <div className="heart"></div>
-            </div>
-            <div className="other-details">
-              <div className="clg-type-rating">
-                <span>BE/B.Tech</span>
-                <span className="clg-rating">
-                  <img src={star} alt="" />
-                  <span>4.5 (55)</span>
-                </span>
-              </div>
-              <ul className="links">
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-              <div className="action-btns">
-                <div className="download">
-                  <img src={downlaod} alt="" />
-                  <span>Download Brochure</span>
-                </div>
-                <div className="compare">
-                  <img src={compare} alt="" />
-                  <span>Compare</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="popular-clg">
-            <div
-              className="header"
-              style={{
-                backgroundImage: `url(${clgBanner})`,
-                backgroundRepeat: "no-repeat",
-              }}
-            >
-              <div>
-                <img src={clgSmallImg} alt="" />
-                <div className="details">
-                  <h3>IIT Kharagpur </h3>
-                  <p>Kharagpur, West Bengal</p>
-                  <p>AICTE, UGC</p>
-                </div>
-              </div>
-              <div className="heart"></div>
-            </div>
-            <div className="other-details">
-              <div className="clg-type-rating">
-                <span>BE/B.Tech</span>
-                <span className="clg-rating">
-                  <img src={star} alt="" />
-                  <span>4.5 (55)</span>
-                </span>
-              </div>
-              <ul className="links">
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-              <div className="action-btns">
-                <div className="download">
-                  <img src={downlaod} alt="" />
-                  <span>Download Brochure</span>
-                </div>
-                <div className="compare">
-                  <img src={compare} alt="" />
-                  <span>Compare</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="popular-clg">
-            <div
-              className="header"
-              style={{
-                backgroundImage: `url(${clgBanner})`,
-                backgroundRepeat: "no-repeat",
-              }}
-            >
-              <div>
-                <img src={clgSmallImg} alt="" />
-                <div className="details">
-                  <h3>IIT Kharagpur </h3>
-                  <p>Kharagpur, West Bengal</p>
-                  <p>AICTE, UGC</p>
-                </div>
-              </div>
-              <div className="heart"></div>
-            </div>
-            <div className="other-details">
-              <div className="clg-type-rating">
-                <span>BE/B.Tech</span>
-                <span className="clg-rating">
-                  <img src={star} alt="" />
-                  <span>4.5 (55)</span>
-                </span>
-              </div>
-              <ul className="links">
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-              <div className="action-btns">
-                <div className="download">
-                  <img src={downlaod} alt="" />
-                  <span>Download Brochure</span>
-                </div>
-                <div className="compare">
-                  <img src={compare} alt="" />
-                  <span>Compare</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="popular-clg">
-            <div
-              className="header"
-              style={{
-                backgroundImage: `url(${clgBanner})`,
-                backgroundRepeat: "no-repeat",
-              }}
-            >
-              <div>
-                <img src={clgSmallImg} alt="" />
-                <div className="details">
-                  <h3>IIT Kharagpur </h3>
-                  <p>Kharagpur, West Bengal</p>
-                  <p>AICTE, UGC</p>
-                </div>
-              </div>
-              <div className="heart"></div>
-            </div>
-            <div className="other-details">
-              <div className="clg-type-rating">
-                <span>BE/B.Tech</span>
-                <span className="clg-rating">
-                  <img src={star} alt="" />
-                  <span>4.5 (55)</span>
-                </span>
-              </div>
-              <ul className="links">
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-              <div className="action-btns">
-                <div className="download">
-                  <img src={downlaod} alt="" />
-                  <span>Download Brochure</span>
-                </div>
-                <div className="compare">
-                  <img src={compare} alt="" />
-                  <span>Compare</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="popular-clg">
-            <div
-              className="header"
-              style={{
-                backgroundImage: `url(${clgBanner})`,
-                backgroundRepeat: "no-repeat",
-              }}
-            >
-              <div>
-                <img src={clgSmallImg} alt="" />
-                <div className="details">
-                  <h3>IIT Kharagpur </h3>
-                  <p>Kharagpur, West Bengal</p>
-                  <p>AICTE, UGC</p>
-                </div>
-              </div>
-              <div className="heart"></div>
-            </div>
-            <div className="other-details">
-              <div className="clg-type-rating">
-                <span>BE/B.Tech</span>
-                <span className="clg-rating">
-                  <img src={star} alt="" />
-                  <span>4.5 (55)</span>
-                </span>
-              </div>
-              <ul className="links">
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-              <div className="action-btns">
-                <div className="download">
-                  <img src={downlaod} alt="" />
-                  <span>Download Brochure</span>
-                </div>
-                <div className="compare">
-                  <img src={compare} alt="" />
-                  <span>Compare</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="popular-clg">
-            <div
-              className="header"
-              style={{
-                backgroundImage: `url(${clgBanner})`,
-                backgroundRepeat: "no-repeat",
-              }}
-            >
-              <div>
-                <img src={clgSmallImg} alt="" />
-                <div className="details">
-                  <h3>IIT Kharagpur </h3>
-                  <p>Kharagpur, West Bengal</p>
-                  <p>AICTE, UGC</p>
-                </div>
-              </div>
-              <div className="heart"></div>
-            </div>
-            <div className="other-details">
-              <div className="clg-type-rating">
-                <span>BE/B.Tech</span>
-                <span className="clg-rating">
-                  <img src={star} alt="" />
-                  <span>4.5 (55)</span>
-                </span>
-              </div>
-              <ul className="links">
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-              <div className="action-btns">
-                <div className="download">
-                  <img src={downlaod} alt="" />
-                  <span>Download Brochure</span>
-                </div>
-                <div className="compare">
-                  <img src={compare} alt="" />
-                  <span>Compare</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="popular-clg">
-            <div
-              className="header"
-              style={{
-                backgroundImage: `url(${clgBanner})`,
-                backgroundRepeat: "no-repeat",
-              }}
-            >
-              <div>
-                <img src={clgSmallImg} alt="" />
-                <div className="details">
-                  <h3>IIT Kharagpur </h3>
-                  <p>Kharagpur, West Bengal</p>
-                  <p>AICTE, UGC</p>
-                </div>
-              </div>
-              <div className="heart"></div>
-            </div>
-            <div className="other-details">
-              <div className="clg-type-rating">
-                <span>BE/B.Tech</span>
-                <span className="clg-rating">
-                  <img src={star} alt="" />
-                  <span>4.5 (55)</span>
-                </span>
-              </div>
-              <ul className="links">
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
-              <div className="action-btns">
-                <div className="download">
-                  <img src={downlaod} alt="" />
-                  <span>Download Brochure</span>
-                </div>
-                <div className="compare">
-                  <img src={compare} alt="" />
-                  <span>Compare</span>
-                </div>
-              </div>
-            </div>
-          </div>
+            ))}
         </div>
       </section>
       <section className="container exams">

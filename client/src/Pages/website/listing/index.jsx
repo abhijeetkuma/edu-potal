@@ -31,6 +31,8 @@ function Listing(props) {
     total_courses: "",
     lowestplacementrecord: "",
     higestplacementrecord: "",
+    approved_by: "",
+    exam_name: "",
   });
   useEffect(() => {
     axios
@@ -44,7 +46,7 @@ function Listing(props) {
       });
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
   }, []);
-  console.log("collegelisting", collegelisting.length);
+  //console.log("collegelisting", collegelisting.length);
   return (
     <>
       <section className="header"></section>
@@ -461,8 +463,8 @@ function Listing(props) {
                           {item.city_name}, {item.state_name}
                         </span>
                       </span>
-                      <span className="tieup">AICTE, UGC</span>
-                      <span className="owner medium">Govt.</span>
+                      <span className="tieup">{item.approved_by}</span>
+                      <span className="owner medium">{item.college_types}</span>
                       <span className="rank bold green">#1 NIRF</span>
                       <span className="rating">
                         <img src={star} alt="" />
