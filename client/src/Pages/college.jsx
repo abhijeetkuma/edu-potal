@@ -22,7 +22,7 @@ import "ckeditor5/ckeditor5.css";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 //import "react-toastify/ReactToastify.css";
-import { getImageURL } from "../utils/utils-image";
+import { getImageURL, getGalleryURL } from "../utils/utils-image";
 
 // import CKTextEditor from "../Components/ckTextEditor/editor";
 const apiurl = "/api";
@@ -2838,8 +2838,13 @@ function College() {
                   onChange={(e) => setGallery1(e.target.files[0])}
                   accept="image/*"
                 />
+
                 {editdata.gallery1 && (
-                  <img src={"/colleges/gallery/" + editdata.gallery1} />
+                  <img
+                    src={getGalleryURL(editdata.gallery1)}
+                    alt={editdata.gallery1}
+                    width={100}
+                  />
                 )}
               </div>
             </div>
@@ -2859,7 +2864,11 @@ function College() {
                   accept="image/*"
                 />
                 {editdata.gallery2 && (
-                  <img src={"/colleges/gallery/" + editdata.gallery2} />
+                  <img
+                    src={getGalleryURL(editdata.gallery2)}
+                    alt={editdata.gallery2}
+                    width={100}
+                  />
                 )}
               </div>
             </div>
@@ -2879,7 +2888,11 @@ function College() {
                   accept="image/*"
                 />
                 {editdata.gallery3 && (
-                  <img src={"/colleges/gallery/" + editdata.gallery3} />
+                  <img
+                    src={getGalleryURL(editdata.gallery3)}
+                    alt={editdata.gallery3}
+                    width={100}
+                  />
                 )}
               </div>
             </div>
@@ -2899,7 +2912,11 @@ function College() {
                   accept="image/*"
                 />
                 {editdata.gallery4 && (
-                  <img src={"/colleges/gallery/" + editdata.gallery4} />
+                  <img
+                    src={getGalleryURL(editdata.gallery4)}
+                    alt={editdata.gallery4}
+                    width={100}
+                  />
                 )}
               </div>
             </div>
@@ -2919,7 +2936,11 @@ function College() {
                   accept="image/*"
                 />
                 {editdata.gallery5 && (
-                  <img src={"/colleges/gallery/" + editdata.gallery5} />
+                  <img
+                    src={getGalleryURL(editdata.gallery5)}
+                    alt={editdata.gallery5}
+                    width={100}
+                  />
                 )}
               </div>
             </div>

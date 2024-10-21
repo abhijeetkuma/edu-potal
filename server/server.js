@@ -84,7 +84,7 @@ var galleryfname, gallerymtype;
 const gallerystorage = multer.diskStorage({
   destination: (req, file, cb) => {
     //cb(null, "/tmp/my-uploads");
-    cb(null, "../client/public/colleges/gallery");
+    cb(null, __dirname + "/public/colleges/gallery");
   },
   filename: (req, file, cb) => {
     const img_perfixe =
@@ -945,6 +945,28 @@ app.get("/api/getcollegetype", (req, res) => {
     });
 });
 //front end apis
+//landing page apis
+app.get("/api/topnotifications/", (req, res) => {
+  landing_model
+    .topNotification()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/toppopulercolleges/", (req, res) => {
+  landing_model
+    .topPopularcolleges()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+//end landing page apis
 app.get("/api/cmsdetails/:cms_url", (req, res) => {
   cms_model
     .cmsdetails(req.params.cms_url)

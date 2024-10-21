@@ -95,7 +95,6 @@ function Collegelisting() {
       Cell: ({ cell }) => (
         <span>
           {/* <img src={".assets/colleges/banner/" + cell.getValue()} /> */}
-          {cell.getValue()}
           <img src={getImageURL(cell.getValue())} />
         </span>
       ), //optional custom cell render
