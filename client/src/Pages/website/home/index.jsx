@@ -106,7 +106,7 @@ function Home(props) {
           <div className="news-list">
             {topnotification.length > 0 &&
               topnotification.map((nitem) => (
-                <span>
+                <span id={nitem.notif_id}>
                   <a
                     href={nitem.notification_url}
                     alt={nitem.notification_title}
