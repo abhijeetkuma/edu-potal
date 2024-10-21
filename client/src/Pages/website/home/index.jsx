@@ -40,7 +40,7 @@ function Home(props) {
     lowestplacementrecord: "",
     higestplacementrecord: "",
     approved_by: "",
-    exam_name: "",
+    college_types: "",
   });
   useEffect(() => {
     axios
