@@ -144,6 +144,20 @@ function College() {
     gallery5: "",
     brouchure: "",
     youtube: "",
+    highlights: [{ highParameter: "", highDetails: "" }],
+    sub_course_details: [
+      {
+        subcourseId: "",
+        course_duration: "",
+        course_fee: "",
+        feetype_id: "",
+        course_seats: "",
+        subcoursedescription: "",
+        subcourseselectioncriteria: "",
+        subcourseselectiioneligibility: "",
+        subcoursestype: "",
+      },
+    ],
   });
   const { cid } = useParams();
   //console.log("College id:", cid);
@@ -263,8 +277,34 @@ function College() {
         .get(apiurl + "/editcolleges/" + cid)
         .then((response) => {
           setEditdata(response.data[0]);
-          setHighLights(response.data[0]?.highlights);
-          setSubcoursesoptions(response.data[0]?.sub_course_details);
+          if (response.data[0].highlights) {
+            setHighLights(
+              response.data[0]?.highlights
+                ? response.data[0]?.highlights
+                : { highParameter: "", highDetails: "" }
+            );
+          } else {
+            setHighLights([{ highParameter: "", highDetails: "" }]);
+          }
+          /* */
+          if (response.data[0].sub_course_details) {
+            setSubcoursesoptions(response.data[0]?.sub_course_details);
+          } else {
+            setSubcoursesoptions([
+              {
+                subcourseId: "",
+                course_duration: "",
+                course_fee: "",
+                feetype_id: "",
+                course_seats: "",
+                subcoursedescription: "",
+                subcourseselectioncriteria: "",
+                subcourseselectiioneligibility: "",
+                subcoursestype: "",
+              },
+            ]);
+          }
+
           //console.log("sd-->", response.data[0].facilities);
           //setFacilityvalue(JSON.stringify(response.data[0].facilities));
           let editfacilityArr = response.data[0].facilities;
@@ -2012,7 +2052,7 @@ function College() {
               Tabuller
             </div>
             <div className="sm:col-span-4">
-              <div>{console.log("data=-=-=-=-=-=", editdata.highlights)}</div>
+              <div>{console.log("data=-=-=-=-=-=", editdata.highLights)}</div>
               {highLights.map((item, i) => (
                 <>
                   <div className="flex mb-2" key={`key-${i}`}>
