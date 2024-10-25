@@ -38,7 +38,7 @@ function UserLayoutType1(props) {
             </li>
             <li>
               <NavLink
-                to={`/`}
+                to={`/exams`}
                 className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
               >
                 Exams

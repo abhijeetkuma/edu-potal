@@ -1,5 +1,5 @@
 const express = require("express");
-var cors = require('cors')
+var cors = require("cors");
 
 const fs = require("fs");
 const multer = require("multer");
@@ -12,10 +12,9 @@ const notification_model = require("./model/notificationModel");
 const cms_model = require("./model/Frontend/cmsModel");
 const landing_model = require("./model/Frontend/landingModel");
 const collegelisting_model = require("./model/Frontend/collegelistingModel");
+const exan_model = require("./model/Frontend/examModel");
 
-
-
-app.use(cors())
+app.use(cors());
 
 // news & article image upload
 var fname, mtype;
@@ -980,6 +979,16 @@ app.get("/api/cmsdetails/:cms_url", (req, res) => {
 app.get("/api/collegelisting/", (req, res) => {
   collegelisting_model
     .listing()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/examlisting/", (req, res) => {
+  exan_model
+    .examlisting()
     .then((response) => {
       res.status(200).send(response);
     })
