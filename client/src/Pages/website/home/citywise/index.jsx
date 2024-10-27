@@ -3,80 +3,54 @@ import axios from "axios";
 import Slider from "react-slick";
 
 
-function Citywise({clgSmallImg}) {
+function Citywise({imglite}) {
 var settings = {
     dots: true,
     infinite: true,
     arrows: true,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5
+    slidesToShow: 7,
+    slidesToScroll: 7
     };
 
-const [exams, setExams] = useState({
-    na_id: "",
-    na_image: "",
-    na_url: "",
-    na_title: "",
+const [bycity, setBycity] = useState({
+    cit_id: "",
+    city_name: "",
     });
 
 useEffect(() => {
     axios
-    .get("/api/landingexams/")
-    .then((response) => {
-        setExams(response.data);
-    })
-    .catch((error) => {
+      .get("/api/studybycities/")
+      .then((response) => {
+        setBycity(response.data);
+      })
+      .catch((error) => {
         console.error(error);
-    });
+      });
 }, [])
 
-const renderExams = (eitem) => (
-    <a href={"exams/details/" + eitem.na_url}>
-        <div className="exam-card" id={eitem.na_id}>
-            <div className="exam-meta">
-            <img src={clgSmallImg} alt="" />
-            <div>
-                <h3>{eitem.na_title}</h3>
-                <span>online</span>
-            </div>
-            </div>
-            <div className="exam-info-list">
-            <div className="exam-info">
-                <span>Exam Level</span>
-                <span>National</span>
-            </div>
-            <div className="exam-info">
-                <span>Exam Date</span>
-                <span>12-May-2024</span>
-            </div>
-            </div>
-            <hr className="hr-x" />
-            <div className="exam-link">
-            <span className="link">Registration Process</span>
-            <span className="link">Exam Information</span>
-            </div>
+const renderCity = (citem) => (
+    <div className="city-card" id={citem.cit_id}>
+        <div>
+            <img src={imglite} alt="" />
+            <p>{citem.city_name}</p>
         </div>
-    </a>
+    </div>
 )
 
 return (
-    <section className="container exams">
-        <div className="head-line">Exams</div>
-        <div className="exams-container">
-        <ul className="tabs">
-            <li className="active">All</li>
-            <li>Popular</li>
-            <li>After 12th</li>
-        </ul>
-        <div className="exam-card-list">
+    <section className="by-cities">
+        <div className="container">
+        <div className="head-line">Study by Cities</div>
+        <div className="by-cities-list">
         <Slider {...settings}>
-            {exams.length > 0 &&
-            exams.map((eitem, index) => (
+            {bycity.length > 0 &&
+                bycity.map((citem) => (
                 <div>
-                    {renderExams(eitem)}
+                    {renderCity(citem)}
                 </div>
-            ))}
+                ))
+            }
         </Slider>
         </div>
         </div>
@@ -85,59 +59,3 @@ return (
 }
 
 export default Citywise;
-
-
-      <section className="by-cities">
-        <div className="container">
-          <div className="head-line">Study by Cities</div>
-          <div className="by-cities-list">
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>

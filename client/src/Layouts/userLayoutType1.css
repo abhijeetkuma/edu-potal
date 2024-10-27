@@ -482,6 +482,17 @@ header.website-wrapper {
       }
     }
 
+    .exams-listing {
+      .exams-container {
+        width: 970px;
+        .exam-card-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+      }
+    }
+
     .news-updates-container {
       .news-card-list {
         /* display: flex;
@@ -538,9 +549,10 @@ header.website-wrapper {
       background-color: #f8f7f7;
       padding: 1px;
       .by-cities-list {
-        display: flex;
-        gap: 20px;
+        /* display: flex;
+        gap: 20px; */
         .city-card {
+          margin: 4px 2px;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -554,7 +566,7 @@ header.website-wrapper {
           border-radius: 4px;
           cursor: pointer;
           > div {
-            width: 80px;
+            width: 120px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -562,6 +574,8 @@ header.website-wrapper {
             p {
               font-size: 14px;
               color: #454d66;
+              width: 100%;
+              text-align: center;
             }
           }
           &:hover {

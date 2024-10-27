@@ -117,7 +117,7 @@ const studybycities = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT * FROM city_list WHERE ORDER BY city_name ASC",
+        "SELECT * FROM city_list ORDER BY RANDOM() LIMIT 25",
         (error, results) => {
           if (error) {
             reject(error);
