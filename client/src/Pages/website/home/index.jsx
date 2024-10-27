@@ -22,6 +22,9 @@ import phoneIcon from "/images/phone-icon.svg";
 import Slider from "react-slick";
 import Featured from "./featured";
 import FutureGoals from "./futureGoals";
+import Exams from "./exams";
+import NewsAndUpdates from "./newsAndUpdates";
+import Citywise from "./citywise";
 
 
 function Home(props) {
@@ -58,18 +61,7 @@ function Home(props) {
     approved_by: "",
     college_types: "",
   });
-  const [exams, setExams] = useState({
-    na_id: "",
-    na_image: "",
-    na_url: "",
-    na_title: "",
-  });
-  const [newsupdates, setNewsupdates] = useState({
-    na_id: "",
-    na_image: "",
-    na_url: "",
-    na_title: "",
-  });
+
   useEffect(() => {
     axios
       //.get("/api/cmsdetails/" + cms_url)
@@ -85,22 +77,6 @@ function Home(props) {
       .get("/api/toppopulercolleges/")
       .then((response) => {
         setToppopularcollegelisting(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    axios
-      .get("/api/landingexams/")
-      .then((response) => {
-        setExams(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    axios
-      .get("/api/landingnewsandupdates/")
-      .then((response) => {
-        setNewsupdates(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -300,90 +276,13 @@ function Home(props) {
         })}
         </div>
       </section>
-      <section className="container exams">
-        <div className="head-line">Exams</div>
-        <div className="exams-container">
-          <ul className="tabs">
-            <li className="active">All</li>
-            <li>Popular</li>
-            <li>After 12th</li>
-          </ul>
-          <div className="exam-card-list">
-            {exams.length > 0 &&
-              exams.map((eitem) => (
-                <a href={"exams/details/" + eitem.na_url}>
-                  <div className="exam-card" id={eitem.na_id}>
-                    <div className="exam-meta">
-                      <img src={clgSmallImg} alt="" />
-                      <div>
-                        <h3>{eitem.na_title}</h3>
-                        <span>online</span>
-                      </div>
-                    </div>
-                    <div className="exam-info-list">
-                      <div className="exam-info">
-                        <span>Exam Level</span>
-                        <span>National</span>
-                      </div>
-                      <div className="exam-info">
-                        <span>Exam Date</span>
-                        <span>12-May-2024</span>
-                      </div>
-                    </div>
-                    <hr className="hr-x" />
-                    <div className="exam-link">
-                      <span className="link">Registration Process</span>
-                      <span className="link">Exam Information</span>
-                    </div>
-                  </div>
-                </a>
-              ))}
-          </div>
-        </div>
-      </section>
-      <section className="container news-updates">
-        <div className="head-line">Latest News & Updates </div>
-        <div className="news-updates-container">
-          <ul className="tabs">
-            <li className="active">Admission</li>
-            <li>Exam</li>
-            <li>College</li>
-          </ul>
-          <div className="news-card-list">
-            {newsupdates.length > 0 &&
-              newsupdates.map((nuitem) => (
-                <a href={"exams/details/" + nuitem.na_url}>
-                  <div className="news-card">
-                    <div className="heading">
-                      <h3>{nuitem.na_title}</h3>
-                    </div>
-                    <div className="date">20-Jan-2024</div>
-                    <p className="details">
-                      CUET PG 2023 Pottery and Ceramics Question Paper with
-                      Answer Key PDF in Hindi is available for download here.
-                      The exam was conducted by National Te...
-                    </p>
-                    <hr className="hr-x" />
-                    <span className="link">Continue Reading...</span>
-                  </div>
-                </a>
-              ))}
-            <div className="news-card">
-              <div className="heading">
-                <h3>CUET PG 2023 Pottery and Ceramics Question Paper...</h3>
-              </div>
-              <div className="date">20-Jan-2024</div>
-              <p className="details">
-                CUET PG 2023 Pottery and Ceramics Question Paper with Answer Key
-                PDF in Hindi is available for download here. The exam was
-                conducted by National Te...
-              </p>
-              <hr className="hr-x" />
-              <span className="link">Continue Reading...</span>
-            </div>
-          </div>
-        </div>
-      </section>
+
+      <Exams clgSmallImg={clgSmallImg} />
+
+      <NewsAndUpdates />
+
+      {/* <Citywise /> */}
+
       <section className="by-cities">
         <div className="container">
           <div className="head-line">Study by Cities</div>
