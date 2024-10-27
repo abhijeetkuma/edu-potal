@@ -965,6 +965,26 @@ app.get("/api/toppopulercolleges/", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/landingexams/", (req, res) => {
+  landing_model
+    .exams()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/landingnewsandupdates/", (req, res) => {
+  landing_model
+    .newsandupdates()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 //end landing page apis
 app.get("/api/cmsdetails/:cms_url", (req, res) => {
   cms_model
