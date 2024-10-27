@@ -23,16 +23,14 @@ import Slider from "react-slick";
 import Featured from "./featured";
 import FutureGoals from "./futureGoals";
 
-
 function Home(props) {
-
   var settings = {
     dots: true,
     infinite: true,
     arrows: true,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 4
+    slidesToScroll: 4,
   };
 
   const [topnotification, setTopnotification] = useState({
@@ -70,6 +68,10 @@ function Home(props) {
     na_url: "",
     na_title: "",
   });
+  const [bycity, setBycity] = useState({
+    cit_id: "",
+    city_name: "",
+  });
   useEffect(() => {
     axios
       //.get("/api/cmsdetails/" + cms_url)
@@ -105,9 +107,17 @@ function Home(props) {
       .catch((error) => {
         console.error(error);
       });
+    axios
+      .get("/api/studybycities/")
+      .then((response) => {
+        setBycity(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
   }, []);
-
 
   const renderFeaturedSlider = () => (
     <Slider {...settings}>
@@ -116,31 +126,30 @@ function Home(props) {
       </div>
 
       <div>
-      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
       </div>
 
       <div>
-      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
       </div>
 
       <div>
-      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
-      </div>
-      
-      <div>
-      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
-      </div> 
-
-      <div>
-      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
       </div>
 
       <div>
-      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
       </div>
 
+      <div>
+        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+      </div>
+
+      <div>
+        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+      </div>
     </Slider>
-  ) 
+  );
 
   const renderFutureGolesType = () => (
     <Slider {...settings}>
@@ -163,7 +172,7 @@ function Home(props) {
         <FutureGoals />
       </div>
     </Slider>
-  )
+  );
 
   return (
     <>
@@ -226,78 +235,74 @@ function Home(props) {
           </span>
         </div>
       </section>
-      
+
       <section className="featured">
         <div className="featured-label">Featured</div>
-        <div className="featured-card-container">
-          {renderFeaturedSlider()}
-        </div>
+        <div className="featured-card-container">{renderFeaturedSlider()}</div>
       </section>
 
       <section className="container future-goals">
         <div className="head-line">Choose Your Future Goal</div>
-        <div className="course-type-container">
-          {renderFutureGolesType()}
-        </div>
+        <div className="course-type-container">{renderFutureGolesType()}</div>
       </section>
-      
+
       <section className="container popular-colleges">
         <div className="head-line">Most Popular Featured Collages</div>
         <div className="popular-clg-container">
           {toppopularcollegelisting.length > 0 &&
             toppopularcollegelisting.map((item, id) => {
-              if(id < 8) {
-                return(
-                <>
-                  <div className="popular-clg">
-                  <div
-                    className="header"
-                    style={{
-                      backgroundImage: `url(${getImageURL(item.banner) ? getImageURL(item.banner) : clgBanner})`,
-                      backgroundRepeat: "no-repeat",
-                    }}
-                  >
-                    <div>
-                      <img src={getImageURL(item.logo)} alt="" />
-                      <div className="details">
-                        <h3>{item.college_name} </h3>
-                        <p>
-                          {item.city_name}, {item.state_name}
-                        </p>
-                        <p>{item.approved_by}</p>
+              if (id < 8) {
+                return (
+                  <>
+                    <div className="popular-clg">
+                      <div
+                        className="header"
+                        style={{
+                          backgroundImage: `url(${getImageURL(item.banner) ? getImageURL(item.banner) : clgBanner})`,
+                          backgroundRepeat: "no-repeat",
+                        }}
+                      >
+                        <div>
+                          <img src={getImageURL(item.logo)} alt="" />
+                          <div className="details">
+                            <h3>{item.college_name} </h3>
+                            <p>
+                              {item.city_name}, {item.state_name}
+                            </p>
+                            <p>{item.approved_by}</p>
+                          </div>
+                        </div>
+                        <div className="heart"></div>
+                      </div>
+                      <div className="other-details">
+                        <div className="clg-type-rating">
+                          <span>BE/B.Tech</span>
+                          <span className="clg-rating">
+                            <img src={star} alt="" />
+                            <span>4.5 (55)</span>
+                          </span>
+                        </div>
+                        <ul className="links">
+                          <li></li>
+                          <li></li>
+                          <li></li>
+                        </ul>
+                        <div className="action-btns">
+                          <div className="download">
+                            <img src={downlaod} alt="" />
+                            <span>Download Brochure</span>
+                          </div>
+                          <div className="compare">
+                            <img src={compare} alt="" />
+                            <span>Compare</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="heart"></div>
-                  </div>
-                  <div className="other-details">
-                    <div className="clg-type-rating">
-                      <span>BE/B.Tech</span>
-                      <span className="clg-rating">
-                        <img src={star} alt="" />
-                        <span>4.5 (55)</span>
-                      </span>
-                    </div>
-                    <ul className="links">
-                      <li></li>
-                      <li></li>
-                      <li></li>
-                    </ul>
-                    <div className="action-btns">
-                      <div className="download">
-                        <img src={downlaod} alt="" />
-                        <span>Download Brochure</span>
-                      </div>
-                      <div className="compare">
-                        <img src={compare} alt="" />
-                        <span>Compare</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                </>
-                )
+                  </>
+                );
               }
-        })}
+            })}
         </div>
       </section>
       <section className="container exams">
@@ -388,53 +393,15 @@ function Home(props) {
         <div className="container">
           <div className="head-line">Study by Cities</div>
           <div className="by-cities-list">
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
-            <div className="city-card">
-              <div>
-                <img src={imglite} alt="" />
-                <p>Delhi NCR</p>
-              </div>
-            </div>
+            {bycity.length > 0 &&
+              bycity.map((citem) => (
+                <div className="city-card" id={citem.cit_id}>
+                  <div>
+                    <img src={imglite} alt="" />
+                    <p>{citem.city_name}</p>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </section>
