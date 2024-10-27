@@ -283,7 +283,7 @@ function Questionanswer() {
             >
               Category
             </label>
-            <div className="flex ">
+            <div className="flex flex-wrap ">
               {catgoryarr.map((item, i) => (
                 <div key={i} className="mt-2 text-sm">
                   <input
@@ -309,7 +309,7 @@ function Questionanswer() {
             >
               Trading
             </label>
-            <div className="flex ">
+            <div className="flex flex-wrap ">
               {tradingarr.map((item, i) => (
                 <div key={i} className="mt-2 text-sm">
                   <input
@@ -328,7 +328,7 @@ function Questionanswer() {
             </div>
           </div>
           <div className="flex mt-2 sm:size-4 lx zl alt ars ary">
-            <div className="lk acf cct cgl chn chu">
+            <div className="lk acf cct cgl chn chu flex flex-wrap">
               <label
                 htmlFor="college_url"
                 className="block text-sm font-bold leading-6 text-gray-900"

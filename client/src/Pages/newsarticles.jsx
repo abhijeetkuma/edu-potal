@@ -488,7 +488,7 @@ function Newsarticles() {
             >
               Category
             </label>
-            <div className="flex ">
+            <div className="flex flex-wrap ">
               {catgoryarr.map((item, i) => (
                 <div key={i} className="mt-2 text-sm">
                   <input
@@ -514,7 +514,7 @@ function Newsarticles() {
             >
               Trading
             </label>
-            <div className="flex ">
+            <div className="flex flex-wrap ">
               {tradingarr.map((item, i) => (
                 <div key={i} className="mt-2 text-sm">
                   <input

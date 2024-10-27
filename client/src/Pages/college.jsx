@@ -1452,7 +1452,7 @@ function College() {
               <label className="block text-lg font-semibold leading-6 text-gray-900">
                 College Type
               </label>
-              <div className="flex ">
+              <div className="flex flex-wrap">
                 {collegetypearr.map((item, i) => (
                   <div key={i} className="mt-2 text-sm">
                     <input
@@ -1481,7 +1481,7 @@ function College() {
               <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Trading
               </label>
-              <div className="flex ">
+              <div className="flex flex-wrap">
                 {tradingarr.map((item, i) => (
                   <div key={i} className="mt-2 text-sm">
                     <input
@@ -1508,7 +1508,7 @@ function College() {
               <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Approved By
               </label>
-              <div className="flex ">
+              <div className="flex flex-wrap ">
                 {approvedbyarr.map((item, i) => (
                   <div key={i} className="mt-2 text-sm">
                     <input
@@ -1538,7 +1538,7 @@ function College() {
               <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Facility Available
               </label>
-              <div className="flex ">
+              <div className="flex flex-wrap ">
                 {facilityarr.map((item, i) => (
                   <div key={i} className="mt-2 text-sm">
                     <input
@@ -1567,7 +1567,7 @@ function College() {
               <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Categories
               </label>
-              <div className="flex ">
+              <div className="flex flex-wrap ">
                 {catgoryarr.map((item, i) => (
                   <div key={i} className="mt-2 text-sm">
                     <input
@@ -1597,7 +1597,7 @@ function College() {
               <label className="block text-lg font-semibold leading-6 text-gray-900">
                 Exam
               </label>
-              <div className="flex ">
+              <div className="flex flex-wrap ">
                 {examarr.map((item, i) => (
                   <div key={i} className="mt-2 text-sm">
                     <input
