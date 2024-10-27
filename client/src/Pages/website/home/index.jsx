@@ -42,6 +42,18 @@ function Home(props) {
     approved_by: "",
     college_types: "",
   });
+  const [exams, setExams] = useState({
+    na_id: "",
+    na_image: "",
+    na_url: "",
+    na_title: "",
+  });
+  const [newsupdates, setNewsupdates] = useState({
+    na_id: "",
+    na_image: "",
+    na_url: "",
+    na_title: "",
+  });
   useEffect(() => {
     axios
       //.get("/api/cmsdetails/" + cms_url)
@@ -57,6 +69,22 @@ function Home(props) {
       .get("/api/toppopulercolleges/")
       .then((response) => {
         setToppopularcollegelisting(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("/api/landingexams/")
+      .then((response) => {
+        setExams(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("/api/landingnewsandupdates/")
+      .then((response) => {
+        setNewsupdates(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -342,130 +370,35 @@ function Home(props) {
             <li>After 12th</li>
           </ul>
           <div className="exam-card-list">
-            <div className="exam-card">
-              <div className="exam-meta">
-                <img src={clgSmallImg} alt="" />
-                <div>
-                  <h3>GATE</h3>
-                  <span>online</span>
-                </div>
-              </div>
-              <div className="exam-info-list">
-                <div className="exam-info">
-                  <span>Exam Level</span>
-                  <span>National</span>
-                </div>
-                <div className="exam-info">
-                  <span>Exam Date</span>
-                  <span>12-May-2024</span>
-                </div>
-              </div>
-              <hr className="hr-x" />
-              <div className="exam-link">
-                <span className="link">Registration Process</span>
-                <span className="link">Exam Information</span>
-              </div>
-            </div>
-
-            <div className="exam-card">
-              <div className="exam-meta">
-                <img src={clgSmallImg} alt="" />
-                <div>
-                  <h3>GATE</h3>
-                  <span>online</span>
-                </div>
-              </div>
-              <div className="exam-info-list">
-                <div className="exam-info">
-                  <span>Exam Level</span>
-                  <span>National</span>
-                </div>
-                <div className="exam-info">
-                  <span>Exam Date</span>
-                  <span>12-May-2024</span>
-                </div>
-              </div>
-              <hr className="hr-x" />
-              <div className="exam-link">
-                <span className="link">Registration Process</span>
-                <span className="link">Exam Information</span>
-              </div>
-            </div>
-
-            <div className="exam-card">
-              <div className="exam-meta">
-                <img src={clgSmallImg} alt="" />
-                <div>
-                  <h3>GATE</h3>
-                  <span>online</span>
-                </div>
-              </div>
-              <div className="exam-info-list">
-                <div className="exam-info">
-                  <span>Exam Level</span>
-                  <span>National</span>
-                </div>
-                <div className="exam-info">
-                  <span>Exam Date</span>
-                  <span>12-May-2024</span>
-                </div>
-              </div>
-              <hr className="hr-x" />
-              <div className="exam-link">
-                <span className="link">Registration Process</span>
-                <span className="link">Exam Information</span>
-              </div>
-            </div>
-
-            <div className="exam-card">
-              <div className="exam-meta">
-                <img src={clgSmallImg} alt="" />
-                <div>
-                  <h3>GATE</h3>
-                  <span>online</span>
-                </div>
-              </div>
-              <div className="exam-info-list">
-                <div className="exam-info">
-                  <span>Exam Level</span>
-                  <span>National</span>
-                </div>
-                <div className="exam-info">
-                  <span>Exam Date</span>
-                  <span>12-May-2024</span>
-                </div>
-              </div>
-              <hr className="hr-x" />
-              <div className="exam-link">
-                <span className="link">Registration Process</span>
-                <span className="link">Exam Information</span>
-              </div>
-            </div>
-
-            <div className="exam-card">
-              <div className="exam-meta">
-                <img src={clgSmallImg} alt="" />
-                <div>
-                  <h3>GATE</h3>
-                  <span>online</span>
-                </div>
-              </div>
-              <div className="exam-info-list">
-                <div className="exam-info">
-                  <span>Exam Level</span>
-                  <span>National</span>
-                </div>
-                <div className="exam-info">
-                  <span>Exam Date</span>
-                  <span>12-May-2024</span>
-                </div>
-              </div>
-              <hr className="hr-x" />
-              <div className="exam-link">
-                <span className="link">Registration Process</span>
-                <span className="link">Exam Information</span>
-              </div>
-            </div>
+            {exams.length > 0 &&
+              exams.map((eitem) => (
+                <a href={"exams/details/" + eitem.na_url}>
+                  <div className="exam-card" id={eitem.na_id}>
+                    <div className="exam-meta">
+                      <img src={clgSmallImg} alt="" />
+                      <div>
+                        <h3>{eitem.na_title}</h3>
+                        <span>online</span>
+                      </div>
+                    </div>
+                    <div className="exam-info-list">
+                      <div className="exam-info">
+                        <span>Exam Level</span>
+                        <span>National</span>
+                      </div>
+                      <div className="exam-info">
+                        <span>Exam Date</span>
+                        <span>12-May-2024</span>
+                      </div>
+                    </div>
+                    <hr className="hr-x" />
+                    <div className="exam-link">
+                      <span className="link">Registration Process</span>
+                      <span className="link">Exam Information</span>
+                    </div>
+                  </div>
+                </a>
+              ))}
           </div>
         </div>
       </section>
@@ -478,62 +411,24 @@ function Home(props) {
             <li>College</li>
           </ul>
           <div className="news-card-list">
-            <div className="news-card">
-              <div className="heading">
-                <h3>CUET PG 2023 Pottery and Ceramics Question Paper...</h3>
-              </div>
-              <div className="date">20-Jan-2024</div>
-              <p className="details">
-                CUET PG 2023 Pottery and Ceramics Question Paper with Answer Key
-                PDF in Hindi is available for download here. The exam was
-                conducted by National Te...
-              </p>
-              <hr className="hr-x" />
-              <span className="link">Continue Reading...</span>
-            </div>
-
-            <div className="news-card">
-              <div className="heading">
-                <h3>CUET PG 2023 Pottery and Ceramics Question Paper...</h3>
-              </div>
-              <div className="date">20-Jan-2024</div>
-              <p className="details">
-                CUET PG 2023 Pottery and Ceramics Question Paper with Answer Key
-                PDF in Hindi is available for download here. The exam was
-                conducted by National Te...
-              </p>
-              <hr className="hr-x" />
-              <span className="link">Continue Reading...</span>
-            </div>
-
-            <div className="news-card">
-              <div className="heading">
-                <h3>CUET PG 2023 Pottery and Ceramics Question Paper...</h3>
-              </div>
-              <div className="date">20-Jan-2024</div>
-              <p className="details">
-                CUET PG 2023 Pottery and Ceramics Question Paper with Answer Key
-                PDF in Hindi is available for download here. The exam was
-                conducted by National Te...
-              </p>
-              <hr className="hr-x" />
-              <span className="link">Continue Reading...</span>
-            </div>
-
-            <div className="news-card">
-              <div className="heading">
-                <h3>CUET PG 2023 Pottery and Ceramics Question Paper...</h3>
-              </div>
-              <div className="date">20-Jan-2024</div>
-              <p className="details">
-                CUET PG 2023 Pottery and Ceramics Question Paper with Answer Key
-                PDF in Hindi is available for download here. The exam was
-                conducted by National Te...
-              </p>
-              <hr className="hr-x" />
-              <span className="link">Continue Reading...</span>
-            </div>
-
+            {newsupdates.length > 0 &&
+              newsupdates.map((nuitem) => (
+                <a href={"exams/details/" + nuitem.na_url}>
+                  <div className="news-card">
+                    <div className="heading">
+                      <h3>{nuitem.na_title}</h3>
+                    </div>
+                    <div className="date">20-Jan-2024</div>
+                    <p className="details">
+                      CUET PG 2023 Pottery and Ceramics Question Paper with
+                      Answer Key PDF in Hindi is available for download here.
+                      The exam was conducted by National Te...
+                    </p>
+                    <hr className="hr-x" />
+                    <span className="link">Continue Reading...</span>
+                  </div>
+                </a>
+              ))}
             <div className="news-card">
               <div className="heading">
                 <h3>CUET PG 2023 Pottery and Ceramics Question Paper...</h3>
