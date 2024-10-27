@@ -61,6 +61,16 @@ header.website-wrapper {
       text-align: center;
       margin-top: 100px;
     }
+
+    /*slick slider css overwrite*/
+    .slick-next:before, .slick-prev:before {
+       font-size: 34px;
+       color: #ccc;
+    }
+    .slick-prev {
+      left: -60px;
+    }
+
     .sliding-banner {
       background-color: #009975;
       height: 475px;
@@ -134,7 +144,7 @@ header.website-wrapper {
 
     .featured {
       background-color: #f3faf8;
-      height: 150px;
+      height: 160px;
 
       .featured-label {
         background-color: #e99446;
@@ -150,11 +160,14 @@ header.website-wrapper {
         transform-origin: 70% 130%;
       }
       .featured-card-container {
+        width: 1230px;
+        margin: 0 auto;
         margin-top: -23px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
+        /* display: flex; */
+        /* justify-content: center;
+        gap: 20px; */
         .featured-card {
+          margin: 2px;
           width: 285px;
           border-radius: 4px;
           box-shadow:
@@ -228,9 +241,10 @@ header.website-wrapper {
     }
     .future-goals {
       .course-type-container {
-        display: flex;
-        gap: 20px;
+        /* display: flex;
+        gap: 20px; */
         .course-type {
+          margin: 4px;
           width: 250px;
           height: 270px;
           border-radius: 4px;
@@ -312,7 +326,7 @@ header.website-wrapper {
             }
           }
           .heart {
-            width: 30px;
+            min-width: 30px;
             height: 30px;
             background-color: #fff;
             border-radius: 25px;

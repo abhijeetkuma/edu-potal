@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { getImageURL } from "../../../utils/utils-image";
 
 import handSpeaker from "/images/hand-speaker.png";
@@ -19,13 +19,29 @@ import studentIcon from "/images/students-icon.svg";
 import emailIcon from "/images/email-icon.svg";
 import phoneIcon from "/images/phone-icon.svg";
 
+import Slider from "react-slick";
+import Featured from "./featured";
+import FutureGoals from "./futureGoals";
+
+
 function Home(props) {
+
+  var settings = {
+    dots: true,
+    infinite: true,
+    arrows: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4
+  };
+
   const [topnotification, setTopnotification] = useState({
     notif_id: "",
     notification_target: "",
     notification_title: "",
     notification_url: "",
   });
+
   const [toppopularcollegelisting, setToppopularcollegelisting] = useState({
     cid: "",
     college_name: "",
@@ -42,6 +58,7 @@ function Home(props) {
     approved_by: "",
     college_types: "",
   });
+
   useEffect(() => {
     axios
       //.get("/api/cmsdetails/" + cms_url)
@@ -63,6 +80,64 @@ function Home(props) {
       });
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
   }, []);
+
+
+  const renderFeaturedSlider = () => (
+    <Slider {...settings}>
+      <div>
+        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+      </div>
+
+      <div>
+      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+      </div>
+
+      <div>
+      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+      </div>
+
+      <div>
+      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+      </div>
+      
+      <div>
+      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+      </div> 
+
+      <div>
+      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+      </div>
+
+      <div>
+      <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
+      </div>
+
+    </Slider>
+  ) 
+
+  const renderFutureGolesType = () => (
+    <Slider {...settings}>
+      <div>
+        <FutureGoals />
+      </div>
+      <div>
+        <FutureGoals />
+      </div>
+      <div>
+        <FutureGoals />
+      </div>
+      <div>
+        <FutureGoals />
+      </div>
+      <div>
+        <FutureGoals />
+      </div>
+      <div>
+        <FutureGoals />
+      </div>
+    </Slider>
+  )
+
   return (
     <>
       <section className="sliding-banner">
@@ -124,213 +199,78 @@ function Home(props) {
           </span>
         </div>
       </section>
+      
       <section className="featured">
         <div className="featured-label">Featured</div>
         <div className="featured-card-container">
-          <div className="featured-card">
-            <div className="details">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-              <div className="info">
-                <p>
-                  Swami Vivekananda Institute of Management and Computer Sc...
-                </p>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kolkata</span>
-                  </span>
-                  <span className="view-more">View More</span>
-                </div>
-              </div>
-            </div>
-            <div className="other-info">Avg. Package 15L, India Rank 10th</div>
-          </div>
-
-          <div className="featured-card">
-            <div className="details">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-              <div className="info">
-                <p>
-                  Swami Vivekananda Institute of Management and Computer Sc...
-                </p>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kolkata</span>
-                  </span>
-                  <span className="view-more">View More</span>
-                </div>
-              </div>
-            </div>
-            <div className="other-info">Avg. Package 15L, India Rank 10th</div>
-          </div>
-
-          <div className="featured-card">
-            <div className="details">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-              <div className="info">
-                <p>
-                  Swami Vivekananda Institute of Management and Computer Sc...
-                </p>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kolkata</span>
-                  </span>
-                  <span className="view-more">View More</span>
-                </div>
-              </div>
-            </div>
-            <div className="other-info">Avg. Package 15L, India Rank 10th</div>
-          </div>
-
-          <div className="featured-card">
-            <div className="details">
-              <div className="img-box">
-                <img src={clgSmallImg} alt="" />
-              </div>
-              <div className="info">
-                <p>
-                  Swami Vivekananda Institute of Management and Computer Sc...
-                </p>
-                <div>
-                  <span className="location">
-                    <img src={mapIcon} alt="" />
-                    <span>Kolkata</span>
-                  </span>
-                  <span className="view-more">View More</span>
-                </div>
-              </div>
-            </div>
-            <div className="other-info">Avg. Package 15L, India Rank 10th</div>
-          </div>
+          {renderFeaturedSlider()}
         </div>
       </section>
+
       <section className="container future-goals">
         <div className="head-line">Choose Your Future Goal</div>
         <div className="course-type-container">
-          <div className="course-type">
-            <div className="info">
-              <h1>Engineering</h1>
-              <span>6200 Collages</span>
-            </div>
-            <ul>
-              <li>BE/B.Tech</li>
-              <li>ME/M.Tech</li>
-              <li>Polytechnic Courses</li>
-            </ul>
-            <div className="link">
-              <a href="#">Find By Location</a>
-              <a href="#">Top Collages</a>
-            </div>
-          </div>
-
-          <div className="course-type">
-            <div className="info">
-              <h1>Engineering</h1>
-              <span>6200 Collages</span>
-            </div>
-            <ul>
-              <li>BE/B.Tech</li>
-              <li>ME/M.Tech</li>
-              <li>Polytechnic Courses</li>
-            </ul>
-            <div className="link">
-              <a href="#">Find By Location</a>
-              <a href="#">Top Collages</a>
-            </div>
-          </div>
-
-          <div className="course-type">
-            <div className="info">
-              <h1>Engineering</h1>
-              <span>6200 Collages</span>
-            </div>
-            <ul>
-              <li>BE/B.Tech</li>
-              <li>ME/M.Tech</li>
-              <li>Polytechnic Courses</li>
-            </ul>
-            <div className="link">
-              <a href="#">Find By Location</a>
-              <a href="#">Top Collages</a>
-            </div>
-          </div>
-
-          <div className="course-type">
-            <div className="info">
-              <h1>Engineering</h1>
-              <span>6200 Collages</span>
-            </div>
-            <ul>
-              <li>BE/B.Tech</li>
-              <li>ME/M.Tech</li>
-              <li>Polytechnic Courses</li>
-            </ul>
-            <div className="link">
-              <a href="#">Find By Location</a>
-              <a href="#">Top Collages</a>
-            </div>
-          </div>
+          {renderFutureGolesType()}
         </div>
       </section>
+      
       <section className="container popular-colleges">
         <div className="head-line">Most Popular Featured Collages</div>
         <div className="popular-clg-container">
           {toppopularcollegelisting.length > 0 &&
-            toppopularcollegelisting.map((item, id) => (
-              <div className="popular-clg">
-                <div
-                  className="header"
-                  style={{
-                    backgroundImage: `url(${getImageURL(item.banner) ? getImageURL(item.banner) : clgBanner})`,
-                    backgroundRepeat: "no-repeat",
-                  }}
-                >
-                  <div>
-                    <img src={getImageURL(item.logo)} alt="" />
-                    <div className="details">
-                      <h3>{item.college_name} </h3>
-                      <p>
-                        {item.city_name}, {item.state_name}
-                      </p>
-                      <p>{item.approved_by}</p>
+            toppopularcollegelisting.map((item, id) => {
+              if(id < 8) {
+                return(
+                <>
+                  <div className="popular-clg">
+                  <div
+                    className="header"
+                    style={{
+                      backgroundImage: `url(${getImageURL(item.banner) ? getImageURL(item.banner) : clgBanner})`,
+                      backgroundRepeat: "no-repeat",
+                    }}
+                  >
+                    <div>
+                      <img src={getImageURL(item.logo)} alt="" />
+                      <div className="details">
+                        <h3>{item.college_name} </h3>
+                        <p>
+                          {item.city_name}, {item.state_name}
+                        </p>
+                        <p>{item.approved_by}</p>
+                      </div>
+                    </div>
+                    <div className="heart"></div>
+                  </div>
+                  <div className="other-details">
+                    <div className="clg-type-rating">
+                      <span>BE/B.Tech</span>
+                      <span className="clg-rating">
+                        <img src={star} alt="" />
+                        <span>4.5 (55)</span>
+                      </span>
+                    </div>
+                    <ul className="links">
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                    </ul>
+                    <div className="action-btns">
+                      <div className="download">
+                        <img src={downlaod} alt="" />
+                        <span>Download Brochure</span>
+                      </div>
+                      <div className="compare">
+                        <img src={compare} alt="" />
+                        <span>Compare</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="heart"></div>
                 </div>
-                <div className="other-details">
-                  <div className="clg-type-rating">
-                    <span>BE/B.Tech</span>
-                    <span className="clg-rating">
-                      <img src={star} alt="" />
-                      <span>4.5 (55)</span>
-                    </span>
-                  </div>
-                  <ul className="links">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                  </ul>
-                  <div className="action-btns">
-                    <div className="download">
-                      <img src={downlaod} alt="" />
-                      <span>Download Brochure</span>
-                    </div>
-                    <div className="compare">
-                      <img src={compare} alt="" />
-                      <span>Compare</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+                </>
+                )
+              }
+        })}
         </div>
       </section>
       <section className="container exams">
