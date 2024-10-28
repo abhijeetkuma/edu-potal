@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Slider from "react-slick";
+import { getImageURL } from "../../../utils/utils-image";
 
 function Featured({ clgSmallImg, mapIcon }) {
   var settings = {
@@ -38,7 +39,7 @@ function Featured({ clgSmallImg, mapIcon }) {
             <div className="featured-card">
               <div className="details">
                 <div className="img-box">
-                  <img src={item.logo} alt={item.college_name} />
+                  <img src={getImageURL(item.logo)} alt={item.college_name} />
                 </div>
                 <div className="info">
                   <p>{item.college_name}</p>

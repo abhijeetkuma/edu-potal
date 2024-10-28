@@ -450,7 +450,7 @@ function Listing(props) {
               <div className="college-list-card" id={item.cid}>
                 <div className="title-section">
                   <div className="img-box">
-                    <img src={getImageURL(item.logo)} alt="" />
+                    <img src={getImageURL(item.logo)} alt={item.college_name} />
                   </div>
 
                   <div className="heart"></div>
