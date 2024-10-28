@@ -35,7 +35,6 @@ function Home(props) {
     slidesToShow: 4,
     slidesToScroll: 4,
   };
-
   const [topnotification, setTopnotification] = useState({
     notif_id: "",
     notification_target: "",
@@ -59,7 +58,7 @@ function Home(props) {
     approved_by: "",
     college_types: "",
   });
-  
+
   const [bycity, setBycity] = useState({
     cit_id: "",
     city_name: "",
@@ -98,35 +97,7 @@ function Home(props) {
   }, []);
 
   const renderFeaturedSlider = () => (
-    <Slider {...settings}>
-      <div>
-        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
-      </div>
-
-      <div>
-        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
-      </div>
-
-      <div>
-        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
-      </div>
-
-      <div>
-        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
-      </div>
-
-      <div>
-        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
-      </div>
-
-      <div>
-        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
-      </div>
-
-      <div>
-        <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
-      </div>
-    </Slider>
+    <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
   );
 
   const renderFutureGolesType = () => (

@@ -47,6 +47,28 @@ const topNotification = async () => {
     throw new Error("Internal server error");
   }
 };
+const featuredColleges = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT c.cid,c.college_name,c.college_url,c.logo,c.averageplacementrecord,s.state_name,ct.city_name  FROM colleges c LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar WHERE c.featured ='Y' GROUP BY c.cid ,s.state_name,ct.city_name ORDER BY c.cid DESC  LIMIT 15",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
 const topPopularcolleges = async () => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -117,7 +139,7 @@ const studybycities = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT * FROM city_list ORDER BY RANDOM() LIMIT 25",
+        "SELECT * FROM city_list where city_top = 'Y' ORDER BY city_name ASC LIMIT 25",
         (error, results) => {
           if (error) {
             reject(error);
@@ -137,6 +159,7 @@ const studybycities = async () => {
 };
 module.exports = {
   topNotification,
+  featuredColleges,
   topPopularcolleges,
   exams,
   newsandupdates,

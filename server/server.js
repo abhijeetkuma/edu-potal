@@ -945,6 +945,16 @@ app.get("/api/getcollegetype", (req, res) => {
 });
 //front end apis
 //landing page apis
+app.get("/api/featuredcolleges/", (req, res) => {
+  landing_model
+    .featuredColleges()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/topnotifications/", (req, res) => {
   landing_model
     .topNotification()
