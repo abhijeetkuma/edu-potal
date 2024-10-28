@@ -305,11 +305,16 @@ header.website-wrapper {
         border-radius: 0px 0px 4px 4px;
         .header {
           position: relative;
-          padding: 5px;
+          /* padding: 5px; */
           display: flex;
           justify-content: space-between;
           border-radius: 4px 4px 0px 0px;
-          > div {
+          height: 175px;
+          max-height: 175px;
+          > div:nth-child(1) {
+            background: linear-gradient(45deg,  rgba(31,32,51,0.6) 0%,rgba(29,37,51,0) 100%);
+            padding: 5px;
+            width: 100%;
             > img {
               padding: 5px 10px;
               width: 55px;
@@ -330,7 +335,9 @@ header.website-wrapper {
             height: 30px;
             background-color: #fff;
             border-radius: 25px;
-            margin: 5px;
+            position: absolute;
+            top: 5px;
+            right: 10px;
           }
         }
         .other-details {
