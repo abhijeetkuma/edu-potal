@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Slider from "react-slick";
-import { getImageURL } from "../../../utils/utils-image";
+import { getImageURL } from "../../../../utils/utils-image";
 
 function Featured({ clgSmallImg, mapIcon }) {
   var settings = {
