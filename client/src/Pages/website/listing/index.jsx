@@ -16,6 +16,7 @@ import studentIcon from "/images/students-icon.svg";
 import emailIcon from "/images/email-icon.svg";
 import phoneIcon from "/images/phone-icon.svg";
 import adsImg from "/images/ads.svg";
+import NewsAndUpdates from "./../home/newsAndUpdates";
 
 function Listing(props) {
   const [collegelisting, setCollegelisting] = useState({
@@ -537,87 +538,8 @@ function Listing(props) {
           </div>
         </div>
       </section>
-      <section className="container news-updates">
-        <div className="head-line">Latest News & Updates </div>
-        <div className="news-updates-container">
-          <ul className="tabs">
-            <li className="active">Admission</li>
-            <li>Exam</li>
-            <li>College</li>
-          </ul>
-          <div className="news-card-list">
-            <div className="news-card">
-              <div className="heading">
-                <h3>CUET PG 2023 Pottery and Ceramics Question Paper...</h3>
-              </div>
-              <div className="date">20-Jan-2024</div>
-              <p className="details">
-                CUET PG 2023 Pottery and Ceramics Question Paper with Answer Key
-                PDF in Hindi is available for download here. The exam was
-                conducted by National Te...
-              </p>
-              <hr className="hr-x" />
-              <span className="link">Continue Reading...</span>
-            </div>
+      <NewsAndUpdates />
 
-            <div className="news-card">
-              <div className="heading">
-                <h3>CUET PG 2023 Pottery and Ceramics Question Paper...</h3>
-              </div>
-              <div className="date">20-Jan-2024</div>
-              <p className="details">
-                CUET PG 2023 Pottery and Ceramics Question Paper with Answer Key
-                PDF in Hindi is available for download here. The exam was
-                conducted by National Te...
-              </p>
-              <hr className="hr-x" />
-              <span className="link">Continue Reading...</span>
-            </div>
-
-            <div className="news-card">
-              <div className="heading">
-                <h3>CUET PG 2023 Pottery and Ceramics Question Paper...</h3>
-              </div>
-              <div className="date">20-Jan-2024</div>
-              <p className="details">
-                CUET PG 2023 Pottery and Ceramics Question Paper with Answer Key
-                PDF in Hindi is available for download here. The exam was
-                conducted by National Te...
-              </p>
-              <hr className="hr-x" />
-              <span className="link">Continue Reading...</span>
-            </div>
-
-            <div className="news-card">
-              <div className="heading">
-                <h3>CUET PG 2023 Pottery and Ceramics Question Paper...</h3>
-              </div>
-              <div className="date">20-Jan-2024</div>
-              <p className="details">
-                CUET PG 2023 Pottery and Ceramics Question Paper with Answer Key
-                PDF in Hindi is available for download here. The exam was
-                conducted by National Te...
-              </p>
-              <hr className="hr-x" />
-              <span className="link">Continue Reading...</span>
-            </div>
-
-            <div className="news-card">
-              <div className="heading">
-                <h3>CUET PG 2023 Pottery and Ceramics Question Paper...</h3>
-              </div>
-              <div className="date">20-Jan-2024</div>
-              <p className="details">
-                CUET PG 2023 Pottery and Ceramics Question Paper with Answer Key
-                PDF in Hindi is available for download here. The exam was
-                conducted by National Te...
-              </p>
-              <hr className="hr-x" />
-              <span className="link">Continue Reading...</span>
-            </div>
-          </div>
-        </div>
-      </section>
       <section className="container admissions">
         <div className="head-line">Admission 2024</div>
         <div className="admission-links-list">
