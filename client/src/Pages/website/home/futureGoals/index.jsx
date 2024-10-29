@@ -36,7 +36,7 @@ function FutureGoals({}) {
             <div className="course-type">
               <div className="info">
                 <h1>{item.category_name}</h1>
-                <span>6200 Collages</span>
+                <span>{item.total_colleges} Collages</span>
               </div>
               <ul>
                 {item.courses &&
