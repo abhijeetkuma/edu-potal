@@ -1046,6 +1046,17 @@ app.get("/api/examlisting/", (req, res) => {
       res.status(500).send(error);
     });
 });
+
+app.get("/api/examdetail/:na_url", (req, res) => {
+  exan_model
+    .examdetail(req.params.na_url)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 //end front end apis
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);

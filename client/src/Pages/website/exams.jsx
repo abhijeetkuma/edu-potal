@@ -24,43 +24,41 @@ function Exams(props) {
   }, []);
 
   const renderExams = (eitem) => (
-    <a href={"exams/details/" + eitem.na_url}>
-        <div className="exam-card" id={eitem.na_id}>
-            <div className="exam-meta">
-            <img src={clgSmallImg} alt="" />
-            <div>
-                <h3>{eitem.na_title}</h3>
-                <span>online</span>
-            </div>
-            </div>
-            <div className="exam-info-list">
-            <div className="exam-info">
-                <span>Exam Level</span>
-                <span>National</span>
-            </div>
-            <div className="exam-info">
-                <span>Exam Date</span>
-                <span>12-May-2024</span>
-            </div>
-            </div>
-            <hr className="hr-x" />
-            <div className="exam-link">
-            <span className="link">Registration Process</span>
-            <span className="link">Exam Information</span>
-            </div>
+    <a href={"exam/" + eitem.na_url}>
+      <div className="exam-card" id={eitem.na_id}>
+        <div className="exam-meta">
+          <img src={clgSmallImg} alt="" />
+          <div>
+            <h3>{eitem.na_title}</h3>
+            <span>online</span>
+          </div>
         </div>
+        <div className="exam-info-list">
+          <div className="exam-info">
+            <span>Exam Level</span>
+            <span>National</span>
+          </div>
+          <div className="exam-info">
+            <span>Exam Date</span>
+            <span>12-May-2024</span>
+          </div>
+        </div>
+        <hr className="hr-x" />
+        <div className="exam-link">
+          <span className="link">Registration Process</span>
+          <span className="link">Exam Information</span>
+        </div>
+      </div>
     </a>
-)
-
+  );
 
   //console.log(cms_url);
   return (
     <>
       <section className="container college-filter-wrapper exams-listing">
         <section className="college-list-wrapper exams-container">
-          <div className="font-bold text-2xl pb-3 pt-3">New Listing</div>
+          <div className="font-bold text-2xl pb-3 pt-3">Exams</div>
           <div className="exam-card-list">
-
             {displayexamlisting.length > 0 &&
               displayexamlisting.map((item, id) => (
                 // <a href={"exams/details/" + item.na_url}>
@@ -68,11 +66,9 @@ function Exams(props) {
                 //     {item.na_title}
                 //   </div>
                 // </a>
-                <div>
-                  {renderExams(item)}
-                </div>
+                <div>{renderExams(item)}</div>
               ))}
-              </div>
+          </div>
         </section>
         <div className="others">
           <div className="ads">

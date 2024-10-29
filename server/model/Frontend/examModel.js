@@ -47,7 +47,24 @@ const examlisting = async () => {
     throw new Error("Internal server error");
   }
 };
+const examdetail = (na_url) => {
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM newsarticles WHERE na_url = $1",
+      [na_url],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+      }
+    );
+  });
+};
 
 module.exports = {
   examlisting,
+  examdetail,
 };
