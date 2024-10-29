@@ -35,32 +35,34 @@ function Featured({ clgSmallImg, mapIcon }) {
     <Slider {...settings}>
       {fcollege.length > 0 &&
         fcollege.map((item, index) => (
-          <div id={item.cid}>
-            <div className="featured-card">
-              <div className="details">
-                <div className="img-box">
-                  <img src={getImageURL(item.logo)} alt={item.college_name} />
-                </div>
-                <div className="info">
-                  <p>{item.college_name}</p>
-                  <div>
-                    <span className="location">
-                      <img src={mapIcon} alt="" />
-                      <span>{item.city_name}</span>
-                    </span>
-                    <span className="view-more">
-                      <a href={"college/details/" + item.college_url}>
-                        View More
-                      </a>
-                    </span>
+          <a href={"college/" + item.college_url}>
+            <div id={item.cid}>
+              <div className="featured-card">
+                <div className="details">
+                  <div className="img-box">
+                    <img src={getImageURL(item.logo)} alt={item.college_name} />
+                  </div>
+                  <div className="info">
+                    <p>{item.college_name}</p>
+                    <div>
+                      <span className="location">
+                        <img src={mapIcon} alt="" />
+                        <span>{item.city_name}</span>
+                      </span>
+                      <span className="view-more">
+                        <a href={"college/details/" + item.college_url}>
+                          View More
+                        </a>
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="other-info">
-                Avg. Package {item.averageplacementrecord}, India Rank 10th
+                <div className="other-info">
+                  Avg. Package {item.averageplacementrecord}, India Rank 10th
+                </div>
               </div>
             </div>
-          </div>
+          </a>
         ))}
     </Slider>
   );

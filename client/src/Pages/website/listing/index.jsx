@@ -448,85 +448,92 @@ function Listing(props) {
           <div className="applied-filters"></div>
           {collegelisting.length > 0 &&
             collegelisting.map((item, id) => (
-              <div className="college-list-card" id={item.cid}>
-                <div className="title-section">
-                  <div className="img-box">
-                    <img src={getImageURL(item.logo)} alt={item.college_name} />
-                  </div>
+              <a href={"college/" + item.college_url}>
+                <div className="college-list-card" id={item.cid}>
+                  <div className="title-section">
+                    <div className="img-box">
+                      <img
+                        src={getImageURL(item.logo)}
+                        alt={item.college_name}
+                      />
+                    </div>
 
-                  <div className="heart"></div>
-                  <div className="title-details">
-                    <h2>{item.college_name}</h2>
-                    <div>
-                      <span className="location">
-                        <img src={mapIcon} alt="" />
-                        <span>
-                          {item.city_name}, {item.state_name}
+                    <div className="heart"></div>
+                    <div className="title-details">
+                      <h2>{item.college_name}</h2>
+                      <div>
+                        <span className="location">
+                          <img src={mapIcon} alt="" />
+                          <span>
+                            {item.city_name}, {item.state_name}
+                          </span>
                         </span>
-                      </span>
-                      <span className="tieup">{item.approved_by}</span>
-                      <span className="owner medium">{item.college_types}</span>
-                      <span className="rank bold green">#1 NIRF</span>
-                      <span className="rating">
-                        <img src={star} alt="" />
-                        <img src={star} alt="" />
-                        <img src={star} alt="" />
-                        <img src={star} alt="" />
-                        <img src={star} alt="" />
-                      </span>
+                        <span className="tieup">{item.approved_by}</span>
+                        <span className="owner medium">
+                          {item.college_types}
+                        </span>
+                        <span className="rank bold green">#1 NIRF</span>
+                        <span className="rating">
+                          <img src={star} alt="" />
+                          <img src={star} alt="" />
+                          <img src={star} alt="" />
+                          <img src={star} alt="" />
+                          <img src={star} alt="" />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="other-details">
+                    <div className="highlights">
+                      <div>
+                        <span>Accepted Exams</span>
+                        <span>{item.exam_name ? item.exam_name : "NA"}</span>
+                      </div>
+                      <div>
+                        <span>Courses Offered</span>
+                        <span>
+                          {item.total_courses ? item.total_courses : 0} Courses
+                        </span>
+                      </div>
+                      <div>
+                        <span>Total Fees Range</span>
+                        <span> 10 L - 12 L</span>
+                      </div>
+                      <div>
+                        <span>Package Range</span>
+                        <span>
+                          {" "}
+                          {item.lowestplacementrecord} -
+                          {item.higestplacementrecord}
+                        </span>
+                      </div>
+                      <div>
+                        <span>Placement %</span>
+                        <span className="green">
+                          {item.totalplacementratio
+                            ? item.totalplacementratio
+                            : "NA"}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="action-btns">
+                      <div>
+                        <div className="download">
+                          <img src={downlaod} alt="" />
+                          <span>Download Brochure</span>
+                        </div>
+                        <div className="compare">
+                          <img src={compare} alt="" />
+                          <span>Compare</span>
+                        </div>
+                      </div>
+                      <div className="apply-btn">
+                        <button>Apply</button>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="other-details">
-                  <div className="highlights">
-                    <div>
-                      <span>Accepted Exams</span>
-                      <span>{item.exam_name ? item.exam_name : "NA"}</span>
-                    </div>
-                    <div>
-                      <span>Courses Offered</span>
-                      <span>
-                        {item.total_courses ? item.total_courses : 0} Courses
-                      </span>
-                    </div>
-                    <div>
-                      <span>Total Fees Range</span>
-                      <span> 10 L - 12 L</span>
-                    </div>
-                    <div>
-                      <span>Package Range</span>
-                      <span>
-                        {" "}
-                        {item.lowestplacementrecord} -
-                        {item.higestplacementrecord}
-                      </span>
-                    </div>
-                    <div>
-                      <span>Placement %</span>
-                      <span className="green">
-                        {item.totalplacementratio
-                          ? item.totalplacementratio
-                          : "NA"}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="action-btns">
-                    <div>
-                      <div className="download">
-                        <img src={downlaod} alt="" />
-                        <span>Download Brochure</span>
-                      </div>
-                      <div className="compare">
-                        <img src={compare} alt="" />
-                        <span>Compare</span>
-                      </div>
-                    </div>
-                    <div className="apply-btn">
-                      <button>Apply</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </a>
             ))}
         </section>
         <div className="others">

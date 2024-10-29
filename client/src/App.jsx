@@ -42,6 +42,7 @@ import Listing from "./Pages/website/listing";
 import CMS from "./Pages/website/cms";
 import EXAMS from "./Pages/website/exams";
 import EXAMSDETAILS from "./Pages/website/exams/details";
+import COLLEGEDETAIL from "./Pages/website/college/details";
 
 import Expenses from "./Pages/expenses";
 import ErrorPage from "./Components/errorComp";
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
       {
         path: "/exam?/:na_url",
         element: <EXAMSDETAILS />,
+      },
+      {
+        path: "/college?/:college_url",
+        element: <COLLEGEDETAIL />,
       },
     ],
   },

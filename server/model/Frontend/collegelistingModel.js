@@ -47,6 +47,26 @@ const listing = async () => {
     throw new Error("Internal server error");
   }
 };
+const collegedetails = (college_url) => {
+  //const college_url = college_url;
+  console.log(college_url);
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM colleges WHERE college_url = $1",
+      [college_url],
+      (error, results) => {
+        //  console.log(results);
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+      }
+    );
+  });
+};
 module.exports = {
   listing,
+  collegedetails,
 };

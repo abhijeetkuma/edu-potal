@@ -182,51 +182,53 @@ function Home(props) {
               if (id < 8) {
                 return (
                   <>
-                    <div className="popular-clg">
-                      <div
-                        className="header"
-                        style={{
-                          backgroundImage: `url(${getImageURL(item.banner) ? getImageURL(item.banner) : clgBanner})`,
-                          backgroundRepeat: "no-repeat",
-                        }}
-                      >
-                        <div>
-                          <img src={getImageURL(item.logo)} alt="" />
-                          <div className="details">
-                            <h3>{item.college_name} </h3>
-                            <p>
-                              {item.city_name}, {item.state_name}
-                            </p>
-                            <p>{item.approved_by}</p>
+                    <a href={"college/" + item.college_url}>
+                      <div className="popular-clg">
+                        <div
+                          className="header"
+                          style={{
+                            backgroundImage: `url(${getImageURL(item.banner) ? getImageURL(item.banner) : clgBanner})`,
+                            backgroundRepeat: "no-repeat",
+                          }}
+                        >
+                          <div>
+                            <img src={getImageURL(item.logo)} alt="" />
+                            <div className="details">
+                              <h3>{item.college_name} </h3>
+                              <p>
+                                {item.city_name}, {item.state_name}
+                              </p>
+                              <p>{item.approved_by}</p>
+                            </div>
+                          </div>
+                          <div className="heart"></div>
+                        </div>
+                        <div className="other-details">
+                          <div className="clg-type-rating">
+                            <span>BE/B.Tech</span>
+                            <span className="clg-rating">
+                              <img src={star} alt="" />
+                              <span>4.5 (55)</span>
+                            </span>
+                          </div>
+                          <ul className="links">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                          </ul>
+                          <div className="action-btns">
+                            <div className="download">
+                              <img src={downlaod} alt="" />
+                              <span>Download Brochure</span>
+                            </div>
+                            <div className="compare">
+                              <img src={compare} alt="" />
+                              <span>Compare</span>
+                            </div>
                           </div>
                         </div>
-                        <div className="heart"></div>
                       </div>
-                      <div className="other-details">
-                        <div className="clg-type-rating">
-                          <span>BE/B.Tech</span>
-                          <span className="clg-rating">
-                            <img src={star} alt="" />
-                            <span>4.5 (55)</span>
-                          </span>
-                        </div>
-                        <ul className="links">
-                          <li></li>
-                          <li></li>
-                          <li></li>
-                        </ul>
-                        <div className="action-btns">
-                          <div className="download">
-                            <img src={downlaod} alt="" />
-                            <span>Download Brochure</span>
-                          </div>
-                          <div className="compare">
-                            <img src={compare} alt="" />
-                            <span>Compare</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    </a>
                   </>
                 );
               }
