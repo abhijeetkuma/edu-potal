@@ -100,28 +100,7 @@ function Home(props) {
     <Featured clgSmallImg={clgSmallImg} mapIcon={mapIcon} />
   );
 
-  const renderFutureGolesType = () => (
-    <Slider {...settings}>
-      <div>
-        <FutureGoals />
-      </div>
-      <div>
-        <FutureGoals />
-      </div>
-      <div>
-        <FutureGoals />
-      </div>
-      <div>
-        <FutureGoals />
-      </div>
-      <div>
-        <FutureGoals />
-      </div>
-      <div>
-        <FutureGoals />
-      </div>
-    </Slider>
-  );
+  const renderFutureGolesType = () => <FutureGoals />;
 
   return (
     <>
