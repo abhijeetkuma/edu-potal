@@ -1037,8 +1037,9 @@ app.get("/api/cmsdetails/:cms_url", (req, res) => {
     });
 });
 app.get("/api/collegelisting/", (req, res) => {
+  //console.log("req.params.city_url", req.query);
   collegelisting_model
-    .listing()
+    .listing(req)
     .then((response) => {
       res.status(200).send(response);
     })

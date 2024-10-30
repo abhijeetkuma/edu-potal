@@ -24,7 +24,7 @@ function Exams(props) {
   }, []);
 
   const renderExams = (eitem) => (
-    <a href={"exam/" + eitem.na_url}>
+    <a href={"/exam/" + eitem.na_url}>
       <div className="exam-card" id={eitem.na_id}>
         <div className="exam-meta">
           <img src={clgSmallImg} alt="" />

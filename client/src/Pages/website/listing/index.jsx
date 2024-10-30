@@ -38,7 +38,13 @@ function Listing(props) {
   useEffect(() => {
     axios
       //.get("/api/cmsdetails/" + cms_url)
-      .get("/api/collegelisting/")
+      .get("/api/collegelisting/", {
+        params: {
+          city_url: props.city_url,
+          category_url: props.category_url,
+          course_url: props.course_url,
+        },
+      })
       .then((response) => {
         setCollegelisting(response.data);
       })
@@ -48,6 +54,7 @@ function Listing(props) {
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
   }, []);
   //console.log("collegelisting", collegelisting.length);
+  //console.log("props", props.city_url);
   return (
     <>
       <section className="header"></section>
