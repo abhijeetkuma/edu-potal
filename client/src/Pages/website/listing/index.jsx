@@ -455,7 +455,7 @@ function Listing(props) {
           <div className="applied-filters"></div>
           {collegelisting.length > 0 ? (
             collegelisting.map((item, id) => (
-              <a href={"college/" + item.college_url}>
+              <a href={"./../college/" + item.college_url}>
                 <div className="college-list-card" id={item.cid}>
                   <div className="title-section">
                     <div className="img-box">
@@ -479,7 +479,7 @@ function Listing(props) {
                         <span className="owner medium">
                           {item.college_types}
                         </span>
-                        <span className="rank bold green">#1 NIRF</span>
+                        <span className="rank bold green"># NIRF</span>
                         <span className="rating">
                           <img src={star} alt="" />
                           <img src={star} alt="" />
