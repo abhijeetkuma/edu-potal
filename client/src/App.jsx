@@ -43,6 +43,9 @@ import CMS from "./Pages/website/cms";
 import EXAMS from "./Pages/website/exams";
 import EXAMSDETAILS from "./Pages/website/exams/details";
 import COLLEGEDETAIL from "./Pages/website/college/details";
+import CATEGORYWISE from "./Pages/website/categorywise";
+import STUDYBYCITY from "./Pages/website/studybycity";
+import COURSE from "./Pages/website/course";
 
 import Expenses from "./Pages/expenses";
 import ErrorPage from "./Components/errorComp";
@@ -78,6 +81,18 @@ const router = createBrowserRouter([
       {
         path: "/college?/:college_url",
         element: <COLLEGEDETAIL />,
+      },
+      {
+        path: "/categorywise?/:category_url",
+        element: <CATEGORYWISE />,
+      },
+      {
+        path: "/studybycity?/:city_url",
+        element: <STUDYBYCITY />,
+      },
+      {
+        path: "/course?/:course_url",
+        element: <COURSE />,
       },
     ],
   },

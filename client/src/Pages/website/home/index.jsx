@@ -35,11 +35,16 @@ function Home(props) {
     slidesToShow: 4,
     slidesToScroll: 4,
   };
-  const [topnotification, setTopnotification] = useState({
+  const [topcourses, setTopcourses] = useState({
     notif_id: "",
     notification_target: "",
     notification_title: "",
     notification_url: "",
+  });
+  const [topnotification, setTopnotification] = useState({
+    cour_id: "",
+    course_name: "",
+    course_url: "",
   });
 
   const [toppopularcollegelisting, setToppopularcollegelisting] = useState({
@@ -65,6 +70,15 @@ function Home(props) {
   });
 
   useEffect(() => {
+    axios
+      //.get("/api/cmsdetails/" + cms_url)
+      .get("/api/topCourses/")
+      .then((response) => {
+        setTopcourses(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     axios
       //.get("/api/cmsdetails/" + cms_url)
       .get("/api/topnotifications/")
@@ -107,13 +121,13 @@ function Home(props) {
       <section className="sliding-banner">
         <div className="serach-container">
           <div className="top-search">
-            <span>Top Cources:</span>
-            <span className="border-chips">BE/B.Tech</span>
-            <span className="border-chips">MBA</span>
-            <span className="border-chips">MBBS</span>
-            <span className="border-chips">M.Tech</span>
-            <span className="border-chips">BCA</span>
-            <span className="border-chips">BBA</span>
+            <span>Top Courses:</span>
+            {topcourses.length > 0 &&
+              topcourses.map((citem) => (
+                <span className="border-chips" id={citem.cour_id}>
+                  <a href={"course/" + citem.course_url}>{citem.course_name}</a>
+                </span>
+              ))}
           </div>
           <div className="search-wrapper mt-7">
             <form action="">

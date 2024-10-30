@@ -31,17 +31,17 @@ function NewsAndUpdates({}) {
   }, []);
 
   const renderNewsAndUpdates = (nuitem) => (
-    <a href={"exam/" + nuitem.na_url}>
-      <div className="news-card">
-        <div className="heading">
-          <h3>{nuitem.na_title}</h3>
-        </div>
-        <div className="date">20-Jan-2024</div>
-        <p className="details">{nuitem.na_brief_description}</p>
-        <hr className="hr-x" />
-        <span className="link">Continue Reading...</span>
+    <div className="news-card">
+      <div className="heading">
+        <h3>{nuitem.na_title}</h3>
       </div>
-    </a>
+      <div className="date">20-Jan-2024</div>
+      <p className="details">{nuitem.na_brief_description}</p>
+      <hr className="hr-x" />
+      <span className="link">
+        <a href={"exam/" + nuitem.na_url}>Continue Reading... </a>
+      </span>
+    </div>
   );
 
   return (

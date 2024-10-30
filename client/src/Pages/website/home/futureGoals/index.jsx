@@ -15,6 +15,7 @@ function FutureGoals({}) {
   const [goal, setGoal] = useState({
     cat_id: "",
     category_name: "",
+    category_url: "",
     courses: "",
   });
   useEffect(() => {
@@ -43,8 +44,10 @@ function FutureGoals({}) {
                   item.courses.split(",").map((c, i) => i <= 2 && <li>{c}</li>)}
               </ul>
               <div className="link">
-                <a href="#">Find By Location</a>
-                <a href="#">Top Collages</a>
+                <a href={"categorywise/" + item.category_url}>
+                  Find By Location
+                </a>
+                <a href={"categorywise/" + item.category_url}>Top Collages</a>
               </div>
             </div>
           </div>
