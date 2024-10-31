@@ -189,7 +189,7 @@ function Home(props) {
       </section>
 
       <section className="container popular-colleges">
-        <div className="head-line">Most Popular Featured Collages</div>
+        <div className="head-line">Most Popular Featured College's</div>
         <div className="popular-clg-container">
           {toppopularcollegelisting.length > 0 &&
             toppopularcollegelisting.map((item, id) => {

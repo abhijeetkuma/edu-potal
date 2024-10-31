@@ -661,6 +661,68 @@ header.website-wrapper {
       }
     }
 
+    .detailsTab {
+      margin: 30px auto -30px auto;
+      ul {
+        display: flex;
+        column-gap: 30px;
+        padding: 15px 10px 0px;
+
+        li {
+          .active {
+            font-weight: 600;
+            color: #009975;
+            border-bottom: 3px solid #e99446;
+          }
+        }
+      }
+    }
+
+    .detailsBanner {
+      .bgColor {
+        background-color: #009975;
+        height: 280px;
+      }
+      .detaisHead {
+        display: flex;
+        height: 100px;
+        margin-top: 0px;
+        padding-top: 30px;
+        .image {
+          width: 80px;
+          height: 80px;
+          border-radius: 55%;
+          border: 1px solid #ccc;
+        }
+        img, h1 {
+          margin: 0px;
+          padding: 0px 20px;
+          color: #fff;
+        }
+      }
+      .otherInfo {
+        margin: 0 auto;
+        color: #fff;
+        position: relative;
+        ul.rankInfo {
+          display: flex;
+          gap: 30px;
+          position: absolute;
+          top: -15px;
+          left: 95px;
+          li {
+            .location, .clg-rating{
+              display: flex;
+              align-items: center;
+              gap: 5px;
+            }
+          }
+        }
+      }
+      
+    }
+    
+
     /* end container*/
   }
 
