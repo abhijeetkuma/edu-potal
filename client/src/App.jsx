@@ -47,6 +47,7 @@ import CATEGORYWISE from "./Pages/website/categorywise";
 import STUDYBYCITY from "./Pages/website/studybycity";
 import COURSE from "./Pages/website/course";
 
+// import DETAILS from "./Pages/website/collegeDetails";
 import Expenses from "./Pages/expenses";
 import ErrorPage from "./Components/errorComp";
 
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
         path: "/course?/:course_url",
         element: <COURSE />,
       },
+      // {  
+      //   path: "/details",
+      //   element: <DETAILS />,
+      // },
     ],
   },
   {
