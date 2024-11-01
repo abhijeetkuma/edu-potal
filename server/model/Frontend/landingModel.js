@@ -29,7 +29,7 @@ const topCourses = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT cour_id,course_name,course_url FROM courses ORDER BY course_name ASC LIMIT 12",
+        "SELECT cour_id,course_name,course_url FROM courses WHERE cour_top='Y' ORDER BY course_name ASC LIMIT 12",
         (error, results) => {
           if (error) {
             reject(error);

@@ -16,7 +16,9 @@ function UserLayoutType1(props) {
     <>
       <header className="website-wrapper">
         <div className="logo">
-          <img src={logo} alt="Edu Potal" />
+          <a href={`/`}>
+            <img src={logo} alt="Edu Potal" />
+          </a>
         </div>
         <nav>
           <ul>

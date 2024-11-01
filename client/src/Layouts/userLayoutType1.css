@@ -63,9 +63,10 @@ header.website-wrapper {
     }
 
     /*slick slider css overwrite*/
-    .slick-next:before, .slick-prev:before {
-       font-size: 34px;
-       color: #ccc;
+    .slick-next:before,
+    .slick-prev:before {
+      font-size: 34px;
+      color: #ccc;
     }
     .slick-prev {
       left: -60px;
@@ -74,6 +75,8 @@ header.website-wrapper {
     .sliding-banner {
       background-color: #009975;
       height: 475px;
+      background-image: url(images/Oxford-University.jpg);
+      background-repeat: no-repeat, repeat;
     }
 
     .serach-container {
@@ -312,7 +315,11 @@ header.website-wrapper {
           height: 175px;
           max-height: 175px;
           > div:nth-child(1) {
-            background: linear-gradient(45deg,  rgba(31,32,51,0.6) 0%,rgba(29,37,51,0) 100%);
+            background: linear-gradient(
+              45deg,
+              rgba(31, 32, 51, 0.6) 0%,
+              rgba(29, 37, 51, 0) 100%
+            );
             padding: 5px;
             width: 100%;
             > img {
@@ -694,7 +701,8 @@ header.website-wrapper {
           border-radius: 55%;
           border: 1px solid #ccc;
         }
-        img, h1 {
+        img,
+        h1 {
           margin: 0px;
           padding: 0px 20px;
           color: #fff;
@@ -711,7 +719,8 @@ header.website-wrapper {
           top: -15px;
           left: 95px;
           li {
-            .location, .clg-rating{
+            .location,
+            .clg-rating {
               display: flex;
               align-items: center;
               gap: 5px;
@@ -719,9 +728,7 @@ header.website-wrapper {
           }
         }
       }
-      
     }
-    
 
     /* end container*/
   }
@@ -859,11 +866,12 @@ header.website-wrapper {
   }
 
   .college-list-wrapper {
-      background-color: #fff;
-      margin: 20px 0px;
-      padding: 10px 15px;
-      border-radius: 5px;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    background-color: #fff;
+    margin: 20px 0px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow:
+      rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
     .college-list-card {
