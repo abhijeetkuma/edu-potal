@@ -542,6 +542,46 @@ const updateContactus = (body) => {
     );
   });
 };
+const updateRating = (body) => {
+  //console.log("contact us body-->", body);
+  return new Promise(function (resolve, reject) {
+    const {
+      cid,
+      ratingacademic,
+      rattingaccommodation,
+      rattingfaculty,
+      rattinginfrastructure,
+      rattingplacements,
+      rattingsocial,
+      rattingthroughout,
+    } = body;
+    pool.query(
+      "UPDATE colleges SET ratingacademic = $2, rattingaccommodation = $3,rattingfaculty=$4,rattinginfrastructure=$5,rattingplacements=$6,rattingsocial=$7,rattingthroughout=$8 WHERE cid = $1 RETURNING *",
+      [
+        cid,
+        ratingacademic,
+        rattingaccommodation,
+        rattingfaculty,
+        rattinginfrastructure,
+        rattingplacements,
+        rattingsocial,
+        rattingthroughout,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `College contact updated: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 const updateHighlight = (body) => {
   console.log("Highlight body-->", body);
   return new Promise(function (resolve, reject) {
@@ -1953,4 +1993,5 @@ module.exports = {
   editcms,
   updateCMS,
   getNotificationlisting,
+  updateRating,
 };

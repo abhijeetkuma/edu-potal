@@ -91,6 +91,7 @@ function College() {
   const [isContact, setIsContact] = useState(false);
   const [isPlacement, setIsPlacement] = useState(false);
   const [isGallery, setIsGallery] = useState(false);
+  const [isRating, setIsRating] = useState(false);
   const [isAdmission, setIsAdmission] = useState(false);
   const [isHighlights, setIsHighLights] = useState(false);
   const [isFaq, setIsFaq] = useState(false);
@@ -105,6 +106,7 @@ function College() {
   const [placementActive, setPlacementActive] = useState();
   const [faqActive, setFaqActive] = useState();
   const [courseActive, setCourseActive] = useState();
+  const [ratingActive, setRatingActive] = useState();
   const [successmsg, setSuccessmsg] = useState();
 
   //const [editdata, setEditdata] = useState([]);
@@ -789,6 +791,67 @@ function College() {
       //end update form data
     }
   };
+  const submitrating = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("cid", cid);
+    formData.append("ratingacademic", event.target.ratingacademic.value);
+    formData.append(
+      "rattingaccommodation",
+      event.target.rattingaccommodation.value
+    );
+    formData.append("rattingfaculty", event.target.rattingfaculty.value);
+    formData.append(
+      "rattinginfrastructure",
+      event.target.rattinginfrastructure.value
+    );
+    formData.append("rattingplacements", event.target.rattingplacements.value);
+    formData.append("rattingsocial", event.target.rattingsocial.value);
+    formData.append("rattingthroughout", event.target.rattingthroughout.value);
+    const payload = {
+      cid: cid,
+      ratingacademic: event.target.ratingacademic.value,
+      rattingaccommodation: event.target.rattingaccommodation.value,
+      rattingfaculty: event.target.rattingfaculty.value,
+      rattinginfrastructure: event.target.rattinginfrastructure.value,
+      rattingplacements: event.target.rattingplacements.value,
+      rattingsocial: event.target.rattingsocial.value,
+      rattingthroughout: event.target.rattingthroughout.value,
+    };
+
+    if (cid > 0) {
+      axios({
+        method: "POST",
+        url: apiurl + "/updaterating",
+        data: payload,
+      })
+        .then(function (response) {
+          //console.log(response);
+          console.log(response.statusText);
+          if (response.statusText === "OK") {
+            toast.success("Rating sucessfully updated", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
+            /*  setSuccessmsg("Successfully Updated.");
+            setTimeout(function () {
+              window.location.replace("../../collegelisting");
+            }, 3000); */
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      //end update form data
+    }
+  };
   const submithightlight = async (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -1203,7 +1266,9 @@ function College() {
           <Link to="#" className={admissionActive} onClick={showAdmissions}>
             <span>Admissions / Scholarship</span>
           </Link>
-
+          <Link to="#" className={ratingActive} onClick={showRating}>
+            <span>Rating</span>
+          </Link>
           <Link to="#" className={placementActive} onClick={showPlacements}>
             <span>Placements</span>
           </Link>
@@ -2334,7 +2399,164 @@ function College() {
       </>
     );
   };
-
+  const renderRating = () => {
+    return (
+      <>
+        <div className="sm:col-span-4 contact step-4 formcontener">
+          <form
+            name="ratingform"
+            id="ratingform"
+            onSubmit={submitrating}
+            //encType="multipart/form-data"
+          >
+            <div className="sm:col-span-4 pb-2">
+              <label
+                htmlFor="ratingacademic"
+                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+              >
+                Ratting Academic
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="ratingacademic"
+                  name="ratingacademic"
+                  type="text"
+                  placeholder="Out of 100"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.ratingacademic && editdata.ratingacademic}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 pb-2">
+              <label
+                htmlFor="rattingaccommodation"
+                className="block text-lg font-semibold leading-6 text-gray-900 pt-1"
+              >
+                Ratting Accommodation
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="rattingaccommodation"
+                  name="rattingaccommodation"
+                  type="text"
+                  placeholder="Out of 100"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={
+                    editdata.rattingaccommodation &&
+                    editdata.rattingaccommodation
+                  }
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 pb-2">
+              <label
+                htmlFor="rattingfaculty"
+                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+              >
+                Ratting Faculty
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="rattingfaculty"
+                  name="rattingfaculty"
+                  type="text"
+                  placeholder="Out of 100"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.rattingfaculty && editdata.rattingfaculty}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 pb-2">
+              <label
+                htmlFor="rattinginfrastructure"
+                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+              >
+                Ratting Infrastructure
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="rattinginfrastructure"
+                  name="rattinginfrastructure"
+                  type="text"
+                  placeholder="Out of 100"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={
+                    editdata.rattinginfrastructure &&
+                    editdata.rattinginfrastructure
+                  }
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 pb-2">
+              <label
+                htmlFor="rattingplacements"
+                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+              >
+                Ratting Placements
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="rattingplacements"
+                  name="rattingplacements"
+                  type="text"
+                  placeholder="Out of 100"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={
+                    editdata.rattingplacements && editdata.rattingplacements
+                  }
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 pb-2">
+              <label
+                htmlFor="rattingsocial"
+                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+              >
+                Ratting Social
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="rattingsocial"
+                  name="rattingsocial"
+                  type="text"
+                  placeholder="Out of 100"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.rattingsocial && editdata.rattingsocial}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 pb-2">
+              <label
+                htmlFor="rattingthroughout"
+                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+              >
+                Ratting Throughout
+              </label>
+              <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                <input
+                  id="rattingthroughout"
+                  name="rattingthroughout"
+                  type="text"
+                  placeholder="Out of 100"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={
+                    editdata.rattingthroughout && editdata.rattingthroughout
+                  }
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </>
+    );
+  };
   const renderContact = () => {
     return (
       <>
@@ -3083,6 +3305,7 @@ function College() {
     setIsPlacement(false);
     setIsFaq(false);
     setIsCourse(false);
+    setIsRating(false);
 
     setBasicActive("active");
     setContactActive("");
@@ -3092,6 +3315,7 @@ function College() {
     setPlacementActive("");
     setFaqActive("");
     setCourseActive("");
+    setRatingActive("");
   };
   const showContacts = () => {
     setIsBasic(false);
@@ -3102,6 +3326,7 @@ function College() {
     setIsPlacement(false);
     setIsFaq(false);
     setIsCourse(false);
+    setIsRating(false);
 
     setBasicActive("");
     setContactActive("active");
@@ -3111,6 +3336,7 @@ function College() {
     setPlacementActive("");
     setFaqActive("");
     setCourseActive("");
+    setRatingActive("");
   };
   const showHighlights = () => {
     setIsBasic(false);
@@ -3121,6 +3347,7 @@ function College() {
     setIsPlacement(false);
     setIsFaq(false);
     setIsCourse(false);
+    setIsRating(false);
 
     setBasicActive("");
     setContactActive("");
@@ -3130,6 +3357,7 @@ function College() {
     setPlacementActive("");
     setFaqActive("");
     setCourseActive("");
+    setRatingActive("");
   };
   const showGallery = () => {
     setIsBasic(false);
@@ -3140,6 +3368,7 @@ function College() {
     setIsPlacement(false);
     setIsFaq(false);
     setIsCourse(false);
+    setIsRating(false);
 
     setBasicActive("");
     setContactActive("");
@@ -3149,6 +3378,7 @@ function College() {
     setPlacementActive("");
     setFaqActive("");
     setCourseActive("");
+    setRatingActive("");
   };
   const showAdmissions = () => {
     setIsBasic(false);
@@ -3159,6 +3389,7 @@ function College() {
     setIsPlacement(false);
     setIsFaq(false);
     setIsCourse(false);
+    setIsRating(false);
 
     setBasicActive("");
     setContactActive("");
@@ -3168,6 +3399,7 @@ function College() {
     setPlacementActive("");
     setFaqActive("");
     setCourseActive("");
+    setRatingActive("");
   };
   const showPlacements = () => {
     setIsBasic(false);
@@ -3178,6 +3410,7 @@ function College() {
     setIsPlacement(true);
     setIsFaq(false);
     setIsCourse(false);
+    setIsRating(false);
 
     setBasicActive("");
     setContactActive("");
@@ -3187,6 +3420,7 @@ function College() {
     setPlacementActive("active");
     setFaqActive("");
     setCourseActive("");
+    setRatingActive("");
   };
   const showFAQ = () => {
     setIsBasic(false);
@@ -3197,6 +3431,7 @@ function College() {
     setIsPlacement(false);
     setIsFaq(true);
     setIsCourse(false);
+    setIsRating(false);
 
     setBasicActive("");
     setContactActive("");
@@ -3206,6 +3441,7 @@ function College() {
     setPlacementActive("");
     setFaqActive("active");
     setCourseActive("");
+    setRatingActive("");
   };
   const showCourse = () => {
     setIsBasic(false);
@@ -3216,6 +3452,7 @@ function College() {
     setIsPlacement(false);
     setIsFaq(false);
     setIsCourse(true);
+    setIsRating(false);
 
     setBasicActive("");
     setContactActive("");
@@ -3225,6 +3462,28 @@ function College() {
     setPlacementActive("");
     setFaqActive("");
     setCourseActive("active");
+    setRatingActive("");
+  };
+  const showRating = () => {
+    setIsBasic(false);
+    setIsContact(false);
+    setIsHighLights(false);
+    setIsGallery(false);
+    setIsAdmission(false);
+    setIsPlacement(false);
+    setIsFaq(false);
+    setIsCourse(false);
+    setIsRating(true);
+
+    setBasicActive("");
+    setContactActive("");
+    setHighlightsActive("");
+    setGalleryActive("");
+    setAdmissionActive("");
+    setPlacementActive("");
+    setFaqActive("");
+    setCourseActive("");
+    setRatingActive("active");
   };
 
   return (
@@ -3247,6 +3506,7 @@ function College() {
             {isPlacement && renderPlacements()}
 
             {isGallery && renderGallery()}
+            {isRating && renderRating()}
 
             {isFaq && renderFAQ()}
 

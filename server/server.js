@@ -462,6 +462,17 @@ app.post(
       });
   }
 );
+app.post("/api/updaterating", (req, res) => {
+  //console.log("contact us details-->", req.body);
+  colleges_model
+    .updateRating(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.post("/api/updatecontactus", (req, res) => {
   //console.log("contact us details-->", req.body);
   colleges_model
