@@ -1301,12 +1301,12 @@ function College() {
               name="cid"
               value={editdata.cid && editdata.cid}
             />
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="college_name"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
-                College Name *
+                College Name <span class="text-orange">*</span>
               </label>
               <div className="mt-2">
                 <div className="flex rounded-md mt-1">
@@ -1314,7 +1314,7 @@ function College() {
                     type="text"
                     name="college_name"
                     id="college_name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                    className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray "
                     placeholder="Please enter college name"
                     value={editdata.college_name && editdata.college_name}
                     onChangeCapture={createUrl}
@@ -1324,76 +1324,73 @@ function College() {
                 </div>
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="college_url"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 College URL *
               </label>
-              <div className="mt-2">
-                <div className="flex rounded-md mt-1">
-                  <input
-                    type="text"
-                    name="college_url"
-                    id="college_url"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
-                    placeholder="College Url not user space"
-                    value={editdata.college_url && editdata.college_url}
-                    onChange={handleChangeFormdata}
-                    required
-                  />
-                </div>
+
+              <div className="flex rounded-md mt-1">
+                <input
+                  type="text"
+                  name="college_url"
+                  id="college_url"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  placeholder="College Url not user space"
+                  value={editdata.college_url && editdata.college_url}
+                  onChange={handleChangeFormdata}
+                  required
+                />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="tag_line"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Tag Line *
               </label>
-              <div className="mt-2">
-                <div className="flex rounded-md mt-1">
-                  <input
-                    type="text"
-                    name="tag_line"
-                    id="tag_line"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
-                    placeholder=""
-                    value={editdata.tag_line && editdata.tag_line}
-                    onChange={handleChangeFormdata}
-                    required
-                  />
-                </div>
+
+              <div className="flex rounded-md mt-1">
+                <input
+                  type="text"
+                  name="tag_line"
+                  id="tag_line"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  placeholder=""
+                  value={editdata.tag_line && editdata.tag_line}
+                  onChange={handleChangeFormdata}
+                  required
+                />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="usp_remark"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 USP Remark *
               </label>
-              <div className="mt-2">
-                <div className="flex rounded-md mt-1">
-                  <input
-                    type="text"
-                    name="usp_remark"
-                    id="usp_remark"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
-                    placeholder=""
-                    value={editdata.usp_remark && editdata.usp_remark}
-                    onChange={handleChangeFormdata}
-                    required
-                  />
-                </div>
+
+              <div className="flex rounded-md mt-1">
+                <input
+                  type="text"
+                  name="usp_remark"
+                  id="usp_remark"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  placeholder=""
+                  value={editdata.usp_remark && editdata.usp_remark}
+                  onChange={handleChangeFormdata}
+                  required
+                />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="found_year"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Foundation Year *
               </label>
@@ -1402,17 +1399,17 @@ function College() {
                   id="found_year"
                   name="found_year"
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.found_year && editdata.found_year}
                   onChange={handleChangeFormdata}
                   required
                 />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="intake"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Intake
               </label>
@@ -1421,16 +1418,16 @@ function College() {
                   id="intake"
                   name="intake"
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.intake && editdata.intake}
                   onChange={handleChangeFormdata}
                 />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="hostel_available"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Hostel Available
               </label>
@@ -1439,14 +1436,14 @@ function College() {
                   id="hostel_available"
                   name="hostel_available"
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.hostel_available && editdata.hostel_available}
                   onChange={handleChangeFormdata}
                 />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
-              <label className="block text-lg font-semibold leading-6 text-gray-900 mt-1">
+            <div className="sm:col-span-4 pb-2">
+              <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
                 Description
               </label>
               <div className=" rounded-md  mt-1">
@@ -1513,8 +1510,8 @@ function College() {
                   /> */}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
-              <label className="block text-lg font-semibold leading-6 text-gray-900">
+            <div className="sm:col-span-4 pb-2">
+              <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
                 College Type
               </label>
               <div className="flex flex-wrap">
@@ -1542,8 +1539,8 @@ function College() {
                 ))}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
-              <label className="block text-lg font-semibold leading-6 text-gray-900">
+            <div className="sm:col-span-4 pb-2">
+              <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
                 Trading
               </label>
               <div className="flex flex-wrap">
@@ -1569,8 +1566,8 @@ function College() {
                 ))}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
-              <label className="block text-lg font-semibold leading-6 text-gray-900">
+            <div className="sm:col-span-4 pb-2">
+              <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
                 Approved By
               </label>
               <div className="flex flex-wrap ">
@@ -1599,8 +1596,8 @@ function College() {
                 ))}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
-              <label className="block text-lg font-semibold leading-6 text-gray-900">
+            <div className="sm:col-span-4 pb-2">
+              <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
                 Facility Available
               </label>
               <div className="flex flex-wrap ">
@@ -1628,8 +1625,8 @@ function College() {
                 ))}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
-              <label className="block text-lg font-semibold leading-6 text-gray-900">
+            <div className="sm:col-span-4 pb-2">
+              <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
                 Categories
               </label>
               <div className="flex flex-wrap ">
@@ -1658,8 +1655,8 @@ function College() {
                 ))}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
-              <label className="block text-lg font-semibold leading-6 text-gray-900">
+            <div className="sm:col-span-4 pb-2">
+              <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
                 Exam
               </label>
               <div className="flex flex-wrap ">
@@ -1687,8 +1684,8 @@ function College() {
                 ))}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
-              <label className="block text-lg font-semibold leading-6 text-gray-900">
+            <div className="sm:col-span-4 pb-2">
+              <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
                 Faculty Profile
               </label>
               <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-1">
@@ -1724,10 +1721,10 @@ function College() {
                 />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="meta_title"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Meta Title
               </label>
@@ -1736,17 +1733,17 @@ function College() {
                   id="meta_title"
                   name="meta_title"
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.meta_title && editdata.meta_title}
                   onChange={handleChangeFormdata}
                   required
                 />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="meta_description"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Meta Description
               </label>
@@ -1756,17 +1753,17 @@ function College() {
                   name="meta_description"
                   type="text"
                   rows={5}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.meta_description && editdata.meta_description}
                   onChange={handleChangeFormdata}
                   required
                 />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="meta_keyword"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Meta Keyword
               </label>
@@ -1775,15 +1772,15 @@ function College() {
                   id="meta_keyword"
                   name="meta_keyword"
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.meta_keyword && editdata.meta_keyword}
                   onChange={handleChangeFormdata}
                   required
                 />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
-              <label className="block text-lg font-semibold leading-6 text-gray-900">
+            <div className="sm:col-span-4 pb-2">
+              <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
                 Logo
               </label>
               <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md mt-1">
@@ -1799,8 +1796,8 @@ function College() {
                 {editdata.logo && <img src={getImageURL(editdata.logo)} />}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
-              <label className="block text- font-bold leading-6 text-gray-900">
+            <div className="sm:col-span-4 pb-2">
+              <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
                 Banner
               </label>
               <div className="flex rounded-md shadow-sm ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md mt-1">
@@ -1853,10 +1850,10 @@ function College() {
       <>
         <div className="sm:col-span-4 highlights step-2 formcontener">
           <form name="courseForm" id="courseForm" onSubmit={submitcouses}>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="courses"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Courses
               </label>
@@ -1887,10 +1884,10 @@ function College() {
                 ))}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-5">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="courses"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Courses Braches
               </label>
@@ -1912,7 +1909,7 @@ function College() {
                         name="subcourseId"
                         id="subcourseId"
                         onChange={(e) => handlesubcourseChange(e, i)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray pb-2 pt-2"
                       >
                         <option value="">Select Branch</option>
                         {subcoursearr.map((items, i) => (
@@ -1935,7 +1932,7 @@ function College() {
                         id="course_duration"
                         placeholder="Course Duration"
                         onChange={(e) => handlesubcourseChange(e, i)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                       />
                     </div>
                     <div className="sm:col-span-4 px-2">
@@ -1946,7 +1943,7 @@ function College() {
                         id="course_fee"
                         placeholder="Fee"
                         onChange={(e) => handlesubcourseChange(e, i)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                       />
                     </div>
                     <div className="sm:col-span-2 px-2">
@@ -1955,7 +1952,7 @@ function College() {
                         name="feetype_id"
                         type="text"
                         onChange={(e) => handlesubcourseChange(e, i)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                       >
                         <option value="">Select Type</option>
                         {feetypearr.map((items, i) => (
@@ -1978,7 +1975,7 @@ function College() {
                         placeholder="Available Seats"
                         value={item.course_seats}
                         onChange={(e) => handlesubcourseChange(e, i)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                       />
                     </div>
                     <div className="sm:col-span-4 px-2">
@@ -1989,7 +1986,7 @@ function College() {
                         placeholder="Description"
                         value={item.subcoursedescription}
                         onChange={(e) => handlesubcourseChange(e, i)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                       />
                     </div>
                     <div className="sm:col-span-2 px-2">
@@ -2000,7 +1997,7 @@ function College() {
                         placeholder="Selection Criteria"
                         value={item.subcourseselectioncriteria}
                         onChange={(e) => handlesubcourseChange(e, i)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                       />
                     </div>
                     <div className="sm:col-span-2 px-2">
@@ -2011,7 +2008,7 @@ function College() {
                         placeholder="Selection Eligibility"
                         value={item.subcourseselectiioneligibility}
                         onChange={(e) => handlesubcourseChange(e, i)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                       />
                     </div>
                     <div className="sm:col-span-2 px-2">
@@ -2020,7 +2017,7 @@ function College() {
                         name="subcoursestype"
                         type="text"
                         onChange={(e) => handlesubcourseChange(e, i)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                       >
                         <option value="">Select Type</option>
                         {subcoursestypearr.map((items, i) => (
@@ -2093,28 +2090,30 @@ function College() {
             onSubmit={submithightlight}
             //encType="multipart/form-data"
           >
-            <div className="sm:col-span-4">
-              <label className="block text-lg font-semibold leading-6 text-gray-900">
+            <div className="sm:col-span-4 pb-2">
+              <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
                 Display Type :
               </label>
-              <input
-                type="radio"
-                value="Points"
-                name="display_type"
-                defaultChecked={
-                  editdata.display_type == "Points" ? true : false
-                }
-              />
-              Bullet Points
-              <input
-                type="radio"
-                value="Tabuller"
-                name="display_type"
-                defaultChecked={
-                  editdata.display_type == "Tabuller" ? true : false
-                }
-              />
-              Tabuller
+              <div className="flex-1 space-x-5">
+                <input
+                  type="radio"
+                  value="Points"
+                  name="display_type"
+                  defaultChecked={
+                    editdata.display_type == "Points" ? true : false
+                  }
+                />
+                <label className="font-thin">Bullet Points</label>
+                <input
+                  type="radio"
+                  value="Tabuller"
+                  name="display_type"
+                  defaultChecked={
+                    editdata.display_type == "Tabuller" ? true : false
+                  }
+                />
+                <label className="font-thin">Tabuller</label>
+              </div>
             </div>
             <div className="sm:col-span-4">
               <div>{console.log("data=-=-=-=-=-=", editdata.highLights)}</div>
@@ -2129,7 +2128,7 @@ function College() {
                         placeholder="Parameter"
                         value={item.highParameter}
                         onChange={(e) => handleChange(e, i)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                       />
                     </div>
                     <div className="sm:col-span-2 px-2">
@@ -2140,7 +2139,7 @@ function College() {
                         placeholder="Use colons for bullet points"
                         value={item.highDetails}
                         onChange={(e) => handleChange(e, i)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                        className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                       />
                     </div>
                     <div className="sm:col-span-2">
@@ -2206,7 +2205,7 @@ function College() {
             <div className="sm:col-span-4">
               <label
                 htmlFor="adminssiondetails"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Admission Details
               </label>
@@ -2257,7 +2256,7 @@ function College() {
             <div className="sm:col-span-4 mt-2">
               <label
                 htmlFor="scholarshipoffer"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Scholarship Offers
               </label>
@@ -2337,7 +2336,7 @@ function College() {
             <div className="sm:col-span-4">
               <label
                 htmlFor="faq"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 FAQ
               </label>
@@ -2412,7 +2411,7 @@ function College() {
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="ratingacademic"
-                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Ratting Academic
               </label>
@@ -2431,7 +2430,7 @@ function College() {
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="rattingaccommodation"
-                className="block text-lg font-semibold leading-6 text-gray-900 pt-1"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Ratting Accommodation
               </label>
@@ -2453,7 +2452,7 @@ function College() {
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="rattingfaculty"
-                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Ratting Faculty
               </label>
@@ -2472,7 +2471,7 @@ function College() {
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="rattinginfrastructure"
-                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Ratting Infrastructure
               </label>
@@ -2494,7 +2493,7 @@ function College() {
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="rattingplacements"
-                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Ratting Placements
               </label>
@@ -2515,7 +2514,7 @@ function College() {
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="rattingsocial"
-                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Ratting Social
               </label>
@@ -2534,7 +2533,7 @@ function College() {
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="rattingthroughout"
-                className="block text-lg font-semibold leading-6 text-gray-900 pb-1"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Ratting Throughout
               </label>
@@ -2587,28 +2586,28 @@ function College() {
             onSubmit={submitcontactus}
             //encType="multipart/form-data"
           >
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="address"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
-                Address*
+                Address <spn className="text-orange">*</spn>
               </label>
               <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                 <input
                   id="address"
                   name="address"
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.address && editdata.address}
                   onChange={handleChangeFormdata}
                 />
               </div>
             </div>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="address2"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Address2
               </label>
@@ -2617,16 +2616,16 @@ function College() {
                   id="address2"
                   name="address2"
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.address2 && editdata.address2}
                   onChange={handleChangeFormdata}
                 />
               </div>
             </div>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="landmark"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Landmark
               </label>
@@ -2635,16 +2634,16 @@ function College() {
                   id="landmark"
                   name="landmark"
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.landmark && editdata.landmark}
                   onChange={handleChangeFormdata}
                 />
               </div>
             </div>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="country"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Country
               </label>
@@ -2653,7 +2652,7 @@ function College() {
                   name="country"
                   id="country"
                   onChange={handleChangeFormdata}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray pb-2 pt-2"
                 >
                   <option value="">Select Country</option>
                   {countryarr.map((items, i) => (
@@ -2669,10 +2668,10 @@ function College() {
                 </select>
               </div>
             </div>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="state"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 State
               </label>
@@ -2690,7 +2689,7 @@ function College() {
                   id="state"
                   //onChange={handleChangeFormdata}
                   onChange={changeStateid}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray pb-2 pt-2"
                 >
                   <option value="">Select State</option>
                   {statearr.map((items, i) => (
@@ -2704,10 +2703,10 @@ function College() {
                 </select>
               </div>
             </div>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="city"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 City
               </label>
@@ -2724,7 +2723,7 @@ function College() {
                   name="city"
                   id="city"
                   onChange={handleChangeFormdata}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray pb-2 pt-2"
                 >
                   <option value="">Select City</option>
                   {cityarr.map((items, i) => (
@@ -2738,10 +2737,10 @@ function College() {
                 </select>
               </div>
             </div>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="pincode"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Pin Code
               </label>
@@ -2750,16 +2749,16 @@ function College() {
                   id="pincode"
                   name="pincode"
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.pincode && editdata.pincode}
                   onChange={handleChangeFormdata}
                 />
               </div>
             </div>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="contactno"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Contact No.
               </label>
@@ -2768,16 +2767,16 @@ function College() {
                   id="contactno"
                   name="contactno"
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.contactno && editdata.contactno}
                   onChange={handleChangeFormdata}
                 />
               </div>
             </div>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="faxno"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Fax No.
               </label>
@@ -2786,16 +2785,16 @@ function College() {
                   id="faxno"
                   name="faxno"
                   type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.faxno && editdata.faxno}
                   onChange={handleChangeFormdata}
                 />
               </div>
             </div>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="email"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Email
               </label>
@@ -2804,16 +2803,16 @@ function College() {
                   id="email"
                   name="email"
                   type="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.email && editdata.email}
                   onChange={handleChangeFormdata}
                 />
               </div>
             </div>
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="website"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Website
               </label>
@@ -2821,8 +2820,8 @@ function College() {
                 <input
                   id="website"
                   name="website"
-                  type="website"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  type="url"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.website && editdata.website}
                   onChange={handleChangeFormdata}
                 />
@@ -2863,10 +2862,10 @@ function College() {
             id="placementForm"
             onSubmit={submitplacement}
           >
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="placementdescription"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Overview
               </label>
@@ -2907,166 +2906,151 @@ function College() {
                 />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="totalplacementratio"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Total Placement Ratio
               </label>
-              <div className="mb-2">
-                <div className="flex rounded-md">
-                  <input
-                    type="text"
-                    name="totalplacementratio"
-                    id="totalplacementratio"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
-                    placeholder="like- d%"
-                    value={
-                      editdata.totalplacementratio &&
-                      editdata.totalplacementratio
-                    }
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
+              <div className="flex rounded-md">
+                <input
+                  type="text"
+                  name="totalplacementratio"
+                  id="totalplacementratio"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  placeholder="like- d%"
+                  value={
+                    editdata.totalplacementratio && editdata.totalplacementratio
+                  }
+                  onChange={handleChangeFormdata}
+                />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="averageplacementrecord"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Average Placement Record
               </label>
-              <div className="mb-2">
-                <div className="flex rounded-md">
-                  <input
-                    type="text"
-                    name="averageplacementrecord"
-                    id="averageplacementrecord"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
-                    placeholder="Like- d LPA"
-                    value={
-                      editdata.averageplacementrecord &&
-                      editdata.averageplacementrecord
-                    }
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
+              <div className="flex rounded-md">
+                <input
+                  type="text"
+                  name="averageplacementrecord"
+                  id="averageplacementrecord"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  placeholder="Like- d LPA"
+                  value={
+                    editdata.averageplacementrecord &&
+                    editdata.averageplacementrecord
+                  }
+                  onChange={handleChangeFormdata}
+                />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="higestplacementrecord"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Higest Placement Record
               </label>
-              <div className="mb-2">
-                <div className="flex rounded-md">
-                  <input
-                    type="text"
-                    name="higestplacementrecord"
-                    id="higestplacementrecord"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
-                    placeholder="Like- d LPA"
-                    value={
-                      editdata.higestplacementrecord &&
-                      editdata.higestplacementrecord
-                    }
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
+
+              <div className="flex rounded-md">
+                <input
+                  type="text"
+                  name="higestplacementrecord"
+                  id="higestplacementrecord"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  placeholder="Like- d LPA"
+                  value={
+                    editdata.higestplacementrecord &&
+                    editdata.higestplacementrecord
+                  }
+                  onChange={handleChangeFormdata}
+                />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="lowestplacementrecord"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Lowest Placement Record
               </label>
-              <div className="mb-2">
-                <div className="flex rounded-md">
-                  <input
-                    type="text"
-                    name="lowestplacementrecord"
-                    id="lowestplacementrecord"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
-                    placeholder="Like- d LPA"
-                    value={
-                      editdata.lowestplacementrecord &&
-                      editdata.lowestplacementrecord
-                    }
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
+              <div className="flex rounded-md">
+                <input
+                  type="text"
+                  name="lowestplacementrecord"
+                  id="lowestplacementrecord"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  placeholder="Like- d LPA"
+                  value={
+                    editdata.lowestplacementrecord &&
+                    editdata.lowestplacementrecord
+                  }
+                  onChange={handleChangeFormdata}
+                />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="toprecruiters"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Top Recruiters
               </label>
-              <div className="mb-2">
-                <div className="flex rounded-md">
-                  <input
-                    type="text"
-                    name="toprecruiters"
-                    id="toprecruiters"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
-                    placeholder="Like- Google, IBM, Microsoft, Delloit etc."
-                    value={editdata.toprecruiters && editdata.toprecruiters}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
+              <div className="flex rounded-md">
+                <input
+                  type="text"
+                  name="toprecruiters"
+                  id="toprecruiters"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  placeholder="Like- Google, IBM, Microsoft, Delloit etc."
+                  value={editdata.toprecruiters && editdata.toprecruiters}
+                  onChange={handleChangeFormdata}
+                />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="toprecuitingsectors"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Top Recruiting Sectors
               </label>
-              <div className="mb-2">
-                <div className="flex rounded-md">
-                  <input
-                    type="text"
-                    name="toprecuitingsectors"
-                    id="toprecuitingsectors"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
-                    placeholder="Finance, IT etc."
-                    value={
-                      editdata.toprecuitingsectors &&
-                      editdata.toprecuitingsectors
-                    }
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
+              <div className="flex rounded-md">
+                <input
+                  type="text"
+                  name="toprecuitingsectors"
+                  id="toprecuitingsectors"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  placeholder="Finance, IT etc."
+                  value={
+                    editdata.toprecuitingsectors && editdata.toprecuitingsectors
+                  }
+                  onChange={handleChangeFormdata}
+                />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="topprofile"
-                className="block text-lg font-semibold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Top Profile
               </label>
-              <div className="mb-2">
-                <div className="flex rounded-md">
-                  <input
-                    type="text"
-                    name="topprofile"
-                    id="topprofile"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-base sm:leading-8"
-                    placeholder="Trainee, Accounts, Marketing Heads"
-                    value={editdata.topprofile && editdata.topprofile}
-                    onChange={handleChangeFormdata}
-                  />
-                </div>
+              <div className="flex rounded-md">
+                <input
+                  type="text"
+                  name="topprofile"
+                  id="topprofile"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  placeholder="Trainee, Accounts, Marketing Heads"
+                  value={editdata.topprofile && editdata.topprofile}
+                  onChange={handleChangeFormdata}
+                />
               </div>
             </div>
             <div className="flex mt-5 gap-4 space-x-1">
@@ -3105,10 +3089,10 @@ function College() {
             onSubmit={submitGallery}
             encType="multipart/form-data"
           >
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="gallery_image1"
-                className="block text- font-bold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Gallery Image1
               </label>
@@ -3130,10 +3114,10 @@ function College() {
                 )}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="gallery_image2"
-                className="block text- font-bold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Gallery Image2
               </label>
@@ -3154,10 +3138,10 @@ function College() {
                 )}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="gallery_image3"
-                className="block text- font-bold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Gallery Image3
               </label>
@@ -3178,10 +3162,10 @@ function College() {
                 )}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="gallery_image4"
-                className="block text- font-bold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Gallery Image4
               </label>
@@ -3202,10 +3186,10 @@ function College() {
                 )}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="gallery_image5"
-                className="block text- font-bold leading-6 text-gray-900"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Gallery Image5
               </label>
@@ -3226,10 +3210,10 @@ function College() {
                 )}
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
-                htmlFor="gallery_image1"
-                className="block text- font-bold leading-6 text-gray-900"
+                htmlFor="brouchure"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Upload Brouchure
               </label>
@@ -3274,10 +3258,10 @@ function College() {
                 />
               </div>
             </div>
-            <div className="sm:col-span-4 mt-2">
+            <div className="sm:col-span-4 pb-2">
               <label
-                htmlFor="gallery_image1"
-                className="block text- font-bold leading-6 text-gray-900"
+                htmlFor="youtube"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
                 Youtube
               </label>
