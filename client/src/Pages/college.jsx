@@ -2420,7 +2420,7 @@ function College() {
                 <input
                   id="ratingacademic"
                   name="ratingacademic"
-                  type="text"
+                  type="number"
                   placeholder="Out of 100"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.ratingacademic && editdata.ratingacademic}
@@ -2439,7 +2439,7 @@ function College() {
                 <input
                   id="rattingaccommodation"
                   name="rattingaccommodation"
-                  type="text"
+                  type="number"
                   placeholder="Out of 100"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={
@@ -2461,7 +2461,7 @@ function College() {
                 <input
                   id="rattingfaculty"
                   name="rattingfaculty"
-                  type="text"
+                  type="number"
                   placeholder="Out of 100"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.rattingfaculty && editdata.rattingfaculty}
@@ -2480,7 +2480,7 @@ function College() {
                 <input
                   id="rattinginfrastructure"
                   name="rattinginfrastructure"
-                  type="text"
+                  type="number"
                   placeholder="Out of 100"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={
@@ -2502,7 +2502,7 @@ function College() {
                 <input
                   id="rattingplacements"
                   name="rattingplacements"
-                  type="text"
+                  type="number"
                   placeholder="Out of 100"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={
@@ -2523,7 +2523,7 @@ function College() {
                 <input
                   id="rattingsocial"
                   name="rattingsocial"
-                  type="text"
+                  type="number"
                   placeholder="Out of 100"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.rattingsocial && editdata.rattingsocial}
@@ -2542,7 +2542,7 @@ function College() {
                 <input
                   id="rattingthroughout"
                   name="rattingthroughout"
-                  type="text"
+                  type="number"
                   placeholder="Out of 100"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={
@@ -2551,6 +2551,26 @@ function College() {
                   onChange={handleChangeFormdata}
                 />
               </div>
+            </div>
+            <div className="flex mt-5 gap-4 space-x-1">
+              <button
+                type="button"
+                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Exit
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-blue font-bold py-2 px-4 border border-blue-700 rounded"
+              >
+                {cid > 0 ? "Update" : "Save"} & Next
+              </button>
             </div>
           </form>
         </div>
