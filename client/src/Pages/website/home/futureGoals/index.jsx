@@ -33,8 +33,8 @@ function FutureGoals({}) {
       {goal.length > 0 &&
         goal.map((item, index) => (
           <div id={item.cat_id}>
-            {console.log("courses", item.courses)}
-            <div className="course-type">
+            {/* console.log("courses", item.courses) */}
+            <div className="course-type" key={index}>
               <div className="info">
                 <h1>{item.category_name}</h1>
                 <span>{item.total_colleges} Collages</span>

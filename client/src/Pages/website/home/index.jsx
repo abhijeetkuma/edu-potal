@@ -46,7 +46,7 @@ function Home(props) {
     course_name: "",
     course_url: "",
   });
-
+  const [suggestcolleges, setSuggestcolleges] = useState();
   const [toppopularcollegelisting, setToppopularcollegelisting] = useState({
     cid: "",
     college_name: "",
@@ -67,6 +67,9 @@ function Home(props) {
   const [bycity, setBycity] = useState({
     cit_id: "",
     city_name: "",
+  });
+  const [searchparameter, setSearchparameter] = useState({
+    search_parameter: "",
   });
 
   useEffect(() => {
@@ -116,6 +119,35 @@ function Home(props) {
 
   const renderFutureGolesType = () => <FutureGoals />;
 
+  const handleChangeFormdata = (e) => {
+    const { name, value } = e.target;
+    setSearchparameter((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  // console.log("search -->", searchparameter);
+  const searchCollege = () => {
+    //alert(searchparameter.search_parameter);
+    window.location = "search?keyword=" + searchparameter.search_parameter;
+  };
+  const autosuggestcolleges = (e) => {
+    const college_name = e.target.value;
+    //console.log("s", collegeName);
+    if (college_name != "") {
+      axios
+        //.get("/api/cmsdetails/" + cms_url)
+        .get("/api/autosuggestcolleges/" + college_name)
+        .then((response) => {
+          setSuggestcolleges(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      setSuggestcolleges();
+    }
+  };
   return (
     <>
       <section className="sliding-banner">
@@ -130,14 +162,32 @@ function Home(props) {
               ))}
           </div>
           <div className="search-wrapper mt-7">
-            <form action="">
+            <form action="" name="searchForm" id="searchForm" method="post">
               <input
                 type="text"
-                value=""
+                value={searchparameter.search_parameter}
                 id="search-input"
+                name="search_parameter"
                 placeholder="Search: Collages, Courses, Exams, Specializations & More"
+                onChange={handleChangeFormdata}
+                onKeyUp={(e) => autosuggestcolleges(e)}
               />
-              <input type="button" id="search-btn" value="Search" />
+              <input
+                type="button"
+                id="search-btn"
+                value="Search"
+                onClick={searchCollege}
+              />
+
+              {suggestcolleges?.length > 0 && (
+                <div className="collegeAutosuggest-section">
+                  <ul>
+                    {suggestcolleges.map((item, id) => (
+                      <li key={id}>{item.college_name}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </form>
           </div>
           <div className="recent-search mt-5">
@@ -197,7 +247,7 @@ function Home(props) {
                 return (
                   <>
                     <a href={"college/" + item.college_url}>
-                      <div className="popular-clg">
+                      <div className="popular-clg" key={id}>
                         <div
                           className="header"
                           style={{

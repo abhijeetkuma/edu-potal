@@ -30,8 +30,8 @@ function NewsAndUpdates({}) {
       });
   }, []);
 
-  const renderNewsAndUpdates = (nuitem) => (
-    <div className="news-card">
+  const renderNewsAndUpdates = (nuitem, id) => (
+    <div className="news-card" key={id}>
       <div className="heading">
         <h3>{nuitem.na_title}</h3>
       </div>

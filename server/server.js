@@ -13,6 +13,7 @@ const cms_model = require("./model/Frontend/cmsModel");
 const landing_model = require("./model/Frontend/landingModel");
 const collegelisting_model = require("./model/Frontend/collegelistingModel");
 const exan_model = require("./model/Frontend/examModel");
+const autosuggest_model = require("./model/Frontend/authosuggestModel");
 
 app.use(cors());
 
@@ -1037,6 +1038,17 @@ app.get("/api/studybycities/", (req, res) => {
     });
 });
 //end landing page apis
+app.get("/api/autosuggestcolleges/:college_name", (req, res) => {
+  //console.log("server-->", req.params.college_name);
+  autosuggest_model
+    .autosuggest(req.params.college_name)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/cmsdetails/:cms_url", (req, res) => {
   cms_model
     .cmsdetails(req.params.cms_url)

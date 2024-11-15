@@ -43,6 +43,7 @@ function Listing(props) {
           city_url: props.city_url,
           category_url: props.category_url,
           course_url: props.course_url,
+          search_parameter: props.search_parameter,
         },
       })
       .then((response) => {
@@ -71,21 +72,21 @@ function Listing(props) {
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Government</label>
+                  <label htmlFor="checkbox">Government</label>
                 </span>
                 <span>(50)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Private</label>
+                  <label htmlFor="checkbox">Private</label>
                 </span>
                 <span>(150)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Public</label>
+                  <label htmlFor="checkbox">Public</label>
                 </span>
                 <span>(25)</span>
               </li>
@@ -107,42 +108,42 @@ function Listing(props) {
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">BE/B.Tech</label>
+                  <label htmlFor="checkbox">BE/B.Tech</label>
                 </span>
                 <span>(4200)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">ME/M.Tech</label>
+                  <label htmlFor="checkbox">ME/M.Tech</label>
                 </span>
                 <span>(3800)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">MBBS</label>
+                  <label htmlFor="checkbox">MBBS</label>
                 </span>
                 <span>(800)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Polytechnic</label>
+                  <label htmlFor="checkbox">Polytechnic</label>
                 </span>
                 <span>(1800)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">MBA</label>
+                  <label htmlFor="checkbox">MBA</label>
                 </span>
                 <span>(700)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Ph.D</label>
+                  <label htmlFor="checkbox">Ph.D</label>
                 </span>
                 <span>(2200)</span>
               </li>
@@ -164,42 +165,42 @@ function Listing(props) {
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Andhra Pradesh</label>
+                  <label htmlFor="checkbox">Andhra Pradesh</label>
                 </span>
                 <span>(20)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Arunachal Pradesh</label>
+                  <label htmlFor="checkbox">Arunachal Pradesh</label>
                 </span>
                 <span>(8)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Assam</label>
+                  <label htmlFor="checkbox">Assam</label>
                 </span>
                 <span>(2)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Bihar</label>
+                  <label htmlFor="checkbox">Bihar</label>
                 </span>
                 <span>(10)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Chandigarh</label>
+                  <label htmlFor="checkbox">Chandigarh</label>
                 </span>
                 <span>(5)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Delhi</label>
+                  <label htmlFor="checkbox">Delhi</label>
                 </span>
                 <span>(7)</span>
               </li>
@@ -221,42 +222,42 @@ function Listing(props) {
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Agra</label>
+                  <label htmlFor="checkbox">Agra</label>
                 </span>
                 <span>(2)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Ajmer</label>
+                  <label htmlFor="checkbox">Ajmer</label>
                 </span>
                 <span>(1)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Allahabad</label>
+                  <label htmlFor="checkbox">Allahabad</label>
                 </span>
                 <span>(3)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Bangalore</label>
+                  <label htmlFor="checkbox">Bangalore</label>
                 </span>
                 <span>(11)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Bhopal</label>
+                  <label htmlFor="checkbox">Bhopal</label>
                 </span>
                 <span>(14)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Chennai</label>
+                  <label htmlFor="checkbox">Chennai</label>
                 </span>
                 <span>(2)</span>
               </li>
@@ -274,28 +275,28 @@ function Listing(props) {
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Distance / Correspondence</label>
+                  <label htmlFor="checkbox">Distance / Correspondence</label>
                 </span>
                 <span>(22)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Online</label>
+                  <label htmlFor="checkbox">Online</label>
                 </span>
                 <span>(110)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Part Time</label>
+                  <label htmlFor="checkbox">Part Time</label>
                 </span>
                 <span>(30)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Regular</label>
+                  <label htmlFor="checkbox">Regular</label>
                 </span>
                 <span>(1100)</span>
               </li>
@@ -317,42 +318,42 @@ function Listing(props) {
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Computer Science Engineering</label>
+                  <label htmlFor="checkbox">Computer Science Engineering</label>
                 </span>
                 <span>(200)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Civil Engineering</label>
+                  <label htmlFor="checkbox">Civil Engineering</label>
                 </span>
                 <span>(100)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Electrical Engineering</label>
+                  <label htmlFor="checkbox">Electrical Engineering</label>
                 </span>
                 <span>(350)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Electronics Engineering</label>
+                  <label htmlFor="checkbox">Electronics Engineering</label>
                 </span>
                 <span>(310)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Information Technology</label>
+                  <label htmlFor="checkbox">Information Technology</label>
                 </span>
                 <span>(140)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">Robotics Engineering</label>
+                  <label htmlFor="checkbox">Robotics Engineering</label>
                 </span>
                 <span>(120)</span>
               </li>
@@ -370,28 +371,28 @@ function Listing(props) {
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">CBSE 12th</label>
+                  <label htmlFor="checkbox">CBSE 12th</label>
                 </span>
                 <span>(42)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">CUET</label>
+                  <label htmlFor="checkbox">CUET</label>
                 </span>
                 <span>(2110)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">JEE Main</label>
+                  <label htmlFor="checkbox">JEE Main</label>
                 </span>
                 <span>(300)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">NEET</label>
+                  <label htmlFor="checkbox">NEET</label>
                 </span>
                 <span>(500)</span>
               </li>
@@ -409,42 +410,42 @@ function Listing(props) {
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">{"< 1 Lakh"}</label>
+                  <label htmlFor="checkbox">{"< 1 Lakh"}</label>
                 </span>
                 <span>(1200)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">{"1 - 2 Lakh"}</label>
+                  <label htmlFor="checkbox">{"1 - 2 Lakh"}</label>
                 </span>
                 <span>(810)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">{"2 - 3 Lakh"}</label>
+                  <label htmlFor="checkbox">{"2 - 3 Lakh"}</label>
                 </span>
                 <span>(800)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">{"3 - 4 Lakh"}</label>
+                  <label htmlFor="checkbox">{"3 - 4 Lakh"}</label>
                 </span>
                 <span>(600)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">{"4 - 5 Lakh"}</label>
+                  <label htmlFor="checkbox">{"4 - 5 Lakh"}</label>
                 </span>
                 <span>(400)</span>
               </li>
               <li>
                 <span>
                   <input type="checkbox" name="" id="checkbox" />
-                  <label for="checkbox">{"> 5 Lakh"}</label>
+                  <label htmlFor="checkbox">{"> 5 Lakh"}</label>
                 </span>
                 <span>(350)</span>
               </li>
@@ -456,7 +457,7 @@ function Listing(props) {
           {collegelisting.length > 0 ? (
             collegelisting.map((item, id) => (
               <a href={"./../college/" + item.college_url}>
-                <div className="college-list-card" id={item.cid}>
+                <div className="college-list-card" id={item.cid} key={item.cid}>
                   <div className="title-section">
                     <div className="img-box">
                       <img
