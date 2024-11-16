@@ -80,10 +80,10 @@ const router = createBrowserRouter([
         path: "/exam?/:na_url",
         element: <EXAMSDETAILS />,
       },
-      {
-        path: "/college?/:college_url",
-        element: <COLLEGEDETAIL />,
-      },
+      // {
+      //   path: "/college?/:college_url",
+      //   element: <COLLEGEDETAIL />,
+      // },
       {
         path: "/categorywise?/:category_url",
         element: <CATEGORYWISE />,
@@ -102,7 +102,7 @@ const router = createBrowserRouter([
         element: <SEARCH />,
       },
       {
-        path: "/details",
+        path: "/college?/:college_url",
         element: <DETAILS />,
       },
     ],
