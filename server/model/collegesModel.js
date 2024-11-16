@@ -314,7 +314,7 @@ const editnewsarticle = (na_id) => {
   //const rol_id = rol_id;
   return new Promise(function (resolve, reject) {
     pool.query(
-      "SELECT * FROM newsarticles WHERE na_id = $1",
+      "SELECT *,TO_CHAR(na_date, 'dd/mm/yyyy') exam_date FROM newsarticles WHERE na_id = $1",
       [na_id],
       (error, results) => {
         if (error) {
@@ -938,9 +938,10 @@ const updateNewsarticles = (body) => {
       na_categories,
       added_by,
       na_image,
+      na_date,
     } = body;
     pool.query(
-      "UPDATE newsarticles SET na_type = $2,na_title=$3, na_url=$4, na_brief_description=$5,na_description=$6,na_metatitle=$7,na_metadescription=$8,na_metakeyword=$9,na_status=$10,na_trends=$11,na_categories=$12,added_by=$13,na_image=$14 WHERE na_id = $1 RETURNING *",
+      "UPDATE newsarticles SET na_type = $2,na_title=$3, na_url=$4, na_brief_description=$5,na_description=$6,na_metatitle=$7,na_metadescription=$8,na_metakeyword=$9,na_status=$10,na_trends=$11,na_categories=$12,added_by=$13,na_image=$14,na_date=$15 WHERE na_id = $1 RETURNING *",
       [
         na_id,
         na_type,
@@ -956,6 +957,7 @@ const updateNewsarticles = (body) => {
         na_categories,
         added_by,
         na_image,
+        na_date,
       ],
       (error, results) => {
         if (error) {

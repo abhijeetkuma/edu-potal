@@ -148,6 +148,11 @@ function Home(props) {
       setSuggestcolleges();
     }
   };
+  const searchvalueset = (e, val) => {
+    // console.log("values-->", e.target.value, val);
+    setSearchparameter({ search_parameter: val });
+    setSuggestcolleges();
+  };
   return (
     <>
       <section className="sliding-banner">
@@ -171,6 +176,7 @@ function Home(props) {
                 placeholder="Search: Collages, Courses, Exams, Specializations & More"
                 onChange={handleChangeFormdata}
                 onKeyUp={(e) => autosuggestcolleges(e)}
+                autocomplete="off"
               />
               <input
                 type="button"
@@ -183,7 +189,12 @@ function Home(props) {
                 <div className="collegeAutosuggest-section">
                   <ul>
                     {suggestcolleges.map((item, id) => (
-                      <li key={id}>{item.college_name}</li>
+                      <li
+                        key={id}
+                        onClick={(e) => searchvalueset(e, item.college_name)}
+                      >
+                        {item.college_name}
+                      </li>
                     ))}
                   </ul>
                 </div>

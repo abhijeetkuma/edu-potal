@@ -4,6 +4,7 @@ import { Outlet, NavLink, Link } from "react-router-dom";
 
 import logo from "/images/logo.png";
 import "./layoutType1.css";
+import "./responsive.css";
 
 function LayoutType1(props) {
   const renderProfile = () => (
@@ -209,14 +210,14 @@ function LayoutType1(props) {
                   Location
                 </NavLink>
               </li>
-              <li>
+              {/*  <li>
                 <NavLink
                   to={`exam`}
                   className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                 >
                   Exam
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink
                   to={`newsnevent`}
