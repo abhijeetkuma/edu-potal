@@ -37,7 +37,7 @@ function Cms(props) {
     <>
       <section className="container college-filter-wrapper">
         <section className="college-list-wrapper">
-          <div className="font-bold text-2xl pb-3 pt-3">
+          <div className="font-bold pt-2 cmstitle">
             {displaycontant.cms_title}
           </div>
           <div

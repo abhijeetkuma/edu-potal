@@ -40,7 +40,7 @@ function Exams(props) {
           </div>
           <div className="exam-info">
             <span>Exam Date</span>
-            <span>12-May-2024</span>
+            <span>{eitem.disp_date}</span>
           </div>
         </div>
         <hr className="hr-x" />

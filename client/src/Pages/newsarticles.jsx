@@ -22,15 +22,13 @@ function Newsarticles() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
   }
-  const [datas, setDatas] = useState([]);
-  const [returndspmsg, setReturndspmsg] = useState();
+
   const [errorMsg, setErrorMsg] = useState([]);
   const [catgoryarr, setCatgoryarr] = useState([]);
   const [categoryvalue, setCategoryvalue] = useState([]);
   const [tradingarr, setTradingarr] = useState([]);
   const [tradingvalue, setTradingvalue] = useState([]);
   const [descriptionvalue, setDescriptionvalue] = useState();
-  const [title, setTitle] = useState();
   const [successmsg, setSuccessmsg] = useState();
 
   const [editdata, setEditdata] = useState({
@@ -38,6 +36,7 @@ function Newsarticles() {
     na_type: "",
     na_title: "",
     na_url: "",
+    na_date: "",
     na_description: "",
     na_brief_description: "",
     na_categories: "",
@@ -114,92 +113,6 @@ function Newsarticles() {
     }));
   };
 
-  const addnews = (e) => {
-    e.preventDefault();
-
-    const {
-      na_id,
-      na_type,
-      na_title,
-      na_url,
-      na_brief_description,
-      na_metatitle,
-      na_metadescription,
-      na_metakeyword,
-      na_status,
-    } = e.target.elements;
-
-    //let errorsForm = [];
-
-    /* f (facility_name.value === "") {
-      errorsForm.push(
-        <div key="branameErr">Facility Name cann't be blank!</div>
-      );
-    } else {
-      errorsForm.push();
-    }
-
-    console.log("errorsForm", errorsForm); */
-    //if (errorsForm.length === 0) {
-    const payload = {
-      na_type: na_type.value,
-      na_id: na_id.value,
-      na_title: na_title.value,
-      na_url: na_url.value,
-      na_brief_description: na_brief_description.value,
-      na_description: descriptionvalue,
-      na_metatitle: na_metatitle.value,
-      na_metadescription: na_metadescription.value,
-      na_metakeyword: na_metakeyword.value,
-      na_status: na_status.value,
-      na_trends: tradingvalue.join(","),
-      na_categories: categoryvalue.join(","),
-      added_by: localStorage.login_id,
-    };
-    if (na_id.value > 0) {
-      //update form data
-      axios({
-        method: "PUT",
-        url: "/api/getupdatenewsarticles/${qid}",
-        data: payload,
-      })
-        .then(function (response) {
-          //console.log(response);
-          console.log(response.statusText);
-          if (response.statusText === "OK") {
-            window.location.href = "../../newsnevent";
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      //end update form data
-    } else {
-      axios({
-        method: "post",
-        //url: "/api/addfacitly",
-        url: "/api/addnewsarticle",
-        data: payload,
-      })
-        .then(function (response) {
-          console.log(response);
-          setReturndspmsg(
-            "<div className={sussmsg}>Record successfully added</div>"
-          );
-        })
-        .catch(function (error) {
-          console.log(error);
-          setReturndspmsg(
-            "<div className={errmsg}>Error in add question record</div>"
-          );
-        });
-    }
-
-    /*  } else {
-      setErrorMsg(errorsForm);
-    } */
-  };
-  // end add new question
   const submit = async (event) => {
     event.preventDefault();
 
@@ -226,6 +139,7 @@ function Newsarticles() {
     formData.append("na_trends", tradingvalue.join(","));
     formData.append("na_categories", categoryvalue.join(","));
     formData.append("old_image", event.target.old_image.value);
+    formData.append("na_date", event.target.na_date.value);
 
     //const result = await axios.post("/api/images", formData, {
     if (event.target.na_id.value > 0) {
@@ -355,7 +269,7 @@ function Newsarticles() {
             >
               <option
                 value=""
-                selected={editdata.na_type == "" ? "selected" : ""}
+                defaultValue={editdata.na_type == "" ? "selected" : ""}
               >
                 --Select One--
               </option>
@@ -398,7 +312,6 @@ function Newsarticles() {
               value={editdata.na_title ? editdata.na_title : ""}
               required="required"
               onChange={handleChangeFormdata}
-              // onChange={(e) => setTitle(e.target.value)}
               onChangeCapture={createUrl}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
@@ -420,6 +333,24 @@ function Newsarticles() {
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
             <div className="errmsg">{errorMsg[0]}</div>
+          </div>
+          <div className="mt-2">
+            <label
+              htmlFor="college_url"
+              className="block text-sm font-bold leading-6 text-gray-900"
+            >
+              Date
+            </label>
+
+            <input
+              type="text"
+              name="na_date"
+              value={editdata.exam_date ? editdata.exam_date : ""}
+              required="required"
+              onChange={handleChangeFormdata}
+              placeholder="DD/MM/YYYY"
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
           </div>
           <div className="mt-2">
             <label
@@ -499,6 +430,13 @@ function Newsarticles() {
                     onChange={handleChangeFormdata}
                     //onChange={(e) => handleCheckBox(e, i)}
                     className="py-2  text-sm font-semibold"
+                    defaultChecked={
+                      editdata.na_categories?.length
+                        ? editdata.na_categories.includes(
+                            JSON.stringify(item.cat_id)
+                          )
+                        : false
+                    }
                   />
                   <span className="py-2 px-2 text-sm font-normal text-justify">
                     {item.category_name}
@@ -524,6 +462,13 @@ function Newsarticles() {
                     onClick={tradingCheck}
                     onChange={handleChangeFormdata}
                     className="py-2  text-sm font-semibold"
+                    defaultChecked={
+                      editdata.na_trends?.length
+                        ? editdata.na_trends
+                            .split(",")
+                            .includes(JSON.stringify(item.tid))
+                        : false
+                    }
                   />
                   <span className="py-2 px-2 text-sm font-normal text-justify">
                     {item.trading_name}

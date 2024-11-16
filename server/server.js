@@ -598,8 +598,8 @@ app.post("/api/addnewsarticle", upload.single("image"), (req, res) => {
 app.post("/api/getupdatenewsarticles/", upload.single("image"), (req, res) => {
   const na_id = req.body.na_id;
   //const body = req.body;
-  console.log("req.body", req.body);
-  console.log("server na_id", na_id);
+  //console.log("req.body", req.body);
+  //console.log("server na_id", na_id);
   req.body.na_image = req.file ? req.file.filename : req.body.old_image;
   colleges_model
     .updateNewsarticles(req.body)

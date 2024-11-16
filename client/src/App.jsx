@@ -21,7 +21,7 @@ import College from "./Pages/college";
 import Addcms from "./Pages/addcms";
 import Cms from "./Pages/cms";
 import Adminusers from "./Pages/adminusers";
-import Exam from "./Pages/exam";
+//import Exam from "./Pages/exam";
 import Newsnevent from "./Pages/newsnevent";
 import Newsandevent from "./Pages/newsandevent";
 import Newsarticles from "./Pages/newsarticles";
@@ -128,10 +128,7 @@ const router = createBrowserRouter([
         path: "/admin/coursetype",
         element: <Coursetype />,
       },
-      {
-        path: "/admin/exam",
-        element: <Exam />,
-      },
+
       {
         path: "/admin/newsnevent",
         element: <Newsnevent />,

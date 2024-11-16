@@ -161,7 +161,7 @@ const newsandupdates = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT * FROM newsarticles WHERE na_type !='e' ORDER BY na_id DESC LIMIT 15",
+        "SELECT * ,TO_CHAR(na_date, 'dd-Mon-yyyy') disp_date FROM newsarticles WHERE na_type !='e' ORDER BY na_id DESC LIMIT 15",
         (error, results) => {
           if (error) {
             reject(error);

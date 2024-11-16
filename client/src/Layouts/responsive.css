@@ -1,0 +1,101 @@
+/* For Desktop View */
+@media screen and (min-width: 1024px) {
+}
+
+/* For Tablet View */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .website-wrapper {
+    padding: 10px !important;
+  }
+  header.website-wrapper {
+    height: 50px !important;
+  }
+  header .logo img {
+    width: 12rem;
+  }
+  .featured-card-container {
+    width: 100% !important;
+  }
+  .featured-card {
+    width: 245px !important;
+  }
+  .slick-next {
+    right: 5px !important;
+  }
+  .latest-news {
+    width: 100% !important;
+  }
+  .get-notify {
+    padding: unset !important;
+  }
+  .popular-clg {
+    width: 236px !important;
+  }
+  .download {
+    font-size: 10px !important;
+    padding: 3px 3px !important;
+    width: 140px !important;
+  }
+  .compare {
+    font-size: 10px !important;
+  }
+  .exam-card {
+    width: 195px !important;
+  }
+  .news-card {
+    width: 195px !important;
+  }
+  .city-card {
+    width: 130px !important;
+    height: 100px !important;
+  }
+  .footer-lists {
+    height: auto !important;
+  }
+}
+
+/* For Mobile Portrait View */
+@media screen and (max-device-width: 480px) and (orientation: portrait) {
+}
+
+/* For Mobile Landscape View */
+@media screen and (max-device-width: 640px) and (orientation: landscape) {
+}
+
+/* For Mobile Phones Portrait or Landscape View */
+@media screen and (max-device-width: 640px) {
+}
+
+/* For iPhone 4 Portrait or Landscape View */
+@media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* For iPhone 5 Portrait or Landscape View */
+@media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
+}
+
+/* For iPhone 6 and 6 plus Portrait or Landscape View */
+@media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3) {
+  .top-search {
+    gap: 2px !important;
+    font-size: 6px;
+  }
+  #search-input {
+    width: 300px !important;
+    height: 40px !important;
+    margin-left: 12px;
+  }
+  #search-btn {
+    width: 90px !important;
+    height: 40px !important;
+  }
+  .serach-container {
+    padding-top: 10px !important;
+  }
+  .sliding-banner {
+    height: 130px !important;
+  }
+  .search-wrapper mt-7 {
+    margin-top: 1.5rem !important;
+  }
+}

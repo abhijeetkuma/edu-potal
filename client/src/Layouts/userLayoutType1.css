@@ -77,6 +77,7 @@ header.website-wrapper {
       height: 475px;
       background-image: url(./../images/Oxford-University.jpg);
       background-repeat: no-repeat, repeat;
+      background-size: contain;
     }
 
     .serach-container {
@@ -1028,5 +1029,21 @@ header.website-wrapper {
       border-bottom: 1px solid #f3f3f3;
       font-size: 14px;
     }
+  }
+}
+.newstitle,
+.cmstitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #009975;
+  border-bottom: 2px solid #e99446;
+  margin-bottom: 20px;
+  date {
+    color: #414040;
+    padding-bottom: 15px;
+    font-size: 15px;
+    font-weight: normal;
+    display: flex;
+    gap: 3px;
   }
 }

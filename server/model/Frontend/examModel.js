@@ -29,7 +29,7 @@ const examlisting = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT * FROM newsarticles WHERE na_type='e' ORDER BY na_id DESC",
+        "SELECT *,TO_CHAR(na_date, 'dd-Mon-yyyy') disp_date FROM newsarticles WHERE na_type='e' ORDER BY na_id DESC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -50,7 +50,7 @@ const examlisting = async () => {
 const examdetail = (na_url) => {
   return new Promise(function (resolve, reject) {
     pool.query(
-      "SELECT * FROM newsarticles WHERE na_url = $1",
+      "SELECT *,TO_CHAR(na_date, 'dd-Mon-yyyy') disp_date FROM newsarticles WHERE na_url = $1",
       [na_url],
       (error, results) => {
         if (error) {
