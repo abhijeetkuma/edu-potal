@@ -28,15 +28,12 @@ function CollegeFaculties(props) {
 
     return(
         <>
-            <section className="container college-filter-wrapper">
-            <section className="college-list-wrapper">
-                <div className="font-bold text-2xl pb-3 pt-3">Faculty Profile</div>
+            <section>
                 <div
                     dangerouslySetInnerHTML={{
                     __html: facultyprofile,
                     }}
                 ></div>
-            </section>
             </section> 
         </>
     )

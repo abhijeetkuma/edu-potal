@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Listing from "../listing";
+
 function Relatedcolleges(props) {
+  const {
+    data: { courses },
+    vtype,
+  } = props;
   const [dispcolleges, setDispcolleges] = useState({
     cid: "",
     college_name: "",
@@ -10,10 +15,11 @@ function Relatedcolleges(props) {
     logo: "",
     banner: "",
   });
+
   //const { cms_url } = useParams();
   useEffect(() => {
     axios
-      .get("/api/relatedcollges/" + props.courses)
+      .get("/api/relatedcollges/" + courses)
       .then((response) => {
         setDispcolleges(response.data);
       })

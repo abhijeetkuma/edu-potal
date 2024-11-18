@@ -28,19 +28,8 @@ function CollegeCoursesFees(props) {
 
     return(
         <>
-            <section className="container college-filter-wrapper">
-                <section className="college-list-wrapper">
-                <div className="font-bold text-2xl pb-3 pt-3">Courses</div>
+            <section>
                 <p>{courses_name}</p>
-                </section>
-                {/* <div className="others">
-                <div className="ads">
-                    <img src={adsImg} alt="" />
-                </div>
-                <div className="ads">
-                    <img src={adsImg} alt="" />
-                </div>
-                </div> */}
             </section>
         </>
     )
