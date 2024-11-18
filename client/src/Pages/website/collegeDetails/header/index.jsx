@@ -8,9 +8,9 @@ function CollegeHeaders(props) {
     
     return(
         <>
-            <div className="container detailsTab">
+            <div className="detailsTab">
                 <ul>
-                    <li className={tabName === 'overview' ? 'active' : ''}>
+                    <li className={(tabName === 'overview' || tabName == undefined) ? 'active' : ''}>
                         <Link to={`${detailsUrl}+overview`}>Overview</Link>
                     </li>
                     <li className={tabName === 'courses-and-fees' ? 'active' : ''}>

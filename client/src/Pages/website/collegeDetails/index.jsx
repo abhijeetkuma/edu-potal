@@ -28,13 +28,13 @@ function CollegeDetails(props) {
     
     const [nameUrl, setNameUrl] = useState('')
     const [tabName, setTabName] = useState('')
-    const { college_url } = useParams();
-    console.log('college_url------->', college_url);
-    
+    const { college_url } = useParams();    
     
     useEffect(() => {
         const detailsUrl = location.pathname.split('+')[0];
         const detailsTabs = location.pathname.split('+')[1];
+        console.log('detailsTabs-=-=-=-->', detailsTabs);
+        
         setNameUrl(detailsUrl)
         setTabName(detailsTabs)
     },[location.pathname])
@@ -120,16 +120,28 @@ function CollegeDetails(props) {
             <Tabs tabName={tabName} collageUrl={nameUrl} />
 
             <section className="container detailsWrapper">
-                {tabName === 'overview' && <CollegeOverview data={displaycollegdetail} />}
-                {tabName === 'courses-and-fees' && <CollegeCoursesFees data={displaycollegdetail} />}
-                {tabName === 'admissions' && <CollegeAdmissions data={displaycollegdetail} />}
-                {tabName === 'placements' && <CollegePlacements data={displaycollegdetail} />}
-                {tabName === 'scholarships' && <CollegeScholarships data={displaycollegdetail} />}
-                {tabName === 'faculties' && <CollegeFaculties data={displaycollegdetail} />}
-                {tabName === 'gallery' && <CollegeGallery data={displaycollegdetail} />}
-                {tabName === 'reviews' && <CollegeReviews data={displaycollegdetail} />}
-                {tabName === 'news' && <CollegeNews data={displaycollegdetail} />}
-                {tabName === 'question-answer' && <CollegeQuesAns data={displaycollegdetail} />}
+                <div className="contentWrapper">
+                    {(tabName === 'overview' || tabName == undefined) && <CollegeOverview data={displaycollegdetail} />}
+                    {tabName === 'courses-and-fees' && <CollegeCoursesFees data={displaycollegdetail} />}
+                    {tabName === 'admissions' && <CollegeAdmissions data={displaycollegdetail} />}
+                    {tabName === 'placements' && <CollegePlacements data={displaycollegdetail} />}
+                    {tabName === 'scholarships' && <CollegeScholarships data={displaycollegdetail} />}
+                    {tabName === 'faculties' && <CollegeFaculties data={displaycollegdetail} />}
+                    {tabName === 'gallery' && <CollegeGallery data={displaycollegdetail} />}
+                    {tabName === 'reviews' && <CollegeReviews data={displaycollegdetail} />}
+                    {tabName === 'news' && <CollegeNews data={displaycollegdetail} />}
+                    {tabName === 'question-answer' && <CollegeQuesAns data={displaycollegdetail} />}
+                </div>
+                <div className="relatedWrapper">
+                    <div className="others">
+                    <div className="ads">
+                        <img src={adsImg} alt="" />
+                    </div>
+                    <div className="ads">
+                        <img src={adsImg} alt="" />
+                    </div>
+                    </div>
+                </div>
             </section>
 
         </>

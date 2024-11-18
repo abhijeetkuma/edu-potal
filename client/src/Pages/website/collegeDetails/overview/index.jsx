@@ -31,8 +31,7 @@ function CollegeOverview(props) {
     
     return(
         <>
-            <section className="container college-filter-wrapper">
-                <section className="college-list-wrapper">
+            <section>
                 <div className="font-bold text-2xl pb-3 pt-3">
                     {college_name}
                 </div>
@@ -103,15 +102,6 @@ function CollegeOverview(props) {
                     {website &&
                     "Website: " + website}
                 </p>
-                </section>
-                <div className="others">
-                <div className="ads">
-                    <img src={adsImg} alt="" />
-                </div>
-                <div className="ads">
-                    <img src={adsImg} alt="" />
-                </div>
-                </div>
             </section>
         </>
     )

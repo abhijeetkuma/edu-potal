@@ -73,7 +73,7 @@ function UserLayoutType1(props) {
           </ul>
         </nav>
         <div className="profile">
-          <Link to="/login">Login</Link>
+          {/* <Link to="/login">Login</Link> */}
         </div>
       </header>
       <div className="website-wrapper">
