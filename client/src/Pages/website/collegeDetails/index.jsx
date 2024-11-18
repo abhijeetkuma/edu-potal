@@ -41,6 +41,7 @@ function CollegeDetails(props) {
     cid: "",
     college_name: "",
     college_description: "",
+    courses: "",
   });
 
   useEffect(() => {
