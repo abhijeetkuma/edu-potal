@@ -149,7 +149,9 @@ function CollegeDetails(props) {
         </div>
         <div className="relatedWrapper">
           <div className="others">
-            <Relatedcolleges data={displaycollegdetail} vtype="v" />
+            {displaycollegdetail.courses && (
+              <Relatedcolleges data={displaycollegdetail} vtype="v" />
+            )}
             <div className="ads">
               <img src={adsImg} alt="" />
             </div>

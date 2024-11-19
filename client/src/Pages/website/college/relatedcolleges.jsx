@@ -19,7 +19,6 @@ function Relatedcolleges(props) {
 
   //const { cms_url } = useParams();
   useEffect(() => {
-    console.log("courses---", props.data);
     axios
       .get("/api/relatedcollges/" + courses)
       .then((response) => {
@@ -32,14 +31,14 @@ function Relatedcolleges(props) {
   }, []);
   return (
     <div className="related-colleges">
-      <h2>Related Colleges</h2>
+      <h2 className="font-bold pb-5">Related Colleges</h2>
       {dispcolleges.length > 0 &&
         dispcolleges.map((item, id) => (
           <div id={item.cid}>
             <div className="featured-card">
               <div className="details">
                 <div className="img-box">
-                  <img src={getImageURL(item.logo)} alt={item.college_name} />
+                  <img src={getImageURL(item.logo)} alt="" />
                 </div>
                 <div className="info">
                   <p>{item.college_name}</p>
