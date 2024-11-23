@@ -76,7 +76,7 @@ header.website-wrapper {
     .sliding-banner {
       background-color: #009975;
       height: 475px;
-      background-image: url(./../images/Oxford-University.jpg);
+
       background-repeat: no-repeat, repeat;
       background-size: contain;
     }
