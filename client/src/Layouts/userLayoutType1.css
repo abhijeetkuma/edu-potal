@@ -76,7 +76,7 @@ header.website-wrapper {
     .sliding-banner {
       background-color: #009975;
       height: 475px;
-
+      background-image: url(./../images/Oxford-University.jpg);
       background-repeat: no-repeat, repeat;
       background-size: contain;
     }
@@ -1081,35 +1081,51 @@ header.website-wrapper {
     gap: 3px;
   }
 }
-.related-colleges-box {
-  margin: 2px 2px 10px 2px;
-  width: 285px;
-  border-radius: 4px;
-  padding-bottom: 5px;
+.related-colleges {
+  background-color: #fff;
+  position: absolute;
+  padding: 10px;
+  width: 310px;
+  border-radius: 5px;
   box-shadow:
-    rgba(0, 0, 0, 0.12) 0px 1px 3px,
-    rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  .details {
-    background-color: #fff;
-    height: 86px;
-    display: flex;
-    border-radius: 4px 4px 0px 0px;
-    p {
-      height: 60px;
-      max-height: 60px;
-      margin-left: 8px;
-      padding-top: 8px;
-      color: #65658d;
-    }
-    .location {
-      float: left;
-    }
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
-    .view-more {
-      color: #003eff;
-      cursor: pointer;
-      float: right;
-      padding-right: 10px;
+  h2 {
+    color: #009975;
+    border-bottom: 3px solid #e99444;
+    margin-bottom: 10px;
+  }
+  .related-colleges-box {
+    margin: 2px 2px 10px 2px;
+    width: 285px;
+    border-radius: 4px;
+    padding-bottom: 5px;
+    box-shadow:
+      rgba(0, 0, 0, 0.12) 0px 1px 3px,
+      rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    .details {
+      background-color: #fff;
+      height: 86px;
+      display: flex;
+      border-radius: 4px 4px 0px 0px;
+      p {
+        height: 60px;
+        max-height: 60px;
+        margin-left: 8px;
+        padding-top: 8px;
+        color: #65658d;
+      }
+      .location {
+        float: left;
+      }
+
+      .view-more {
+        color: #003eff;
+        cursor: pointer;
+        float: right;
+        padding-right: 10px;
+      }
     }
   }
 }

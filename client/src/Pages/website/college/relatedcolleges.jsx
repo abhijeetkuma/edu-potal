@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { getImageURL } from "../../../utils/utils-image";
+import mapIcon from "/images/map-icon.png";
 
 function Relatedcolleges(props) {
   const {
@@ -31,7 +32,7 @@ function Relatedcolleges(props) {
   }, []);
   return (
     <div className="related-colleges">
-      <h2 className="font-bold pb-5">Related Colleges</h2>
+      <h2 className="font-bold pb-1">Related Colleges</h2>
       {dispcolleges.length > 0 &&
         dispcolleges.map((item, id) => (
           <div id={item.cid} style={{ display: "flex", float: "left" }}>
@@ -44,7 +45,7 @@ function Relatedcolleges(props) {
                   <p>{item.college_name}</p>
                   <div>
                     <span className="location">
-                      <img src="" alt="" />
+                      <img src={mapIcon} alt="" />
                       <span>{item.city_name}</span>
                     </span>
                     <span className="view-more">
