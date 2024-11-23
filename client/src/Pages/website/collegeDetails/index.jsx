@@ -146,6 +146,9 @@ function CollegeDetails(props) {
           {tabName === "question-answer" && (
             <CollegeQuesAns data={displaycollegdetail} />
           )}
+          {displaycollegdetail.courses && (
+            <Relatedcolleges data={displaycollegdetail} vtype="v" />
+          )}
         </div>
         <div className="relatedWrapper">
           <div className="others">

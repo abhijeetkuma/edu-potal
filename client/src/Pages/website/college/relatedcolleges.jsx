@@ -34,8 +34,8 @@ function Relatedcolleges(props) {
       <h2 className="font-bold pb-5">Related Colleges</h2>
       {dispcolleges.length > 0 &&
         dispcolleges.map((item, id) => (
-          <div id={item.cid}>
-            <div className="featured-card">
+          <div id={item.cid} style={{ display: "flex", float: "left" }}>
+            <div className="related-colleges-box">
               <div className="details">
                 <div className="img-box">
                   <img src={getImageURL(item.logo)} alt="" />
@@ -45,10 +45,10 @@ function Relatedcolleges(props) {
                   <div>
                     <span className="location">
                       <img src="" alt="" />
-                      <span>{item.city}</span>
+                      <span>{item.city_name}</span>
                     </span>
                     <span className="view-more">
-                      <a href={"college/" + item.college_url}>View More</a>
+                      <a href={"./" + item.college_url}>View More</a>
                     </span>
                   </div>
                 </div>

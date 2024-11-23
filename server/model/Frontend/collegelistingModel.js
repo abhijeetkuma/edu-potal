@@ -96,8 +96,9 @@ const relatedcollegecoursewise = (course) => {
   console.log(course);
   return new Promise(function (resolve, reject) {
     pool.query(
-      // "SELECT c.cid,c.college_name,c.college_url,c.logo,c.averageplacementrecord,s.state_name,ct.city_name  FROM colleges c LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar WHERE WHERE c.courses IN ($1) GROUP BY c.cid ,s.state_name,ct.city_name ORDER BY c.cid DESC  LIMIT 15",
-      "SELECT * FROM colleges WHERE courses IN($1) ORDER BY cid DESC",
+      // "SELECT c.cid,c.college_name,c.college_url,c.logo,c.averageplacementrecord,s.state_name,ct.city_name  FROM colleges c LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar  WHERE c.courses IN ($1) GROUP BY c.cid ,s.state_name,ct.city_name ORDER BY c.cid DESC  LIMIT 15",
+      // "SELECT * FROM colleges WHERE courses IN($1) ORDER BY cid DESC",
+      "SELECT c.cid,c.college_name,c.college_url,c.logo,c.averageplacementrecord,s.state_name,ct.city_name FROM colleges c LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar WHERE position(c.courses in $1)>0 ORDER BY RANDOM()",
       [course],
       (error, results) => {
         //  console.log(results);
