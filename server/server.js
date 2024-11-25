@@ -1111,6 +1111,16 @@ app.get("/api/relatedcollges/:courses", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/relatednews/:courses", (req, res) => {
+  collegelisting_model
+    .relatedcollegenews(req.params.courses)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 //end front end apis
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);

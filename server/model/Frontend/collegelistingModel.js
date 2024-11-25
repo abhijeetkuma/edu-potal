@@ -112,8 +112,28 @@ const relatedcollegecoursewise = (course) => {
     );
   });
 };
+const relatedcollegenews = (course) => {
+  //const course = course;
+  console.log(course);
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM newsarticles WHERE position(na_categories in $1)>0 ORDER BY RANDOM()",
+      [course],
+      (error, results) => {
+        //  console.log(results);
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+      }
+    );
+  });
+};
 module.exports = {
   listing,
   collegedetails,
   relatedcollegecoursewise,
+  relatedcollegenews,
 };

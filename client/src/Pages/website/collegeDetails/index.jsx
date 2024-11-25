@@ -4,6 +4,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { getImageURL } from "../../../utils/utils-image";
 import Relatedcolleges from "../college/relatedcolleges";
+import Relatednews from "../college/relatednews";
 
 import adsImg from "/images/ads.svg";
 import mapIcon from "/images/map-icon.png";
@@ -154,6 +155,9 @@ function CollegeDetails(props) {
           <div className="others">
             {displaycollegdetail.courses && (
               <Relatedcolleges data={displaycollegdetail} vtype="v" />
+            )}
+            {displaycollegdetail.courses && (
+              <Relatednews data={displaycollegdetail} vtype="v" />
             )}
             <div className="ads">
               <img src={adsImg} alt="" />

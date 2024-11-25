@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import Relatedcolleges from "../../college/relatedcolleges";
 import adsImg from "/images/ads.svg";
 
 function CollegeOverview(props) {
@@ -8,6 +8,7 @@ function CollegeOverview(props) {
     college_name,
     college_descripton,
     courses_name,
+    courses,
     facultyprofile,
     placement_overview,
     totalplacementratio,
@@ -90,6 +91,7 @@ function CollegeOverview(props) {
         <p>{email && "Email: " + email}</p>
         <p>{contactno && "Contact: " + contactno}</p>
         <p>{website && "Website: " + website}</p>
+        {/*courses && <Relatedcolleges data={props.data} vtype="v" />*/}
       </section>
     </>
   );
