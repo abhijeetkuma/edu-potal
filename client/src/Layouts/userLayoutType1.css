@@ -1109,6 +1109,13 @@ header.website-wrapper {
       height: 86px;
       display: flex;
       border-radius: 4px 4px 0px 0px;
+      .img-box {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       p {
         height: 60px;
         max-height: 60px;
