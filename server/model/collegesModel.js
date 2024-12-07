@@ -314,7 +314,7 @@ const editnewsarticle = (na_id) => {
   //const rol_id = rol_id;
   return new Promise(function (resolve, reject) {
     pool.query(
-      "SELECT *,TO_CHAR(na_date, 'dd/mm/yyyy') exam_date FROM newsarticles WHERE na_id = $1",
+      "SELECT *,TO_CHAR(na_date, 'YYYY-MM-DD') exam_date FROM newsarticles WHERE na_id = $1",
       [na_id],
       (error, results) => {
         if (error) {
@@ -921,7 +921,7 @@ const addNewsarticle = (body) => {
 };
 //const updateNewsarticles = (na_id, body) => {
 const updateNewsarticles = (body) => {
-  console.log("body", body);
+  // console.log("body", body);
   return new Promise(function (resolve, reject) {
     const {
       na_id,

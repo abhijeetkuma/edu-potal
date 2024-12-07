@@ -595,21 +595,31 @@ app.post("/api/addnewsarticle", upload.single("image"), (req, res) => {
 });
 
 //app.put("/getupdatenewsarticles/:na_id", (req, res) => {
-app.post("/api/getupdatenewsarticles/", upload.single("image"), (req, res) => {
-  const na_id = req.body.na_id;
-  //const body = req.body;
-  //console.log("req.body", req.body);
-  //console.log("server na_id", na_id);
-  req.body.na_image = req.file ? req.file.filename : req.body.old_image;
-  colleges_model
-    .updateNewsarticles(req.body)
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
+//app.post("/api/getupdatenewsarticles/", upload.single("image"), (req, res) => {
+app.post(
+  "/api/getupdatenewsarticles/",
+  upload.single("na_image"),
+  (req, res) => {
+    const na_id = req.body.na_id;
+    //const body = req.body;
+    //console.log("req.body", req.body);
+    //console.log("server na_id", na_id);
+    //console.log("files name -->", req.file.na_image[0].filename);
+    //console.log("files name -->", req.file.filename);
+    //req.body.na_image = req.files ? req.file.filename : req.body.old_image;
+    req.body.na_image =
+      req.file && req.file.filename ? req.file.filename : req.body.old_image;
+
+    colleges_model
+      .updateNewsarticles(req.body)
+      .then((response) => {
+        res.status(200).send(response);
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+  }
+);
 
 app.put("/api/getvehicledetails/:id", (req, res) => {
   const id = req.params.id;

@@ -36,7 +36,7 @@ function Newsarticles() {
     na_type: "",
     na_title: "",
     na_url: "",
-    na_date: "",
+    exam_date: "",
     na_description: "",
     na_brief_description: "",
     na_categories: "",
@@ -118,7 +118,7 @@ function Newsarticles() {
 
     const formData = new FormData();
     //console.log("formData", formData);
-    formData.append("image", na_image);
+    formData.append("na_image", na_image);
     formData.append("na_id", event.target.na_id.value);
     formData.append("na_type", event.target.na_type.value);
     formData.append("na_title", event.target.na_title.value);
@@ -230,7 +230,6 @@ function Newsarticles() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                {" "}
                 <path stroke="none" d="M0 0h24v24H0z" />{" "}
                 <line x1="4" y1="6" x2="20" y2="6" />{" "}
                 <line x1="4" y1="12" x2="20" y2="12" />{" "}
@@ -257,13 +256,14 @@ function Newsarticles() {
           {/* returndspmsg && returndspmsg */}
           <div className="mt-2">
             <label
-              htmlFor="college_url"
+              htmlFor="na_type"
               className="block text-sm font-bold leading-6 text-gray-900"
             >
               Type
             </label>
             <select
               name="na_type"
+              id="na_type"
               type="select"
               className="h-10 text-sm left-2 min-w-72"
             >
@@ -296,7 +296,7 @@ function Newsarticles() {
           </div>
           <div className="mt-2">
             <label
-              htmlFor="college_url"
+              htmlFor="na_title"
               className="block text-sm font-bold leading-6 text-gray-900"
             >
               Title
@@ -309,6 +309,7 @@ function Newsarticles() {
             <input
               type="text"
               name="na_title"
+              id="na_title"
               value={editdata.na_title ? editdata.na_title : ""}
               required="required"
               onChange={handleChangeFormdata}
@@ -327,28 +328,29 @@ function Newsarticles() {
             <input
               type="text"
               name="na_url"
+              id="na_url"
               value={editdata.na_url ? editdata.na_url : ""}
               required="required"
               onChange={handleChangeFormdata}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
-            <div className="errmsg">{errorMsg[0]}</div>
           </div>
           <div className="mt-2">
             <label
-              htmlFor="college_url"
+              htmlFor="na_date"
               className="block text-sm font-bold leading-6 text-gray-900"
             >
               Date
             </label>
 
             <input
-              type="text"
+              type="date"
               name="na_date"
-              value={editdata.exam_date ? editdata.exam_date : ""}
+              id="na_date"
+              value={editdata.exam_date}
               required="required"
               onChange={handleChangeFormdata}
-              placeholder="DD/MM/YYYY"
+              placeholder="YYYY-MM-DD"
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </div>
@@ -362,6 +364,7 @@ function Newsarticles() {
             <input
               type="text"
               name="na_brief_description"
+              id="na_brief_description"
               value={
                 editdata.na_brief_description
                   ? editdata.na_brief_description
@@ -375,10 +378,7 @@ function Newsarticles() {
           </div>
 
           <div className="mt-2">
-            <label
-              htmlFor="college_url"
-              className="block text-sm font-bold leading-6 text-gray-900"
-            >
+            <label className="block text-sm font-bold leading-6 text-gray-900">
               Description
             </label>
             <CKEditor
@@ -413,10 +413,7 @@ function Newsarticles() {
             />
           </div>
           <div className="sm:col-span-4">
-            <label
-              htmlFor="categories"
-              className="block text-sm font-bold leading-6 text-gray-900"
-            >
+            <label className="block text-sm font-bold leading-6 text-gray-900">
               Category
             </label>
             <div className="flex flex-wrap ">
@@ -446,10 +443,7 @@ function Newsarticles() {
             </div>
           </div>
           <div className="sm:col-span-4">
-            <label
-              htmlFor="trading"
-              className="block text-sm font-bold leading-6 text-gray-900"
-            >
+            <label className="block text-sm font-bold leading-6 text-gray-900">
               Trading
             </label>
             <div className="flex flex-wrap ">
@@ -464,9 +458,13 @@ function Newsarticles() {
                     className="py-2  text-sm font-semibold"
                     defaultChecked={
                       editdata.na_trends?.length
-                        ? editdata.na_trends
-                            .split(",")
-                            .includes(JSON.stringify(item.tid))
+                        ? editdata.na_trends.includes(",")
+                          ? editdata.na_trends
+                              .split(",")
+                              .includes(JSON.stringify(item.tid))
+                          : editdata.na_trends.includes(
+                              JSON.stringify(item.tid)
+                            )
                         : false
                     }
                   />
@@ -487,6 +485,7 @@ function Newsarticles() {
             <input
               type="text"
               name="na_metatitle"
+              id="na_metatitle"
               value={editdata.na_metatitle ? editdata.na_metatitle : ""}
               required="required"
               onChange={handleChangeFormdata}
@@ -504,6 +503,7 @@ function Newsarticles() {
             <textarea
               type="text"
               name="na_metadescription"
+              id="na_metadescription"
               rows={5}
               value={
                 editdata.na_metadescription ? editdata.na_metadescription : ""
@@ -524,6 +524,7 @@ function Newsarticles() {
             <input
               type="text"
               name="na_metakeyword"
+              id="na_metakeyword"
               value={editdata.na_metakeyword ? editdata.na_metakeyword : ""}
               required="required"
               onChange={handleChangeFormdata}
@@ -556,10 +557,7 @@ function Newsarticles() {
           </div>
           <div className="flex mt-2 sm:size-4 lx zl alt ars ary">
             <div className="lk acf cct cgl chn chu">
-              <label
-                htmlFor="college_url"
-                className="block text-sm font-bold leading-6 text-gray-900"
-              >
+              <label className="block text-sm font-bold leading-6 text-gray-900">
                 Status
               </label>
               <div className="flex">
