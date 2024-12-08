@@ -35,7 +35,7 @@ function Relatedcolleges(props) {
       <h2 className="font-bold pb-1">Related Colleges</h2>
       {dispcolleges.length > 0 &&
         dispcolleges.map((item, id) => (
-          <div id={item.cid} style={{ display: "flex", float: "left" }}>
+          <div id={item.cid}>
             <div className="related-colleges-box">
               <div className="details">
                 <div className="img-box">

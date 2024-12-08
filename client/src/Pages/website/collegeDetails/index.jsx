@@ -6,8 +6,11 @@ import { getImageURL } from "../../../utils/utils-image";
 import Relatedcolleges from "../college/relatedcolleges";
 import Relatednews from "../college/relatednews";
 
-import adsImg from "/images/ads.svg";
+import arrowTilt from "/images/arrow-tilt.svg";
+import downlaod from "/images/downloads.svg";
 import mapIcon from "/images/map-icon.png";
+import compare from "/images/compare.svg";
+import adsImg from "/images/ads.svg";
 import star from "/images/star.png";
 
 import Details from "../college/details";
@@ -85,16 +88,6 @@ function CollegeDetails(props) {
               </li>
               <li>
                 <span className="location">
-                  <span>{displaycollegdetail.college_types}</span>
-                </span>
-              </li>
-              <li>
-                <span className="location">
-                  <span>Est. {displaycollegdetail.found_year}</span>
-                </span>
-              </li>
-              <li>
-                <span className="location">
                   <span>{displaycollegdetail.approved_by}</span>
                 </span>
               </li>
@@ -111,6 +104,34 @@ function CollegeDetails(props) {
                 </span>
               </li>
             </ul>
+            <ul className="historyInfo">
+                <li>
+                    <span className="location">
+                    <span>{displaycollegdetail.college_types}</span>
+                    </span>
+                </li>
+                <li>
+                    <span className="location">
+                    <span>Est. {displaycollegdetail.found_year}</span>
+                    </span>
+                </li>
+            </ul>
+            <div className="apply-link">
+                <span>Apply</span>
+                <span>
+                    <img src={arrowTilt} alt="" />
+                </span>
+            </div>
+            <div className="action-btns">
+                <div className="download">
+                    <img src={downlaod} alt="" />
+                    <span>Download Brochure</span>
+                </div>
+                <div className="compare">
+                    <img src={compare} alt="" />
+                    <span>Compare Colleges</span>
+                </div>
+            </div>
           </div>
         </div>
       </section>
@@ -147,18 +168,18 @@ function CollegeDetails(props) {
           {tabName === "question-answer" && (
             <CollegeQuesAns data={displaycollegdetail} />
           )}
-          {displaycollegdetail.courses && (
+          {/* {displaycollegdetail.courses && (
             <Relatedcolleges data={displaycollegdetail} vtype="v" />
-          )}
+          )} */}
         </div>
         <div className="relatedWrapper">
           <div className="others">
             {displaycollegdetail.courses && (
               <Relatedcolleges data={displaycollegdetail} vtype="v" />
             )}
-            {displaycollegdetail.courses && (
+            {/* {displaycollegdetail.courses && (
               <Relatednews data={displaycollegdetail} vtype="v" />
-            )}
+            )} */}
             <div className="ads">
               <img src={adsImg} alt="" />
             </div>

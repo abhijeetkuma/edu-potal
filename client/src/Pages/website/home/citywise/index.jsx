@@ -33,7 +33,7 @@ function Citywise({ imglite }) {
     <div className="city-card" id={citem.cit_id}>
       <div>
         <a href={"studybycity/" + citem.city_url}>
-          <img src={imglite} alt="" />
+          <img src={imglite} alt="" style={{margin:'0 auto'}}/>
           <p>{citem.city_name}</p>
         </a>
       </div>
