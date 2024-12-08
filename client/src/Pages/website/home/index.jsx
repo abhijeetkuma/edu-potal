@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { getImageURL } from "../../../utils/utils-image";
@@ -155,6 +156,21 @@ function Home(props) {
   };
   return (
     <>
+      <Helmet>
+        <title>
+          Top Colleges, Universities &amp; Institutes in India | Colleges
+          Admission, Fees, Rankings of Top Management, Engineering, Medical
+          Colleges
+        </title>
+        <meta
+          name="description"
+          content="explore mba/pgdm, mbbs, bba, llb, bds, fashion, b.tech etc colleges and courses on india's leading education portal - dialeducation.com. see details like fees, admission process, reviews and more."
+        />
+        <meta
+          name="keywords"
+          content="dial education, education, colleges, universities, institutes, career, career options after graduation, career prospects, engineering, mba, medical, mbbs, mbbs abroad, study abroad, foreign education, college admission, university, institute, courses, coaching, technical education, higher education, forum, education career guider experts, ask experts, admissions, results, events, scholarships"
+        />
+      </Helmet>
       <section className="sliding-banner">
         <div className="serach-container">
           <div className="top-search">
