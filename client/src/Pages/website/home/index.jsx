@@ -158,17 +158,16 @@ function Home(props) {
     <>
       <Helmet>
         <title>
-          Top Colleges, Universities &amp; Institutes in India | Colleges
-          Admission, Fees, Rankings of Top Management, Engineering, Medical
-          Colleges
+          Check Abroad Colleges Scholarships, College Search, Lists, Admission,
+          Rankings & Awards and Students Review!
         </title>
         <meta
           name="description"
-          content="explore mba/pgdm, mbbs, bba, llb, bds, fashion, b.tech etc colleges and courses on india's leading education portal - dialeducation.com. see details like fees, admission process, reviews and more."
+          content="Times of College: Making the Abroad college search easier with our state-of-the-art search tools, college rankings and lists, and awesome expert advice. Get Detailed Information on Top Colleges, Courses & Exams across globe. Get alerts about Ranking, Cutoff, Placements, Fees & Admissions."
         />
         <meta
           name="keywords"
-          content="dial education, education, colleges, universities, institutes, career, career options after graduation, career prospects, engineering, mba, medical, mbbs, mbbs abroad, study abroad, foreign education, college admission, university, institute, courses, coaching, technical education, higher education, forum, education career guider experts, ask experts, admissions, results, events, scholarships"
+          content="timesofcollege, higher education, colleges, universities, institutes, career, career options, career prospects, engineering, mba & pgdm, medical, mbbs,study abroad, foreign education, college, university, institute,courses, coaching, technical education, higher education,forum, community, education career experts,ask experts, admissions,results, events,scholarships"
         />
       </Helmet>
       <section className="sliding-banner">
