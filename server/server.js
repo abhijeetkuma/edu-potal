@@ -9,6 +9,7 @@ const port = process.env.PORT || config.port;
 //const port = config.PORT;
 const colleges_model = require("./model/collegesModel");
 const notification_model = require("./model/notificationModel");
+const advertisement_model = require("./model/advertisementModel");
 const cms_model = require("./model/Frontend/cmsModel");
 const landing_model = require("./model/Frontend/landingModel");
 const collegelisting_model = require("./model/Frontend/collegelistingModel");
@@ -654,6 +655,16 @@ app.get("/api/getcmslisting", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/getadvertisementlisting", (req, res) => {
+  advertisement_model
+    .getAvertisementlisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/getnotificationlisting", (req, res) => {
   notification_model
     .getNotificationlisting()
@@ -675,12 +686,12 @@ app.get("/api/editnotification/:notif_id", (req, res) => {
     });
 });
 
-app.put("/api/getupdatenotification/:notif_id", (req, res) => {
-  const notif_id = req.params.notif_id;
+app.put("/api/getupdatenotification/:ad_id", (req, res) => {
+  const ad_id = req.params.ad_id;
   const body = req.body;
-  console.log("server notif_id", notif_id);
+  console.log("server ad_id", ad_id);
   notification_model
-    .updateNotification(notif_id, body)
+    .updateNotification(ad_id, body)
     .then((response) => {
       res.status(200).send(response);
     })

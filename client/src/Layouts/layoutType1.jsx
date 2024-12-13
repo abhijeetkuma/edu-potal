@@ -250,6 +250,14 @@ function LayoutType1(props) {
                   Notifications
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  to={`advertisement`}
+                  className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                >
+                  Advertisement
+                </NavLink>
+              </li>
             </ul>
           </aside>
         </div>
