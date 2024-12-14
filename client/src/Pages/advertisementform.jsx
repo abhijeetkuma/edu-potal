@@ -10,19 +10,21 @@ function Notificationadd() {
   }
 
   const [editdata, setEditdata] = useState({
-    notif_id: "",
-    notification_title: "",
-    notification_url: "",
-    notification_target: "Pairent",
-    notification_position: "",
-    notification_status: "A",
+    ad_id: "",
+    ad_title: "",
+    ad_disp_position: "",
+    ad_disp_page: "",
+    ad_disp_date_from: "",
+    ad_disp_date_to: "",
+    ad_url: "",
+    ad_image: "",
   });
 
-  const { notif_id } = useParams();
+  const { ad_id } = useParams();
   useEffect(() => {
-    if (notif_id > 0) {
+    if (ad_id > 0) {
       axios
-        .get("/api/editnotification/" + notif_id)
+        .get("/api/editadvertisement/" + ad_id)
         .then((response) => {
           setEditdata(response.data[0]);
         })
@@ -40,30 +42,34 @@ function Notificationadd() {
     }));
   };
 
-  const addnotification = (e) => {
+  const addadvertisement = (e) => {
     e.preventDefault();
     const {
-      notif_id,
-      notification_title,
-      notification_url,
-      notification_target,
-      notification_position,
-      notification_status,
+      ad_id,
+      ad_title,
+      ad_disp_position,
+      ad_disp_page,
+      ad_disp_date_from,
+      ad_disp_date_to,
+      ad_url,
+      ad_image,
     } = e.target.elements;
 
     const payload = {
-      notif_id: notif_id.value,
-      notification_title: notification_title.value,
-      notification_url: notification_url.value,
-      notification_target: notification_target.value,
-      notification_position: notification_position.value,
-      notification_status: notification_status.value,
+      // ad_id: ad_id.value,
+      ad_title: ad_title.value,
+      ad_disp_position: ad_disp_position.value,
+      ad_disp_page: ad_disp_page.value,
+      ad_disp_date_from: ad_disp_date_from.value,
+      ad_disp_date_to: ad_disp_date_to.value,
+      ad_url: ad_url.value,
+      //  ad_image: ad_image.value,
     };
-    if (notif_id.value > 0) {
+    if (ad_id.value > 0) {
       //update form data
       axios({
         method: "PUT",
-        url: "/api/getupdatenotification/${notif_id}",
+        url: "/api/getupdatenotification/${ad_id}",
         data: payload,
       })
         .then(function (response) {
@@ -82,7 +88,7 @@ function Notificationadd() {
               // transition: Bounce,
             });
             setTimeout(function () {
-              window.location.replace("../../notifications");
+              window.location.replace("../../advertisement");
             }, 3000);
           }
         })
@@ -93,7 +99,7 @@ function Notificationadd() {
     } else {
       axios({
         method: "post",
-        url: "/api/addnewcms",
+        url: "/api/addadvertisement",
         data: payload,
       })
         .then(function (response) {
@@ -132,7 +138,7 @@ function Notificationadd() {
       <div className="flex bg-white shadow">
         <div className="pageHeader p-3">
           <h1 className="text-2xl font-semibold">
-            {notif_id > 0 ? "Edit" : "Add New"} Advertisement
+            {ad_id > 0 ? "Edit" : "Add New"} Advertisement
           </h1>
           <div className="actions">
             <Link
@@ -151,7 +157,6 @@ function Notificationadd() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                {" "}
                 <path stroke="none" d="M0 0h24v24H0z" />{" "}
                 <line x1="4" y1="6" x2="20" y2="6" />{" "}
                 <line x1="4" y1="12" x2="20" y2="12" />{" "}
@@ -167,8 +172,8 @@ function Notificationadd() {
         <form
           action=""
           method="post"
-          id="notificationForm"
-          onSubmit={addnotification}
+          id="advertisementForm"
+          onSubmit={addadvertisement}
         >
           <div className="mt-2">
             <label
@@ -283,7 +288,7 @@ function Notificationadd() {
             <input
               type="file"
               name="ad_image"
-              required="required"
+              //required="required"
               onChange={handleChangeFormdata}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
