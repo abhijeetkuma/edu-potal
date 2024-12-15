@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import axios from "axios";
 import PropTypes from "prop-types";
 import adsImg from "/images/ads.svg";
@@ -35,6 +36,14 @@ function Cms(props) {
   //console.log(cms_url);
   return (
     <>
+      <Helmet>
+        <title>{displaycontant.cms_meta_title}</title>
+        <meta
+          name="description"
+          content={displaycontant.cms_meta_description}
+        />
+        <meta name="keywords" content={displaycontant.cms_meta_keyword} />
+      </Helmet>
       <section className="container college-filter-wrapper">
         <section className="college-list-wrapper">
           <div className="font-bold pt-2 cmstitle">

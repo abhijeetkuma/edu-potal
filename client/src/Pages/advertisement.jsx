@@ -82,7 +82,7 @@ function Notifications() {
             <EditIcon
               onClick={() => {
                 // table.setEditingRow(row);
-                editDetails(row.original.notif_id);
+                editDetails(row.original.ad_id);
                 //console.log("Edit======------>", row.original.rol_id);
               }}
             />

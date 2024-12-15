@@ -665,6 +665,26 @@ app.get("/api/getadvertisementlisting", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.post("/api/addadvertisement", (req, res) => {
+  advertisement_model
+    .addAdvertisement(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/editadvertisement/:ad_id", (req, res) => {
+  advertisement_model
+    .getAvertisement(req.params.ad_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/getnotificationlisting", (req, res) => {
   notification_model
     .getNotificationlisting()
