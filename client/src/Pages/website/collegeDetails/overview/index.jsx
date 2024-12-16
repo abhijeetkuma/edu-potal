@@ -41,6 +41,7 @@ function CollegeOverview(props) {
         <meta name="keywords" content={meta_keyword} />
       </Helmet>
       <div className="overview-details">
+
         <section className="latestNews">
           <h2 className="font-bold text-2xl">Noticeboard</h2>
           <ul className="mt-2">
@@ -64,6 +65,7 @@ function CollegeOverview(props) {
             </li>
           </ul>
         </section>
+
         <section className="about mt-10">
           <h2 className="font-bold text-2xl">About</h2>
           <p className="mt-2">
@@ -79,6 +81,7 @@ function CollegeOverview(props) {
             and the like).
           </p>
         </section>
+
         <section className="tableOfContent mt-10">
           <h2 className="font-bold text-2xl">Table of Content</h2>
           <ul className="mt-2">
@@ -109,8 +112,57 @@ function CollegeOverview(props) {
             </li>
           </ul>
         </section>
+
+        <section className="highlights mt-10">
+            <h2 className="font-bold text-2xl mb-5">Highlights</h2>
+            <table className="table-bordered no-header left-BG">
+                    <tbody className="table-bordered-body">
+                        <tr>
+                            <td>
+                                <span>Famous Name</span>
+                            </td>
+                            <td>
+                                <b>GLBITM</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Established Year</span>
+                            </td>
+                            <td>
+                                <b>1997</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>College Type</span>
+                            </td>
+                            <td>
+                                <b>Private</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Campus Location</span>
+                            </td>
+                            <td>
+                                <b>Greater Noida</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Campus Size</span>
+                            </td>
+                            <td>
+                                <b>30 Acres</b>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </section>
+
         <section className="courses college-list-wrapper mt-10">
-          <h2 className="font-bold text-2xl mb-5">All Programs</h2>
+          <h2 className="font-bold text-2xl mb-5">Top Programs</h2>
           <div class="college-list-card" id="34">
             <div class="title-section">
               {/* <div class="img-box">
@@ -643,6 +695,19 @@ function CollegeOverview(props) {
             View All Courses
           </Link>
         </section>
+
+        <section className="facilities mt-10">
+            <h2 className="font-bold text-2xl mb-5">Facilities</h2>
+            <ul>
+                <li><span>Sports Complex</span></li>
+                <li><span>Hostel</span></li>
+                <li><span>Library</span></li>
+                <li><span>Labs</span></li>
+                <li><span>Gym</span></li>
+                <li><span>Others</span></li>
+            </ul>
+        </section>
+
         <section className="news  mt-10">
           <h2 className="font-bold text-2xl mb-5">Related News and Events</h2>
           <div className="news-wrapper mb-5">
@@ -787,6 +852,7 @@ function CollegeOverview(props) {
             View All News and Events
           </Link>
         </section>
+
       </div>
     </>
   );

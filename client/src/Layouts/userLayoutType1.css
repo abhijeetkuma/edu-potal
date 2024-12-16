@@ -880,6 +880,136 @@ header.website-wrapper {
       }
     }
 
+    .courses-fees {
+      .courses {
+        &.college-list-wrapper {
+          box-shadow: none;
+          .college-list-card {
+            width: 100%;
+            max-width: 100%;
+          }
+        }
+      } 
+    }
+
+    .facilities {
+      ul {
+        justify-content: space-between;
+        display: flex;
+        border-radius: 5px;
+        background: #e3ffee;
+        li {
+          padding: 30px 5px;
+          max-height: 150px;
+          width: 100%;
+          text-align: center;
+          border-right: 1px solid #d2e5c7;
+          &:last-child {
+            border-right: none;
+          }
+        }
+      }
+    }
+    
+    .table-bordered {
+      border: 1px solid #ccdcff;
+      border-collapse: separate;
+      border-spacing: 0px;
+      border-bottom: none;
+      border-right: none;
+      width: 100%;
+      border-radius: 12px;
+      background: #fbfbfb;
+
+      &.no-header {
+        tr:first-child {
+          td:first-child {
+            border-top-left-radius: 12px;
+          }
+          td:last-child {
+            border-top-right-radius: 12px;
+          }
+        }
+
+        &.left-BG {
+          tr {
+            td:first-child {
+              background-color: #9883a9;
+              color: #fff;
+            }
+            td:last-child {
+              /* background-color: #e2f3eb; */
+              color: #362e68;
+            }
+          }
+        }
+      }
+
+      .table-bordered-head {
+        tr {
+          th {
+            background-color: #fffbaa;
+            border: none;
+            border-right: 1px solid #dadc85;
+            padding: 10px 5px;
+            color: #202124;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+
+            &:first-child {
+              border-top-left-radius: 12px;
+            }
+            &:last-child {
+              border-top-right-radius: 12px;
+            }
+          }
+        }
+      }
+      .table-bordered-body {
+        tr {
+          td {
+            border: none;
+            border-right: 1px solid #ccdcff;
+            border-bottom: 1px solid #ccdcff;
+            padding: 12px 14px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            color: #4d5156;
+            .course-no {
+              font-size: 14px;
+              white-space: nowrap;
+            }
+            .link {
+              color: #0ba954;
+            }
+            button {
+              color: #2b58e0;
+            }
+          }
+        }
+
+        tr:last-child {
+          td:first-child {
+            border-bottom-left-radius: 12px;
+          }
+          td:last-child {
+            border-bottom-right-radius: 12px;
+          }
+        }
+      }
+    }
+
+    .admissions {
+      padding: 10px;
+      p {
+        /* strong {
+          font-size: 24px;
+        } */
+      }
+    }
+
     /* end container*/
   }
 

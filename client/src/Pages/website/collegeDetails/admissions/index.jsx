@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function CollegeAdmissions(props) {
   return (
     <>
-        <section>
+        <section className="admissions">
             <div
               dangerouslySetInnerHTML={{
                 __html: props.data.adminssiondetails,
