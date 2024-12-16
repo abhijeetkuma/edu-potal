@@ -3,7 +3,9 @@ import { Link, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-
+import DatePicker from "react-datepicker";
+import moment from "moment";
+import "react-datepicker/dist/react-datepicker.css";
 function Notificationadd() {
   if (localStorage.getItem("logedin") == "") {
     window.location = "login";
@@ -19,14 +21,20 @@ function Notificationadd() {
     ad_url: "",
     ad_image: "",
   });
-
+  const [ad_image, setAd_image] = useState();
   const { ad_id } = useParams();
+  const [ad_disp_date_from, setAd_disp_date_from] = useState(new Date());
+  const [ad_disp_date_to, setAd_disp_date_to] = useState(new Date());
+
   useEffect(() => {
     if (ad_id > 0) {
       axios
         .get("/api/editadvertisement/" + ad_id)
         .then((response) => {
           setEditdata(response.data[0]);
+          setAd_disp_date_from(response.data[0].date_from);
+          setAd_disp_date_to(response.data[0].date_to);
+          console.log("...>>>", response.data[0].date_from);
         })
         .catch((error) => {
           console.error(error);
@@ -42,35 +50,35 @@ function Notificationadd() {
     }));
   };
 
-  const addadvertisement = (e) => {
-    e.preventDefault();
-    const {
-      ad_id,
-      ad_title,
-      ad_disp_position,
-      ad_disp_page,
-      ad_disp_date_from,
-      ad_disp_date_to,
-      ad_url,
-      ad_image,
-    } = e.target.elements;
+  const addadvertisement = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("ad_image", ad_image);
+    formData.append("ad_id", event.target.ad_id.value);
+    formData.append("ad_title", event.target.ad_title.value);
+    formData.append("ad_disp_position", event.target.ad_disp_position.value);
+    formData.append("ad_disp_page", event.target.ad_disp_page.value);
+    //formData.append("ad_disp_date_from", event.target.ad_disp_date_from.value);
+    formData.append(
+      "ad_disp_date_from",
+      moment(ad_disp_date_from).format("YYYY-MM-DD")
+    );
+    //formData.append("ad_disp_date_to", event.target.ad_disp_date_to.value);
+    formData.append(
+      "ad_disp_date_to",
+      moment(ad_disp_date_to).format("YYYY-MM-DD")
+    );
+    formData.append("ad_url", event.target.ad_url.value);
+    formData.append("old_image", event.target.ad_old_images.value);
 
-    const payload = {
-      // ad_id: ad_id.value,
-      ad_title: ad_title.value,
-      ad_disp_position: ad_disp_position.value,
-      ad_disp_page: ad_disp_page.value,
-      ad_disp_date_from: ad_disp_date_from.value,
-      ad_disp_date_to: ad_disp_date_to.value,
-      ad_url: ad_url.value,
-      //  ad_image: ad_image.value,
-    };
-    if (ad_id.value > 0) {
+    if (event.target.ad_id.value > 0) {
       //update form data
       axios({
-        method: "PUT",
-        url: "/api/getupdatenotification/${ad_id}",
-        data: payload,
+        method: "POST",
+        //url: "/api/updatevertisement/${ad_id}",
+        url: "/api/updatevertisement/",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
       })
         .then(function (response) {
           //console.log(response);
@@ -132,7 +140,7 @@ function Notificationadd() {
     } */
   };
   // end add new Cms
-
+  console.log("ad_disp_date_to", ad_disp_date_to);
   return (
     <>
       <div className="flex bg-white shadow">
@@ -174,6 +182,7 @@ function Notificationadd() {
           method="post"
           id="advertisementForm"
           onSubmit={addadvertisement}
+          encType="multipart/form-data"
         >
           <div className="mt-2">
             <label
@@ -187,6 +196,7 @@ function Notificationadd() {
               name="ad_id"
               value={editdata.ad_id && editdata.ad_id}
             />
+
             <input
               type="text"
               name="ad_title"
@@ -220,16 +230,14 @@ function Notificationadd() {
             >
               Date From
             </label>
-
-            <input
-              type="date"
-              name="ad_disp_date_from"
-              value={
-                editdata.ad_disp_date_from ? editdata.ad_disp_date_from : ""
+            <DatePicker
+              selected={ad_disp_date_from}
+              onChange={(ad_disp_date_from) =>
+                setAd_disp_date_from(ad_disp_date_from)
               }
-              required="required"
-              onChange={handleChangeFormdata}
+              // value={ad_disp_date_from}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              dateFormat="YYYY-MM-dd"
             />
           </div>
           <div className="mt-2">
@@ -239,14 +247,14 @@ function Notificationadd() {
             >
               Date To
             </label>
-
-            <input
-              type="date"
-              name="ad_disp_date_to"
-              value={editdata.ad_disp_date_to ? editdata.ad_disp_date_to : ""}
-              required="required"
-              onChange={handleChangeFormdata}
+            <DatePicker
+              selected={ad_disp_date_to}
+              onChange={(ad_disp_date_to) =>
+                setAd_disp_date_to(ad_disp_date_to)
+              }
+              //value={ad_disp_date_to}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              dateFormat="yyyy-MM-dd"
             />
           </div>
           <div className="mt-2">
@@ -256,10 +264,33 @@ function Notificationadd() {
             >
               Display Position
             </label>
-            <select name="ad_disp_position" id="ad_disp_position">
-              <option value="top">Top</option>
-              <option value="right">Right</option>
-              <option value="bottom">Bottom</option>
+            <select
+              name="ad_disp_position"
+              id="ad_disp_position"
+              className="block w-auto p-2 mb-6 text-sm text-gray-900  rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option
+                value="top"
+                selected={editdata.ad_disp_position == "top" ? "selected" : ""}
+              >
+                Top
+              </option>
+              <option
+                value="right"
+                selected={
+                  editdata.ad_disp_position == "right" ? "selected" : ""
+                }
+              >
+                Right
+              </option>
+              <option
+                value="bottom"
+                selected={
+                  editdata.ad_disp_position == "bottom" ? "selected" : ""
+                }
+              >
+                Bottom
+              </option>
             </select>
           </div>
           <div className="mt-2">
@@ -269,12 +300,41 @@ function Notificationadd() {
             >
               Display Page
             </label>
-            <select name="ad_disp_page" id="ad_disp_page">
-              <option value="top">Home</option>
-              <option value="right">College Listing</option>
-              <option value="bottom">Exam Listing</option>
-              <option value="bottom">Course Listing</option>
-              <option value="bottom">Search</option>
+            <select
+              name="ad_disp_page"
+              id="ad_disp_page"
+              className="block w-auto p-2 mb-6 text-sm text-gray-900  rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option
+                value="home"
+                selected={editdata.ad_disp_page == "home" ? "selected" : ""}
+              >
+                Home
+              </option>
+              <option
+                value="listing"
+                selected={editdata.ad_disp_page == "listing" ? "selected" : ""}
+              >
+                College Listing
+              </option>
+              <option
+                value="exams"
+                selected={editdata.ad_disp_page == "exams" ? "selected" : ""}
+              >
+                Exam Listing
+              </option>
+              <option
+                value="courses"
+                selected={editdata.ad_disp_page == "courses" ? "selected" : ""}
+              >
+                Course Listing
+              </option>
+              <option
+                value="search"
+                selected={editdata.ad_disp_page == "search" ? "selected" : ""}
+              >
+                Search
+              </option>
             </select>
           </div>
           <div className="mt-2">
@@ -286,10 +346,17 @@ function Notificationadd() {
             </label>
 
             <input
+              type="hidden"
+              name="ad_old_images"
+              value={editdata.ad_image}
+            />
+            <input
               type="file"
               name="ad_image"
-              //required="required"
-              onChange={handleChangeFormdata}
+              required={!editdata.ad_id ? "required" : ""}
+              filename={ad_image}
+              onChange={(e) => setAd_image(e.target.files[0])}
+              accept="image/*"
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </div>
