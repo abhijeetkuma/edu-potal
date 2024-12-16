@@ -51,16 +51,17 @@ function Notifications() {
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
-
     {
-      accessorKey: "ad_image", //simple recommended way to define a column
-      header: "Banner",
+      accessorKey: "ad_disp_page", //simple recommended way to define a column
+      header: "Disp Page",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
-      Cell: ({ cell }) => (
-        <span>
-          <img src={"/images/ads/" + cell.getValue()} />
-        </span>
-      ), //optional custom cell render
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
+      accessorKey: "ad_disp_position", //simple recommended way to define a column
+      header: "Disp Position",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
       accessorKey: "date_from", //simple recommended way to define a column
@@ -73,6 +74,16 @@ function Notifications() {
       header: "Date To",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
+      accessorKey: "ad_image", //simple recommended way to define a column
+      header: "Banner",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      Cell: ({ cell }) => (
+        <span>
+          <img src={"/images/ads/" + cell.getValue()} />
+        </span>
+      ), //optional custom cell render
     },
   ];
   const [rowSelection, setRowSelection] = useState({});
