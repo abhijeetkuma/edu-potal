@@ -777,7 +777,7 @@ header.website-wrapper {
 
     .detailsBanner {
       .bgColor {
-        background-color: #009975;
+        background-color: #009975b0;
         height: 280px;
       }
       .detaisHead {
@@ -894,18 +894,24 @@ header.website-wrapper {
 
     .facilities {
       ul {
-        justify-content: space-between;
         display: flex;
-        border-radius: 5px;
-        background: #e3ffee;
+        flex-wrap: wrap;
+        gap: 12px;
         li {
-          padding: 30px 5px;
+          padding: 10px 5px;
           max-height: 150px;
-          width: 100%;
+          width: 131px;
+          max-width: 131px;
           text-align: center;
-          border-right: 1px solid #d2e5c7;
-          &:last-child {
-            border-right: none;
+          border-radius: 5px;
+          border: 1px solid #eee4f1;
+          background-color: #fef9ff;
+          span {
+            font-size: 12px;
+            font-weight: 600;
+          }
+          img {
+            margin: 10px auto;
           }
         }
       }
@@ -934,8 +940,8 @@ header.website-wrapper {
         &.left-BG {
           tr {
             td:first-child {
-              background-color: #9883a9;
-              color: #fff;
+              background-color: #fffee8;
+              color: #393555;
             }
             td:last-child {
               /* background-color: #e2f3eb; */
@@ -1003,10 +1009,52 @@ header.website-wrapper {
 
     .admissions {
       padding: 10px;
-      p {
-        /* strong {
+      /* p {
+        strong {
           font-size: 24px;
-        } */
+        }
+      } */
+    }
+
+    .placementHighlights {
+      .phCards {
+        display: flex;
+        margin-bottom: 10px;
+        li{
+          width: 50%;
+          padding: 20px 10px;
+          border-radius: 10px;
+          border: 1px solid #ddd8e8;
+          margin: 5px;
+          background-color: #fef9ff;
+          p{
+            text-align: center;
+            font-size: 18px;
+            color: #393555;
+          }
+          span {
+            text-align: center;
+            display: block;
+            font-size: 14px;
+            color: #5c3a7c;
+          }
+        }
+      }
+      .topRecruiter{
+        margin: 20px 5px;
+        ul.chips {
+          display: flex;
+          gap: 10px 12px;
+          flex-wrap: wrap;
+          margin: 5px 0px;
+          li {
+            background-color: #fef9ff;
+            border-radius: 15px;
+            padding: 5px 10px;
+            border: 1px solid #ddd8e8;
+            color: #5c3a7c;
+          }
+        }
       }
     }
 
@@ -1328,13 +1376,10 @@ header.website-wrapper {
 }
 .related-colleges {
   background-color: #fff;
-  padding: 10px;
-  width: 310px;
+  display: flex;
+  flex-wrap: wrap;
   border-radius: 5px;
-  box-shadow:
-    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  margin-bottom: 20px;
+  gap: 12px;
   h2 {
     color: #009975;
     border-bottom: 3px solid #e99444;
@@ -1342,12 +1387,10 @@ header.website-wrapper {
   }
   .related-colleges-box {
     margin: 2px 2px 10px 2px;
-    width: 285px;
+    width: 270px;
     border-radius: 4px;
     padding-bottom: 5px;
-    box-shadow:
-      rgba(0, 0, 0, 0.12) 0px 1px 3px,
-      rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     .details {
       background-color: #fff;
       height: 86px;
@@ -1376,7 +1419,7 @@ header.website-wrapper {
         float: left;
         display: flex;
         font-size: 10px;
-        width: 165px;
+        width: 150px;
         max-width: 165px;
       }
       .view-more {

@@ -1,5 +1,6 @@
 /* For Desktop View */
 @media screen and (min-width: 1024px) {
+
 }
 
 /* For Tablet View */
@@ -93,9 +94,71 @@
     padding-top: 10px !important;
   }
   .sliding-banner {
-    height: 130px !important;
+    height: 200px !important;  
+    background-size: cover;
   }
   .search-wrapper mt-7 {
     margin-top: 1.5rem !important;
   }
+  .head-line {
+    font-size: 24px;
+    color: #31314a;
+    margin-bottom: 20px;
+  }
+  .info {
+    h1 {
+        font-size: 20px;
+    }
+  }
+  .popular-clg-container {
+    .popular-clg {
+      width: 372px !important;
+    }
+  }
+  .exam-card-list {
+    .slick-slide {
+      width: 235px !important;
+    }
+  }
+  .get-notify-container {
+    width: 320px !important;
+    height: auto !important;
+    flex-wrap: wrap;
+    padding: 30px;
+    gap: 15px;
+    button {
+      width: 215px;
+    }
+  }
+  .footer{
+    .footer-menu {
+      nav {
+        width: 100% !important;
+        ul {
+          flex-wrap: wrap;
+        }
+      }
+    }
+    .footer-lists {
+      height: auto !important;
+      flex-wrap: wrap;
+    }
+  }
+
+  .container {
+    padding: 8px;
+  } 
+  .detailsWrapper {
+    display: block !important;
+    .contentWrapper {
+      width: 100% !important;
+    }
+  }
+  .detailsTab {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
 }

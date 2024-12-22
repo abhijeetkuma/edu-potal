@@ -35,8 +35,6 @@ function CollegeDetails(props) {
   useEffect(() => {
     const detailsUrl = location.pathname.split("+")[0];
     const detailsTabs = location.pathname.split("+")[1];
-    console.log("detailsTabs-=-=-=-->", detailsTabs);
-
     setNameUrl(detailsUrl);
     setTabName(detailsTabs);
   }, [location.pathname]);
@@ -62,7 +60,7 @@ function CollegeDetails(props) {
 
   return (
     <>
-      <section className="detailsBanner">
+      <section className="detailsBanner" style={{backgroundImage: `url('https://timesofcollege.com/images/Oxford-University.jpg')`}}>
         <div className="bgColor">
           <div className="container detaisHead">
             <div className="image">
@@ -174,9 +172,9 @@ function CollegeDetails(props) {
         </div>
         <div className="relatedWrapper">
           <div className="others">
-            {displaycollegdetail.courses && (
+            {/* {displaycollegdetail.courses && (
               <Relatedcolleges data={displaycollegdetail} vtype="v" />
-            )}
+            )} */}
             {/* {displaycollegdetail.courses && (
               <Relatednews data={displaycollegdetail} vtype="v" />
             )} */}
