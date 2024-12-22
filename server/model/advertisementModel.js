@@ -15,7 +15,7 @@ const getAvertisementlisting = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT * FROM advertisement ORDER BY ad_id DESC",
+        "SELECT *, TO_CHAR(ad_disp_date_from, 'dd-Mon-yyyy') date_from, TO_CHAR(ad_disp_date_to, 'dd-Mon-yyyy') date_to  FROM advertisement ORDER BY ad_id DESC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -38,7 +38,7 @@ const getAvertisement = (ad_id) => {
   //const notif_id = notif_id;
   return new Promise(function (resolve, reject) {
     pool.query(
-      "SELECT * FROM advertisement WHERE ad_id = $1",
+      "SELECT *,TO_CHAR(ad_disp_date_from, 'yyyy-mm-dd') date_from, TO_CHAR(ad_disp_date_to, 'yyyy-mm-dd') date_to FROM advertisement WHERE ad_id = $1",
       [ad_id],
       (error, results) => {
         if (error) {
@@ -54,7 +54,7 @@ const getAvertisement = (ad_id) => {
     console.log(query);
   });
 };
-const updateAvertisementlisting = (ad_id, body) => {
+const updateAvertisementlisting = (body) => {
   return new Promise(function (resolve, reject) {
     const {
       ad_id,
@@ -77,7 +77,6 @@ const updateAvertisementlisting = (ad_id, body) => {
         ad_disp_date_to,
         ad_url,
         ad_image,
-        s,
       ],
       (error, results) => {
         if (error) {

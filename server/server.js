@@ -38,6 +38,26 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 // end news & article image upload
 
+// avertisement image upload
+var adfname, admtype;
+const adstorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    //cb(null, "/tmp/my-uploads");
+    cb(null, "../client/public/images/ads");
+  },
+  filename: (req, file, cb) => {
+    const aduniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    //cb(null, file.fieldname + "-" + uniqueSuffix);
+    fname =
+      aduniqueSuffix + file.originalname.replace(/[$* !@#%^&*()+=<>?/,]/g, "_");
+    admtype = file.mimetype;
+    cb(null, fname);
+  },
+});
+//const upload = multer({ dest: "./public/images/newsevents" });
+const adupload = multer({ storage: adstorage });
+// end avertisement image upload
+
 // college logo upload
 var logofname, logomtype;
 const logostorage = multer.diskStorage({
@@ -678,6 +698,25 @@ app.post("/api/addadvertisement", (req, res) => {
 app.get("/api/editadvertisement/:ad_id", (req, res) => {
   advertisement_model
     .getAvertisement(req.params.ad_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+//app.put("/api/updatevertisement/:ad_id", (req, res) => {
+
+app.post("/api/updatevertisement/", adupload.single("ad_image"), (req, res) => {
+  //const ad_id = req.params.ad_id;
+  //const body = req.body;
+  //console.log("req.file", req.file);
+  req.body.ad_image =
+    req.file && req.file.filename ? req.file.filename : req.body.old_image;
+  // console.log("servers ad_id", req.body);
+  advertisement_model
+    .updateAvertisementlisting(req.body)
     .then((response) => {
       res.status(200).send(response);
     })
