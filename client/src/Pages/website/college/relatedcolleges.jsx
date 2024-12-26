@@ -8,6 +8,7 @@ function Relatedcolleges(props) {
   const {
     data: { courses },
     vtype,
+    heading
   } = props;
 
   const [dispcolleges, setDispcolleges] = useState({
@@ -32,7 +33,7 @@ function Relatedcolleges(props) {
   }, []);
   return (
     <>
-      <h2 className="font-bold pb-1 text-2xl text-center mt-10 mb-2">Related Colleges</h2>
+      <h2 className="font-bold pb-1 text-2xl text-center mt-10 mb-2">{heading}</h2>
       <div className="related-colleges mt-5 mb-5">
       {dispcolleges.length > 0 &&
         dispcolleges.map((item, id) => (

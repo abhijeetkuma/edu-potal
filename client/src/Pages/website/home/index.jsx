@@ -301,10 +301,11 @@ function Home(props) {
                               <span>4.5 (55)</span>
                             </span>
                           </div>
-                          <ul className="links">
-                            <li></li>
-                            <li></li>
-                            <li></li>
+                          <ul className="links mt-2">
+                            <li className="text-sm"><span>College Type: </span><span><b>{item.college_types}</b></span></li>
+                            <li className="text-sm"><span>Placement Ratio: </span><span><b>{item.totalplacementratio}</b></span></li>
+                            <li className="text-sm"><span>Highest Package: </span><span><b>{item.higestplacementrecord}</b></span></li>
+                            <li className="text-sm"><span>Exam Accepted: </span><span><b>{item.exam_name}</b></span></li>
                           </ul>
                           <div className="action-btns">
                             <div className="download">

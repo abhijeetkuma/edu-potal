@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import { getImageURL } from "../../../utils/utils-image";
 import Relatedcolleges from "../college/relatedcolleges";
 import Relatednews from "../college/relatednews";
+import GetHelp from "../commonComps/getHelp";
+import Modal from "../commonComps/modal";
 
 import arrowTilt from "/images/arrow-tilt.svg";
 import downlaod from "/images/downloads.svg";
@@ -30,6 +32,8 @@ import CollegeQuesAns from "./questionAnswer";
 function CollegeDetails(props) {
   const [nameUrl, setNameUrl] = useState("");
   const [tabName, setTabName] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalContent, setModalContent] = useState('')
   const { college_url } = useParams();
 
   useEffect(() => {
@@ -57,6 +61,14 @@ function CollegeDetails(props) {
       });
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
   }, [nameUrl]);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  }
 
   return (
     <>
@@ -114,7 +126,7 @@ function CollegeDetails(props) {
                     </span>
                 </li>
             </ul>
-            <div className="apply-link">
+            <div className="apply-link" onClick={() => openModal()}>
                 <span>Apply</span>
                 <span>
                     <img src={arrowTilt} alt="" />
@@ -172,12 +184,39 @@ function CollegeDetails(props) {
         </div>
         <div className="relatedWrapper">
           <div className="others">
-            {/* {displaycollegdetail.courses && (
-              <Relatedcolleges data={displaycollegdetail} vtype="v" />
-            )} */}
-            {/* {displaycollegdetail.courses && (
-              <Relatednews data={displaycollegdetail} vtype="v" />
-            )} */}
+
+            <ul className="phCards">
+              <li>
+                <p>
+                  <h2 className="font-bold pb-1 text-2xl text-center">Placement Highlights</h2>
+                </p>
+              </li>
+              <li>
+                <p><b>{displaycollegdetail.totalplacementratio}</b></p>
+                <span>Total Placement Ratio</span>
+              </li>
+              <li>
+                <p><b>{displaycollegdetail.averageplacementrecord}</b></p>
+                <span>Average Placement Record</span>
+              </li>
+              <li>
+                <p><b>{displaycollegdetail.higestplacementrecord}</b></p>
+                <span>Higest Placement Record</span>
+              </li>
+              <li>
+                <p><b>{displaycollegdetail.lowestplacementrecord}</b></p>
+                <span>Lowest Placement Record</span>
+              </li>
+             </ul>   
+
+            {displaycollegdetail.courses && (
+              <div className="relatedColg">
+                <Relatedcolleges data={displaycollegdetail} heading={'Top Viewed Colleges'} vtype="v" />
+              </div>
+            )}
+
+            <GetHelp heading={'Let Us Help You'} />
+
             <div className="ads">
               <img src={adsImg} alt="" />
             </div>
@@ -187,6 +226,9 @@ function CollegeDetails(props) {
           </div>
         </div>
       </section>
+      <Modal isModalOpen={isModalOpen} onClose={closeModal}>
+        <GetHelp heading={'Get Notify !'} />
+      </Modal>
     </>
   );
 }

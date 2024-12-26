@@ -59,7 +59,7 @@ function UserLayoutType1(props) {
                 to={`/`}
                 className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
               >
-                Specializations
+                Study Goal
               </NavLink>
             </li>
             <li>
@@ -67,7 +67,7 @@ function UserLayoutType1(props) {
                 to={`/`}
                 className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
               >
-                More
+                TOC Cafe
               </NavLink>
             </li>
           </ul>

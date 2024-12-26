@@ -47,6 +47,8 @@ function CollegeOverview(props) {
     meta_title,
     meta_description,
     meta_keyword,
+    display_type,
+    highlights
   } = props.data;
 
   return (
@@ -84,18 +86,7 @@ function CollegeOverview(props) {
 
         <section className="about mt-10">
           <h2 className="font-bold text-2xl">About</h2>
-          <p className="mt-2">
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose (injected humour
-            and the like).
-          </p>
+          <p className="mt-2" dangerouslySetInnerHTML={{__html: college_descripton,}}></p>
         </section>
 
         <section className="tableOfContent mt-10">
@@ -131,50 +122,70 @@ function CollegeOverview(props) {
 
         <section className="highlights mt-10">
             <h2 className="font-bold text-2xl mb-5">Highlights</h2>
-            <table className="table-bordered no-header left-BG">
-                    <tbody className="table-bordered-body">
-                        <tr>
-                            <td>
-                                <span>Famous Name</span>
-                            </td>
-                            <td>
-                                <b>GLBITM</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>Established Year</span>
-                            </td>
-                            <td>
-                                <b>1997</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>College Type</span>
-                            </td>
-                            <td>
-                                <b>Private</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>Campus Location</span>
-                            </td>
-                            <td>
-                                <b>Greater Noida</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>Campus Size</span>
-                            </td>
-                            <td>
-                                <b>30 Acres</b>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <ul className={display_type === 'Tabuller' ? 'tabullerDisplay' : 'bulletDisplay'}>
+            {highlights.map((item, i) =>              
+              <li>
+                <span>{item.highParameter}</span>
+                <span>{item.highDetails}</span>
+              </li>
+            )} 
+            </ul>
+            
+          {/* <table className="table-bordered no-header left-BG">
+            <tbody className="table-bordered-body">
+              {
+                <tr>
+                  <td>
+                      <span>Famous Name</span>
+                  </td>
+                  <td>
+                      <b>GLBITM</b>
+                  </td>
+                </tr>
+              }
+                <tr>
+                    <td>
+                        <span>Famous Name</span>
+                    </td>
+                    <td>
+                        <b>GLBITM</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Established Year</span>
+                    </td>
+                    <td>
+                        <b>1997</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>College Type</span>
+                    </td>
+                    <td>
+                        <b>Private</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Campus Location</span>
+                    </td>
+                    <td>
+                        <b>Greater Noida</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Campus Size</span>
+                    </td>
+                    <td>
+                        <b>30 Acres</b>
+                    </td>
+                </tr>
+            </tbody>
+          </table> */}
+
         </section>
 
         <section className="courses college-list-wrapper mt-10">
@@ -913,7 +924,7 @@ function CollegeOverview(props) {
 
         <section className="RelatedNews">
           {props.data.courses && (
-            <Relatedcolleges data={props.data} vtype="v" />
+            <Relatedcolleges data={props.data} heading={'Related Colleges'} vtype="v" />
           )}
         </section>
 
