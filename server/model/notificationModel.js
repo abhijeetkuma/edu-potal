@@ -54,6 +54,42 @@ const geteditnotification = (notif_id) => {
     console.log(query);
   });
 };
+const addNotification = (body) => {
+  console.log("body->", body);
+  return new Promise(function (resolve, reject) {
+    const {
+      notification_title,
+      notification_url,
+      notification_target,
+      notification_position,
+      notification_status,
+    } = body;
+    pool.query(
+      "INSERT INTO notifications(notification_title,notification_url,notification_target,notification_position,notification_status) VALUES ( $1,$2,$3,$4,$5) RETURNING *",
+      [
+        notification_title,
+        notification_url,
+        notification_target,
+        notification_position,
+        notification_status,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A new notification has been added: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 const updateNotification = (notif_id, body) => {
   return new Promise(function (resolve, reject) {
     const {
@@ -90,5 +126,6 @@ const updateNotification = (notif_id, body) => {
 module.exports = {
   getNotificationlisting,
   geteditnotification,
+  addNotification,
   updateNotification,
 };
