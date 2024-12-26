@@ -1538,18 +1538,16 @@ const addNewusers = (body) => {
       admin_email,
       admin_password,
       admin_contact,
-      modules_access_ids,
       admin_status,
       rol_id,
     } = body;
     pool.query(
-      "INSERT INTO adminusers(admin_id,admin_email,admin_password,admin_contact,modules_access_ids,admin_status,rol_id) VALUES ($1, $2,$3,$4,$5,$6,$7) RETURNING *",
+      "INSERT INTO adminusers(admin_id,admin_email,admin_password,admin_contact,admin_status,rol_id) VALUES ($1, $2,$3,$4,$5,$6) RETURNING *",
       [
         admin_id,
         admin_email,
         admin_password,
         admin_contact,
-        modules_access_ids,
         admin_status,
         rol_id,
       ],

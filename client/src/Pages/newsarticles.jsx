@@ -17,6 +17,9 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 //import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/ReactToastify.min.css";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Newsarticles() {
   if (localStorage.getItem("logedin") == "") {
@@ -29,7 +32,6 @@ function Newsarticles() {
   const [tradingarr, setTradingarr] = useState([]);
   const [tradingvalue, setTradingvalue] = useState([]);
   const [descriptionvalue, setDescriptionvalue] = useState();
-  const [successmsg, setSuccessmsg] = useState();
 
   const [editdata, setEditdata] = useState({
     na_id: "",
@@ -45,6 +47,7 @@ function Newsarticles() {
     na_metakeyword: "",
     na_status: "A",
   });
+  const [na_date, setNa_date] = useState(new Date());
 
   const [na_image, setNa_image] = useState();
 
@@ -75,6 +78,7 @@ function Newsarticles() {
         .get("/api/editnewsart/" + na_id)
         .then((response) => {
           setEditdata(response.data[0]);
+          setNa_date(response.data[0].exam_date);
         })
         .catch((error) => {
           console.error(error);
@@ -139,7 +143,7 @@ function Newsarticles() {
     formData.append("na_trends", tradingvalue.join(","));
     formData.append("na_categories", categoryvalue.join(","));
     formData.append("old_image", event.target.old_image.value);
-    formData.append("na_date", event.target.na_date.value);
+    formData.append("na_date", moment(na_date).format("YYYY-MM-DD"));
 
     //const result = await axios.post("/api/images", formData, {
     if (event.target.na_id.value > 0) {
@@ -242,9 +246,7 @@ function Newsarticles() {
 
       <div className="p-2">
         <div className="mx-auto max-w-7xl py-6 sm:px-2 lg:px-2"></div>
-        {successmsg && (
-          <div className="text-green font-normal text-lg"> {successmsg} </div>
-        )}
+
         <form
           action=""
           method="post"
@@ -292,7 +294,6 @@ function Newsarticles() {
                 News
               </option>
             </select>
-            <div className="errmsg">{errorMsg[0]}</div>
           </div>
           <div className="mt-2">
             <label
@@ -342,16 +343,12 @@ function Newsarticles() {
             >
               Date
             </label>
-
-            <input
-              type="date"
-              name="na_date"
-              id="na_date"
-              value={editdata.exam_date}
-              required="required"
-              onChange={handleChangeFormdata}
-              placeholder="YYYY-MM-DD"
+            <DatePicker
+              selected={na_date}
+              onChange={(na_date) => setNa_date(na_date)}
+              // value={na_date}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              dateFormat="YYYY-MM-dd"
             />
           </div>
           <div className="mt-2">
