@@ -93,7 +93,7 @@ function Notificationadd() {
     } else {
       axios({
         method: "post",
-        url: "/api/addnewcms",
+        url: "/api/addnotification",
         data: payload,
       })
         .then(function (response) {
@@ -255,6 +255,9 @@ function Notificationadd() {
               name="notification_status"
               value="A"
               className="sm:text-sm text-gray-900"
+              checked={editdata.notification_status == "A" && true}
+              required="required"
+              onChange={handleChangeFormdata}
             />
             Active &nbsp;
             <input
@@ -262,6 +265,9 @@ function Notificationadd() {
               value="D"
               name="notification_status"
               className="sm:text-sm text-gray-900"
+              checked={editdata.notification_status == "D" && true}
+              required="required"
+              onChange={handleChangeFormdata}
             />
             Deactive
           </div>
