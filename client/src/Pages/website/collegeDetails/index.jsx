@@ -32,8 +32,10 @@ import CollegeQuesAns from "./questionAnswer";
 function CollegeDetails(props) {
   const [nameUrl, setNameUrl] = useState("");
   const [tabName, setTabName] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [modalContent, setModalContent] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  const [subcoursestypearr, setSubcoursestypearr] = useState([]);
+  const [subcoursearr, setSubcoursearr] = useState([]);
   const { college_url } = useParams();
 
   useEffect(() => {
@@ -60,19 +62,40 @@ function CollegeDetails(props) {
         console.error(error);
       });
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
+    axios
+      .get("/api/getsubcoursestypearr")
+      .then((response) => {
+        setSubcoursestypearr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("/api/getsubcoursearr")
+      .then((response) => {
+        setSubcoursearr(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [nameUrl]);
 
   const openModal = () => {
     setIsModalOpen(true);
-  }
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
-  }
+  };
 
   return (
     <>
-      <section className="detailsBanner" style={{backgroundImage: `url('https://timesofcollege.com/images/Oxford-University.jpg')`}}>
+      <section
+        className="detailsBanner"
+        style={{
+          backgroundImage: `url('https://timesofcollege.com/images/Oxford-University.jpg')`,
+        }}
+      >
         <div className="bgColor">
           <div className="container detaisHead">
             <div className="image">
@@ -115,32 +138,32 @@ function CollegeDetails(props) {
               </li>
             </ul>
             <ul className="historyInfo">
-                <li>
-                    <span className="location">
-                    <span>{displaycollegdetail.college_types}</span>
-                    </span>
-                </li>
-                <li>
-                    <span className="location">
-                    <span>Est. {displaycollegdetail.found_year}</span>
-                    </span>
-                </li>
+              <li>
+                <span className="location">
+                  <span>{displaycollegdetail.college_types}</span>
+                </span>
+              </li>
+              <li>
+                <span className="location">
+                  <span>Est. {displaycollegdetail.found_year}</span>
+                </span>
+              </li>
             </ul>
             <div className="apply-link" onClick={() => openModal()}>
-                <span>Apply</span>
-                <span>
-                    <img src={arrowTilt} alt="" />
-                </span>
+              <span>Apply</span>
+              <span>
+                <img src={arrowTilt} alt="" />
+              </span>
             </div>
             <div className="action-btns">
-                <div className="download">
-                    <img src={downlaod} alt="" />
-                    <span>Download Brochure</span>
-                </div>
-                <div className="compare">
-                    <img src={compare} alt="" />
-                    <span>Compare Colleges</span>
-                </div>
+              <div className="download">
+                <img src={downlaod} alt="" />
+                <span>Download Brochure</span>
+              </div>
+              <div className="compare">
+                <img src={compare} alt="" />
+                <span>Compare Colleges</span>
+              </div>
             </div>
           </div>
         </div>
@@ -184,56 +207,75 @@ function CollegeDetails(props) {
         </div>
         <div className="relatedWrapper">
           <div className="others">
-
             <ul className="phCards">
               <li>
                 <p>
-                  <h2 className="font-bold pb-1 text-2xl text-center">Placement Highlights</h2>
+                  <h2 className="font-bold pb-1 text-2xl text-center">
+                    Placement Highlights
+                  </h2>
                 </p>
               </li>
               <li>
-                <p><b>{displaycollegdetail.totalplacementratio}</b></p>
+                <p>
+                  <b>{displaycollegdetail.totalplacementratio}</b>
+                </p>
                 <span>Total Placement Ratio</span>
               </li>
               <li>
-                <p><b>{displaycollegdetail.averageplacementrecord}</b></p>
+                <p>
+                  <b>{displaycollegdetail.averageplacementrecord}</b>
+                </p>
                 <span>Average Placement Record</span>
               </li>
               <li>
-                <p><b>{displaycollegdetail.higestplacementrecord}</b></p>
+                <p>
+                  <b>{displaycollegdetail.higestplacementrecord}</b>
+                </p>
                 <span>Higest Placement Record</span>
               </li>
               <li>
-                <p><b>{displaycollegdetail.lowestplacementrecord}</b></p>
+                <p>
+                  <b>{displaycollegdetail.lowestplacementrecord}</b>
+                </p>
                 <span>Lowest Placement Record</span>
               </li>
-             </ul> 
+            </ul>
 
-            <hr style={{'color': '#32325d40', 'margin': '15px'}} />   
+            <hr style={{ color: "#32325d40", margin: "15px" }} />
 
             <ul className="phCards">
               <li>
                 <p>
-                  <h2 className="font-bold pb-1 text-2xl text-center">Top Courses</h2>
+                  <h2 className="font-bold pb-1 text-2xl text-center">
+                    Top Courses
+                  </h2>
                 </p>
               </li>
               <li>
-                <p><b>{'B.Tech'}</b></p>
+                <p>
+                  <b>{"B.Tech"}</b>
+                </p>
               </li>
               <li>
-                <p><b>{'BCA'}</b></p>
+                <p>
+                  <b>{"BCA"}</b>
+                </p>
               </li>
-             </ul> 
+            </ul>
 
-            <hr style={{'color': '#32325d40', 'margin': '15px'}} />   
+            <hr style={{ color: "#32325d40", margin: "15px" }} />
 
             {displaycollegdetail.courses && (
               <div className="relatedColg">
-                <Relatedcolleges data={displaycollegdetail} heading={'Top Viewed Colleges'} vtype="v" />
+                <Relatedcolleges
+                  data={displaycollegdetail}
+                  heading={"Top Viewed Colleges"}
+                  vtype="v"
+                />
               </div>
             )}
 
-            <GetHelp heading={'Let Us Help You'} />
+            <GetHelp heading={"Let Us Help You"} />
 
             <div className="ads">
               <img src={adsImg} alt="" />
@@ -245,7 +287,7 @@ function CollegeDetails(props) {
         </div>
       </section>
       <Modal isModalOpen={isModalOpen} onClose={closeModal}>
-        <GetHelp heading={'Get Notify !'} />
+        <GetHelp heading={"Get Notify !"} />
       </Modal>
     </>
   );
