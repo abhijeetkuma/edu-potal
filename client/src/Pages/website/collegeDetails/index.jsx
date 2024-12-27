@@ -151,7 +151,7 @@ function CollegeDetails(props) {
       <section className="container detailsWrapper">
         <div className="contentWrapper">
           {(tabName === "overview" || tabName == undefined) && (
-            <CollegeOverview data={displaycollegdetail} />
+            <CollegeOverview data={displaycollegdetail} openModal={openModal} />
           )}
           {tabName === "courses-and-fees" && (
             <CollegeCoursesFees data={displaycollegdetail} />
@@ -207,7 +207,25 @@ function CollegeDetails(props) {
                 <p><b>{displaycollegdetail.lowestplacementrecord}</b></p>
                 <span>Lowest Placement Record</span>
               </li>
-             </ul>   
+             </ul> 
+
+            <hr style={{'color': '#32325d40', 'margin': '15px'}} />   
+
+            <ul className="phCards">
+              <li>
+                <p>
+                  <h2 className="font-bold pb-1 text-2xl text-center">Top Courses</h2>
+                </p>
+              </li>
+              <li>
+                <p><b>{'B.Tech'}</b></p>
+              </li>
+              <li>
+                <p><b>{'BCA'}</b></p>
+              </li>
+             </ul> 
+
+            <hr style={{'color': '#32325d40', 'margin': '15px'}} />   
 
             {displaycollegdetail.courses && (
               <div className="relatedColg">

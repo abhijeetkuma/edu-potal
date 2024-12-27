@@ -822,6 +822,7 @@ header.website-wrapper {
           box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
           margin-top: -20px;
           border-radius: 4px;
+          color: #393555;
           h2 {
             padding-top: 15px;
           }
@@ -1106,6 +1107,7 @@ header.website-wrapper {
             font-weight: 500;
             line-height: 24px;
             color: #4d5156;
+            text-align: center;
             .course-no {
               font-size: 14px;
               white-space: nowrap;

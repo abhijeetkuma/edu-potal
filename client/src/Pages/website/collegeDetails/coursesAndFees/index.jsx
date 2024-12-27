@@ -16,6 +16,7 @@ function CollegeCoursesFees(props) {
         toprecuitingsectors,
         topprofile,
         facility_available,
+        sub_course_details,
         address,
         address2,
         city_name,
@@ -36,227 +37,27 @@ function CollegeCoursesFees(props) {
                             <th>Course</th>
                             <th>Fees</th>
                             <th>Eligibility</th>
-                            <th>Application Date</th>
+                            <th>Total Seats</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody className="table-bordered-body">
+                    {sub_course_details?.map((item, i)=> (
                         <tr>
-                            <td data-csm-title="B.Tech" data-csm-track="true" data-event-type="top_course_popup"
-                                className="">
-                                <div>B.Tech</div>
-                                <div className="course-no">17 Courses
-                                    <span className=""></span>
-                                </div>
-                            </td>
-                            <td>
-                                <a data-csm-title="B.Tech" data-ga-module="college_detail" data-ga-section="IIT Kharagpur Fees &amp; Eligibility" data-ga-title="B.Tech" data-ga-track="true" className="link" href="#">₹2.62 Lakhs (1st Year Fees)
-                                </a>
-                                <button className="" data-csm-title="B.Tech check fees details" data-csm-track="true" data-event-type="tct_fee_details" type="button">
-                                    <span className="">Check Details
-                                        <span className=""></span>
-                                    </span>
-                                </button>
-                            </td>
-                            <td>10+2 with 75% + JEE Advanced</td>
-                            <td>27 Apr - 18 Jun 2024</td>
+                            <td>{item.subcourseId}</td>
+                            <td>{item.course_fee ? item.course_fee : '-'}</td>
+                            <td>{item.subcourseselectiioneligibility ? item.subcourseselectiioneligibility : '-'}</td>
+                            <td>{item.course_seats ? item.course_seats : '-'}</td>
                             <td>
                                 <div className="">
                                     <button data-course-tag="18" data-csm-title="Apply Now" data-csm-track="true" data-csm-value="B.Tech" data-event-type="link_click" data-section_name="IIT Kharagpur Fees &amp; Eligibility" type="button" className="">Apply Now
                                     </button>
                                     <div className=""></div>
                                 </div>
-                            </td>
+                            </td>                      
                         </tr>
-                        <tr>
-                            <td data-csm-title="B.Tech" data-csm-track="true" data-event-type="top_course_popup"
-                                className="">
-                                <div>B.Tech</div>
-                                <div className="course-no">17 Courses
-                                    <span className=""></span>
-                                </div>
-                            </td>
-                            <td>
-                                <a data-csm-title="B.Tech" data-ga-module="college_detail" data-ga-section="IIT Kharagpur Fees &amp; Eligibility" data-ga-title="B.Tech" data-ga-track="true" className="link" href="#">₹2.62 Lakhs (1st Year Fees)
-                                </a>
-                                <button className="" data-csm-title="B.Tech check fees details" data-csm-track="true" data-event-type="tct_fee_details" type="button">
-                                    <span className="">Check Details
-                                        <span className=""></span>
-                                    </span>
-                                </button>
-                            </td>
-                            <td>10+2 with 75% + JEE Advanced</td>
-                            <td>27 Apr - 18 Jun 2024</td>
-                            <td>
-                                <div className="">
-                                    <button data-course-tag="18" data-csm-title="Apply Now" data-csm-track="true" data-csm-value="B.Tech" data-event-type="link_click" data-section_name="IIT Kharagpur Fees &amp; Eligibility" type="button" className="">Apply Now
-                                    </button>
-                                    <div className=""></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-csm-title="B.Tech" data-csm-track="true" data-event-type="top_course_popup"
-                                className="">
-                                <div>B.Tech</div>
-                                <div className="course-no">17 Courses
-                                    <span className=""></span>
-                                </div>
-                            </td>
-                            <td>
-                                <a data-csm-title="B.Tech" data-ga-module="college_detail" data-ga-section="IIT Kharagpur Fees &amp; Eligibility" data-ga-title="B.Tech" data-ga-track="true" className="link" href="#">₹2.62 Lakhs (1st Year Fees)
-                                </a>
-                                <button className="" data-csm-title="B.Tech check fees details" data-csm-track="true" data-event-type="tct_fee_details" type="button">
-                                    <span className="">Check Details
-                                        <span className=""></span>
-                                    </span>
-                                </button>
-                            </td>
-                            <td>10+2 with 75% + JEE Advanced</td>
-                            <td>27 Apr - 18 Jun 2024</td>
-                            <td>
-                                <div className="">
-                                    <button data-course-tag="18" data-csm-title="Apply Now" data-csm-track="true" data-csm-value="B.Tech" data-event-type="link_click" data-section_name="IIT Kharagpur Fees &amp; Eligibility" type="button" className="">Apply Now
-                                    </button>
-                                    <div className=""></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-csm-title="B.Tech" data-csm-track="true" data-event-type="top_course_popup"
-                                className="">
-                                <div>B.Tech</div>
-                                <div className="course-no">17 Courses
-                                    <span className=""></span>
-                                </div>
-                            </td>
-                            <td>
-                                <a data-csm-title="B.Tech" data-ga-module="college_detail" data-ga-section="IIT Kharagpur Fees &amp; Eligibility" data-ga-title="B.Tech" data-ga-track="true" className="link" href="#">₹2.62 Lakhs (1st Year Fees)
-                                </a>
-                                <button className="" data-csm-title="B.Tech check fees details" data-csm-track="true" data-event-type="tct_fee_details" type="button">
-                                    <span className="">Check Details
-                                        <span className=""></span>
-                                    </span>
-                                </button>
-                            </td>
-                            <td>10+2 with 75% + JEE Advanced</td>
-                            <td>27 Apr - 18 Jun 2024</td>
-                            <td>
-                                <div className="">
-                                    <button data-course-tag="18" data-csm-title="Apply Now" data-csm-track="true" data-csm-value="B.Tech" data-event-type="link_click" data-section_name="IIT Kharagpur Fees &amp; Eligibility" type="button" className="">Apply Now
-                                    </button>
-                                    <div className=""></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-csm-title="B.Tech" data-csm-track="true" data-event-type="top_course_popup"
-                                className="">
-                                <div>B.Tech</div>
-                                <div className="course-no">17 Courses
-                                    <span className=""></span>
-                                </div>
-                            </td>
-                            <td>
-                                <a data-csm-title="B.Tech" data-ga-module="college_detail" data-ga-section="IIT Kharagpur Fees &amp; Eligibility" data-ga-title="B.Tech" data-ga-track="true" className="link" href="#">₹2.62 Lakhs (1st Year Fees)
-                                </a>
-                                <button className="" data-csm-title="B.Tech check fees details" data-csm-track="true" data-event-type="tct_fee_details" type="button">
-                                    <span className="">Check Details
-                                        <span className=""></span>
-                                    </span>
-                                </button>
-                            </td>
-                            <td>10+2 with 75% + JEE Advanced</td>
-                            <td>27 Apr - 18 Jun 2024</td>
-                            <td>
-                                <div className="">
-                                    <button data-course-tag="18" data-csm-title="Apply Now" data-csm-track="true" data-csm-value="B.Tech" data-event-type="link_click" data-section_name="IIT Kharagpur Fees &amp; Eligibility" type="button" className="">Apply Now
-                                    </button>
-                                    <div className=""></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-csm-title="B.Tech" data-csm-track="true" data-event-type="top_course_popup"
-                                className="">
-                                <div>B.Tech</div>
-                                <div className="course-no">17 Courses
-                                    <span className=""></span>
-                                </div>
-                            </td>
-                            <td>
-                                <a data-csm-title="B.Tech" data-ga-module="college_detail" data-ga-section="IIT Kharagpur Fees &amp; Eligibility" data-ga-title="B.Tech" data-ga-track="true" className="link" href="#">₹2.62 Lakhs (1st Year Fees)
-                                </a>
-                                <button className="" data-csm-title="B.Tech check fees details" data-csm-track="true" data-event-type="tct_fee_details" type="button">
-                                    <span className="">Check Details
-                                        <span className=""></span>
-                                    </span>
-                                </button>
-                            </td>
-                            <td>10+2 with 75% + JEE Advanced</td>
-                            <td>27 Apr - 18 Jun 2024</td>
-                            <td>
-                                <div className="">
-                                    <button data-course-tag="18" data-csm-title="Apply Now" data-csm-track="true" data-csm-value="B.Tech" data-event-type="link_click" data-section_name="IIT Kharagpur Fees &amp; Eligibility" type="button" className="">Apply Now
-                                    </button>
-                                    <div className=""></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-csm-title="B.Tech" data-csm-track="true" data-event-type="top_course_popup"
-                                className="">
-                                <div>B.Tech</div>
-                                <div className="course-no">17 Courses
-                                    <span className=""></span>
-                                </div>
-                            </td>
-                            <td>
-                                <a data-csm-title="B.Tech" data-ga-module="college_detail" data-ga-section="IIT Kharagpur Fees &amp; Eligibility" data-ga-title="B.Tech" data-ga-track="true" className="link" href="#">₹2.62 Lakhs (1st Year Fees)
-                                </a>
-                                <button className="" data-csm-title="B.Tech check fees details" data-csm-track="true" data-event-type="tct_fee_details" type="button">
-                                    <span className="">Check Details
-                                        <span className=""></span>
-                                    </span>
-                                </button>
-                            </td>
-                            <td>10+2 with 75% + JEE Advanced</td>
-                            <td>27 Apr - 18 Jun 2024</td>
-                            <td>
-                                <div className="">
-                                    <button data-course-tag="18" data-csm-title="Apply Now" data-csm-track="true" data-csm-value="B.Tech" data-event-type="link_click" data-section_name="IIT Kharagpur Fees &amp; Eligibility" type="button" className="">Apply Now
-                                    </button>
-                                    <div className=""></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-csm-title="B.Tech" data-csm-track="true" data-event-type="top_course_popup"
-                                className="">
-                                <div>B.Tech</div>
-                                <div className="course-no">17 Courses
-                                    <span className=""></span>
-                                </div>
-                            </td>
-                            <td>
-                                <a data-csm-title="B.Tech" data-ga-module="college_detail" data-ga-section="IIT Kharagpur Fees &amp; Eligibility" data-ga-title="B.Tech" data-ga-track="true" className="link" href="#">₹2.62 Lakhs (1st Year Fees)
-                                </a>
-                                <button className="" data-csm-title="B.Tech check fees details" data-csm-track="true" data-event-type="tct_fee_details" type="button">
-                                    <span className="">Check Details
-                                        <span className=""></span>
-                                    </span>
-                                </button>
-                            </td>
-                            <td>10+2 with 75% + JEE Advanced</td>
-                            <td>27 Apr - 18 Jun 2024</td>
-                            <td>
-                                <div className="">
-                                    <button data-course-tag="18" data-csm-title="Apply Now" data-csm-track="true" data-csm-value="B.Tech" data-event-type="link_click" data-section_name="IIT Kharagpur Fees &amp; Eligibility" type="button" className="">Apply Now
-                                    </button>
-                                    <div className=""></div>
-                                </div>
-                            </td>
-                        </tr>
+                    )               
+                    )}
                     </tbody>
                 </table>
                 <section className="courses college-list-wrapper">

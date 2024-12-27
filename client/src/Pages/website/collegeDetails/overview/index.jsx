@@ -48,7 +48,7 @@ function CollegeOverview(props) {
     meta_description,
     meta_keyword,
     display_type,
-    highlights
+    highlights,
   } = props.data;
 
   return (
@@ -123,7 +123,7 @@ function CollegeOverview(props) {
         <section className="highlights mt-10">
             <h2 className="font-bold text-2xl mb-5">Highlights</h2>
             <ul className={display_type === 'Tabuller' ? 'tabullerDisplay' : 'bulletDisplay'}>
-            {highlights.map((item, i) =>              
+            {highlights?.map((item, i) =>              
               <li>
                 <span>{item.highParameter}</span>
                 <span>{item.highDetails}</span>
@@ -251,7 +251,7 @@ function CollegeOverview(props) {
                   </div>
                 </div>
                 <div class="apply-btn">
-                  <button>Apply</button>
+                  <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
@@ -317,7 +317,7 @@ function CollegeOverview(props) {
                   </div>
                 </div>
                 <div class="apply-btn">
-                  <button>Apply</button>
+                  <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
@@ -383,7 +383,7 @@ function CollegeOverview(props) {
                   </div>
                 </div>
                 <div class="apply-btn">
-                  <button>Apply</button>
+                  <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
@@ -449,7 +449,7 @@ function CollegeOverview(props) {
                   </div>
                 </div>
                 <div class="apply-btn">
-                  <button>Apply</button>
+                  <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
@@ -515,7 +515,7 @@ function CollegeOverview(props) {
                   </div>
                 </div>
                 <div class="apply-btn">
-                  <button>Apply</button>
+                  <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
@@ -581,7 +581,7 @@ function CollegeOverview(props) {
                   </div>
                 </div>
                 <div class="apply-btn">
-                  <button>Apply</button>
+                  <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
@@ -647,7 +647,7 @@ function CollegeOverview(props) {
                   </div>
                 </div>
                 <div class="apply-btn">
-                  <button>Apply</button>
+                  <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
@@ -713,7 +713,7 @@ function CollegeOverview(props) {
                   </div>
                 </div>
                 <div class="apply-btn">
-                  <button>Apply</button>
+                  <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
