@@ -27,7 +27,7 @@ function CollegeCoursesFees(props) {
     website,
   } = props.data;
 
-    const {courses, } = props;
+    const {courses} = props;
 
     return (
         <>
@@ -43,10 +43,12 @@ function CollegeCoursesFees(props) {
                             <th>Action</th>
                         </tr>
                     </thead>
+                    {/* {item.subcourseId}  */}
                     <tbody className="table-bordered-body">
                     {sub_course_details?.map((item, i)=> (
                         <tr>
-                            <td>{item.subcourseId}</td>
+                            <td>{console.log('courses-----', courses[i])}
+                            </td>
                             <td>{item.course_fee ? item.course_fee : '-'}</td>
                             <td>{item.subcourseselectiioneligibility ? item.subcourseselectiioneligibility : '-'}</td>
                             <td>{item.course_seats ? item.course_seats : '-'}</td>
