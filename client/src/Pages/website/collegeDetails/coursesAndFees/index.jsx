@@ -49,7 +49,10 @@ function CollegeCoursesFees(props) {
           <tbody className="table-bordered-body">
             {sub_course_details?.map((item, i) => (
               <tr>
-                <td>{console.log("courses-----", courses[i].split(":"))}--</td>
+                <td>
+                  {console.log("courses-----", courses[i].split(":"))}--
+                  {courses[i].split(":")[0]}
+                </td>
                 <td>{item.course_fee ? item.course_fee : "-"}</td>
                 <td>
                   {item.subcourseselectiioneligibility
