@@ -788,6 +788,31 @@ app.get("/api/getsubcoursestypearr", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/getsubcoursestypecollegearr", (req, res) => {
+  colleges_model
+    .getSubcoursestypearr()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.get("/api/getsubcoursestypecollegearr--", (req, res) => {
+  colleges_model
+    .getSubcoursestypearr()
+    .then((response) => {
+      let reutn = [];
+      reutn.push(`{${response.coursetype_id}:${response.course_type_name}}`);
+      console.log("responsessss-->", response);
+      //res.status(200).send(response);
+      res.status(200).send(reutn);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 
 app.get("/api/getcategoryarr", (req, res) => {
   colleges_model

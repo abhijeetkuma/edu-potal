@@ -37,16 +37,16 @@ function Relatednews(props) {
       {newslist.length > 0 &&
         newslist.map((item, id) => (
           <div id={item.cid} style={{ display: "flex", float: "left" }}>
-            <div class="news-card">
-              <div class="heading">
+            <div className="news-card">
+              <div className="heading">
                 <h3>{item.na_title}</h3>
               </div>
-              <div class="date">{item.na_date}</div>
-              <p class="details">
+              <div className="date">{item.na_date}</div>
+              <p className="details">
                 {item.na_brief_description.substring(0, 200)}
               </p>
-              <hr class="hr-x" />
-              <span class="link">
+              <hr className="hr-x" />
+              <span className="link">
                 <a href={"../exam/" + item.na_url}>Continue Reading... </a>
               </span>
             </div>

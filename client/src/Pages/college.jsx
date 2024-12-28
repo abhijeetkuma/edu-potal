@@ -1306,7 +1306,7 @@ function College() {
                 htmlFor="college_name"
                 className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
-                College Name <span class="text-orange">*</span>
+                College Name <span className="text-orange">*</span>
               </label>
               <div className="mt-2">
                 <div className="flex rounded-md mt-1">
