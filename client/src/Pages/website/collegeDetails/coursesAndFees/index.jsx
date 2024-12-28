@@ -27,6 +27,8 @@ function CollegeCoursesFees(props) {
         website,
     } = props.data
 
+    const {courses, } = props;
+
     return (
         <>
             <section className="courses-fees">
@@ -54,7 +56,7 @@ function CollegeCoursesFees(props) {
                                     </button>
                                     <div className=""></div>
                                 </div>
-                            </td>                      
+                            </td>              
                         </tr>
                     )               
                     )}

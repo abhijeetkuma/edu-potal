@@ -51,6 +51,8 @@ function CollegeOverview(props) {
     highlights,
   } = props.data;
 
+  // const {courses} = props;
+
   return (
     <>
       <Helmet>

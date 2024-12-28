@@ -739,13 +739,16 @@ header.website-wrapper {
 
      .modal-content {
       border: 1px solid #fff;
-      width: 500px;
+      width: 800px;
       background-color: #fff;
-      border-radius: 15px;
+      position: relative;
      }
      .exit-icon {
       cursor: pointer;
       font-size: 20px;
+      position: absolute;
+      right: 10px;
+      top: 10px;
      }
      .modal-title {
       color: #6821c3;
@@ -1078,11 +1081,11 @@ header.website-wrapper {
       .table-bordered-head {
         tr {
           th {
-            background-color: #fffbaa;
+            background-color: #393555;
             border: none;
-            border-right: 1px solid #dadc85;
+            border-right: 1px solid #ccc;
             padding: 10px 5px;
-            color: #202124;
+            color: #fff;
             font-size: 16px;
             font-weight: 600;
             line-height: 24px;
@@ -1222,6 +1225,102 @@ header.website-wrapper {
                 font-size: 14px;
             }
         }
+    }
+  }
+
+  .loginPage {
+    display: flex;
+    margin: -1px;
+    .head-line {
+      color: #fff;
+      font-size: 22px;
+      text-align: center;
+      margin-top: 15px;
+    }
+    .login-left-container {
+      background-color: #2E294A;
+      width: 350px;
+      height: 500px;    
+      .head-line {
+        margin-bottom: 15px;
+      }
+      img {
+        margin: 0 auto;
+      }
+      ul {
+        li {
+          display: flex;
+          gap: 15px;
+          margin-bottom: 10px;
+          justify-content: center;
+          div {
+            width: 120px;
+            height: 90px;
+            background-color: #F6F6F6;
+            border-radius: 5px;
+            span {
+              display: block;
+              height: 70px;
+            }
+            p {
+              font-size: 12px;
+              text-align: center;
+              color: #2e294a;
+            }
+          }
+        }
+      }
+    }
+    .login-right-container {
+      width: 450px;
+      height: 500px;
+      .head-line {
+        font-size: 20px;
+        color: #2E294A;
+        line-height: 24px;
+        text-align: left;
+        margin-bottom: 25px;
+        margin-top: 25px;
+      }
+      form {
+        width: 270px;
+        margin: 0 auto;
+        input {
+          width: 250px;
+          margin-bottom: 10px;
+          border-radius: 5px;
+          padding: 5px 10px;
+        }
+        .agreed {
+          color: #767676;
+          margin-bottom: 15px;
+          input[type="checkbox"] {
+            width: 30px;
+            float: left;
+            margin-bottom: 0px;
+          }
+          label {
+            font-size: 12px;
+            line-height: 15px;
+            display: block;
+          }
+        }
+
+        select {
+          border: 1px solid #6b7280;
+          width: 250px;
+          padding: 8px 5px;
+          border-radius: 5px;
+          margin-bottom: 15px;
+        }
+        button {
+          background-color: #2E294A;
+          color: #fff;
+          width: 250px;
+          padding: 8px;
+          border-radius: 50px;
+        }
+      }
     }
   }
     

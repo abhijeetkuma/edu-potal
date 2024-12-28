@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { getImageURL } from "../../../utils/utils-image";
 import Relatedcolleges from "../college/relatedcolleges";
 import Relatednews from "../college/relatednews";
-import GetHelp from "../commonComps/getHelp";
+import Login from "../commonComps/login";
 import Modal from "../commonComps/modal";
 
 import arrowTilt from "/images/arrow-tilt.svg";
@@ -174,10 +174,10 @@ function CollegeDetails(props) {
       <section className="container detailsWrapper">
         <div className="contentWrapper">
           {(tabName === "overview" || tabName == undefined) && (
-            <CollegeOverview data={displaycollegdetail} openModal={openModal} />
+            <CollegeOverview data={displaycollegdetail} courses={subcoursearr} openModal={openModal} />
           )}
           {tabName === "courses-and-fees" && (
-            <CollegeCoursesFees data={displaycollegdetail} />
+            <CollegeCoursesFees data={displaycollegdetail} courses={subcoursearr} openModal={openModal} />
           )}
           {tabName === "admissions" && (
             <CollegeAdmissions data={displaycollegdetail} />
@@ -275,7 +275,7 @@ function CollegeDetails(props) {
               </div>
             )}
 
-            <GetHelp heading={"Let Us Help You"} />
+            {/* <Login heading={"Let Us Help You"} /> */}
 
             <div className="ads">
               <img src={adsImg} alt="" />
@@ -286,8 +286,8 @@ function CollegeDetails(props) {
           </div>
         </div>
       </section>
-      <Modal isModalOpen={isModalOpen} onClose={closeModal}>
-        <GetHelp heading={"Get Notify !"} />
+      <Modal isModalOpen={isModalOpen} onClose={closeModal} >
+        <Login heading={"Get Notify !"} />
       </Modal>
     </>
   );
