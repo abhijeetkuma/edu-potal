@@ -788,6 +788,53 @@ app.get("/api/getsubcoursestypearr", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/getsubcoursecollegearr", (req, res) => {
+  colleges_model
+    .getSubcoursearr()
+    .then((response) => {
+      const returnResponse = [];
+      response.forEach((repo) => {
+        let assignval = `{${repo.courb_id} : ${repo.branch_name}}`;
+        returnResponse.push(assignval);
+      });
+      //res.status(200).send(response);
+      res.status(200).send(returnResponse);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/getsubcoursestypecollegearr", (req, res) => {
+  colleges_model
+    .getSubcoursestypearr()
+    .then((response) => {
+      const returnResponse = [];
+      response.forEach((repo) => {
+        let testval = `{${repo.coursetype_id} : ${repo.course_type_name}}`;
+        returnResponse.push(testval);
+      });
+      //res.status(200).send(response);
+      res.status(200).send(returnResponse);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.get("/api/getsubcoursestypecollegearr--", (req, res) => {
+  colleges_model
+    .getSubcoursestypearr()
+    .then((response) => {
+      let reutn = [];
+      reutn.push(`{${response.coursetype_id}:${response.course_type_name}}`);
+      console.log("responsessss-->", response);
+      //res.status(200).send(response);
+      res.status(200).send(reutn);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 
 app.get("/api/getcategoryarr", (req, res) => {
   colleges_model

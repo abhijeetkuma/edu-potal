@@ -63,7 +63,7 @@ function CollegeDetails(props) {
       });
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
     axios
-      .get("/api/getsubcoursestypearr")
+      .get("/api/getsubcoursestypecollegearr")
       .then((response) => {
         setSubcoursestypearr(response.data);
       })
@@ -71,7 +71,7 @@ function CollegeDetails(props) {
         console.error(error);
       });
     axios
-      .get("/api/getsubcoursearr")
+      .get("/api/getsubcoursecollegearr")
       .then((response) => {
         setSubcoursearr(response.data);
       })

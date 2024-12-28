@@ -19,7 +19,6 @@ import medical from "../../../../../public/images/facility/medical.png";
 import transport from "../../../../../public/images/facility/transport.png";
 import wifi from "../../../../../public/images/facility/wifi.png";
 
-
 function CollegeOverview(props) {
   const {
     college_name,
@@ -61,7 +60,6 @@ function CollegeOverview(props) {
         <meta name="keywords" content={meta_keyword} />
       </Helmet>
       <div className="overview-details">
-
         {/* <section className="latestNews">
           <h2 className="font-bold text-2xl">Noticeboard</h2>
           <ul className="mt-2">
@@ -88,7 +86,10 @@ function CollegeOverview(props) {
 
         <section className="about mt-10">
           <h2 className="font-bold text-2xl">About</h2>
-          <p className="mt-2" dangerouslySetInnerHTML={{__html: college_descripton,}}></p>
+          <p
+            className="mt-2"
+            dangerouslySetInnerHTML={{ __html: college_descripton }}
+          ></p>
         </section>
 
         <section className="tableOfContent mt-10">
@@ -123,16 +124,20 @@ function CollegeOverview(props) {
         </section>
 
         <section className="highlights mt-10">
-            <h2 className="font-bold text-2xl mb-5">Highlights</h2>
-            <ul className={display_type === 'Tabuller' ? 'tabullerDisplay' : 'bulletDisplay'}>
-            {highlights?.map((item, i) =>              
+          <h2 className="font-bold text-2xl mb-5">Highlights</h2>
+          <ul
+            className={
+              display_type === "Tabuller" ? "tabullerDisplay" : "bulletDisplay"
+            }
+          >
+            {highlights?.map((item, i) => (
               <li>
                 <span>{item.highParameter}</span>
                 <span>{item.highDetails}</span>
               </li>
-            )} 
-            </ul>
-            
+            ))}
+          </ul>
+
           {/* <table className="table-bordered no-header left-BG">
             <tbody className="table-bordered-body">
               {
@@ -187,28 +192,27 @@ function CollegeOverview(props) {
                 </tr>
             </tbody>
           </table> */}
-
         </section>
 
         <section className="courses college-list-wrapper mt-10">
           <h2 className="font-bold text-2xl mb-5">Top Programs</h2>
-          <div class="college-list-card" id="34">
-            <div class="title-section">
-              {/* <div class="img-box">
+          <div className="college-list-card" id="34">
+            <div className="title-section">
+              {/* <div className="img-box">
                 <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
                 </div> */}
-              <div class="heart"></div>
-              <div class="title-details">
+              <div className="heart"></div>
+              <div className="title-details">
                 <h2>B.E. / B.Tech</h2>
                 <div>
-                  {/* <span class="location">
+                  {/* <span className="location">
                             <img src="/images/map-icon.png" alt="" />
                             <span>Mumbai City, Maharashtra</span>
                         </span>
-                        <span class="tieup">AICTE, AIU, UGC</span> */}
-                  <span class="owner medium">25 Courses</span>
-                  <span class="rank bold green"># NIRF</span>
-                  <span class="rating">
+                        <span className="tieup">AICTE, AIU, UGC</span> */}
+                  <span className="owner medium">25 Courses</span>
+                  <span className="rank bold green"># NIRF</span>
+                  <span className="rating">
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
@@ -218,8 +222,8 @@ function CollegeOverview(props) {
                 </div>
               </div>
             </div>
-            <div class="other-details">
-              <div class="highlights">
+            <div className="other-details">
+              <div className="highlights">
                 <div>
                   <span>Accepted Exams</span>
                   <span>ATMA, CAT, CMAT, GMAT, MAT, XAT</span>
@@ -238,43 +242,43 @@ function CollegeOverview(props) {
                 </div>
                 <div>
                   <span>Placement %</span>
-                  <span class="green">NA</span>
+                  <span className="green">NA</span>
                 </div>
               </div>
-              <div class="action-btns">
+              <div className="action-btns">
                 <div>
-                  <div class="download">
+                  <div className="download">
                     <img src="/images/downloads.svg" alt="" />
                     <span>Download Brochure</span>
                   </div>
-                  <div class="compare">
+                  <div className="compare">
                     <img src="/images/compare.svg" alt="" />
                     <span>Compare</span>
                   </div>
                 </div>
-                <div class="apply-btn">
+                <div className="apply-btn">
                   <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="college-list-card" id="34">
-            <div class="title-section">
-              {/* <div class="img-box">
+          <div className="college-list-card" id="34">
+            <div className="title-section">
+              {/* <div className="img-box">
                 <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
                 </div> */}
-              <div class="heart"></div>
-              <div class="title-details">
+              <div className="heart"></div>
+              <div className="title-details">
                 <h2>B.Sc</h2>
                 <div>
-                  {/* <span class="location">
+                  {/* <span className="location">
                             <img src="/images/map-icon.png" alt="" />
                             <span>Mumbai City, Maharashtra</span>
                         </span>
-                        <span class="tieup">AICTE, AIU, UGC</span> */}
-                  <span class="owner medium">25 Courses</span>
-                  <span class="rank bold green"># NIRF</span>
-                  <span class="rating">
+                        <span className="tieup">AICTE, AIU, UGC</span> */}
+                  <span className="owner medium">25 Courses</span>
+                  <span className="rank bold green"># NIRF</span>
+                  <span className="rating">
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
@@ -284,8 +288,8 @@ function CollegeOverview(props) {
                 </div>
               </div>
             </div>
-            <div class="other-details">
-              <div class="highlights">
+            <div className="other-details">
+              <div className="highlights">
                 <div>
                   <span>Accepted Exams</span>
                   <span>ATMA, CAT, CMAT, GMAT, MAT, XAT</span>
@@ -304,43 +308,43 @@ function CollegeOverview(props) {
                 </div>
                 <div>
                   <span>Placement %</span>
-                  <span class="green">NA</span>
+                  <span className="green">NA</span>
                 </div>
               </div>
-              <div class="action-btns">
+              <div className="action-btns">
                 <div>
-                  <div class="download">
+                  <div className="download">
                     <img src="/images/downloads.svg" alt="" />
                     <span>Download Brochure</span>
                   </div>
-                  <div class="compare">
+                  <div className="compare">
                     <img src="/images/compare.svg" alt="" />
                     <span>Compare</span>
                   </div>
                 </div>
-                <div class="apply-btn">
+                <div className="apply-btn">
                   <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="college-list-card" id="34">
-            <div class="title-section">
-              {/* <div class="img-box">
+          <div className="college-list-card" id="34">
+            <div className="title-section">
+              {/* <div className="img-box">
                 <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
                 </div> */}
-              <div class="heart"></div>
-              <div class="title-details">
+              <div className="heart"></div>
+              <div className="title-details">
                 <h2>M.Sc</h2>
                 <div>
-                  {/* <span class="location">
+                  {/* <span className="location">
                             <img src="/images/map-icon.png" alt="" />
                             <span>Mumbai City, Maharashtra</span>
                         </span>
-                        <span class="tieup">AICTE, AIU, UGC</span> */}
-                  <span class="owner medium">25 Courses</span>
-                  <span class="rank bold green"># NIRF</span>
-                  <span class="rating">
+                        <span className="tieup">AICTE, AIU, UGC</span> */}
+                  <span className="owner medium">25 Courses</span>
+                  <span className="rank bold green"># NIRF</span>
+                  <span className="rating">
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
@@ -350,8 +354,8 @@ function CollegeOverview(props) {
                 </div>
               </div>
             </div>
-            <div class="other-details">
-              <div class="highlights">
+            <div className="other-details">
+              <div className="highlights">
                 <div>
                   <span>Accepted Exams</span>
                   <span>ATMA, CAT, CMAT, GMAT, MAT, XAT</span>
@@ -370,43 +374,43 @@ function CollegeOverview(props) {
                 </div>
                 <div>
                   <span>Placement %</span>
-                  <span class="green">NA</span>
+                  <span className="green">NA</span>
                 </div>
               </div>
-              <div class="action-btns">
+              <div className="action-btns">
                 <div>
-                  <div class="download">
+                  <div className="download">
                     <img src="/images/downloads.svg" alt="" />
                     <span>Download Brochure</span>
                   </div>
-                  <div class="compare">
+                  <div className="compare">
                     <img src="/images/compare.svg" alt="" />
                     <span>Compare</span>
                   </div>
                 </div>
-                <div class="apply-btn">
+                <div className="apply-btn">
                   <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="college-list-card" id="34">
-            <div class="title-section">
-              {/* <div class="img-box">
+          <div className="college-list-card" id="34">
+            <div className="title-section">
+              {/* <div className="img-box">
                 <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
                 </div> */}
-              <div class="heart"></div>
-              <div class="title-details">
+              <div className="heart"></div>
+              <div className="title-details">
                 <h2>B.E. / B.Tech</h2>
                 <div>
-                  {/* <span class="location">
+                  {/* <span className="location">
                             <img src="/images/map-icon.png" alt="" />
                             <span>Mumbai City, Maharashtra</span>
                         </span>
-                        <span class="tieup">AICTE, AIU, UGC</span> */}
-                  <span class="owner medium">25 Courses</span>
-                  <span class="rank bold green"># NIRF</span>
-                  <span class="rating">
+                        <span className="tieup">AICTE, AIU, UGC</span> */}
+                  <span className="owner medium">25 Courses</span>
+                  <span className="rank bold green"># NIRF</span>
+                  <span className="rating">
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
@@ -416,8 +420,8 @@ function CollegeOverview(props) {
                 </div>
               </div>
             </div>
-            <div class="other-details">
-              <div class="highlights">
+            <div className="other-details">
+              <div className="highlights">
                 <div>
                   <span>Accepted Exams</span>
                   <span>ATMA, CAT, CMAT, GMAT, MAT, XAT</span>
@@ -436,43 +440,43 @@ function CollegeOverview(props) {
                 </div>
                 <div>
                   <span>Placement %</span>
-                  <span class="green">NA</span>
+                  <span className="green">NA</span>
                 </div>
               </div>
-              <div class="action-btns">
+              <div className="action-btns">
                 <div>
-                  <div class="download">
+                  <div className="download">
                     <img src="/images/downloads.svg" alt="" />
                     <span>Download Brochure</span>
                   </div>
-                  <div class="compare">
+                  <div className="compare">
                     <img src="/images/compare.svg" alt="" />
                     <span>Compare</span>
                   </div>
                 </div>
-                <div class="apply-btn">
+                <div className="apply-btn">
                   <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="college-list-card" id="34">
-            <div class="title-section">
-              {/* <div class="img-box">
+          <div className="college-list-card" id="34">
+            <div className="title-section">
+              {/* <div className="img-box">
                 <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
                 </div> */}
-              <div class="heart"></div>
-              <div class="title-details">
+              <div className="heart"></div>
+              <div className="title-details">
                 <h2>B.E. / B.Tech</h2>
                 <div>
-                  {/* <span class="location">
+                  {/* <span className="location">
                             <img src="/images/map-icon.png" alt="" />
                             <span>Mumbai City, Maharashtra</span>
                         </span>
-                        <span class="tieup">AICTE, AIU, UGC</span> */}
-                  <span class="owner medium">25 Courses</span>
-                  <span class="rank bold green"># NIRF</span>
-                  <span class="rating">
+                        <span className="tieup">AICTE, AIU, UGC</span> */}
+                  <span className="owner medium">25 Courses</span>
+                  <span className="rank bold green"># NIRF</span>
+                  <span className="rating">
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
@@ -482,8 +486,8 @@ function CollegeOverview(props) {
                 </div>
               </div>
             </div>
-            <div class="other-details">
-              <div class="highlights">
+            <div className="other-details">
+              <div className="highlights">
                 <div>
                   <span>Accepted Exams</span>
                   <span>ATMA, CAT, CMAT, GMAT, MAT, XAT</span>
@@ -502,43 +506,43 @@ function CollegeOverview(props) {
                 </div>
                 <div>
                   <span>Placement %</span>
-                  <span class="green">NA</span>
+                  <span className="green">NA</span>
                 </div>
               </div>
-              <div class="action-btns">
+              <div className="action-btns">
                 <div>
-                  <div class="download">
+                  <div className="download">
                     <img src="/images/downloads.svg" alt="" />
                     <span>Download Brochure</span>
                   </div>
-                  <div class="compare">
+                  <div className="compare">
                     <img src="/images/compare.svg" alt="" />
                     <span>Compare</span>
                   </div>
                 </div>
-                <div class="apply-btn">
+                <div className="apply-btn">
                   <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="college-list-card" id="34">
-            <div class="title-section">
-              {/* <div class="img-box">
+          <div className="college-list-card" id="34">
+            <div className="title-section">
+              {/* <div className="img-box">
                 <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
                 </div> */}
-              <div class="heart"></div>
-              <div class="title-details">
+              <div className="heart"></div>
+              <div className="title-details">
                 <h2>B.E. / B.Tech</h2>
                 <div>
-                  {/* <span class="location">
+                  {/* <span className="location">
                             <img src="/images/map-icon.png" alt="" />
                             <span>Mumbai City, Maharashtra</span>
                         </span>
-                        <span class="tieup">AICTE, AIU, UGC</span> */}
-                  <span class="owner medium">25 Courses</span>
-                  <span class="rank bold green"># NIRF</span>
-                  <span class="rating">
+                        <span className="tieup">AICTE, AIU, UGC</span> */}
+                  <span className="owner medium">25 Courses</span>
+                  <span className="rank bold green"># NIRF</span>
+                  <span className="rating">
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
@@ -548,8 +552,8 @@ function CollegeOverview(props) {
                 </div>
               </div>
             </div>
-            <div class="other-details">
-              <div class="highlights">
+            <div className="other-details">
+              <div className="highlights">
                 <div>
                   <span>Accepted Exams</span>
                   <span>ATMA, CAT, CMAT, GMAT, MAT, XAT</span>
@@ -568,43 +572,43 @@ function CollegeOverview(props) {
                 </div>
                 <div>
                   <span>Placement %</span>
-                  <span class="green">NA</span>
+                  <span className="green">NA</span>
                 </div>
               </div>
-              <div class="action-btns">
+              <div className="action-btns">
                 <div>
-                  <div class="download">
+                  <div className="download">
                     <img src="/images/downloads.svg" alt="" />
                     <span>Download Brochure</span>
                   </div>
-                  <div class="compare">
+                  <div className="compare">
                     <img src="/images/compare.svg" alt="" />
                     <span>Compare</span>
                   </div>
                 </div>
-                <div class="apply-btn">
+                <div className="apply-btn">
                   <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="college-list-card" id="34">
-            <div class="title-section">
-              {/* <div class="img-box">
+          <div className="college-list-card" id="34">
+            <div className="title-section">
+              {/* <div className="img-box">
                 <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
                 </div> */}
-              <div class="heart"></div>
-              <div class="title-details">
+              <div className="heart"></div>
+              <div className="title-details">
                 <h2>B.E. / B.Tech</h2>
                 <div>
-                  {/* <span class="location">
+                  {/* <span className="location">
                             <img src="/images/map-icon.png" alt="" />
                             <span>Mumbai City, Maharashtra</span>
                         </span>
-                        <span class="tieup">AICTE, AIU, UGC</span> */}
-                  <span class="owner medium">25 Courses</span>
-                  <span class="rank bold green"># NIRF</span>
-                  <span class="rating">
+                        <span className="tieup">AICTE, AIU, UGC</span> */}
+                  <span className="owner medium">25 Courses</span>
+                  <span className="rank bold green"># NIRF</span>
+                  <span className="rating">
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
@@ -614,8 +618,8 @@ function CollegeOverview(props) {
                 </div>
               </div>
             </div>
-            <div class="other-details">
-              <div class="highlights">
+            <div className="other-details">
+              <div className="highlights">
                 <div>
                   <span>Accepted Exams</span>
                   <span>ATMA, CAT, CMAT, GMAT, MAT, XAT</span>
@@ -634,43 +638,43 @@ function CollegeOverview(props) {
                 </div>
                 <div>
                   <span>Placement %</span>
-                  <span class="green">NA</span>
+                  <span className="green">NA</span>
                 </div>
               </div>
-              <div class="action-btns">
+              <div className="action-btns">
                 <div>
-                  <div class="download">
+                  <div className="download">
                     <img src="/images/downloads.svg" alt="" />
                     <span>Download Brochure</span>
                   </div>
-                  <div class="compare">
+                  <div className="compare">
                     <img src="/images/compare.svg" alt="" />
                     <span>Compare</span>
                   </div>
                 </div>
-                <div class="apply-btn">
+                <div className="apply-btn">
                   <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="college-list-card" id="34">
-            <div class="title-section">
-              {/* <div class="img-box">
+          <div className="college-list-card" id="34">
+            <div className="title-section">
+              {/* <div className="img-box">
                 <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
                 </div> */}
-              <div class="heart"></div>
-              <div class="title-details">
+              <div className="heart"></div>
+              <div className="title-details">
                 <h2>B.E. / B.Tech</h2>
                 <div>
-                  {/* <span class="location">
+                  {/* <span className="location">
                             <img src="/images/map-icon.png" alt="" />
                             <span>Mumbai City, Maharashtra</span>
                         </span>
-                        <span class="tieup">AICTE, AIU, UGC</span> */}
-                  <span class="owner medium">25 Courses</span>
-                  <span class="rank bold green"># NIRF</span>
-                  <span class="rating">
+                        <span className="tieup">AICTE, AIU, UGC</span> */}
+                  <span className="owner medium">25 Courses</span>
+                  <span className="rank bold green"># NIRF</span>
+                  <span className="rating">
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
                     <img src="/images/star.png" alt="" />
@@ -680,8 +684,8 @@ function CollegeOverview(props) {
                 </div>
               </div>
             </div>
-            <div class="other-details">
-              <div class="highlights">
+            <div className="other-details">
+              <div className="highlights">
                 <div>
                   <span>Accepted Exams</span>
                   <span>ATMA, CAT, CMAT, GMAT, MAT, XAT</span>
@@ -700,21 +704,21 @@ function CollegeOverview(props) {
                 </div>
                 <div>
                   <span>Placement %</span>
-                  <span class="green">NA</span>
+                  <span className="green">NA</span>
                 </div>
               </div>
-              <div class="action-btns">
+              <div className="action-btns">
                 <div>
-                  <div class="download">
+                  <div className="download">
                     <img src="/images/downloads.svg" alt="" />
                     <span>Download Brochure</span>
                   </div>
-                  <div class="compare">
+                  <div className="compare">
                     <img src="/images/compare.svg" alt="" />
                     <span>Compare</span>
                   </div>
                 </div>
-                <div class="apply-btn">
+                <div className="apply-btn">
                   <button onClick={props.openModal}>Apply</button>
                 </div>
               </div>
@@ -726,193 +730,193 @@ function CollegeOverview(props) {
         </section>
 
         <section className="facilities mt-10">
-            <h2 className="font-bold text-2xl mb-5">Facilities</h2>
-            <ul>
-                <li>
-                  <img src={sports} style={{width: '50px'}}/>
-                  <span>Sports</span>
-                </li>
-                <li>
-                  <img src={hostel} style={{width: '50px'}}/>
-                  <span>Hostel</span>
-                </li>
-                <li>
-                  <img src={cafeteria} style={{width: '50px'}}/>
-                  <span>Cafeteria</span>
-                </li>
-                <li>
-                  <img src={library} style={{width: '50px'}}/>
-                  <span>Library</span>
-                </li>
-                <li>
-                  <img src={laboratory} style={{width: '50px'}}/>
-                  <span>Labs</span>
-                </li>
-                <li>
-                  <img src={gym} style={{width: '50px'}}/>
-                  <span>Gym</span>
-                </li>
-                <li>
-                  <img src={bank} style={{width: '50px'}}/>
-                  <span>Banks</span>
-                </li>
-                <li>
-                  <img src={complab} style={{width: '50px'}}/>
-                  <span>Computer Lab</span>
-                </li>
-                <li>
-                  <img src={cafeteria} style={{width: '50px'}}/>
-                  <span>Cafeteria</span>
-                </li>
-                <li>
-                  <img src={medical} style={{width: '50px'}}/>
-                  <span>Medical</span>
-                </li>
-                <li>
-                  <img src={transport} style={{width: '50px'}}/>
-                  <span>Transport</span>
-                </li>
-                <li>
-                  <img src={wifi} style={{width: '50px'}}/>
-                  <span>Wi Fi</span>
-                </li>
-            </ul>
+          <h2 className="font-bold text-2xl mb-5">Facilities</h2>
+          <ul>
+            <li>
+              <img src={sports} style={{ width: "50px" }} />
+              <span>Sports</span>
+            </li>
+            <li>
+              <img src={hostel} style={{ width: "50px" }} />
+              <span>Hostel</span>
+            </li>
+            <li>
+              <img src={cafeteria} style={{ width: "50px" }} />
+              <span>Cafeteria</span>
+            </li>
+            <li>
+              <img src={library} style={{ width: "50px" }} />
+              <span>Library</span>
+            </li>
+            <li>
+              <img src={laboratory} style={{ width: "50px" }} />
+              <span>Labs</span>
+            </li>
+            <li>
+              <img src={gym} style={{ width: "50px" }} />
+              <span>Gym</span>
+            </li>
+            <li>
+              <img src={bank} style={{ width: "50px" }} />
+              <span>Banks</span>
+            </li>
+            <li>
+              <img src={complab} style={{ width: "50px" }} />
+              <span>Computer Lab</span>
+            </li>
+            <li>
+              <img src={cafeteria} style={{ width: "50px" }} />
+              <span>Cafeteria</span>
+            </li>
+            <li>
+              <img src={medical} style={{ width: "50px" }} />
+              <span>Medical</span>
+            </li>
+            <li>
+              <img src={transport} style={{ width: "50px" }} />
+              <span>Transport</span>
+            </li>
+            <li>
+              <img src={wifi} style={{ width: "50px" }} />
+              <span>Wi Fi</span>
+            </li>
+          </ul>
         </section>
 
         <section className="news  mt-10">
           <h2 className="font-bold text-2xl mb-5">Related News and Events</h2>
           <div className="news-wrapper mb-5">
-            <div class="news-card">
-              <div class="heading">
+            <div className="news-card">
+              <div className="heading">
                 <h3>Maha TET Admit Card 2024 Live Updates</h3>
               </div>
-              <div class="date"></div>
-              <p class="details">
+              <div className="date"></div>
+              <p className="details">
                 Maha TET admit card 2024 will be released today, October 28,
                 2024. The Maha TET 2024 admit card will be available for
                 download till November 10, 2024.
               </p>
-              <hr class="hr-x" />
-              <span class="link">
+              <hr className="hr-x" />
+              <span className="link">
                 <a href="exam/maha-tet-admit-card-2024-live-updates">
                   Continue Reading...{" "}
                 </a>
               </span>
             </div>
-            <div class="news-card">
-              <div class="heading">
+            <div className="news-card">
+              <div className="heading">
                 <h3>Maha TET Admit Card 2024 Live Updates</h3>
               </div>
-              <div class="date"></div>
-              <p class="details">
+              <div className="date"></div>
+              <p className="details">
                 Maha TET admit card 2024 will be released today, October 28,
                 2024. The Maha TET 2024 admit card will be available for
                 download till November 10, 2024.
               </p>
-              <hr class="hr-x" />
-              <span class="link">
+              <hr className="hr-x" />
+              <span className="link">
                 <a href="exam/maha-tet-admit-card-2024-live-updates">
                   Continue Reading...{" "}
                 </a>
               </span>
             </div>
-            <div class="news-card">
-              <div class="heading">
+            <div className="news-card">
+              <div className="heading">
                 <h3>Maha TET Admit Card 2024 Live Updates</h3>
               </div>
-              <div class="date"></div>
-              <p class="details">
+              <div className="date"></div>
+              <p className="details">
                 Maha TET admit card 2024 will be released today, October 28,
                 2024. The Maha TET 2024 admit card will be available for
                 download till November 10, 2024.
               </p>
-              <hr class="hr-x" />
-              <span class="link">
+              <hr className="hr-x" />
+              <span className="link">
                 <a href="exam/maha-tet-admit-card-2024-live-updates">
                   Continue Reading...{" "}
                 </a>
               </span>
             </div>
-            <div class="news-card">
-              <div class="heading">
+            <div className="news-card">
+              <div className="heading">
                 <h3>Maha TET Admit Card 2024 Live Updates</h3>
               </div>
-              <div class="date"></div>
-              <p class="details">
+              <div className="date"></div>
+              <p className="details">
                 Maha TET admit card 2024 will be released today, October 28,
                 2024. The Maha TET 2024 admit card will be available for
                 download till November 10, 2024.
               </p>
-              <hr class="hr-x" />
-              <span class="link">
+              <hr className="hr-x" />
+              <span className="link">
                 <a href="exam/maha-tet-admit-card-2024-live-updates">
                   Continue Reading...{" "}
                 </a>
               </span>
             </div>
-            <div class="news-card">
-              <div class="heading">
+            <div className="news-card">
+              <div className="heading">
                 <h3>Maha TET Admit Card 2024 Live Updates</h3>
               </div>
-              <div class="date"></div>
-              <p class="details">
+              <div className="date"></div>
+              <p className="details">
                 Maha TET admit card 2024 will be released today, October 28,
                 2024. The Maha TET 2024 admit card will be available for
                 download till November 10, 2024.
               </p>
-              <hr class="hr-x" />
-              <span class="link">
+              <hr className="hr-x" />
+              <span className="link">
                 <a href="exam/maha-tet-admit-card-2024-live-updates">
                   Continue Reading...{" "}
                 </a>
               </span>
             </div>
-            <div class="news-card">
-              <div class="heading">
+            <div className="news-card">
+              <div className="heading">
                 <h3>Maha TET Admit Card 2024 Live Updates</h3>
               </div>
-              <div class="date"></div>
-              <p class="details">
+              <div className="date"></div>
+              <p className="details">
                 Maha TET admit card 2024 will be released today, October 28,
                 2024. The Maha TET 2024 admit card will be available for
                 download till November 10, 2024.
               </p>
-              <hr class="hr-x" />
-              <span class="link">
+              <hr className="hr-x" />
+              <span className="link">
                 <a href="exam/maha-tet-admit-card-2024-live-updates">
                   Continue Reading...{" "}
                 </a>
               </span>
             </div>
-            <div class="news-card">
-              <div class="heading">
+            <div className="news-card">
+              <div className="heading">
                 <h3>Maha TET Admit Card 2024 Live Updates</h3>
               </div>
-              <div class="date"></div>
-              <p class="details">
+              <div className="date"></div>
+              <p className="details">
                 Maha TET admit card 2024 will be released today, October 28,
                 2024. The Maha TET 2024 admit card will be available for
                 download till November 10, 2024.
               </p>
-              <hr class="hr-x" />
-              <span class="link">
+              <hr className="hr-x" />
+              <span className="link">
                 <a href="exam/maha-tet-admit-card-2024-live-updates">
                   Continue Reading...{" "}
                 </a>
               </span>
             </div>
-            <div class="news-card">
-              <div class="heading">
+            <div className="news-card">
+              <div className="heading">
                 <h3>Maha TET Admit Card 2024 Live Updates</h3>
               </div>
-              <div class="date"></div>
-              <p class="details">
+              <div className="date"></div>
+              <p className="details">
                 Maha TET admit card 2024 will be released today, October 28,
                 2024. The Maha TET 2024 admit card will be available for
                 download till November 10, 2024.
               </p>
-              <hr class="hr-x" />
-              <span class="link">
+              <hr className="hr-x" />
+              <span className="link">
                 <a href="exam/maha-tet-admit-card-2024-live-updates">
                   Continue Reading...{" "}
                 </a>
@@ -926,10 +930,13 @@ function CollegeOverview(props) {
 
         <section className="RelatedNews">
           {props.data.courses && (
-            <Relatedcolleges data={props.data} heading={'Related Colleges'} vtype="v" />
+            <Relatedcolleges
+              data={props.data}
+              heading={"Related Colleges"}
+              vtype="v"
+            />
           )}
         </section>
-
       </div>
     </>
   );
