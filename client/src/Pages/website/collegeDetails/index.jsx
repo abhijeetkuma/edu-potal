@@ -71,7 +71,7 @@ function CollegeDetails(props) {
         console.error(error);
       });
     axios
-      .get("/api/getsubcoursearr")
+      .get("/api/getsubcoursecollegearr")
       .then((response) => {
         setSubcoursearr(response.data);
       })
