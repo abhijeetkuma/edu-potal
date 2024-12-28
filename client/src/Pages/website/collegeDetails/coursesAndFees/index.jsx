@@ -27,65 +27,46 @@ function CollegeCoursesFees(props) {
     website,
   } = props.data;
 
-  const { courses } = props;
+    const {courses} = props;
 
-  return (
-    <>
-      <section className="courses-fees">
-        <h2 className="font-bold text-2xl mb-5">
-          Courses, Eligibility and Fees
-        </h2>
-        <table className="table-bordered">
-          <thead className="table-bordered-head">
-            <tr>
-              <th>Course</th>
-              <th>Fees</th>
-              <th>Eligibility</th>
-              <th>Total Seats</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          {/* {item.subcourseId}  */}
-          <tbody className="table-bordered-body">
-            {sub_course_details?.map((item, i) => (
-              <tr>
-                <td>
-                  {console.log("courses-----", courses[i].split(":"))}--
-                  {courses[i].split(":")[0]}
-                </td>
-                <td>{item.course_fee ? item.course_fee : "-"}</td>
-                <td>
-                  {item.subcourseselectiioneligibility
-                    ? item.subcourseselectiioneligibility
-                    : "-"}
-                </td>
-                <td>{item.course_seats ? item.course_seats : "-"}</td>
-                <td>
-                  <div className="">
-                    <button
-                      data-course-tag="18"
-                      data-csm-title="Apply Now"
-                      data-csm-track="true"
-                      data-csm-value="B.Tech"
-                      data-event-type="link_click"
-                      data-section_name="IIT Kharagpur Fees &amp; Eligibility"
-                      type="button"
-                      className=""
-                    >
-                      Apply Now
-                    </button>
-                    <div className=""></div>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <section className="courses college-list-wrapper">
-          <h2 className="font-bold text-2xl mb-5">All Programs</h2>
-          <div class="college-list-card" id="34">
-            <div class="title-section">
-              {/* <div class="img-box">
+    return (
+        <>
+            <section className="courses-fees">
+                <h2 className="font-bold text-2xl mb-5">Courses, Eligibility and Fees</h2>
+                <table className="table-bordered">
+                    <thead className="table-bordered-head">
+                        <tr>
+                            <th>Course</th>
+                            <th>Fees</th>
+                            <th>Eligibility</th>
+                            <th>Total Seats</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody className="table-bordered-body">
+                    {sub_course_details?.map((item, i)=> (
+                        <tr>
+                            <td>{courses[item.subcourseId]}</td>
+                            <td>{item.course_fee ? item.course_fee : '-'}</td>
+                            <td>{item.subcourseselectiioneligibility ? item.subcourseselectiioneligibility : '-'}</td>
+                            <td>{item.course_seats ? item.course_seats : '-'}</td>
+                            <td>
+                                <div className="">
+                                    <button data-course-tag="18" data-csm-title="Apply Now" data-csm-track="true" data-csm-value="B.Tech" data-event-type="link_click" data-section_name="IIT Kharagpur Fees &amp; Eligibility" type="button" className="">Apply Now
+                                    </button>
+                                    <div className=""></div>
+                                </div>
+                            </td>              
+                        </tr>
+                    )               
+                    )}
+                    </tbody>
+                </table>
+                <section className="courses college-list-wrapper">
+                    <h2 className="font-bold text-2xl mb-5">All Programs</h2>
+                    <div class="college-list-card" id="34">
+                        <div class="title-section">
+                        {/* <div class="img-box">
                             <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
                             </div> */}
               <div className="heart"></div>
