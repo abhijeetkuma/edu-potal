@@ -67,7 +67,7 @@ function Login(props) {
                         </div>
                         <div className="agreed">
                             <input type="checkbox" name="agree" id="agree" /> 
-                            <label htmlFor="agree">Yes, I have read and provide my consent for my information to be processed for the purpose as mentioned in the Privacy.</label>
+                            <label htmlFor="agree">Yes, I have read and provide my consent for my information to be processed for the purpose as mentioned in the <a href="/cms/privacy-policy" className="underline">Privacy</a>.</label>
                         </div>
 
                         <button type="button">Apply Now</button>
