@@ -211,34 +211,39 @@ function CollegeDetails(props) {
             <ul className="phCards">
               <li>
                 <p>
-                  <h2 className="font-bold pb-1 text-2xl text-center">
+                  <h2 className="headingSeaGreen font-bold pb-1 text-2xl text-center mb-2">
                     Placement Highlights
                   </h2>
                 </p>
-              </li>
-              <li>
-                <p>
-                  <b>{displaycollegdetail.totalplacementratio}</b>
-                </p>
-                <span>Total Placement Ratio</span>
-              </li>
-              <li>
-                <p>
-                  <b>{displaycollegdetail.averageplacementrecord}</b>
-                </p>
-                <span>Average Placement Record</span>
-              </li>
-              <li>
-                <p>
-                  <b>{displaycollegdetail.higestplacementrecord}</b>
-                </p>
-                <span>Higest Placement Record</span>
-              </li>
-              <li>
-                <p>
-                  <b>{displaycollegdetail.lowestplacementrecord}</b>
-                </p>
-                <span>Lowest Placement Record</span>
+
+                <div>
+                  <p>
+                    <b>{displaycollegdetail.totalplacementratio}</b>
+                  </p>
+                  <span>Total Placement Ratio</span>
+                </div>
+
+                <div>
+                  <p>
+                    <b>{displaycollegdetail.averageplacementrecord}</b>
+                  </p>
+                  <span>Average Placement Record</span>
+                </div>
+
+                <div>
+                  <p>
+                    <b>{displaycollegdetail.higestplacementrecord}</b>
+                  </p>
+                  <span>Higest Placement Record</span>
+                </div>
+
+                <div>
+                    <div className="compare" onClick={openModal}>
+                      {/* <img src="/images/compare.svg" alt="" /> */}
+                      <img src="/images/downloads.svg" alt="" />
+                      <span>Latest Placements</span>
+                    </div>
+                </div>
               </li>
             </ul>
 
@@ -247,32 +252,33 @@ function CollegeDetails(props) {
             <ul className="phCards">
               <li>
                 <p>
-                  <h2 className="font-bold pb-1 text-2xl text-center">
+                  <h2 className="headingSeaGreen font-bold pb-1 text-2xl text-center mb-2">
                     Top Courses
                   </h2>
                 </p>
-              </li>
-              <li>
-                <p>
-                  <b>{"B.Tech"}</b>
-                </p>
-              </li>
-              <li>
-                <p>
-                  <b>{"BCA"}</b>
-                </p>
+                <div>
+                  <p>
+                    <b>{"B.Tech"}</b>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <b>{"BCA"}</b>
+                  </p>
+                </div>
               </li>
             </ul>
 
             <hr style={{ color: "#32325d40", margin: "15px" }} />
 
-            <GetHelp heading={"Let Us Help You"} openModal={openModal} />
+            <GetHelp heading={"Let Us Help You"} openModal={openModal} headingClass={'headingSeaGreen'} />
 
             {displaycollegdetail.courses && (
               <div className="relatedColg">
                 <Relatedcolleges
                   data={displaycollegdetail}
                   heading={"Top Viewed Colleges"}
+                  headingClass={'headingSeaGreen'}
                   vtype="v"
                 />
               </div>

@@ -85,8 +85,8 @@ function CollegeOverview(props) {
           </ul>
         </section> */}
 
-        <section className="about mt-10">
-          <h2 className="font-bold text-2xl">About</h2>
+        <section className="about">
+          <h2 className="font-bold text-2xl">About {college_name}</h2>
           <p
             className="mt-2"
             dangerouslySetInnerHTML={{ __html: college_descripton }}
@@ -150,7 +150,7 @@ function CollegeOverview(props) {
                   <h2>{courses[item.subcourseId]}</h2>
                   <div>
                     {/* <span className="owner medium">25 Courses</span> */}
-                    <span className="rank bold green"># NIRF</span>
+                    {/* <span className="rank bold green"># NIRF</span> */}
                     <span className="rating">
                       <img src="/images/star.png" alt="" />
                       <img src="/images/star.png" alt="" />
@@ -191,8 +191,9 @@ function CollegeOverview(props) {
                       <span>Download Brochure</span>
                     </div>
                     <div className="compare" onClick={openModal}>
-                      <img src="/images/compare.svg" alt="" />
-                      <span>Compare</span>
+                      {/* <img src="/images/compare.svg" alt="" /> */}
+                      <img src="/images/downloads.svg" alt="" />
+                      <span>Latest Placements</span>
                     </div>
                   </div>
                   <div className="apply-btn">
@@ -261,6 +262,16 @@ function CollegeOverview(props) {
               <span>Wi Fi</span>
             </li>
           </ul>
+        </section>
+
+        <section className="RelatedNews">
+          {props.data.courses && (
+            <Relatedcolleges
+              data={props.data}
+              heading={"Related Colleges"}
+              vtype="v"
+            />
+          )}
         </section>
 
         <section className="news  mt-10">
@@ -407,84 +418,9 @@ function CollegeOverview(props) {
             View All News and Events
           </Link>
         </section>
-
-        <section className="RelatedNews">
-          {props.data.courses && (
-            <Relatedcolleges
-              data={props.data}
-              heading={"Related Colleges"}
-              vtype="v"
-            />
-          )}
-        </section>
       </div>
     </>
   );
 }
 
 export default CollegeOverview;
-
-{
-  /* <section>
-        <div className="font-bold text-2xl pb-3 pt-3">{college_name}</div>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: college_descripton,
-          }}
-        ></div>
-        <div className="font-bold text-2xl pb-3 pt-3">Courses</div>
-        <p>{courses_name}</p>
-        <div className="font-bold text-2xl pb-3 pt-3">Faculty Profile</div>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: facultyprofile,
-          }}
-        ></div>
-        <div className="font-bold text-2xl pb-3 pt-3">Placements</div>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: placement_overview,
-          }}
-        ></div>
-
-        <ul>
-          <li>
-            <b>Total Placement Ratio :</b> {totalplacementratio}
-          </li>
-          <li>
-            <b>Average Placement Record :</b>
-            {averageplacementrecord}
-          </li>
-          <li>
-            <b>Higest Placement Record :</b>
-            {higestplacementrecord}
-          </li>
-          <li>
-            <b>Lowest Placement Record :</b>
-            {lowestplacementrecord}
-          </li>
-          <li>
-            <b>Top Recruiters :</b> {toprecruiters}
-          </li>
-          <li>
-            <b>Top Recruiting Sectors :</b>
-            {toprecuitingsectors}
-          </li>
-          <li>
-            <b>Top Profile :</b> {topprofile}
-          </li>
-        </ul>
-        <div className="font-bold text-2xl pb-3 pt-3">Facility Avaible</div>
-        <p>{facility_available}</p>
-        <div className="font-bold text-2xl pb-3 pt-3">Address</div>
-        <p>
-          {address} {address2}
-          {city_name}, {state_name}
-          {pincode}
-        </p>
-        <p>{email && "Email: " + email}</p>
-        <p>{contactno && "Contact: " + contactno}</p>
-        <p>{website && "Website: " + website}</p>
-        {/*courses && <Relatedcolleges data={props.data} vtype="v" />
-        </section> */
-}

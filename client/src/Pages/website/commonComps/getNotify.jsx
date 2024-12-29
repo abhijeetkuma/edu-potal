@@ -2,33 +2,40 @@ import React, { useState, useEffect } from "react";
 import studentIcon from "/images/students-icon.svg";
 import emailIcon from "/images/email-icon.svg";
 import phoneIcon from "/images/phone-icon.svg";
+import mapIcon from "/images/map-icon.png";
 
 function GetHelp(props) {
-    const {heading, inlineStyle, openModal} = props;
+    const {heading, headingClass, openModal} = props;
 
     return(
         <>
             <section className="container get-help">
-            <div className="head-line">{heading}</div>
+            <div className={`head-line ${headingClass}`}>{heading}</div>
             <form action="">
                 <div className="get-help-container">
                 <div className="form-element">
                     <span>
                     <img src={studentIcon} alt="" />
                     </span>
-                    <input type="text" name="" id="" placeholder="Enter your Name" />
+                    <input type="text" name="" id="" placeholder="Enter Your Name" />
                 </div>
                 <div className="form-element">
                     <span>
                     <img src={emailIcon} alt="" />
                     </span>
-                    <input type="text" name="" id="" placeholder="Enter your email" />
+                    <input type="email" name="" id="" placeholder="Enter Your Email" />
                 </div>
                 <div className="form-element">
                     <span>
                     <img src={phoneIcon} alt="" />
                     </span>
-                    <input type="text" name="" id="" placeholder="Enter your phone" />
+                    <input type="text" name="" id="" placeholder="Enter Your Phone" />
+                </div>
+                <div className="form-element">
+                    <span>
+                    <img src={mapIcon} alt="" />
+                    </span>
+                    <input type="text" name="" id="" placeholder="Enter Your City" />
                 </div>
                 <div className="form-element">
                     <span>
