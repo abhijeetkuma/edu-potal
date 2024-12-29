@@ -27,7 +27,7 @@ function CollegeCoursesFees(props) {
     website,
   } = props.data;
 
-    const {courses} = props;
+    const {courses, openModal} = props;
 
     return (
         <>
@@ -52,7 +52,7 @@ function CollegeCoursesFees(props) {
                             <td>{item.course_seats ? item.course_seats : '-'}</td>
                             <td>
                                 <div className="">
-                                    <button data-course-tag="18" data-csm-title="Apply Now" data-csm-track="true" data-csm-value="B.Tech" data-event-type="link_click" data-section_name="IIT Kharagpur Fees &amp; Eligibility" type="button" className="">Apply Now
+                                    <button data-course-tag="18" data-csm-title="Apply Now" data-csm-track="true" data-csm-value="B.Tech" data-event-type="link_click" data-section_name="IIT Kharagpur Fees &amp; Eligibility" type="button" className="" onClick={openModal}>Apply Now
                                     </button>
                                     <div className=""></div>
                                 </div>
@@ -64,366 +64,67 @@ function CollegeCoursesFees(props) {
                 </table>
                 <section className="courses college-list-wrapper">
                     <h2 className="font-bold text-2xl mb-5">All Programs</h2>
-                    <div class="college-list-card" id="34">
-                        <div class="title-section">
-                        {/* <div class="img-box">
-                            <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
-                            </div> */}
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>M.Sc</h2>
-                <div>
-                  {/* <span className="location">
-                                        <img src="/images/map-icon.png" alt="" />
-                                        <span>Mumbai City, Maharashtra</span>
-                                    </span>
-                                    <span className="tieup">AICTE, AIU, UGC</span> */}
-                  <span className="owner medium">25 Courses</span>
-                  <span className="rank bold green"># NIRF</span>
-                  <span className="rating">
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Eligibility</span>
-                  <span>10+2</span>
-                </div>
-                <div>
-                  <span>Total Seats</span>
-                  <span>40</span>
-                </div>
-                <div>
-                  <span>Durations / Time</span>
-                  <span>4 Years / Regular</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span>
-                    <b>10 L - 12 L</b>
-                  </span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> -</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">NA</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src="/images/downloads.svg" alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  {/* <div className="compare">
-                                <img src="/images/compare.svg" alt="" />
-                                <span>Compare</span>
-                            </div> */}
-                  <div className="apply-btn">
-                    <button>Apply</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="college-list-card" id="34">
-            <div className="title-section">
-              {/* <div className="img-box">
-                            <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
-                            </div> */}
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>M.Sc</h2>
-                <div>
-                  {/* <span className="location">
-                                        <img src="/images/map-icon.png" alt="" />
-                                        <span>Mumbai City, Maharashtra</span>
-                                    </span>
-                                    <span className="tieup">AICTE, AIU, UGC</span> */}
-                  <span className="owner medium">25 Courses</span>
-                  <span className="rank bold green"># NIRF</span>
-                  <span className="rating">
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Eligibility</span>
-                  <span>10+2</span>
-                </div>
-                <div>
-                  <span>Total Seats</span>
-                  <span>40</span>
-                </div>
-                <div>
-                  <span>Durations / Time</span>
-                  <span>4 Years / Regular</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span>
-                    <b>10 L - 12 L</b>
-                  </span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> -</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">NA</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src="/images/downloads.svg" alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  {/* <div className="compare">
-                                <img src="/images/compare.svg" alt="" />
-                                <span>Compare</span>
-                            </div> */}
-                  <div className="apply-btn">
-                    <button>Apply</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="college-list-card" id="34">
-            <div className="title-section">
-              {/* <div className="img-box">
-                            <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
-                            </div> */}
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>M.Sc</h2>
-                <div>
-                  {/* <span className="location">
-                                        <img src="/images/map-icon.png" alt="" />
-                                        <span>Mumbai City, Maharashtra</span>
-                                    </span>
-                                    <span className="tieup">AICTE, AIU, UGC</span> */}
-                  <span className="owner medium">25 Courses</span>
-                  <span className="rank bold green"># NIRF</span>
-                  <span className="rating">
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Eligibility</span>
-                  <span>10+2</span>
-                </div>
-                <div>
-                  <span>Total Seats</span>
-                  <span>40</span>
-                </div>
-                <div>
-                  <span>Durations / Time</span>
-                  <span>4 Years / Regular</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span>
-                    <b>10 L - 12 L</b>
-                  </span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> -</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">NA</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src="/images/downloads.svg" alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  {/* <div className="compare">
-                                <img src="/images/compare.svg" alt="" />
-                                <span>Compare</span>
-                            </div> */}
-                  <div className="apply-btn">
-                    <button>Apply</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="college-list-card" id="34">
-            <div className="title-section">
-              {/* <div className="img-box">
-                            <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
-                            </div> */}
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>M.Sc</h2>
-                <div>
-                  {/* <span className="location">
-                                        <img src="/images/map-icon.png" alt="" />
-                                        <span>Mumbai City, Maharashtra</span>
-                                    </span>
-                                    <span className="tieup">AICTE, AIU, UGC</span> */}
-                  <span className="owner medium">25 Courses</span>
-                  <span className="rank bold green"># NIRF</span>
-                  <span className="rating">
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Eligibility</span>
-                  <span>10+2</span>
-                </div>
-                <div>
-                  <span>Total Seats</span>
-                  <span>40</span>
-                </div>
-                <div>
-                  <span>Durations / Time</span>
-                  <span>4 Years / Regular</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span>
-                    <b>10 L - 12 L</b>
-                  </span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> -</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">NA</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src="/images/downloads.svg" alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  {/* <div className="compare">
-                                <img src="/images/compare.svg" alt="" />
-                                <span>Compare</span>
-                            </div> */}
-                  <div className="apply-btn">
-                    <button>Apply</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="college-list-card" id="34">
-            <div className="title-section">
-              {/* <div className="img-box">
-                            <img src="https://timesofcollege.com/assets/logo_1730984798442-86567989logo-B8_AwyHu.png" alt="ATLAS SkillTech University" />
-                            </div> */}
-              <div className="heart"></div>
-              <div className="title-details">
-                <h2>M.Sc</h2>
-                <div>
-                  {/* <span className="location">
-                                        <img src="/images/map-icon.png" alt="" />
-                                        <span>Mumbai City, Maharashtra</span>
-                                    </span>
-                                    <span className="tieup">AICTE, AIU, UGC</span> */}
-                  <span className="owner medium">25 Courses</span>
-                  <span className="rank bold green"># NIRF</span>
-                  <span className="rating">
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                    <img src="/images/star.png" alt="" />
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="other-details">
-              <div className="highlights">
-                <div>
-                  <span>Eligibility</span>
-                  <span>10+2</span>
-                </div>
-                <div>
-                  <span>Total Seats</span>
-                  <span>40</span>
-                </div>
-                <div>
-                  <span>Durations / Time</span>
-                  <span>4 Years / Regular</span>
-                </div>
-                <div>
-                  <span>Total Fees Range</span>
-                  <span>
-                    <b>10 L - 12 L</b>
-                  </span>
-                </div>
-                <div>
-                  <span>Package Range</span>
-                  <span> -</span>
-                </div>
-                <div>
-                  <span>Placement %</span>
-                  <span className="green">NA</span>
-                </div>
-              </div>
-              <div className="action-btns">
-                <div>
-                  <div className="download">
-                    <img src="/images/downloads.svg" alt="" />
-                    <span>Download Brochure</span>
-                  </div>
-                  {/* <div className="compare">
-                                <img src="/images/compare.svg" alt="" />
-                                <span>Compare</span>
-                            </div> */}
-                  <div className="apply-btn">
-                    <button>Apply</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                    {sub_course_details?.map((item, i) => (
+                    <div className="college-list-card" id="34">
+                    <div className="title-section">
+                        <div className="heart"></div>
+                        <div className="title-details">
+                        <h2>{courses[item.subcourseId]}</h2>
+                        <div>
+                            {/* <span className="owner medium">25 Courses</span> */}
+                            <span className="rank bold green"># NIRF</span>
+                            <span className="rating">
+                            <img src="/images/star.png" alt="" />
+                            <img src="/images/star.png" alt="" />
+                            <img src="/images/star.png" alt="" />
+                            <img src="/images/star.png" alt="" />
+                            <img src="/images/star.png" alt="" />
+                            </span>
+                        </div>
+                        </div>
+                    </div>
+                    <div className="other-details">
+                        <div className="highlights">
+                        <div>
+                            <span>Accepted Exams</span>
+                            <span className="text-center">ATMA, CAT, CMAT, GMAT, MAT, XAT</span>
+                        </div>
+                        <div>
+                            <span>Total Fees</span>
+                            <span className="text-center"><b>{item.course_fee}</b></span>
+                        </div>
+                        <div>
+                            <span>Eligibility</span>
+                            <span className="text-center">{item.subcourseselectiioneligibility}</span>
+                        </div>
+                        <div>
+                            <span>Course Duration</span>
+                            <span className="text-center">{item.course_duration} Years</span>
+                        </div>
+                        <div>
+                            <span>Available Seats</span>
+                            <span className="text-center">{item.course_seats}</span>
+                        </div>
+                        </div>
+                        <div className="action-btns">
+                        <div>
+                            <div className="download" onClick={openModal}>
+                            <img src="/images/downloads.svg" alt="" />
+                            <span>Download Brochure</span>
+                            </div>
+                            <div className="compare" onClick={openModal}>
+                            <img src="/images/compare.svg" alt="" />
+                            <span>Compare</span>
+                            </div>
+                        </div>
+                        <div className="apply-btn">
+                            <button onClick={openModal}>Apply</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    ))
+                    }
         </section>
       </section>
     </>

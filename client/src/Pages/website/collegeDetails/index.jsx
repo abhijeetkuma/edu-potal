@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { getImageURL } from "../../../utils/utils-image";
 import Relatedcolleges from "../college/relatedcolleges";
 import Relatednews from "../college/relatednews";
+import GetHelp from "../commonComps/getNotify";
 import Login from "../commonComps/login";
 import Modal from "../commonComps/modal";
 
@@ -156,11 +157,11 @@ function CollegeDetails(props) {
               </span>
             </div>
             <div className="action-btns">
-              <div className="download">
+              <div className="download" onClick={() => openModal()}>
                 <img src={downlaod} alt="" />
                 <span>Download Brochure</span>
               </div>
-              <div className="compare">
+              <div className="compare" onClick={() => openModal()}>
                 <img src={compare} alt="" />
                 <span>Compare Colleges</span>
               </div>
@@ -265,6 +266,8 @@ function CollegeDetails(props) {
 
             <hr style={{ color: "#32325d40", margin: "15px" }} />
 
+            <GetHelp heading={"Let Us Help You"} openModal={openModal} />
+
             {displaycollegdetail.courses && (
               <div className="relatedColg">
                 <Relatedcolleges
@@ -275,7 +278,6 @@ function CollegeDetails(props) {
               </div>
             )}
 
-            {/* <Login heading={"Let Us Help You"} /> */}
 
             <div className="ads">
               <img src={adsImg} alt="" />

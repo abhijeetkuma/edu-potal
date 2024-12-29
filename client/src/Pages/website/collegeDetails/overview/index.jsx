@@ -51,7 +51,7 @@ function CollegeOverview(props) {
     sub_course_details
   } = props.data;
 
-  const {courses} = props;
+  const {courses, openModal} = props;
 
   return (
     <>
@@ -186,17 +186,17 @@ function CollegeOverview(props) {
                 </div>
                 <div className="action-btns">
                   <div>
-                    <div className="download">
+                    <div className="download" onClick={openModal}>
                       <img src="/images/downloads.svg" alt="" />
                       <span>Download Brochure</span>
                     </div>
-                    <div className="compare">
+                    <div className="compare" onClick={openModal}>
                       <img src="/images/compare.svg" alt="" />
                       <span>Compare</span>
                     </div>
                   </div>
                   <div className="apply-btn">
-                    <button onClick={props.openModal}>Apply</button>
+                    <button onClick={openModal}>Apply</button>
                   </div>
                 </div>
               </div>
