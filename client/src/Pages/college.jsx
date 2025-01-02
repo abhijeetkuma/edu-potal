@@ -1821,7 +1821,6 @@ function College() {
                 htmlFor="application_open"
                 className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
-                {editdata.application_open}
                 <input
                   type="checkbox"
                   name="application_open"
@@ -1830,7 +1829,7 @@ function College() {
                   onClick={applicationopenCheck}
                   onChange={handleChangeFormdata}
                   //onChange={(e) => handleCheckBox(e, i)}
-                  defaultChecked={editdata.application_open ? true : false}
+                  defaultChecked={editdata.application_open === 'Y' ? true : false}
                   className="py-2 text-sm font-semibold"
                 />
                 Application Open

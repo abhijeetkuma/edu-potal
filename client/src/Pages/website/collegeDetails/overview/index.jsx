@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Relatedcolleges from "../../college/relatedcolleges";
+import Rating from "../../commonComps/ratings";
+import Contact from "../../commonComps/contact";
 import adsImg from "/images/ads.svg";
 import mapIcon from "/images/map-icon.png";
 
@@ -264,6 +266,16 @@ function CollegeOverview(props) {
           </ul>
         </section>
 
+        <section className="rating  mt-10">
+          <h2 className="font-bold text-2xl mb-5">Rating</h2>
+          <Rating data={props.data} />
+        </section>
+
+        <section className="address mt-10">
+          <h2 className="font-bold text-2xl mb-5">Address/Contact</h2>
+          <Contact data={props.data} modelOpen={openModal} />
+        </section>
+
         <section className="RelatedNews">
           {props.data.courses && (
             <Relatedcolleges
@@ -414,7 +426,7 @@ function CollegeOverview(props) {
               </span>
             </div>
           </div>
-          <Link className="viewAll-btn" to={""}>
+          <Link className="viewAll-btn" to={"/exams"}>
             View All News and Events
           </Link>
         </section>

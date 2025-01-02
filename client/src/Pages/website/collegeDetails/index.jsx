@@ -128,7 +128,7 @@ function CollegeDetails(props) {
               <li>
                 <span className="clg-rating">
                   <img src={star} alt="" />
-                  <span>4.5 (55)</span>
+                  <span><b>{displaycollegdetail.total_rating ? displaycollegdetail.total_rating.slice(0,3) : '0'}</b> /10</span>
                 </span>
               </li>
               <li>
@@ -181,26 +181,26 @@ function CollegeDetails(props) {
             <CollegeCoursesFees data={displaycollegdetail} courses={subcoursearr} openModal={openModal} />
           )}
           {tabName === "admissions" && (
-            <CollegeAdmissions data={displaycollegdetail} />
+            <CollegeAdmissions data={displaycollegdetail} openModal={openModal} />
           )}
           {tabName === "placements" && (
-            <CollegePlacements data={displaycollegdetail} />
+            <CollegePlacements data={displaycollegdetail} openModal={openModal} />
           )}
           {tabName === "scholarships" && (
-            <CollegeScholarships data={displaycollegdetail} />
+            <CollegeScholarships data={displaycollegdetail} openModal={openModal} />
           )}
           {tabName === "faculties" && (
-            <CollegeFaculties data={displaycollegdetail} />
+            <CollegeFaculties data={displaycollegdetail} openModal={openModal} />
           )}
           {tabName === "gallery" && (
-            <CollegeGallery data={displaycollegdetail} />
+            <CollegeGallery data={displaycollegdetail} openModal={openModal} />
           )}
           {tabName === "reviews" && (
-            <CollegeReviews data={displaycollegdetail} />
+            <CollegeReviews data={displaycollegdetail} openModal={openModal} />
           )}
-          {tabName === "news" && <CollegeNews data={displaycollegdetail} />}
+          {tabName === "news" && <CollegeNews data={displaycollegdetail} openModal={openModal} />}
           {tabName === "question-answer" && (
-            <CollegeQuesAns data={displaycollegdetail} />
+            <CollegeQuesAns data={displaycollegdetail} openModal={openModal} />
           )}
           {/* {displaycollegdetail.courses && (
             <Relatedcolleges data={displaycollegdetail} vtype="v" />

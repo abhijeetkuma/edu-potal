@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 
 import Relatedcolleges from "../../college/relatedcolleges";
+import Rating from "../../commonComps/ratings";
+import Contact from "../../commonComps/contact";
 
 import sports from "../../../../../public/images/facility/sports.png";
 import auditorium from "../../../../../public/images/facility/auditorium.png";
@@ -42,6 +44,8 @@ function CollegeFaculties(props) {
         contactno,
         website,
     } = props.data
+
+    const {openModal} = props;
 
     return(
         <>
@@ -105,6 +109,16 @@ function CollegeFaculties(props) {
               <span>Wi Fi</span>
             </li>
           </ul>
+        </section>
+
+        <section className="rating  mt-10">
+          <h2 className="font-bold text-2xl mb-5">Rating</h2>
+          <Rating data={props.data} />
+        </section>
+
+        <section className="address mt-10">
+          <h2 className="font-bold text-2xl mb-5">Address/Contact</h2>
+          <Contact data={props.data} modelOpen={openModal} />
         </section>
 
         <section className="RelatedNews">

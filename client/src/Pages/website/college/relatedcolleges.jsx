@@ -61,7 +61,7 @@ function Relatedcolleges(props) {
           </div>
         ))}
     </div>
-    <Link className="viewAll-btn" to={""}>
+    <Link className="viewAll-btn" to={"/listing"}>
       View All Related Collages
     </Link>
     </>

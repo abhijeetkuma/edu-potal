@@ -832,10 +832,14 @@ header.website-wrapper {
           color: #393555;
           h2 {
             padding-top: 15px;
+            text-align: center;
           }
           .related-colleges {
             justify-content: center;
             gap: 0px;
+          }
+          .viewAll-btn {
+            display: none;
           }
         }
         .phCards {
@@ -1155,6 +1159,49 @@ header.website-wrapper {
           font-size: 24px;
         }
       } */
+    }
+
+    .rating-wrapper {
+      ul {
+        display: flex;
+        column-gap: 100px;
+        flex-wrap: wrap;
+        li {
+            width: 40%;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 5px;
+            span {
+                img {
+                    width:15px;
+                    height: 15px;
+                }
+                display: flex;
+                align-items: baseline;
+                gap: 5px;
+            }
+        }
+      }
+    }
+
+    .contact-wrapper {
+      ul {
+          li {
+              display:flex;
+              column-gap: 20px;
+              padding: 15px 5px;
+              span {
+                  min-width: 100px;
+                  &:first-child {
+                      /* min-width:25px; */
+                      display: none;
+                  }
+                  &:last-child {
+                      margin-left: 100px;
+                  }
+              }
+          }
+      }
     }
 
     .placementHighlights {
