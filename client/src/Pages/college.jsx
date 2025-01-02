@@ -108,6 +108,7 @@ function College() {
   const [courseActive, setCourseActive] = useState();
   const [ratingActive, setRatingActive] = useState();
   const [successmsg, setSuccessmsg] = useState();
+  const [appopenvalue, setAppopenvalue] = useState();
 
   //const [editdata, setEditdata] = useState([]);
   const [editdata, setEditdata] = useState({
@@ -121,6 +122,8 @@ function College() {
     meta_title: "",
     meta_description: "",
     meta_keyword: "",
+    coupon_code: "",
+    application_open: "",
     address: "",
     address2: "",
     landmark: "",
@@ -350,7 +353,7 @@ function College() {
       [name]: value,
     }));
   };
-
+  console.log("edit", editdata);
   const handleSubcoursesClick = (e) => {
     setSubcoursesoptions([
       ...subcoursesoptions,
@@ -434,6 +437,8 @@ function College() {
       usp_remark,
       meta_title,
       meta_keyword,
+      coupon_code,
+      application_open,
       meta_description,
       found_year,
       intake,
@@ -489,6 +494,8 @@ function College() {
         college_descripton: collegedescvalue,
         meta_title: meta_title.value,
         meta_keyword: meta_keyword.value,
+        coupon_code: coupon_code.value,
+        application_open: application_open.value ? application_open.value : "",
         meta_description: meta_description.value,
         display_type: display_type.value,
         //highlights: highLights,
@@ -580,6 +587,8 @@ function College() {
     formData.append("exams", examvalue.join(","));
     formData.append("meta_title", event.target.meta_title.value);
     formData.append("meta_keyword", event.target.meta_keyword.value);
+    formData.append("coupon_code", event.target.coupon_code.value);
+    formData.append("application_open", appopenvalue);
     formData.append("meta_description", event.target.meta_description.value);
     formData.append("old_logo", event.target.old_logo.value);
     formData.append("old_banner", event.target.old_banner.value);
@@ -1163,7 +1172,16 @@ function College() {
     }
     //setExamvalue(exam_array);
   };
-
+  const applicationopenCheck = (event) => {
+    let index = examvalue.indexOf(event.target.value);
+    if (event.target.checked) {
+      setAppopenvalue(event.target.value);
+    } else {
+      //setExamvalue();
+      setAppopenvalue("");
+    }
+  };
+  console.log("appopenvalue", appopenvalue);
   const courseCheck = (event) => {
     //var course_array = [...coursevalue];
     if (event.target.checked) {
@@ -1778,6 +1796,45 @@ function College() {
                   required
                 />
               </div>
+            </div>
+            <div className="sm:col-span-4 pb-2">
+              <label
+                htmlFor="coupon_code"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
+              >
+                Coupon Code
+              </label>
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-1">
+                <input
+                  id="coupon_code"
+                  name="coupon_code"
+                  type="text"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  value={editdata.coupon_code && editdata.coupon_code}
+                  onChange={handleChangeFormdata}
+                  required
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 pb-2">
+              <label
+                htmlFor="application_open"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
+              >
+                {editdata.application_open}
+                <input
+                  type="checkbox"
+                  name="application_open"
+                  id="application_open"
+                  value="Y"
+                  onClick={applicationopenCheck}
+                  onChange={handleChangeFormdata}
+                  //onChange={(e) => handleCheckBox(e, i)}
+                  defaultChecked={editdata.application_open ? true : false}
+                  className="py-2 text-sm font-semibold"
+                />
+                Application Open
+              </label>
             </div>
             <div className="sm:col-span-4 pb-2">
               <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
