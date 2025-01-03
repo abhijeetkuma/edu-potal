@@ -353,7 +353,7 @@ function College() {
       [name]: value,
     }));
   };
-  console.log("edit", editdata);
+
   const handleSubcoursesClick = (e) => {
     setSubcoursesoptions([
       ...subcoursesoptions,
@@ -405,11 +405,6 @@ function College() {
       .replace(/[_\s]/g, "-")
       .replace(/[^a-z0-9-\s]/gi, "");
     editdata.college_url = collegeurl.toLowerCase();
-    console.log(
-      "college new url-->",
-      collegeurl.toLowerCase(),
-      editdata.college_url
-    );
   };
 
   //console.log("college edit url", editdata.college_url);
@@ -1181,7 +1176,7 @@ function College() {
       setAppopenvalue("");
     }
   };
-  console.log("appopenvalue", appopenvalue);
+
   const courseCheck = (event) => {
     //var course_array = [...coursevalue];
     if (event.target.checked) {
@@ -1196,7 +1191,7 @@ function College() {
     axios
       .get(apiurl + "/fetchsubcourese/" + selectedcourse_id)
       .then((response) => {
-        console.log("sub course data-->", response.data);
+        //console.log("sub course data-->", response.data);
         var subcorarrs = subcorarr.concat(response.data);
         //setSubcoursesarr(response.data);
         setSubcoursesarr(subcorarrs);
@@ -1951,13 +1946,6 @@ function College() {
             </div>
 
             <div className="sm:col-span-4">
-              <div>
-                {console.log(
-                  "Sub course data =-=-=-=-=-=",
-                  editdata.subcoursesoptions,
-                  subcoursesoptions
-                )}
-              </div>
               {subcoursesoptions.map((item, i) => (
                 <>
                   <div className="flex mb-2" key={`key-${i}`}>
@@ -2173,7 +2161,6 @@ function College() {
               </div>
             </div>
             <div className="sm:col-span-4">
-              <div>{console.log("data=-=-=-=-=-=", editdata.highLights)}</div>
               {highLights.map((item, i) => (
                 <>
                   <div className="flex mb-2" key={`key-${i}`}>

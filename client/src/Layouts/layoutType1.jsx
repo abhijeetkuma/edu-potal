@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Outlet, NavLink, Link } from "react-router-dom";
+import axios from "axios";
 
 import logo from "/images/logo.png";
 import "./layoutType1.css";
 import "./responsive.css";
-
+console.log("test");
 function LayoutType1(props) {
+  const [menulist, setMenulist] = useState([]);
+  useEffect(() => {
+    axios
+      .get("/api/getmenulisting/" + localStorage.login_id)
+      .then((response) => {
+        setMenulist(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
   const renderProfile = () => (
     <div className="relative inline-block text-left">
       <div>
@@ -98,7 +110,18 @@ function LayoutType1(props) {
         <div className="sidebar relative flex flex-col bg-white text-gray-700 h-100vh p-4 shadow-xl shadow-blue-gray-900/5">
           <aside id="sidebar">
             <ul>
-              <li>
+              {menulist.map((item, i) => (
+                <li key={i}>
+                  <NavLink
+                    to={item.module_link}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    {item.module_title}
+                  </NavLink>
+                </li>
+              ))}
+              {/*  
+               <li>
                 <NavLink
                   to={`/admin`}
                   className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
@@ -210,14 +233,7 @@ function LayoutType1(props) {
                   Location
                 </NavLink>
               </li>
-              {/*  <li>
-                <NavLink
-                  to={`exam`}
-                  className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
-                >
-                  Exam
-                </NavLink>
-              </li> */}
+             
               <li>
                 <NavLink
                   to={`newsnevent`}
@@ -257,7 +273,7 @@ function LayoutType1(props) {
                 >
                   Advertisement
                 </NavLink>
-              </li>
+              </li>*/}
             </ul>
           </aside>
         </div>

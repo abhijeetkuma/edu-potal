@@ -1025,6 +1025,29 @@ const getCourses = async () => {
     throw new Error("Internal server error");
   }
 };
+const getMenurolewise = async (login_id) => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "select m.module_link, m.module_title from adminusers au JOIN roles r ON au.rol_id::int = r.rol_id JOIN modules m ON m.mod_id = any(string_to_array(r.modules_access_ids,',')::int[]) WHERE au.au_id=$1 ORDER BY m.module_disp_position ASC",
+        [login_id],
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
 //get country array
 const getCountryarr = async () => {
   try {
@@ -2002,4 +2025,5 @@ module.exports = {
   updateCMS,
   getNotificationlisting,
   updateRating,
+  getMenurolewise,
 };

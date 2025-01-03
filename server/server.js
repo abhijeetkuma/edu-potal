@@ -655,6 +655,16 @@ app.put("/api/getvehicledetails/:id", (req, res) => {
     });
 });
 
+app.get("/api/getmenulisting/:login_id", (req, res) => {
+  colleges_model
+    .getMenurolewise(req.params.login_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/getcourses", (req, res) => {
   colleges_model
     .getCourses()
@@ -796,7 +806,7 @@ app.get("/api/getsubcoursecollegearr", (req, res) => {
       response.forEach((repo) => {
         // let assignval = `{"${repo.courb_id}" : "${repo.branch_name}"}`;
         // returnResponse.push(assignval);
-        returnResponse[repo.courb_id] = repo.branch_name
+        returnResponse[repo.courb_id] = repo.branch_name;
       });
       //res.status(200).send(response);
       res.status(200).send(returnResponse);
@@ -813,7 +823,7 @@ app.get("/api/getsubcoursestypecollegearr", (req, res) => {
       response.forEach((repo) => {
         // let testval = `{"${repo.coursetype_id}" : "${repo.course_type_name}"}`;
         // returnResponse.push(testval);
-        returnResponse[repo.coursetype_id] = repo.course_type_name
+        returnResponse[repo.coursetype_id] = repo.course_type_name;
       });
       //res.status(200).send(response);
       res.status(200).send(returnResponse);
