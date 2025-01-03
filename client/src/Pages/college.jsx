@@ -587,6 +587,7 @@ function College() {
     formData.append("meta_description", event.target.meta_description.value);
     formData.append("old_logo", event.target.old_logo.value);
     formData.append("old_banner", event.target.old_banner.value);
+    formData.append("added_by", localStorage.login_id);
 
     if (cid > 0) {
       //update form data

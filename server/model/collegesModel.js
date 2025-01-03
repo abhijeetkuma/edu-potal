@@ -355,9 +355,10 @@ const insertCollegebasicinformation = (body) => {
       application_open,
       logo,
       banner,
+      added_by,
     } = body;
     pool.query(
-      "INSERT INTO colleges(college_name,college_url,tag_line,usp_remark,found_year,intake,hostel_available,college_descripton,facultyprofile,ctype,trading,approvedby,facilities,categories,exams,meta_title,meta_keyword,meta_description, coupon_code,application_open,logo,banner) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22) RETURNING *",
+      "INSERT INTO colleges(college_name,college_url,tag_line,usp_remark,found_year,intake,hostel_available,college_descripton,facultyprofile,ctype,trading,approvedby,facilities,categories,exams,meta_title,meta_keyword,meta_description, coupon_code,application_open,logo,banner,added_by) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23) RETURNING *",
       [
         college_name,
         college_url,
@@ -381,6 +382,7 @@ const insertCollegebasicinformation = (body) => {
         application_open,
         logo,
         banner,
+        added_by,
       ],
       (error, results) => {
         if (error) {
