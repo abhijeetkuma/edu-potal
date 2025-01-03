@@ -1812,11 +1812,10 @@ function College() {
                   className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.coupon_code && editdata.coupon_code}
                   onChange={handleChangeFormdata}
-                  required
                 />
               </div>
             </div>
-            <div className="sm:col-span-4 pb-2">
+            <div className="sm:col-span-4 pb-2 pr-4">
               <label
                 htmlFor="application_open"
                 className="block text-left font-normal leading-6 text-gray-dark pb-1"
@@ -1829,8 +1828,10 @@ function College() {
                   onClick={applicationopenCheck}
                   onChange={handleChangeFormdata}
                   //onChange={(e) => handleCheckBox(e, i)}
-                  defaultChecked={editdata.application_open === 'Y' ? true : false}
-                  className="py-2 text-sm font-semibold"
+                  defaultChecked={
+                    editdata.application_open === "Y" ? true : false
+                  }
+                  className="py-2 text-sm font-semibold pr-4 mr-4"
                 />
                 Application Open
               </label>
