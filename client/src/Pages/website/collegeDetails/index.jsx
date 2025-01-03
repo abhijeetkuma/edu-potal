@@ -94,7 +94,7 @@ function CollegeDetails(props) {
       <section
         className="detailsBanner"
         style={{
-          backgroundImage: `url('https://timesofcollege.com/images/Oxford-University.jpg')`,
+          backgroundImage: `url(${getImageURL(displaycollegdetail.banner)})`,
         }}
       >
         <div className="bgColor">
@@ -128,7 +128,14 @@ function CollegeDetails(props) {
               <li>
                 <span className="clg-rating">
                   <img src={star} alt="" />
-                  <span><b>{displaycollegdetail.total_rating ? displaycollegdetail.total_rating.slice(0,3) : '0'}</b> /10</span>
+                  <span>
+                    <b>
+                      {displaycollegdetail.total_rating
+                        ? displaycollegdetail.total_rating.slice(0, 3)
+                        : "0"}
+                    </b>{" "}
+                    /10
+                  </span>
                 </span>
               </li>
               <li>
@@ -175,22 +182,42 @@ function CollegeDetails(props) {
       <section className="container detailsWrapper">
         <div className="contentWrapper">
           {(tabName === "overview" || tabName == undefined) && (
-            <CollegeOverview data={displaycollegdetail} courses={subcoursearr} openModal={openModal} />
+            <CollegeOverview
+              data={displaycollegdetail}
+              courses={subcoursearr}
+              openModal={openModal}
+            />
           )}
           {tabName === "courses-and-fees" && (
-            <CollegeCoursesFees data={displaycollegdetail} courses={subcoursearr} openModal={openModal} />
+            <CollegeCoursesFees
+              data={displaycollegdetail}
+              courses={subcoursearr}
+              openModal={openModal}
+            />
           )}
           {tabName === "admissions" && (
-            <CollegeAdmissions data={displaycollegdetail} openModal={openModal} />
+            <CollegeAdmissions
+              data={displaycollegdetail}
+              openModal={openModal}
+            />
           )}
           {tabName === "placements" && (
-            <CollegePlacements data={displaycollegdetail} openModal={openModal} />
+            <CollegePlacements
+              data={displaycollegdetail}
+              openModal={openModal}
+            />
           )}
           {tabName === "scholarships" && (
-            <CollegeScholarships data={displaycollegdetail} openModal={openModal} />
+            <CollegeScholarships
+              data={displaycollegdetail}
+              openModal={openModal}
+            />
           )}
           {tabName === "faculties" && (
-            <CollegeFaculties data={displaycollegdetail} openModal={openModal} />
+            <CollegeFaculties
+              data={displaycollegdetail}
+              openModal={openModal}
+            />
           )}
           {tabName === "gallery" && (
             <CollegeGallery data={displaycollegdetail} openModal={openModal} />
@@ -198,7 +225,9 @@ function CollegeDetails(props) {
           {tabName === "reviews" && (
             <CollegeReviews data={displaycollegdetail} openModal={openModal} />
           )}
-          {tabName === "news" && <CollegeNews data={displaycollegdetail} openModal={openModal} />}
+          {tabName === "news" && (
+            <CollegeNews data={displaycollegdetail} openModal={openModal} />
+          )}
           {tabName === "question-answer" && (
             <CollegeQuesAns data={displaycollegdetail} openModal={openModal} />
           )}
@@ -238,11 +267,11 @@ function CollegeDetails(props) {
                 </div>
 
                 <div>
-                    <div className="compare" onClick={openModal}>
-                      {/* <img src="/images/compare.svg" alt="" /> */}
-                      <img src="/images/downloads.svg" alt="" />
-                      <span>Latest Placements</span>
-                    </div>
+                  <div className="compare" onClick={openModal}>
+                    {/* <img src="/images/compare.svg" alt="" /> */}
+                    <img src="/images/downloads.svg" alt="" />
+                    <span>Latest Placements</span>
+                  </div>
                 </div>
               </li>
             </ul>
@@ -271,19 +300,22 @@ function CollegeDetails(props) {
 
             <hr style={{ color: "#32325d40", margin: "15px" }} />
 
-            <GetHelp heading={"Let Us Help You"} openModal={openModal} headingClass={'headingSeaGreen'} />
+            <GetHelp
+              heading={"Let Us Help You"}
+              openModal={openModal}
+              headingClass={"headingSeaGreen"}
+            />
 
             {displaycollegdetail.courses && (
               <div className="relatedColg">
                 <Relatedcolleges
                   data={displaycollegdetail}
                   heading={"Top Viewed Colleges"}
-                  headingClass={'headingSeaGreen'}
+                  headingClass={"headingSeaGreen"}
                   vtype="v"
                 />
               </div>
             )}
-
 
             <div className="ads">
               <img src={adsImg} alt="" />
@@ -294,7 +326,7 @@ function CollegeDetails(props) {
           </div>
         </div>
       </section>
-      <Modal isModalOpen={isModalOpen} onClose={closeModal} >
+      <Modal isModalOpen={isModalOpen} onClose={closeModal}>
         <Login heading={"Get Notify !"} />
       </Modal>
     </>
