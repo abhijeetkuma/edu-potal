@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Relatedcolleges from "../../college/relatedcolleges";
+import Relatednews from "../../college/relatednews";
 import Rating from "../../commonComps/ratings";
 import Contact from "../../commonComps/contact";
 import adsImg from "/images/ads.svg";
@@ -50,10 +51,10 @@ function CollegeOverview(props) {
     meta_keyword,
     display_type,
     highlights,
-    sub_course_details
+    sub_course_details,
   } = props.data;
 
-  const {courses, openModal} = props;
+  const { courses, openModal } = props;
 
   return (
     <>
@@ -167,19 +168,29 @@ function CollegeOverview(props) {
                 <div className="highlights">
                   <div>
                     <span>Accepted Exams</span>
-                    <span className="text-center">ATMA, CAT, CMAT, GMAT, MAT, XAT</span>
+                    <span className="text-center">
+                      {item.subcourseselectioncriteria
+                        ? item.subcourseselectioncriteria
+                        : "NA"}
+                    </span>
                   </div>
                   <div>
                     <span>Total Fees</span>
-                    <span className="text-center"><b>{item.course_fee}</b></span>
+                    <span className="text-center">
+                      <b>{item.course_fee}</b>
+                    </span>
                   </div>
                   <div>
                     <span>Eligibility</span>
-                    <span className="text-center">{item.subcourseselectiioneligibility}</span>
+                    <span className="text-center">
+                      {item.subcourseselectiioneligibility}
+                    </span>
                   </div>
                   <div>
                     <span>Course Duration</span>
-                    <span className="text-center">{item.course_duration} Years</span>
+                    <span className="text-center">
+                      {item.course_duration} Years
+                    </span>
                   </div>
                   <div>
                     <span>Available Seats</span>
@@ -204,8 +215,7 @@ function CollegeOverview(props) {
                 </div>
               </div>
             </div>
-          ))
-          }
+          ))}
 
           <Link className="viewAll-btn" to={""}>
             View All Courses
@@ -287,145 +297,13 @@ function CollegeOverview(props) {
         </section>
 
         <section className="news  mt-10">
-          <h2 className="font-bold text-2xl mb-5">Related News and Events</h2>
-          <div className="news-wrapper mb-5">
-            <div className="news-card">
-              <div className="heading">
-                <h3>Maha TET Admit Card 2024 Live Updates</h3>
-              </div>
-              <div className="date"></div>
-              <p className="details">
-                Maha TET admit card 2024 will be released today, October 28,
-                2024. The Maha TET 2024 admit card will be available for
-                download till November 10, 2024.
-              </p>
-              <hr className="hr-x" />
-              <span className="link">
-                <a href="exam/maha-tet-admit-card-2024-live-updates">
-                  Continue Reading...{" "}
-                </a>
-              </span>
-            </div>
-            <div className="news-card">
-              <div className="heading">
-                <h3>Maha TET Admit Card 2024 Live Updates</h3>
-              </div>
-              <div className="date"></div>
-              <p className="details">
-                Maha TET admit card 2024 will be released today, October 28,
-                2024. The Maha TET 2024 admit card will be available for
-                download till November 10, 2024.
-              </p>
-              <hr className="hr-x" />
-              <span className="link">
-                <a href="exam/maha-tet-admit-card-2024-live-updates">
-                  Continue Reading...{" "}
-                </a>
-              </span>
-            </div>
-            <div className="news-card">
-              <div className="heading">
-                <h3>Maha TET Admit Card 2024 Live Updates</h3>
-              </div>
-              <div className="date"></div>
-              <p className="details">
-                Maha TET admit card 2024 will be released today, October 28,
-                2024. The Maha TET 2024 admit card will be available for
-                download till November 10, 2024.
-              </p>
-              <hr className="hr-x" />
-              <span className="link">
-                <a href="exam/maha-tet-admit-card-2024-live-updates">
-                  Continue Reading...{" "}
-                </a>
-              </span>
-            </div>
-            <div className="news-card">
-              <div className="heading">
-                <h3>Maha TET Admit Card 2024 Live Updates</h3>
-              </div>
-              <div className="date"></div>
-              <p className="details">
-                Maha TET admit card 2024 will be released today, October 28,
-                2024. The Maha TET 2024 admit card will be available for
-                download till November 10, 2024.
-              </p>
-              <hr className="hr-x" />
-              <span className="link">
-                <a href="exam/maha-tet-admit-card-2024-live-updates">
-                  Continue Reading...{" "}
-                </a>
-              </span>
-            </div>
-            <div className="news-card">
-              <div className="heading">
-                <h3>Maha TET Admit Card 2024 Live Updates</h3>
-              </div>
-              <div className="date"></div>
-              <p className="details">
-                Maha TET admit card 2024 will be released today, October 28,
-                2024. The Maha TET 2024 admit card will be available for
-                download till November 10, 2024.
-              </p>
-              <hr className="hr-x" />
-              <span className="link">
-                <a href="exam/maha-tet-admit-card-2024-live-updates">
-                  Continue Reading...{" "}
-                </a>
-              </span>
-            </div>
-            <div className="news-card">
-              <div className="heading">
-                <h3>Maha TET Admit Card 2024 Live Updates</h3>
-              </div>
-              <div className="date"></div>
-              <p className="details">
-                Maha TET admit card 2024 will be released today, October 28,
-                2024. The Maha TET 2024 admit card will be available for
-                download till November 10, 2024.
-              </p>
-              <hr className="hr-x" />
-              <span className="link">
-                <a href="exam/maha-tet-admit-card-2024-live-updates">
-                  Continue Reading...{" "}
-                </a>
-              </span>
-            </div>
-            <div className="news-card">
-              <div className="heading">
-                <h3>Maha TET Admit Card 2024 Live Updates</h3>
-              </div>
-              <div className="date"></div>
-              <p className="details">
-                Maha TET admit card 2024 will be released today, October 28,
-                2024. The Maha TET 2024 admit card will be available for
-                download till November 10, 2024.
-              </p>
-              <hr className="hr-x" />
-              <span className="link">
-                <a href="exam/maha-tet-admit-card-2024-live-updates">
-                  Continue Reading...{" "}
-                </a>
-              </span>
-            </div>
-            <div className="news-card">
-              <div className="heading">
-                <h3>Maha TET Admit Card 2024 Live Updates</h3>
-              </div>
-              <div className="date"></div>
-              <p className="details">
-                Maha TET admit card 2024 will be released today, October 28,
-                2024. The Maha TET 2024 admit card will be available for
-                download till November 10, 2024.
-              </p>
-              <hr className="hr-x" />
-              <span className="link">
-                <a href="exam/maha-tet-admit-card-2024-live-updates">
-                  Continue Reading...{" "}
-                </a>
-              </span>
-            </div>
-          </div>
+          {props.data.courses && (
+            <Relatednews
+              data={props.data}
+              heading={"Related News and Events"}
+              vtype="h"
+            />
+          )}
           <Link className="viewAll-btn" to={"/exams"}>
             View All News and Events
           </Link>

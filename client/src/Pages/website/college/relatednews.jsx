@@ -8,6 +8,7 @@ function Relatednews(props) {
   const {
     data: { courses },
     vtype,
+    heading,
   } = props;
 
   const [newslist, setNewslist] = useState({
@@ -32,26 +33,34 @@ function Relatednews(props) {
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
   }, []);
   return (
-    <div className="related-colleges">
-      <h2 className="font-bold pb-1">News / Articles</h2>
-      {newslist.length > 0 &&
-        newslist.map((item, id) => (
-          <div id={item.cid} style={{ display: "flex", float: "left" }}>
-            <div className="news-card">
-              <div className="heading">
-                <h3>{item.na_title}</h3>
+    <div className="related-collegesss">
+      <h2 className="font-bold text-2xl mb-5">
+        {heading ? heading : "News / Articles"}
+      </h2>
+      <div className="news-wrapper mb-5">
+        {newslist.length > 0 &&
+          newslist.map((item, id) => (
+            <div
+              key={id}
+              id={item.cid}
+              style={{ display: "flex", float: "left" }}
+            >
+              <div className="news-card">
+                <div className="heading">
+                  <h3>{item.na_title}</h3>
+                </div>
+                <div className="date">{item.na_date}</div>
+                <p className="details">
+                  {item.na_brief_description.substring(0, 200)}
+                </p>
+                <hr className="hr-x" />
+                <span className="link">
+                  <a href={"../exam/" + item.na_url}>Continue Reading... </a>
+                </span>
               </div>
-              <div className="date">{item.na_date}</div>
-              <p className="details">
-                {item.na_brief_description.substring(0, 200)}
-              </p>
-              <hr className="hr-x" />
-              <span className="link">
-                <a href={"../exam/" + item.na_url}>Continue Reading... </a>
-              </span>
             </div>
-          </div>
-        ))}
+          ))}
+      </div>
     </div>
   );
 }

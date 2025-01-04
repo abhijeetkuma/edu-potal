@@ -2040,7 +2040,7 @@ function College() {
                         id="subcourseselectioncriteria"
                         name="subcourseselectioncriteria"
                         type="text"
-                        placeholder="Selection Criteria"
+                        placeholder="Accepted Exams"
                         value={item.subcourseselectioncriteria}
                         onChange={(e) => handlesubcourseChange(e, i)}
                         className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
