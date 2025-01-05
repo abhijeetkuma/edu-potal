@@ -64,7 +64,7 @@ function UserLayoutType1(props) {
             </li>
             <li>
               <NavLink
-                to={`/`}
+                to={`/toccafe`}
                 className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
               >
                 TOC Cafe
@@ -72,9 +72,7 @@ function UserLayoutType1(props) {
             </li>
           </ul>
         </nav>
-        <div className="profile">
-          {/* <Link to="/login">Login</Link> */}
-        </div>
+        <div className="profile">{/* <Link to="/login">Login</Link> */}</div>
       </header>
       <div className="website-wrapper">
         <div className="main-contents w-full">

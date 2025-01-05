@@ -44,6 +44,7 @@ import Listing from "./Pages/website/listing";
 import CMS from "./Pages/website/cms";
 import EXAMS from "./Pages/website/exams";
 import EXAMSDETAILS from "./Pages/website/exams/details";
+import TOCCAFE from "./Pages/website/toccafe";
 import COLLEGEDETAIL from "./Pages/website/college/details";
 import CATEGORYWISE from "./Pages/website/categorywise";
 import STUDYBYCITY from "./Pages/website/studybycity";
@@ -78,9 +79,14 @@ const router = createBrowserRouter([
         path: "/exams",
         element: <EXAMS />,
       },
+
       {
         path: "/exam?/:na_url",
         element: <EXAMSDETAILS />,
+      },
+      {
+        path: "/toccafe",
+        element: <TOCCAFE />,
       },
       // {
       //   path: "/college?/:college_url",

@@ -15,6 +15,7 @@ const landing_model = require("./model/Frontend/landingModel");
 const collegelisting_model = require("./model/Frontend/collegelistingModel");
 const exan_model = require("./model/Frontend/examModel");
 const autosuggest_model = require("./model/Frontend/authosuggestModel");
+const toccafe_model = require("./model/Frontend/toccafeModel");
 
 app.use(cors());
 
@@ -1185,6 +1186,16 @@ app.get("/api/studybycities/", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/tradings/", (req, res) => {
+  landing_model
+    .tradings()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 //end landing page apis
 app.get("/api/autosuggestcolleges/:college_name", (req, res) => {
   //console.log("server-->", req.params.college_name);
@@ -1211,6 +1222,16 @@ app.get("/api/collegelisting/", (req, res) => {
   //console.log("req.params.city_url", req.query);
   collegelisting_model
     .listing(req)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/toccafelisting/", (req, res) => {
+  toccafe_model
+    .toccafelisting()
     .then((response) => {
       res.status(200).send(response);
     })

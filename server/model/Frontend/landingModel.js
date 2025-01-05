@@ -201,6 +201,28 @@ const studybycities = async () => {
     throw new Error("Internal server error");
   }
 };
+const tradings = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT trading_url,trading_name FROM trending WHERE trading_status='A' ORDER BY trading_name ASC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
 module.exports = {
   topCourses,
   topNotification,
@@ -210,4 +232,5 @@ module.exports = {
   exams,
   newsandupdates,
   studybycities,
+  tradings,
 };

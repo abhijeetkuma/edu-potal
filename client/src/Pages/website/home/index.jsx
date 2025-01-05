@@ -69,6 +69,10 @@ function Home(props) {
     cit_id: "",
     city_name: "",
   });
+  const [tradingarr, setTradingarr] = useState({
+    trading_url: "",
+    trading_name: "",
+  });
   const [searchparameter, setSearchparameter] = useState({
     search_parameter: "",
   });
@@ -106,6 +110,14 @@ function Home(props) {
       .get("/api/studybycities/")
       .then((response) => {
         setBycity(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("/api/tradings")
+      .then((response) => {
+        setTradingarr(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -302,10 +314,30 @@ function Home(props) {
                             </span>
                           </div>
                           <ul className="links mt-2">
-                            <li className="text-sm"><span>College Type: </span><span><b>{item.college_types}</b></span></li>
-                            <li className="text-sm"><span>Placement Ratio: </span><span><b>{item.totalplacementratio}</b></span></li>
-                            <li className="text-sm"><span>Highest Package: </span><span><b>{item.higestplacementrecord}</b></span></li>
-                            <li className="text-sm"><span>Exam Accepted: </span><span><b>{item.exam_name}</b></span></li>
+                            <li className="text-sm">
+                              <span>College Type: </span>
+                              <span>
+                                <b>{item.college_types}</b>
+                              </span>
+                            </li>
+                            <li className="text-sm">
+                              <span>Placement Ratio: </span>
+                              <span>
+                                <b>{item.totalplacementratio}</b>
+                              </span>
+                            </li>
+                            <li className="text-sm">
+                              <span>Highest Package: </span>
+                              <span>
+                                <b>{item.higestplacementrecord}</b>
+                              </span>
+                            </li>
+                            <li className="text-sm">
+                              <span>Exam Accepted: </span>
+                              <span>
+                                <b>{item.exam_name}</b>
+                              </span>
+                            </li>
                           </ul>
                           <div className="action-btns">
                             <div className="download">
@@ -334,121 +366,88 @@ function Home(props) {
       <Citywise imglite={imglite} />
 
       <section className="container admissions">
-        <div className="head-line">Admission 2024</div>
+        <div className="head-line">Admission 2025</div>
         <div className="admission-links-list">
-          <div className="chips-link">
-            <span>JEE Mains Admission 2024</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>CUET Admission 2024</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>MBA Admission 2024</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>LLB Admission 2024</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>B.Sc Admission 2024</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>MBBS Admission 2024</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>PhD Admission 2024</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>B Ed Admission 2024</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
+          <a href={"/listing"}>
+            <div className="chips-link">
+              <span>JEE Mains Admission 2025</span>
+              <span>
+                <img src={arrowTilt} alt="" />
+              </span>
+            </div>
+          </a>
+          <a href={"/listing"}>
+            <div className="chips-link">
+              <span>CUET Admission 2025</span>
+              <span>
+                <img src={arrowTilt} alt="" />
+              </span>
+            </div>
+          </a>
+          <a href={"/listing"}>
+            <div className="chips-link">
+              <span>MBA Admission 2025</span>
+              <span>
+                <img src={arrowTilt} alt="" />
+              </span>
+            </div>
+          </a>
+          <a href={"/listing"}>
+            <div className="chips-link">
+              <span>LLB Admission 2025</span>
+              <span>
+                <img src={arrowTilt} alt="" />
+              </span>
+            </div>
+          </a>
+          <a href={"/listing"}>
+            <div className="chips-link">
+              <span>B.Sc Admission 2025</span>
+              <span>
+                <img src={arrowTilt} alt="" />
+              </span>
+            </div>
+          </a>
+          <a href={"/listing"}>
+            <div className="chips-link">
+              <span>MBBS Admission 2025</span>
+              <span>
+                <img src={arrowTilt} alt="" />
+              </span>
+            </div>
+          </a>
+          <a href={"/listing"}>
+            <div className="chips-link">
+              <span>PhD Admission 2025</span>
+              <span>
+                <img src={arrowTilt} alt="" />
+              </span>
+            </div>
+          </a>
+          <a href={"/listing"}>
+            <div className="chips-link">
+              <span>B Ed Admission 2025</span>
+              <span>
+                <img src={arrowTilt} alt="" />
+              </span>
+            </div>
+          </a>
         </div>
       </section>
       <section className="container trending">
         <div className="head-line">Trending</div>
         <div className="admission-links-list">
-          <div className="chips-link">
-            <span>JEE Mains</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>CUET</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>MBBS</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>AKTU Results 2023</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>IMT Ghaziabad</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>Amity University Noida</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>IIMT Engg. Collage Meerut</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>BITS Pilani</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>B.Tech</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
-          <div className="chips-link">
-            <span>GATE</span>
-            <span>
-              <img src={arrowTilt} alt="" />
-            </span>
-          </div>
+          {tradingarr.length > 0 &&
+            tradingarr.map((trd, keyid) => (
+              <a href={"/listing"}>
+                <div className="chips-link" key={keyid}>
+                  <span>{trd.trading_name}</span>
+                  <span>
+                    <img src={arrowTilt} alt="" />
+                  </span>
+                </div>
+              </a>
+            ))}
         </div>
       </section>
       <section className="container get-notify">
