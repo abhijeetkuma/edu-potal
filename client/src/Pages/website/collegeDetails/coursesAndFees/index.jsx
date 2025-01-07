@@ -69,7 +69,11 @@ function CollegeCoursesFees(props) {
             {sub_course_details?.map((item, i) => (
               <tr>
                 <td>{courses[item.subcourseId]}</td>
-                <td>{item.course_fee ? item.course_fee : "-"}</td>
+                <td>
+                    <b>{item.course_fee ? item.course_fee : "-"}</b>
+                    <p className="underline text-xs" onClick={openModal}
+                    >Get Fee Details</p> 
+                </td>
                 <td>
                   {item.subcourseselectiioneligibility
                     ? item.subcourseselectiioneligibility
