@@ -81,8 +81,8 @@ function College() {
   const [statearr, setStatearr] = useState([]);
   const [cityarr, setCityarr] = useState([]);
   const [collegedescvalue, setCollegedescvalue] = useState();
-  const [admissiondetailsvalue, setAdmissiondetailsvalue] = useState();
-  const [scholarshipoffervalue, setScholarshipoffervalue] = useState();
+  const [admissiondetailsvalue, setAdmissiondetailsvalue] = useState("");
+  const [scholarshipoffervalue, setScholarshipoffervalue] = useState("");
   const [facultyprofilevalue, setFacultyprofilevalue] = useState();
   const [faqvalue, setFaqvalue] = useState();
   const [placementoverviewvalue, setPlacementoverviewvalue] = useState();
@@ -405,158 +405,6 @@ function College() {
       .replace(/[_\s]/g, "-")
       .replace(/[^a-z0-9-\s]/gi, "");
     editdata.college_url = collegeurl.toLowerCase();
-  };
-
-  //console.log("college edit url", editdata.college_url);
-  const addnew = (e) => {
-    e.preventDefault();
-    /* file upload */
-    /*  const url = "http://localhost:5173/colleges";
-    const formData = new FormData();
-    formData.append("file", clogo);
-    formData.append("fileName", clogo.name);
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    };
-    axios.post(url, formData, config).then((response) => {
-      console.log(response.data);
-    }); */
-    /* end file upload */
-    const {
-      cid,
-      college_name,
-      college_url,
-      tag_line,
-      usp_remark,
-      meta_title,
-      meta_keyword,
-      coupon_code,
-      application_open,
-      meta_description,
-      found_year,
-      intake,
-      display_type,
-      address,
-      address2,
-      landmark,
-      pincode,
-      country,
-      state,
-      city,
-      contactno,
-      faxno,
-      email,
-      website,
-      hostel_available,
-      totalplacementratio,
-      averageplacementrecord,
-      higestplacementrecord,
-      lowestplacementrecord,
-      toprecruiters,
-      toprecuitingsectors,
-      topprofile,
-    } = e.target.elements;
-
-    let errorsForm = [];
-    /*if (college_name.value === "") {
-      errorsForm.push(
-        <div key="vehnameErr">College Name can not be blank!</div>
-      );
-    }
-    if (college_url.value === "") {
-      errorsForm.push(<div key="vehregErr">College URL can not be blank!</div>);
-    }
-    if (tag_line.value === "") {
-      errorsForm.push(<div key="vehchassErr">Tag line can not be blank!</div>);
-    }
-    if (usp_remark.value === "") {
-      errorsForm.push(
-        <div key="vehregdateErr">USP remark can not be blank!</div>
-      );
-    }*/
-    if (errorsForm.length === 0) {
-      const payload = {
-        cid: cid.value,
-        college_name: college_name.value,
-        college_url: college_url.value,
-        tag_line: tag_line.value,
-        usp_remark: usp_remark.value,
-        found_year: found_year.value,
-        intake: intake.value,
-        //college_descripton: college_descripton.value,
-        college_descripton: collegedescvalue,
-        meta_title: meta_title.value,
-        meta_keyword: meta_keyword.value,
-        coupon_code: coupon_code.value,
-        application_open: application_open.value ? application_open.value : "",
-        meta_description: meta_description.value,
-        display_type: display_type.value,
-        //highlights: highLights,
-        address: address.value,
-        address2: address2.value,
-        landmark: landmark.value,
-        pincode: pincode.value,
-        country: country.value,
-        state: state.value,
-        city: city.value,
-        contactno: contactno.value,
-        faxno: faxno.value,
-        email: email.value,
-        website: website.value,
-        ctype: collegetypevalue.join(","),
-        trading: tradingvalue.join(","),
-        approvedby: approvedbyvalue.join(","),
-        categories: categoryvalue.join(","),
-        courses: coursevalue.join(","),
-        hostel_available: hostel_available.value,
-        adminssiondetails: admissiondetailsvalue,
-        scholarshipoffer: scholarshipoffervalue,
-        facultyprofile: facultyprofilevalue,
-        faq: faqvalue,
-        facilities: facilityvalue.join(","),
-        placement_overview: placementoverviewvalue,
-        totalplacementratio: totalplacementratio.value,
-        averageplacementrecord: averageplacementrecord.value,
-        higestplacementrecord: higestplacementrecord.value,
-        lowestplacementrecord: lowestplacementrecord.value,
-        toprecruiters: toprecruiters.value,
-        toprecuitingsectors: toprecuitingsectors.value,
-        topprofile: topprofile.value,
-      };
-      if (cid.value > 0) {
-        //update form data
-        axios({
-          method: "PUT",
-          url: apiurl + "/getupdatecollege/${cid}",
-          data: payload,
-        })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        //end update form data
-      } else {
-        //add form data
-        axios({
-          method: "post",
-          url: apiurl + "/addnewcollege",
-          data: payload,
-        })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        //end add form data
-      }
-    } else {
-      //setErrorMsg(errorsForm);
-    }
   };
 
   const submitbasicinformation = async (event) => {
@@ -957,6 +805,7 @@ function College() {
 
     if (cid > 0) {
       //update form data
+      console.log("payload-->", payload);
       axios({
         method: "POST",
         url: apiurl + "/updateadmission",
