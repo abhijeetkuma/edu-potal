@@ -27,6 +27,10 @@ function CollegeQuesAns(props) {
     <>
       <div className="container detailsTab">
         <h1>Question Answer</h1>
+
+        <section>
+          <div dangerouslySetInnerHTML={{ __html: props.data.faq }}></div>
+        </section>
       </div>
 
       <section className="facilities mt-10">

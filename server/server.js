@@ -530,7 +530,7 @@ app.post("/api/updatecourses", (req, res) => {
     });
 });
 app.post("/api/updateadmission", (req, res) => {
-  //console.log("contact us details-->", req.body);
+  //console.log("admissino details -->", req.body);
   colleges_model
     .updateAdmission(req.body)
     .then((response) => {
