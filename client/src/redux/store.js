@@ -1,5 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-export const store = configureStore({
-    reducer: {},
+import manageModelReducer from './manageModelSlice'
+
+export default configureStore({
+    reducer: {
+        manageModel: manageModelReducer,
+    },
 })

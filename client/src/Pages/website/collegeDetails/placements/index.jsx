@@ -68,7 +68,7 @@ function CollegePlacements(props) {
               <p>
                 <b>{higestplacementrecord}</b>
               </p>
-              <span>Higest Placement Record</span>
+              <span>Highest Placement Record</span>
             </li>
             <li>
               <p>

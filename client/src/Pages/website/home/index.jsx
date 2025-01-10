@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { useDispatch } from 'react-redux'
+
 import { getImageURL } from "../../../utils/utils-image";
 
 import handSpeaker from "/images/hand-speaker.png";
@@ -27,7 +29,13 @@ import Exams from "./exams";
 import NewsAndUpdates from "./newsAndUpdates";
 import Citywise from "./citywise";
 
+import { openModel } from "../../../redux/manageModelSlice";
+
+import GlobalSearch from "../commonComps/globalSearch";
+
 function Home(props) {
+  const dispatch = useDispatch()
+
   var settings = {
     dots: true,
     infinite: true,
@@ -47,7 +55,7 @@ function Home(props) {
     course_name: "",
     course_url: "",
   });
-  const [suggestcolleges, setSuggestcolleges] = useState();
+  // const [suggestcolleges, setSuggestcolleges] = useState();
   const [toppopularcollegelisting, setToppopularcollegelisting] = useState({
     cid: "",
     college_name: "",
@@ -73,9 +81,10 @@ function Home(props) {
     trading_url: "",
     trading_name: "",
   });
-  const [searchparameter, setSearchparameter] = useState({
-    search_parameter: "",
-  });
+
+  // const [searchparameter, setSearchparameter] = useState({
+  //   search_parameter: "",
+  // });
 
   useEffect(() => {
     axios
@@ -132,40 +141,43 @@ function Home(props) {
 
   const renderFutureGolesType = () => <FutureGoals />;
 
-  const handleChangeFormdata = (e) => {
-    const { name, value } = e.target;
-    setSearchparameter((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  // const handleChangeFormdata = (e) => {
+  //   const { name, value } = e.target;
+  //   setSearchparameter((prevState) => ({
+  //     ...prevState,
+  //     [name]: value,
+  //   }));
+  // };
+
   // console.log("search -->", searchparameter);
-  const searchCollege = () => {
-    //alert(searchparameter.search_parameter);
-    window.location = "search?keyword=" + searchparameter.search_parameter;
-  };
-  const autosuggestcolleges = (e) => {
-    const college_name = e.target.value;
-    //console.log("s", collegeName);
-    if (college_name != "") {
-      axios
-        //.get("/api/cmsdetails/" + cms_url)
-        .get("/api/autosuggestcolleges/" + college_name)
-        .then((response) => {
-          setSuggestcolleges(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else {
-      setSuggestcolleges();
-    }
-  };
-  const searchvalueset = (e, val) => {
-    // console.log("values-->", e.target.value, val);
-    setSearchparameter({ search_parameter: val });
-    setSuggestcolleges();
-  };
+  // const searchCollege = () => {
+  //   //alert(searchparameter.search_parameter);
+  //   window.location = "search?keyword=" + searchparameter.search_parameter;
+  // };
+
+  // const autosuggestcolleges = (e) => {
+  //   const college_name = e.target.value;
+  //   //console.log("s", collegeName);
+  //   if (college_name != "") {
+  //     axios
+  //       //.get("/api/cmsdetails/" + cms_url)
+  //       .get("/api/autosuggestcolleges/" + college_name)
+  //       .then((response) => {
+  //         setSuggestcolleges(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   } else {
+  //     setSuggestcolleges();
+  //   }
+  // };
+
+  // const searchvalueset = (e, val) => {
+  //   setSearchparameter({ search_parameter: val });
+  //   setSuggestcolleges();
+  // };
+
   return (
     <>
       <Helmet>
@@ -193,7 +205,7 @@ function Home(props) {
                 </span>
               ))}
           </div>
-          <div className="search-wrapper mt-7">
+          {/* <div className="search-wrapper mt-7">
             <form action="" name="searchForm" id="searchForm" method="post">
               <input
                 type="text"
@@ -227,6 +239,9 @@ function Home(props) {
                 </div>
               )}
             </form>
+          </div> */}
+          <div onClick={() => dispatch(openModel())} >
+            <GlobalSearch />
           </div>
           <div className="recent-search mt-5">
             <span>Your Recent Search:</span>
