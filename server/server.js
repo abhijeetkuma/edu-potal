@@ -16,6 +16,7 @@ const collegelisting_model = require("./model/Frontend/collegelistingModel");
 const exan_model = require("./model/Frontend/examModel");
 const autosuggest_model = require("./model/Frontend/authosuggestModel");
 const toccafe_model = require("./model/Frontend/toccafeModel");
+const filter_model = require("./model/Frontend/filterModel");
 
 app.use(cors());
 
@@ -1222,6 +1223,46 @@ app.get("/api/collegelisting/", (req, res) => {
   //console.log("req.params.city_url", req.query);
   collegelisting_model
     .listing(req)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/filtercollegetypes/", (req, res) => {
+  filter_model
+    .filtercollegetypes()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/filtercourses/", (req, res) => {
+  filter_model
+    .filtercourses()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/filterstate/", (req, res) => {
+  filter_model
+    .filterstate()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/filtercity/", (req, res) => {
+  filter_model
+    .filtercity()
     .then((response) => {
       res.status(200).send(response);
     })

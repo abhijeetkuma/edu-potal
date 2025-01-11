@@ -17,6 +17,7 @@ import emailIcon from "/images/email-icon.svg";
 import phoneIcon from "/images/phone-icon.svg";
 import adsImg from "/images/ads.svg";
 import NewsAndUpdates from "./../home/newsAndUpdates";
+import Filter from "../listing/filter";
 
 function Listing(props) {
   const [collegelisting, setCollegelisting] = useState({
@@ -34,6 +35,24 @@ function Listing(props) {
     higestplacementrecord: "",
     approved_by: "",
     college_types: "",
+  });
+  const [filterct, setFilterct] = useState({
+    col_type: "",
+    college_type: "",
+    total_count: "",
+  });
+  const [filtercourse, setFiltercourse] = useState({
+    col_type: "",
+    college_type: "",
+    total_count: "",
+  });
+  const [filterstate, setFilterstate] = useState({
+    sta_id: "",
+    state_name: "",
+  });
+  const [filtercity, setFiltercity] = useState({
+    cit_id: "",
+    city_name: "",
   });
   useEffect(() => {
     axios
@@ -53,6 +72,40 @@ function Listing(props) {
         console.error(error);
       });
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
+    axios
+      //.get("/api/cmsdetails/" + cms_url)
+      .get("/api/filtercollegetypes/")
+      .then((response) => {
+        setFilterct(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      //.get("/api/cmsdetails/" + cms_url)
+      .get("/api/filtercourses/")
+      .then((response) => {
+        setFiltercourse(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("/api/filterstate/")
+      .then((response) => {
+        setFilterstate(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("/api/filtercity/")
+      .then((response) => {
+        setFiltercity(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
   //console.log("collegelisting", collegelisting.length);
   //console.log("props", props.city_url);
@@ -61,39 +114,12 @@ function Listing(props) {
       <section className="header"></section>
       <section className="container college-filter-wrapper">
         <section className="filter-section">
-          <div className="filter-card ownership">
-            <div className="header">
-              <span>Ownership Type</span>
-              <span>
-                <img src={arrowUpIcon} alt="" />
-              </span>
-            </div>
-            <ul>
-              <li>
-                <span>
-                  <input type="checkbox" name="" id="checkbox" />
-                  <label htmlFor="checkbox">Government</label>
-                </span>
-                <span>(50)</span>
-              </li>
-              <li>
-                <span>
-                  <input type="checkbox" name="" id="checkbox" />
-                  <label htmlFor="checkbox">Private</label>
-                </span>
-                <span>(150)</span>
-              </li>
-              <li>
-                <span>
-                  <input type="checkbox" name="" id="checkbox" />
-                  <label htmlFor="checkbox">Public</label>
-                </span>
-                <span>(25)</span>
-              </li>
-            </ul>
-          </div>
+          <Filter header="Ownership Type" fdata={filterct} search={false} />
+          <Filter header="Course" filtercourse={filtercourse} search={true} />
+          <Filter header="State" filterstate={filterstate} search={true} />
+          <Filter header="City" filtercity={filtercity} search={true} />
 
-          <div className="filter-card courses">
+          {/* <div className="filter-card courses">
             <div className="header">
               <span>Courses</span>
               <span>
@@ -262,7 +288,7 @@ function Listing(props) {
                 <span>(2)</span>
               </li>
             </ul>
-          </div>
+          </div> */}
 
           <div className="filter-card study-type">
             <div className="header">

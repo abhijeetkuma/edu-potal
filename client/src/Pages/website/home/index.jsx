@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 
 import { getImageURL } from "../../../utils/utils-image";
 
@@ -34,7 +34,7 @@ import { openModel } from "../../../redux/manageModelSlice";
 import GlobalSearch from "../commonComps/globalSearch";
 
 function Home(props) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   var settings = {
     dots: true,
@@ -240,7 +240,7 @@ function Home(props) {
               )}
             </form>
           </div> */}
-          <div onClick={() => dispatch(openModel())} >
+          <div onClick={() => dispatch(openModel())}>
             <GlobalSearch />
           </div>
           <div className="recent-search mt-5">
