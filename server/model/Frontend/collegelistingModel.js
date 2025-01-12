@@ -161,12 +161,22 @@ const insertformeqnuery = (body) => {
       contactno,
       city,
       coursename,
-      college_name,
+      college_id,
       event_name,
+      title,
     } = body;
     pool.query(
-      "INSERT INTO collegeenquery(fullname, email, contactno, city, coursename,college_name,event_name,enqury_date) VALUES ($1, $2, $3, $4, $5, $6, $7,now()) RETURNING *",
-      [fullname, email, contactno, city, coursename, college_name, event_name],
+      "INSERT INTO collegeenquery(fullname, email, contactno, city, coursename,college_id,event_name,title,enqury_date) VALUES ($1, $2, $3, $4, $5, $6, $7,$8, now()) RETURNING *",
+      [
+        fullname,
+        email,
+        contactno,
+        city,
+        coursename,
+        college_id,
+        event_name,
+        title,
+      ],
       (error, results) => {
         if (error) {
           reject(error);
