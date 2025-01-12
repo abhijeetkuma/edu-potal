@@ -7,12 +7,11 @@ import GlobalSearch from "../globalSearch";
 import { openModel, closeModel } from "../../../../redux/manageModelSlice";
 
 import logo from "/images/logo.png";
+import searchIcon from "/images/search.svg";
 
 function Relatedcolleges(props) {
     const modelStatus = useSelector((state) => state.manageModel.isOpen)
     const dispatch = useDispatch()
-
-    console.log('modelState------', modelStatus);
     
     // const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -83,7 +82,9 @@ function Relatedcolleges(props) {
                 </NavLink>
                 </li>
                 <li>
-                    <span onClick={() => dispatch(openModel())}>Search Colleges</span>
+                    <span className='globalSearch' onClick={() => dispatch(openModel())}>
+                         <img src={searchIcon} alt="Global Search" />
+                    </span>
                 </li>
             </ul>
             </nav>

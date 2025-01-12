@@ -3,9 +3,8 @@ import arrowUpIcon from "/images/arrowUp.svg";
 import searchIcon from "/images/search.svg";
 
 function Filter(props) {
-  console.log("props-->", props);
   return (
-    <div className="filter-card ownership">
+    <div className="filter-card">
       <div className="header">
         <span>{props.header}</span>
         <span>

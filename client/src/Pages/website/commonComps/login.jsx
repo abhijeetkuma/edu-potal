@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import groupImg from "/images/group.png";
 import axios from "axios";
+
 function Login(props) {
-  const { heading, inlineStyle } = props;
+  const { heading, inlineStyle, data } = props;
 
   const formsubmit = (e) => {
     const payload = {
@@ -11,8 +12,9 @@ function Login(props) {
       contactno: contactno.value,
       city: city.value,
       coursename: coursename.value,
-      college_name: "",
-      event_name: "",
+      college_id: data ? data.cid : "",
+      event_name: data ? data.btnName : "",
+      event_title: data ? data.btnTitle : ""
     };
     axios({
       method: "post",

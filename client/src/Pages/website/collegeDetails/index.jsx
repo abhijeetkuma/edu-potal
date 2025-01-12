@@ -37,14 +37,8 @@ function CollegeDetails(props) {
   const [modalContent, setModalContent] = useState("");
   const [subcoursestypearr, setSubcoursestypearr] = useState([]);
   const [subcoursearr, setSubcoursearr] = useState([]);
+  const [popupEvents, setPopupEvents] = useState({cid: '', btnName: '', btnTitle: ''});
   const { college_url } = useParams();
-
-  useEffect(() => {
-    const detailsUrl = location.pathname.split("+")[0];
-    const detailsTabs = location.pathname.split("+")[1];
-    setNameUrl(detailsUrl);
-    setTabName(detailsTabs);
-  }, [location.pathname]);
 
   const [displaycollegdetail, setDisplaycollegdetail] = useState({
     cid: "",
@@ -52,6 +46,27 @@ function CollegeDetails(props) {
     college_description: "",
     courses: "",
   });
+
+  useEffect(()=>{
+    const updatecollegeviews = (cid) => {
+      axios({
+        method: "post",
+        url: "/api/updatecollegeviews",
+        data: { cid: cid },
+      });
+    };
+
+    displaycollegdetail && updatecollegeviews(displaycollegdetail.cid)
+
+  },[displaycollegdetail])
+
+
+  useEffect(() => {
+    const detailsUrl = location.pathname.split("+")[0];
+    const detailsTabs = location.pathname.split("+")[1];
+    setNameUrl(detailsUrl);
+    setTabName(detailsTabs);
+  }, [location.pathname]);
 
   useEffect(() => {
     axios
@@ -81,20 +96,15 @@ function CollegeDetails(props) {
       });
   }, [nameUrl]);
 
-  const openModal = (passvalue) => {
-    console.log("passvalue-->", passvalue);
+  const openModal = (event) => {
+    event.stopPropagation()
+    const { name, title} = event.target.dataset;
+    setPopupEvents({cid:  displaycollegdetail.cid, btnName: name, btnTitle: title})
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-  };
-  const updatecollegeviews = (cid) => {
-    axios({
-      method: "post",
-      url: "/api/updatecollegeviews",
-      data: { cid: cid },
-    });
   };
 
   return (
@@ -165,18 +175,18 @@ function CollegeDetails(props) {
                 </span>
               </li>
             </ul>
-            <div className="apply-link" onClick={() => openModal("apply")}>
+            <div className="apply-link" data-name='Apply' data-title='Header Apply' onClick={(e) => openModal(e)}>
               <span>Apply</span>
               <span>
                 <img src={arrowTilt} alt="" />
               </span>
             </div>
             <div className="action-btns">
-              <div className="download" onClick={() => openModal()}>
+              <div className="download" data-name='Download Brochure' data-title='Header Download Brochure' onClick={(e) => openModal(e)}>
                 <img src={downlaod} alt="" />
                 <span>Download Brochure</span>
               </div>
-              <div className="compare" onClick={() => openModal()}>
+              <div className="compare" data-name='Compare Colleges' data-title='Header Compare Colleges' onClick={(e) => openModal(e)}>
                 <img src={compare} alt="" />
                 <span>Compare Colleges</span>
               </div>
@@ -335,9 +345,8 @@ function CollegeDetails(props) {
         </div>
       </section>
       <Modal isModalOpen={isModalOpen} onClose={closeModal}>
-        <Login heading={"Get Notify !"} />
+        <Login heading={"Get Notify !"} data={popupEvents} />
       </Modal>
-      {displaycollegdetail.cid && updatecollegeviews(displaycollegdetail.cid)}
     </>
   );
 }
