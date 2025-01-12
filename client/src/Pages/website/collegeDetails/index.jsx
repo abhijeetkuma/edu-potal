@@ -81,12 +81,20 @@ function CollegeDetails(props) {
       });
   }, [nameUrl]);
 
-  const openModal = () => {
+  const openModal = (passvalue) => {
+    console.log("passvalue-->", passvalue);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+  const updatecollegeviews = (cid) => {
+    axios({
+      method: "post",
+      url: "/api/updatecollegeviews",
+      data: { cid: cid },
+    });
   };
 
   return (
@@ -157,7 +165,7 @@ function CollegeDetails(props) {
                 </span>
               </li>
             </ul>
-            <div className="apply-link" onClick={() => openModal()}>
+            <div className="apply-link" onClick={() => openModal("apply")}>
               <span>Apply</span>
               <span>
                 <img src={arrowTilt} alt="" />
@@ -329,6 +337,7 @@ function CollegeDetails(props) {
       <Modal isModalOpen={isModalOpen} onClose={closeModal}>
         <Login heading={"Get Notify !"} />
       </Modal>
+      {displaycollegdetail.cid && updatecollegeviews(displaycollegdetail.cid)}
     </>
   );
 }

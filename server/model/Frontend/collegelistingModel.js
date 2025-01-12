@@ -131,9 +131,60 @@ const relatedcollegenews = (course) => {
     );
   });
 };
+const updatecollegeview = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const { cid } = body;
+    pool.query(
+      "UPDATE colleges set views=views+1 WHERE cid=$1 RETURNING *",
+      [cid],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(`college views updates: ${JSON.stringify(results.rows[0])}`);
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const insertformeqnuery = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+
+    const {
+      fullname,
+      email,
+      contactno,
+      city,
+      coursename,
+      college_name,
+      event_name,
+    } = body;
+    pool.query(
+      "INSERT INTO collegeenquery(fullname, email, contactno, city, coursename,college_name,event_name,enqury_date) VALUES ($1, $2, $3, $4, $5, $6, $7,now()) RETURNING *",
+      [fullname, email, contactno, city, coursename, college_name, event_name],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(`college views updates: ${JSON.stringify(results.rows[0])}`);
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 module.exports = {
   listing,
   collegedetails,
+  updatecollegeview,
   relatedcollegecoursewise,
   relatedcollegenews,
+  insertformeqnuery,
 };

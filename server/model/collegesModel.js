@@ -1648,6 +1648,7 @@ const updateRoles = (body) => {
     );
   });
 };
+
 const addNewcourses = (body) => {
   return new Promise(function (resolve, reject) {
     const {

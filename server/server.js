@@ -1105,6 +1105,26 @@ app.get("/api/getcollegetype", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.post("/api/updatecollegeviews", (req, res) => {
+  collegelisting_model
+    .updatecollegeview(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/formenquery", (req, res) => {
+  collegelisting_model
+    .insertformeqnuery(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 //front end apis
 //landing page apis
 app.get("/api/featuredcolleges/", (req, res) => {
