@@ -113,7 +113,7 @@ function Listing(props) {
     <>
       <section className="header"></section>
       <section className="container college-filter-wrapper">
-        <section className="filter-section">
+        <section className="filter-section mt-5">
           <Filter header="Ownership Type" fdata={filterct} search={false} />
           <Filter header="Course" filtercourse={filtercourse} search={true} />
           <Filter header="State" filterstate={filterstate} search={true} />

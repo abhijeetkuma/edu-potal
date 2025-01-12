@@ -1602,6 +1602,9 @@ header.website-wrapper {
         input {
           border: none;
           background: none;
+          &:focus-visible {
+            outline: none;
+          }
         }
         img {
           width: 16px;

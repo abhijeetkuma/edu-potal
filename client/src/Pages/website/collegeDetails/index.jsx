@@ -112,7 +112,7 @@ function CollegeDetails(props) {
       <section
         className="detailsBanner"
         style={{
-          backgroundImage: `url(${getImageURL(displaycollegdetail.banner)})`,
+          backgroundImage: `url(${getImageURL(displaycollegdetail.banner ? displaycollegdetail.banner : '')})`,
         }}
       >
         <div className="bgColor">
