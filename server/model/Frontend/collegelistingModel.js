@@ -136,7 +136,7 @@ const updatecollegeview = (body) => {
     console.log(body);
     const { cid } = body;
     pool.query(
-      "UPDATE colleges set views=views+1 WHERE cid=$1 RETURNING *",
+      "UPDATE colleges set views=views+1 WHERE cid=$1 RETURNING cid",
       [cid],
       (error, results) => {
         if (error) {
@@ -163,10 +163,10 @@ const insertformeqnuery = (body) => {
       coursename,
       college_id,
       event_name,
-      title,
+      event_title,
     } = body;
     pool.query(
-      "INSERT INTO collegeenquery(fullname, email, contactno, city, coursename,college_id,event_name,title,enqury_date) VALUES ($1, $2, $3, $4, $5, $6, $7,$8, now()) RETURNING *",
+      "INSERT INTO collegeenquery(fullname, email, contactno, city, coursename,college_id,event_name,event_title,enqury_date) VALUES ($1, $2, $3, $4, $5, $6, $7,$8, now()) RETURNING *",
       [
         fullname,
         email,
@@ -175,7 +175,7 @@ const insertformeqnuery = (body) => {
         coursename,
         college_id,
         event_name,
-        title,
+        event_title,
       ],
       (error, results) => {
         if (error) {
