@@ -56,7 +56,7 @@ function CollegeDetails(props) {
       });
     };
 
-    displaycollegdetail && updatecollegeviews(displaycollegdetail.cid)
+    displaycollegdetail.cid && updatecollegeviews(displaycollegdetail.cid)
 
   },[displaycollegdetail])
 
