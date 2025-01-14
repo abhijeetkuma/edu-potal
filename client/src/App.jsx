@@ -27,6 +27,7 @@ import Newsandevent from "./Pages/newsandevent";
 import Newsarticles from "./Pages/newsarticles";
 import Questionanswer from "./Pages/questionanswerlist";
 import Questionanser from "./Pages/questionanswer";
+import Enquiry from "./Pages/collegeenquiry";
 
 import Location from "./Pages/location";
 import Roles from "./Pages/roles";
@@ -220,6 +221,7 @@ const router = createBrowserRouter([
         path: "/admin/adminusers",
         element: <Adminusers />,
       },
+      { path: "/admin/college_enquiry", element: <Enquiry /> },
       {
         path: "/admin/roles",
         element: <Roles />,
