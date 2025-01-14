@@ -15,6 +15,8 @@ const landing_model = require("./model/Frontend/landingModel");
 const collegelisting_model = require("./model/Frontend/collegelistingModel");
 const exan_model = require("./model/Frontend/examModel");
 const autosuggest_model = require("./model/Frontend/authosuggestModel");
+const studygoal_model = require("./model/Frontend/studygoalModel");
+const courses_model = require("./model/Frontend/coursesModel");
 const toccafe_model = require("./model/Frontend/toccafeModel");
 const filter_model = require("./model/Frontend/filterModel");
 
@@ -1283,6 +1285,26 @@ app.get("/api/filterstate/", (req, res) => {
 app.get("/api/filtercity/", (req, res) => {
   filter_model
     .filtercity()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/studygoallisting/", (req, res) => {
+  studygoal_model
+    .studygoallisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/courseslisting/", (req, res) => {
+  courses_model
+    .courseslisting()
     .then((response) => {
       res.status(200).send(response);
     })
