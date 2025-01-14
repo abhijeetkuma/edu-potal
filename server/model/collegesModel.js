@@ -1966,7 +1966,7 @@ const collegeenquirylisting = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT * FROM collegeenquery ORDER BY ce_id DESC",
+        "SELECT ce.*,c.college_name FROM collegeenquery ce LEFT JOIN colleges c ON ce.college_id=c.cid ORDER BY ce.ce_id DESC",
         (error, results) => {
           if (error) {
             reject(error);

@@ -40,6 +40,12 @@ function Notifications() {
 
   const columns = [
     {
+      accessorKey: "college_name", //simple recommended way to define a column
+      header: "College Name",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
       accessorKey: "fullname", //simple recommended way to define a column
       header: "Full Name",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
@@ -126,7 +132,7 @@ function Notifications() {
     <>
       <div className="flex bg-white shadow">
         <div className="pageHeader p-3">
-          <h1 className="text-2xl font-semibold">Notification Listing</h1>
+          <h1 className="text-2xl font-semibold">College Enquiry</h1>
           <div className="actions">
             <span onClick={() => setIsFilter(true)}>
               <svg
