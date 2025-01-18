@@ -18,8 +18,14 @@ import phoneIcon from "/images/phone-icon.svg";
 import adsImg from "/images/ads.svg";
 import NewsAndUpdates from "./../home/newsAndUpdates";
 import Filter from "../listing/filter";
+import GetHelp from "../commonComps/getNotify";
+import Relatedcolleges from "../college/relatedcolleges";
+import Modal from "../commonComps/modal";
+import Login from "../commonComps/login";
 
 function Listing(props) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [popupEvents, setPopupEvents] = useState({cid: '', btnName: '', btnTitle: ''});
   const [collegelisting, setCollegelisting] = useState({
     cid: "",
     college_name: "",
@@ -109,6 +115,18 @@ function Listing(props) {
   }, []);
   //console.log("collegelisting", collegelisting.length);
   //console.log("props", props.city_url);
+
+  const openModal = (event) => {
+    event.stopPropagation()
+    const { name, title} = event.target.dataset;
+    setPopupEvents({cid:  '', btnName: name, btnTitle: title})
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <section className="header"></section>
@@ -401,7 +419,15 @@ function Listing(props) {
             </div>
           )}
         </section>
+
+
         <div className="others">
+          <GetHelp
+            heading={"Let Us Help You"}
+            openModal={openModal}
+            headingClass={"headingSeaGreen"}
+          />
+
           <div className="ads">
             <img src={adsImg} alt="" />
           </div>
@@ -410,6 +436,9 @@ function Listing(props) {
           </div>
         </div>
       </section>
+
+
+
       <NewsAndUpdates />
 
       <section className="container admissions">
@@ -559,6 +588,9 @@ function Listing(props) {
           </div>
         </form>
       </section>
+      <Modal isModalOpen={isModalOpen} onClose={closeModal}>
+        <Login heading={"Get Notify !"} data={popupEvents} />
+      </Modal>
     </>
   );
 }

@@ -116,7 +116,7 @@ function Login(props) {
                 </select>
               </div>
               <div className="agreed">
-                <input type="checkbox" name="agree" id="agree" required />
+                <input type="checkbox" checked name="agree" id="agree" required />
                 <label htmlFor="agree">
                   Yes, I have read and provide my consent for my information to
                   be processed for the purpose as mentioned in the{" "}

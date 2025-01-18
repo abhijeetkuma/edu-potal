@@ -4,8 +4,14 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import adsImg from "/images/ads.svg";
 import clgSmallImg from "/images/img-dummy-sm.png";
+import arrowTilt from "/images/arrow-tilt.svg";
+import GetHelp from "./commonComps/getNotify";
+import Modal from "./commonComps/modal";
+import Login from "./commonComps/login";
 
 function Studygoal(props) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [popupEvents, setPopupEvents] = useState({cid: '', btnName: '', btnTitle: ''});
   const [dispsglisting, setDispsglisting] = useState({
     cms_description: "",
     cms_title: "",
@@ -23,14 +29,26 @@ function Studygoal(props) {
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
   }, []);
 
+  const openModal = (event) => {
+    event.stopPropagation()
+    const { name, title} = event.target.dataset;
+    setPopupEvents({cid:  '', btnName: name, btnTitle: title})
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const renderSG = (eitem) => (
-    <div className="exam-card">
-      <div className="exam-meta">
-        <div>
-          <h3>{eitem.category_name}</h3>
-        </div>
+    <Link to={`/studygoal/${''}`}>    
+      <div className="chips-link">
+        <span>{eitem.category_name}</span>
+        <span>
+          <img src={arrowTilt} alt="" />
+        </span>
       </div>
-    </div>
+    </Link>
   );
 
   //console.log(cms_url);
@@ -52,6 +70,11 @@ function Studygoal(props) {
           </div>
         </section>
         <div className="others">
+          <GetHelp
+            heading={"Let Us Help You"}
+            openModal={openModal}
+            headingClass={"headingSeaGreen"}
+          />
           <div className="ads">
             <img src={adsImg} alt="" />
           </div>
@@ -60,6 +83,9 @@ function Studygoal(props) {
           </div>
         </div>
       </section>
+      <Modal isModalOpen={isModalOpen} onClose={closeModal}>
+        <Login heading={"Get Notify !"} data={popupEvents} />
+      </Modal>
     </>
   );
 }

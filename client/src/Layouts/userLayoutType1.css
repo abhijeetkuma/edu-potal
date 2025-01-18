@@ -716,20 +716,21 @@ header.website-wrapper {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
-      .chips-link {
-        border: 1px solid #bdbdbd;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        background-color: #fff;
-        padding: 8px 10px;
-        border-radius: 25px;
-        font-size: 12px;
-        color: #5c3a7c;
-        cursor: pointer;
-        &:hover {
-          background-color: #f3faf8;
-        }
+    }
+
+    .chips-link {
+      border: 1px solid #bdbdbd;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #fff;
+      padding: 8px 10px;
+      border-radius: 25px;
+      font-size: 12px;
+      color: #5c3a7c;
+      cursor: pointer;
+      &:hover {
+        background-color: #f3faf8;
       }
     }
 

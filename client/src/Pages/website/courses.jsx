@@ -4,8 +4,14 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import adsImg from "/images/ads.svg";
 import clgSmallImg from "/images/img-dummy-sm.png";
+import arrowTilt from "/images/arrow-tilt.svg";
+import GetHelp from "./commonComps/getNotify";
+import Modal from "./commonComps/modal";
+import Login from "./commonComps/login";
 
 function Couseses(props) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [popupEvents, setPopupEvents] = useState({cid: '', btnName: '', btnTitle: ''});
   const [displayexamlisting, setDisplayexamlisting] = useState({
     cms_description: "",
     cms_title: "",
@@ -23,14 +29,26 @@ function Couseses(props) {
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
   }, []);
 
+  const openModal = (event) => {
+    event.stopPropagation()
+    const { name, title} = event.target.dataset;
+    setPopupEvents({cid:  '', btnName: name, btnTitle: title})
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const renderCourses = (eitem) => (
-    <div className="exam-card">
-      <div className="exam-meta">
-        <div>
-          <h3>{eitem.course_name}</h3>
-        </div>
+    <Link to={`/course/${eitem.course_url}`}>    
+      <div className="chips-link">
+        <span>{eitem.course_name}</span>
+        <span>
+          <img src={arrowTilt} alt="" />
+        </span>
       </div>
-    </div>
+    </Link>
   );
 
   //console.log(cms_url);
@@ -42,16 +60,16 @@ function Couseses(props) {
           <div className="exam-card-list">
             {displayexamlisting.length > 0 &&
               displayexamlisting.map((item, id) => (
-                // <a href={"exams/details/" + item.na_url}>
-                //   <div className="md:box-content p-4 border-2 m-px  ">
-                //     {item.na_title}
-                //   </div>
-                // </a>
                 <div>{renderCourses(item)}</div>
               ))}
           </div>
         </section>
         <div className="others">
+          <GetHelp
+            heading={"Let Us Help You"}
+            openModal={openModal}
+            headingClass={"headingSeaGreen"}
+          />
           <div className="ads">
             <img src={adsImg} alt="" />
           </div>
@@ -60,6 +78,9 @@ function Couseses(props) {
           </div>
         </div>
       </section>
+      <Modal isModalOpen={isModalOpen} onClose={closeModal}>
+        <Login heading={"Get Notify !"} data={popupEvents} />
+      </Modal>
     </>
   );
 }
