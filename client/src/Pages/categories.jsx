@@ -35,7 +35,7 @@ function Categories() {
     category_meta_description: "",
     category_meta_keyword: "",
     category_meta_title: "",
-    category_status: "",
+    category_status: "A",
     category_url: "",
   });
   useEffect(() => {
@@ -322,11 +322,14 @@ function Categories() {
                 <div className="errmsg">{errorMsg[0]}</div>
               </div>
               <div className="mt-2">
+                <input type="hidden" value={editdata.cat_id} name="cat_id" />
                 <input
                   type="text"
                   name="category_name"
                   placeholder="Category Name*"
+                  required="required"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.category_name && editdata.category_name}
                 />
                 <div className="errmsg">{errorMsg[0]}</div>
               </div>
@@ -335,6 +338,8 @@ function Categories() {
                   type="text"
                   name="category_url"
                   placeholder="Category URL*"
+                  required="required"
+                  value={editdata.category_url && editdata.category_url}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 <div className="errmsg">{errorMsg[1]}</div>
@@ -343,6 +348,11 @@ function Categories() {
                 <textarea
                   name="category_description"
                   placeholder="Description*"
+                  required="required"
+                  value={
+                    editdata.category_description &&
+                    editdata.category_description
+                  }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 <div className="errmsg">{errorMsg[2]}</div>
@@ -352,6 +362,10 @@ function Categories() {
                   type="text"
                   name="category_meta_title"
                   placeholder="Meta Title*"
+                  required="required"
+                  value={
+                    editdata.category_meta_title && editdata.category_meta_title
+                  }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 <div className="errmsg">{errorMsg[3]}</div>
@@ -361,6 +375,11 @@ function Categories() {
                   type="text"
                   name="category_meta_keyword"
                   placeholder="Meta Keyword*"
+                  required="required"
+                  value={
+                    editdata.category_meta_keyword &&
+                    editdata.category_meta_keyword
+                  }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 <div className="errmsg">{errorMsg[4]}</div>
@@ -370,6 +389,11 @@ function Categories() {
                   type="text"
                   name="category_meta_description"
                   placeholder="Meta Descripton*"
+                  required="required"
+                  value={
+                    editdata.category_meta_description &&
+                    editdata.category_meta_description
+                  }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 <div className="errmsg">{errorMsg[5]}</div>
@@ -379,6 +403,9 @@ function Categories() {
                 <input
                   type="checkbox"
                   name="category_featured"
+                  defaultChecked={
+                    editdata.category_status === "Y" ? true : false
+                  }
                   value="Y"
                   placeholder="Meta Descripton*"
                   className="rounded-md border-0 py-1.5 "
@@ -390,6 +417,9 @@ function Categories() {
                 <input
                   type="radio"
                   name="category_status"
+                  defaultChecked={
+                    editdata.category_status === "A" ? true : false
+                  }
                   value="A"
                   placeholder="Meta Descripton*"
                   className="rounded-md border-0 py-1.5 "
@@ -398,6 +428,9 @@ function Categories() {
                 <input
                   type="radio"
                   name="category_status"
+                  defaultChecked={
+                    editdata.category_status === "D" ? true : false
+                  }
                   value="D"
                   placeholder="Meta Descripton*"
                   className="rounded-md border-0 py-1.5 "
