@@ -13,6 +13,9 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 function Courses() {
@@ -99,9 +102,35 @@ function Courses() {
     data,
     enableColumnOrdering: true, //enable some features
     enableRowSelection: false,
-    enablePagination: false, //disable a default feature
+    enablePagination: true, //disable a default feature
+    enableRowActions: true,
     onRowSelectionChange: setRowSelection, //hoist internal state to your own state (optional)
     state: { rowSelection }, //manage your own state, pass it back to the table (optional)
+    renderRowActions: ({ row, table }) => (
+      <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Tooltip title="Edit">
+          <IconButton onClick={() => setIsEditOpen(true)}>
+            <EditIcon
+              onClick={() => {
+                // table.setEditingRow(row);
+                editDetails(row.original.cour_id);
+
+                //console.log("Edit======------>", row.original.rol_id);
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
+            <DeleteIcon
+              onClick={() => {
+                // data.splice(row.index, 1); //assuming simple data table
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    ),
   });
   // add new course
 
@@ -375,6 +404,7 @@ function Courses() {
           </div>
         </DialogContent>
       )}
+      <ToastContainer />
     </>
   );
 }
