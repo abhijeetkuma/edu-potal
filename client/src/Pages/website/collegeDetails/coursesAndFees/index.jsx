@@ -21,53 +21,55 @@ function CollegeCoursesFees(props) {
         <h2 className="font-bold text-2xl mb-5">
           Courses, Eligibility and Fees
         </h2>
-        <table className="table-bordered">
-          <thead className="table-bordered-head">
-            <tr>
-              <th>Course</th>
-              <th>Fees</th>
-              <th>Eligibility</th>
-              <th>Total Seats</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody className="table-bordered-body">
-            {sub_course_details?.map((item, i) => (
+        <div>
+          <table className="table-bordered">
+            <thead className="table-bordered-head">
               <tr>
-                <td>{courses[item.subcourseId]}</td>
-                <td>
-                    <b>{item.course_fee ? item.course_fee : "-"}</b>
-                    <p className="underline text-xs" onClick={openModal}
-                    >Get Fee Details</p> 
-                </td>
-                <td>
-                  {item.subcourseselectiioneligibility
-                    ? item.subcourseselectiioneligibility
-                    : "-"}
-                </td>
-                <td>{item.course_seats ? item.course_seats : "-"}</td>
-                <td>
-                  <div className="">
-                    <button
-                      data-course-tag="18"
-                      data-csm-title="Apply Now"
-                      data-csm-track="true"
-                      data-csm-value="B.Tech"
-                      data-event-type="link_click"
-                      data-section_name="IIT Kharagpur Fees &amp; Eligibility"
-                      type="button"
-                      className=""
-                      onClick={openModal}
-                    >
-                      Apply Now
-                    </button>
-                    <div className=""></div>
-                  </div>
-                </td>
+                <th>Course</th>
+                <th>Fees</th>
+                <th>Eligibility</th>
+                <th>Total Seats</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="table-bordered-body">
+              {sub_course_details?.map((item, i) => (
+                <tr>
+                  <td>{courses[item.subcourseId]}</td>
+                  <td>
+                      <b>{item.course_fee ? item.course_fee : "-"}</b>
+                      <p className="underline text-xs" onClick={openModal}
+                      >Get Fee Details</p> 
+                  </td>
+                  <td>
+                    {item.subcourseselectiioneligibility
+                      ? item.subcourseselectiioneligibility
+                      : "-"}
+                  </td>
+                  <td>{item.course_seats ? item.course_seats : "-"}</td>
+                  <td>
+                    <div className="">
+                      <button
+                        data-course-tag="18"
+                        data-csm-title="Apply Now"
+                        data-csm-track="true"
+                        data-csm-value="B.Tech"
+                        data-event-type="link_click"
+                        data-section_name="IIT Kharagpur Fees &amp; Eligibility"
+                        type="button"
+                        className=""
+                        onClick={openModal}
+                      >
+                        Apply Now
+                      </button>
+                      <div className=""></div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section className="courses college-list-wrapper">

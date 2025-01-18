@@ -77,49 +77,213 @@
 
 /* For iPhone 6 and 6 plus Portrait or Landscape View */
 @media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3) {
+  .website-wrapper {
+    .main-contents {
+
+      .text-2xl {
+        font-size: 1.4rem;
+        line-height: 1.4rem;
+      }
+
+      .detailsBanner {
+        .bgColor {
+          height: auto !important;
+        }
+        .detaisHead {
+          margin: 0px;
+          height: auto !important;
+          padding: 15px 10px !important;
+          .image {
+            width: 50px !important;
+            height: 50px !important;
+            img {
+              min-width: 49px !important;
+              height: 49px !important;
+            }
+          }
+          .title h1 {
+            font-size: 22px !important;
+            text-align: left !important;
+            line-height: 24px;
+          }
+        }
+        .otherInfo {
+          .rankInfo {
+            display: initial !important;
+            position: initial !important;
+          }
+          .historyInfo {
+            position: initial !important;
+            margin: 10px 0px;
+          }
+          .apply-link {
+            padding: 8px 18px !important;
+            max-width: 100px;
+            align-items: center;
+            position: initial !important;
+          }
+          .action-btns {
+            /* display: inherit !important; */
+            padding-top: 10px !important;
+            right: 10px !important;
+            top: 135px !important;
+            > div {
+              width: 115px;
+              line-height: 12px;
+            }
+          }
+        }
+      }
+      .college-list-wrapper {
+        padding: 10px 0px !important;
+        .college-list-card {
+          max-height: initial !important;
+          .other-details {
+            height: inherit;
+            max-height: initial !important;
+            .highlights {
+              display: inherit !important;
+              > div {
+                display: flex;
+                justify-content: space-between;
+              }
+            }
+            .action-btns {
+              display: inherit !important;
+              margin-top: 10px !important;              
+              >div {
+                justify-content: center;
+              }
+              .apply-btn {
+                width: 100%;
+                margin-top: 10px;
+              }
+            }
+          }
+        }
+      }
+
+      .facilities {
+        ul {
+          li {
+            width: 48% !important;
+            max-width: 48% !important;
+          }
+        }
+      }
+
+      .rating  {
+        .rating-wrapper {
+          ul li {
+            width: 100% !important;
+            padding: 5px;
+          }
+        }
+      }
+      .address {
+        ul li {
+          display: inherit !important;
+          padding: 5px !important;
+        }
+      }
+      .related-colleges {
+        display: inherit !important;       
+        .related-colleges-box{
+          width: 100%;
+          display: inherit !important;
+        }
+      }
+      .news-wrapper {
+        display: inherit !important;
+        >div {
+          display: inherit !important;
+          float: none !important;
+        }
+        .news-card {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin-bottom: 10px;
+        }
+      }
+      .relatedWrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-top: 0px !important;
+      }
+      .ads {
+        width: initial !important;
+      }
+
+      .courses-fees {
+        >div {
+          overflow-x: auto;
+        }
+      }
+
+      .phCards {
+        flex-wrap: wrap;
+        li {
+          width: 100% !important;
+        }
+      }
+
+
+    }
+  }
+
   .top-search {
     gap: 2px !important;
     font-size: 6px;
   }
+
   #search-input {
     width: 300px !important;
     height: 40px !important;
     margin-left: 12px;
   }
+
   #search-btn {
     width: 90px !important;
     height: 40px !important;
   }
+
   .serach-container {
     padding-top: 10px !important;
   }
+
   .sliding-banner {
     height: 200px !important;  
     background-size: cover;
   }
+
   .search-wrapper mt-7 {
     margin-top: 1.5rem !important;
   }
+
   .head-line {
     font-size: 24px;
     color: #31314a;
     margin-bottom: 20px;
   }
+
   .info {
     h1 {
         font-size: 20px;
     }
   }
+
   .popular-clg-container {
     .popular-clg {
       width: 372px !important;
     }
   }
+
   .exam-card-list {
     .slick-slide {
       width: 235px !important;
     }
   }
+
   .get-notify-container {
     width: 320px !important;
     height: auto !important;
