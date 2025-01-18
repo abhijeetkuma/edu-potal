@@ -13,6 +13,9 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 function Categories() {
@@ -24,6 +27,17 @@ function Categories() {
   const [errorMsg, setErrorMsg] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
+  const [rowSelection, setRowSelection] = useState({});
+  const [editdata, setEditdata] = useState({
+    cat_id: "",
+    category_description: "",
+    category_featured: "",
+    category_meta_description: "",
+    category_meta_keyword: "",
+    category_meta_title: "",
+    category_status: "",
+    category_url: "",
+  });
   useEffect(() => {
     axios
       .get("/api/getcategories")
@@ -70,22 +84,65 @@ function Categories() {
       Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
-      accessorKey: "category_status", //simple recommended way to define a column
+      accessorKey: "status", //simple recommended way to define a column
       header: "Status",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
   ];
-  const [rowSelection, setRowSelection] = useState({});
+  //edit role details
+
+  const editDetails = (editval) => {
+    console.log("Edit role id:", editval);
+    axios
+      .get("/api/editcategory/" + editval)
+      .then((response) => {
+        setEditdata(response.data[0]);
+        let editmodulesArr = response.data[0].modules_access_ids;
+        setAssignmodul(
+          editmodulesArr.length > 0 ? editmodulesArr.split(",") : []
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  //end edit role details
 
   const table = useMaterialReactTable({
     columns,
     data,
     enableColumnOrdering: true, //enable some features
     enableRowSelection: false,
-    enablePagination: false, //disable a default feature
+    enablePagination: true, //disable a default feature
+    enableRowActions: true,
     onRowSelectionChange: setRowSelection, //hoist internal state to your own state (optional)
     state: { rowSelection }, //manage your own state, pass it back to the table (optional)
+    renderRowActions: ({ row, table }) => (
+      <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Tooltip title="Edit">
+          <IconButton onClick={() => setIsEditOpen(true)}>
+            <EditIcon
+              onClick={() => {
+                // table.setEditingRow(row);
+                editDetails(row.original.cat_id);
+
+                //console.log("Edit======------>", row.original.rol_id);
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
+            <DeleteIcon
+              onClick={() => {
+                // data.splice(row.index, 1); //assuming simple data table
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    ),
   });
   // add new course
 
@@ -189,7 +246,7 @@ function Categories() {
       setErrorMsg(errorsForm);
     }
   };
-  // end add new course
+  // end add new Category
   return (
     <>
       <div className="flex bg-white shadow">
@@ -197,7 +254,7 @@ function Categories() {
           <h1 className="text-2xl font-semibold">Category Listing</h1>
           <div className="actions">
             <span onClick={() => setIsEditOpen(true)}>
-              <Link to="" alt="New Course" title="New Course">
+              <Link to="" alt="New Category" title="New Category">
                 <svg
                   className="h-6 w-6 text-stone-600"
                   width="24"
@@ -210,9 +267,9 @@ function Categories() {
                   strokeLinejoin="round"
                 >
                   {" "}
-                  <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                  <circle cx="12" cy="12" r="9" />{" "}
-                  <line x1="9" y1="12" x2="15" y2="12" />{" "}
+                  <path stroke="none" d="M0 0h24v24H0z" />
+                  <circle cx="12" cy="12" r="9" />
+                  <line x1="9" y1="12" x2="15" y2="12" />
                   <line x1="12" y1="9" x2="12" y2="15" />
                 </svg>
               </Link>
@@ -227,7 +284,6 @@ function Categories() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                {" "}
                 <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
               </svg>
             </span>
@@ -396,6 +452,7 @@ function Categories() {
           </div>
         </DialogContent>
       )}
+      <ToastContainer />
     </>
   );
 }

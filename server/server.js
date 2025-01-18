@@ -1015,6 +1015,16 @@ app.get("/api/getcategories", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/editcategory/:cat_id", (req, res) => {
+  colleges_model
+    .editcategory(req.params.cat_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 
 app.get("/api/getfacilitys", (req, res) => {
   colleges_model
