@@ -27,6 +27,7 @@ import Newsandevent from "./Pages/newsandevent";
 import Newsarticles from "./Pages/newsarticles";
 import Questionanswer from "./Pages/questionanswerlist";
 import Questionanser from "./Pages/questionanswer";
+import Enquiry from "./Pages/collegeenquiry";
 
 import Location from "./Pages/location";
 import Roles from "./Pages/roles";
@@ -43,6 +44,8 @@ import Home from "./Pages/website/home";
 import Listing from "./Pages/website/listing";
 import CMS from "./Pages/website/cms";
 import EXAMS from "./Pages/website/exams";
+import STUDYGOAL from "./Pages/website/studygoal";
+import COURSES from "./Pages/website/courses";
 import EXAMSDETAILS from "./Pages/website/exams/details";
 import TOCCAFE from "./Pages/website/toccafe";
 import COLLEGEDETAIL from "./Pages/website/college/details";
@@ -74,6 +77,14 @@ const router = createBrowserRouter([
       {
         path: "/cms?/:cms_url",
         element: <CMS />,
+      },
+      {
+        path: "/courses",
+        element: <COURSES />,
+      },
+      {
+        path: "/studygoal",
+        element: <STUDYGOAL />,
       },
       {
         path: "/exams",
@@ -220,6 +231,7 @@ const router = createBrowserRouter([
         path: "/admin/adminusers",
         element: <Adminusers />,
       },
+      { path: "/admin/college_enquiry", element: <Enquiry /> },
       {
         path: "/admin/roles",
         element: <Roles />,

@@ -1962,6 +1962,28 @@ const getNotificationlisting = async () => {
     throw new Error("Internal server error");
   }
 };
+const collegeenquirylisting = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT ce.*,c.college_name FROM collegeenquery ce LEFT JOIN colleges c ON ce.college_id=c.cid ORDER BY ce.ce_id DESC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
 module.exports = {
   Login,
   getColleges,
@@ -2029,4 +2051,5 @@ module.exports = {
   getNotificationlisting,
   updateRating,
   getMenurolewise,
+  collegeenquirylisting,
 };
