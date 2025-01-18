@@ -1883,7 +1883,7 @@ const getCategories = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT * FROM categories ORDER BY category_name ASC",
+        "SELECT *,case when category_status = 'A' then 'Active' else 'Inactive' end as status FROM categories ORDER BY category_name ASC",
         (error, results) => {
           if (error) {
             reject(error);
@@ -1900,6 +1900,26 @@ const getCategories = async () => {
     console.error(error_1);
     throw new Error("Internal server error");
   }
+};
+const editcategory = (cat_id) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM categories WHERE cat_id = $1",
+      [cat_id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit roles ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
 };
 //get all facility our database
 const getApprovedby = async () => {
@@ -2011,6 +2031,7 @@ module.exports = {
   getCoursebranchs,
   addCoursebrach,
   getCategories,
+  editcategory,
   getCoursetype,
   getCollegetype,
   getFacility,
