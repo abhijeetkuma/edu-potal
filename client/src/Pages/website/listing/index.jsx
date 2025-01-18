@@ -338,10 +338,7 @@ function Listing(props) {
                         <span className="rank bold green"># NIRF</span>
                         <span className="rating">
                           <img src={star} alt="" />
-                          <img src={star} alt="" />
-                          <img src={star} alt="" />
-                          <img src={star} alt="" />
-                          <img src={star} alt="" />
+                          <span><b>{7}</b>/10</span>
                         </span>
                       </div>
                     </div>

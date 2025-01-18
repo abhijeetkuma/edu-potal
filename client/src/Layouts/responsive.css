@@ -227,8 +227,45 @@
         }
       }
 
+      .college-filter-wrapper {
+        display: inline;
+        .others {
+          margin-top: 20px;
+          padding: 10px;
+        }
+        .college-list-wrapper {
+          padding: 10px !important;
+        }
+        .filter-section {
+          display: none;
+        }
+        .title-details {
+          line-height: 20px;
+          div, span {
+            font-size: 10px;
+            line-height: 12px;
+            margin-top: 2px;
+          }
+        }
+        .heart {
+          width: 25px !important;
+          height: 25px !important;
+          right: 10px !important;
+          top: 0px !important;
+        }
+        
+      }
 
-    }
+      .admission-links-list {
+        gap: 5px !important;
+      }
+
+      .get-notify {
+        margin-top: 10px !important;
+        padding: 10px !important;
+      }
+
+    }/*main content*/
   }
 
   .top-search {
@@ -261,9 +298,9 @@
   }
 
   .head-line {
-    font-size: 24px;
+    font-size: 24px !important;
     color: #31314a;
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
   }
 
   .info {
@@ -311,6 +348,7 @@
 
   .container {
     padding: 8px;
+    margin: 10px 0px !important;
   } 
   .detailsWrapper {
     display: block !important;
