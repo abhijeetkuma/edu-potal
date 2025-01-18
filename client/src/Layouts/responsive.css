@@ -269,6 +269,10 @@
     }/*main content*/
   }
 
+   .login-left-container {
+    display: none;
+   }   
+
   .top-search {
     gap: 2px !important;
     font-size: 6px;
