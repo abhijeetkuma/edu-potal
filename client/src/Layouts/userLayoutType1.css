@@ -1883,15 +1883,27 @@ header.website-wrapper {
         float: left;
         display: flex;
         font-size: 10px;
-        width: 150px;
+        width: 115px;
         max-width: 165px;
       }
       .view-more {
         color: #003eff;
         cursor: pointer;
-        float: right;
+        /* float: right; */
         padding-right: 10px;
         font-size: 10px;
+        gap: 5px;
+        display: flex;
+        > a {
+          background-color: #393555;
+          color: #fff;
+          padding: 1px 4px;
+          border-radius: 10px;
+          font-size: 9px;
+          &:last-child {
+            background-color: #e99446;
+          }
+        }
       }
     }
   }

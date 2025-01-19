@@ -45,14 +45,17 @@ function Relatedcolleges(props) {
                   <img src={getImageURL(item.logo)} alt="" />
                 </div>
                 <div className="info">
-                  <p>{item.college_name}</p>
+                  <a href={"./" + item.college_url}>  
+                    <p className="underline">{item.college_name}</p>
+                  </a>
                   <div>
                     <span className="location">
                       <img src={mapIcon} alt="" />
                       <span>{item.city_name}</span>
                     </span>
                     <span className="view-more">
-                      <a href={"./" + item.college_url}>View More</a>
+                      <a href={"./" + item.college_url}>Placement</a>
+                      <a href={"./" + item.college_url}>Apply</a>
                     </span>
                   </div>
                 </div>
