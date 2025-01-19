@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from "react";
 import groupImg from "/images/group.png";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 function Login(props) {
   const { heading, inlineStyle, data } = props;
+  const [courses, setCourses] = useState([]);
+  useEffect(() => {
+    axios
+      .get("/api/getcoursesarr")
+      .then((response) => {
+        setCourses(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const formsubmit = (e) => {
     const payload = {
@@ -13,15 +25,93 @@ function Login(props) {
       city: city.value,
       coursename: coursename.value,
       college_id: data ? data.cid : "",
-      event_name: data ? data.btnName : "",
-      event_title: data ? data.btnTitle : ""
+      fevent_name: data ? data.btnName : "",
+      fevent_title: data ? data.btnTitle : "",
     };
-    axios({
-      method: "post",
-      url: "/api/formenquery",
-      data: payload,
-    });
-    return false;
+    if (fullname.value == "") {
+      toast.error("Name can not be blank!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        //transition: Bounce,
+      });
+    } else if (email.value == "") {
+      toast.error("Email can not be blank!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        //transition: Bounce,
+      });
+    } else if (contactno.value == "") {
+      toast.error("Phone can not be blank!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        //transition: Bounce,
+      });
+    } else if (city.value == "") {
+      toast.error("City can not be blank!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        //transition: Bounce,
+      });
+    } else if (coursename.value == "") {
+      toast.error("Please select course!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        //transition: Bounce,
+      });
+    } else {
+      axios({
+        method: "post",
+        url: "/api/formenquery",
+        data: payload,
+      })
+        .then(function (response) {
+          console.log(response);
+          toast.success("Your enquey successfully submited", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            //transition: Bounce,
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
   return (
     <>
@@ -111,12 +201,20 @@ function Login(props) {
               </div>
               <div className="form-element">
                 <select name="coursename" id="coursename">
-                  <option value="-Select-">Choose courses</option>
-                  <option value="bca">BCA</option>
+                  <option value="">Choose courses</option>
+                  {courses.map((item, i) => (
+                    <option value={item.course_name}>{item.course_name}</option>
+                  ))}
                 </select>
               </div>
               <div className="agreed">
-                <input type="checkbox" checked name="agree" id="agree" required />
+                <input
+                  type="checkbox"
+                  checked
+                  name="agree"
+                  id="agree"
+                  required
+                />
                 <label htmlFor="agree">
                   Yes, I have read and provide my consent for my information to
                   be processed for the purpose as mentioned in the{" "}
@@ -134,6 +232,7 @@ function Login(props) {
           </form>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 }

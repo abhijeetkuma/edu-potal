@@ -1137,6 +1137,7 @@ app.post("/api/updatecollegeviews", (req, res) => {
     });
 });
 app.post("/api/formenquery", (req, res) => {
+  //console.log("req-->", req);
   collegelisting_model
     .insertformeqnuery(req.body)
     .then((response) => {

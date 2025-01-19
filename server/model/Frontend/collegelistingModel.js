@@ -182,7 +182,7 @@ const insertformeqnuery = (body) => {
           reject(error);
         }
         if (results && results.rows) {
-          resolve(`college views updates: ${JSON.stringify(results.rows[0])}`);
+          resolve(`enquery : ${JSON.stringify(results.rows[0])}`);
         } else {
           reject(new Error("No results found"));
         }
