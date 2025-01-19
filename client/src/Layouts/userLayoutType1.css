@@ -109,6 +109,17 @@ header.website-wrapper {
 .website-wrapper {
   /* display: flex;
   padding: 2px 10px; */
+
+  .mobile-menu {
+    display: none;
+    .logo {
+      display: none;
+    }
+    .hamburger-menu {
+      display: none;
+    }
+  }
+  
   nav {
     margin-left: -200px;
     ul {

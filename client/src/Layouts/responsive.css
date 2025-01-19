@@ -363,6 +363,75 @@
     }
   }
 
+
+  /*header menu responsive*/
+  .mobile-menu {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;    
+
+    ul, .logo, .hamburger-menu {
+      display: block !important;
+    }
+
+    .logo {
+      img {
+        width: 18rem;
+        padding: 2.4rem;
+      }
+    }
+    ul {
+      display: block !important;
+      position: absolute;
+      top: 65px;
+      background-color: #fff;
+      width: 100%;
+      padding: 10px;
+      box-shadow: 0px 2px 25px 2px #000;
+      z-index: 9;
+      li {
+        color: #393555 !important;
+        font-weight: 600;
+      }
+  }
+  }
+  .desktop-menu {
+    display: none !important;
+  }
+  .desktop.logo {
+    display: none !important;
+  }
+  nav {
+    margin-left: 0px !important;
+  }
+  .hamburger-menu {
+    span {
+      width: 30px;
+      height: 2px;
+      display: block;
+      background: #fff;
+      margin-bottom: 6px;
+      transform-origin: 4px 0px;
+      transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                  background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                  opacity 0.55s ease;
+    }
+    &.open {
+      > span:nth-child(1) {
+        transform: rotate(45deg) translate(0, -6px);
+      } 
+
+      > span:nth-child(2) {
+        transform: rotate(-45deg) translate(0, 4px);
+      } 
+      > span:nth-child(3) {
+        opacity: 0;
+        transform: rotate(0deg) scale(0.2, 0.2);      }
+    }
+    
+  }
+
+
 }
 
 /* For Mobile Landscape View */
@@ -688,5 +757,16 @@
       flex-wrap: wrap;
     }
   }
+
+    /*header menu responsive*/
+    .mobile-menu {
+      display: flex;
+      ul {
+        display: block !important;
+      }
+    }
+    .desktop-menu {
+      display: none !important;
+    }
 
 }
