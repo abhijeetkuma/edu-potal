@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Slider from "react-slick";
+import {isMobile} from 'react-device-detect';
+
 //import { getImageURL } from "../../../../utils/utils-image";
 
 function FutureGoals({}) {
@@ -18,6 +20,7 @@ function FutureGoals({}) {
     category_url: "",
     courses: "",
   });
+  
   useEffect(() => {
     axios
       .get("/api/futuregoal/")
@@ -28,32 +31,52 @@ function FutureGoals({}) {
         console.error(error);
       });
   }, []);
-  return (
-    <Slider {...settings}>
-      {goal.length > 0 &&
+
+  const renderFutureGoals = (item, index) => (
+    <div id={item.cat_id}>
+    {/* console.log("courses", item.courses) */}
+    <div className="course-type" key={index}>
+      <div className="info">
+        <h1>{item.category_name}</h1>
+        <span>{item.total_colleges} Colleges</span>
+      </div>
+      <ul>
+        {item.courses &&
+          item.courses.split(",").map((c, i) => i <= 2 && <li>{c}</li>)}
+      </ul>
+      <div className="link">
+        <a href={"categorywise/" + item.category_url}>
+          Find By Location
+        </a>
+        <a href={"categorywise/" + item.category_url}>Top Colleges</a>
+      </div>
+    </div>
+  </div>
+  )
+
+  const conditionalFutureGoals = (goal) => {
+   if(isMobile)
+    return(<>
+    {goal.length > 0 &&
         goal.map((item, index) => (
-          <div id={item.cat_id}>
-            {/* console.log("courses", item.courses) */}
-            <div className="course-type" key={index}>
-              <div className="info">
-                <h1>{item.category_name}</h1>
-                <span>{item.total_colleges} Collages</span>
-              </div>
-              <ul>
-                {item.courses &&
-                  item.courses.split(",").map((c, i) => i <= 2 && <li>{c}</li>)}
-              </ul>
-              <div className="link">
-                <a href={"categorywise/" + item.category_url}>
-                  Find By Location
-                </a>
-                <a href={"categorywise/" + item.category_url}>Top Collages</a>
-              </div>
-            </div>
-          </div>
-        ))}
-    </Slider>
+        renderFutureGoals(item, index)
+      ))}
+    </>)
+
+    else
+    return(<Slider {...settings}>
+    {goal.length > 0 &&
+      goal.map((item, index) => (
+        renderFutureGoals(item, index)
+      ))
+    }
+    </Slider>)
+  }
+
+  return (
+    conditionalFutureGoals(goal)
   );
+
 }
 
 FutureGoals.propTypes = {};

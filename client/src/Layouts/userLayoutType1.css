@@ -1883,7 +1883,7 @@ header.website-wrapper {
         float: left;
         display: flex;
         font-size: 10px;
-        width: 115px;
+        width: 100px;
         max-width: 165px;
       }
       .view-more {
@@ -1897,9 +1897,9 @@ header.website-wrapper {
         > a {
           background-color: #393555;
           color: #fff;
-          padding: 1px 4px;
-          border-radius: 10px;
-          font-size: 9px;
+          padding: 4px 6px;
+          border-radius: 5px;
+          font-size: 10px;
           &:last-child {
             background-color: #e99446;
           }

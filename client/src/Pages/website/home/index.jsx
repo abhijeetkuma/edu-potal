@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 
 import { getImageURL } from "../../../utils/utils-image";
 

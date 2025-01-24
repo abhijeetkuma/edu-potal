@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Slider from "react-slick";
+import {isMobile} from 'react-device-detect';
 
 function Citywise({ imglite }) {
   var settings = {
@@ -40,15 +41,31 @@ function Citywise({ imglite }) {
     </div>
   );
 
+  const conditionalCity = (bycity) => {
+    if(isMobile)
+    return(
+      <>
+        {bycity.length > 0 &&
+          bycity.map((citem) => <div>{renderCity(citem)}</div>)
+        }
+      </>
+    )
+ 
+    else
+    return(
+      <Slider {...settings}>
+        {bycity.length > 0 &&
+        bycity.map((citem) => <div>{renderCity(citem)}</div>)}
+      </Slider>
+    )
+  } 
+
   return (
     <section className="by-cities">
       <div className="container">
         <div className="head-line">Study by Cities</div>
         <div className="by-cities-list">
-          <Slider {...settings}>
-            {bycity.length > 0 &&
-              bycity.map((citem) => <div>{renderCity(citem)}</div>)}
-          </Slider>
+          {conditionalCity(bycity)}
         </div>
       </div>
     </section>

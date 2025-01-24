@@ -57,7 +57,7 @@ function GlobalSearch(props) {
             value={searchparameter.search_parameter}
             id="search-input"
             name="search_parameter"
-            placeholder="Search: Collages, Courses, Exams, Specializations & More"
+            placeholder="Search: Colleges, Courses, Exams, Specializations & More"
             onChange={handleChangeFormdata}
             onKeyUp={(e) => autosuggestcolleges(e)}
             autocomplete="off"

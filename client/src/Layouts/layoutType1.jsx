@@ -4,8 +4,8 @@ import { Outlet, NavLink, Link } from "react-router-dom";
 import axios from "axios";
 
 import logo from "/images/logo.png";
-import "./layoutType1.css";
 import "./responsive.css";
+import "./layoutType1.css";
 console.log("test");
 function LayoutType1(props) {
   const [menulist, setMenulist] = useState([]);

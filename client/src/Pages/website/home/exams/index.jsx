@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Slider from "react-slick";
+import {isMobile} from 'react-device-detect';
 
 function Exams({ clgSmallImg }) {
   var settings = {
@@ -59,6 +60,26 @@ function Exams({ clgSmallImg }) {
     </a>
   );
 
+  const conditionalExams = (exams) => {
+    if(isMobile)
+    return(
+      <>
+      {exams.length > 0 &&
+        exams.map((eitem, index) => <div>{renderExams(eitem)}</div>)
+      }
+      </>
+    )
+ 
+    else
+    return(
+      <Slider {...settings}>
+      {exams.length > 0 &&
+        exams.map((eitem, index) => <div>{renderExams(eitem)}</div>)
+      }
+      </Slider>
+    )
+  } 
+
   return (
     <section className="container exams">
       <div className="head-line">Exams</div>
@@ -69,10 +90,7 @@ function Exams({ clgSmallImg }) {
           <li>After 12th</li>
         </ul>
         <div className="exam-card-list">
-          <Slider {...settings}>
-            {exams.length > 0 &&
-              exams.map((eitem, index) => <div>{renderExams(eitem)}</div>)}
-          </Slider>
+          {conditionalExams(exams)}
         </div>
       </div>
     </section>

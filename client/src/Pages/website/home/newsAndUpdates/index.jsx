@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Slider from "react-slick";
+import {isMobile} from 'react-device-detect';
+
 
 function NewsAndUpdates({}) {
   var settings = {
@@ -44,6 +46,29 @@ function NewsAndUpdates({}) {
     </div>
   );
 
+  const conditionalNewsAndUpdates = (newsupdates) => {
+    if(isMobile)
+    return(
+      <>
+      {newsupdates.length > 0 &&
+        newsupdates.map((nuitem) => (
+          <div>{renderNewsAndUpdates(nuitem)}</div>
+        ))
+      }
+      </>
+    )
+ 
+    else
+    return(
+      <Slider {...settings}>
+      {newsupdates.length > 0 &&
+        newsupdates.map((nuitem) => (
+          <div>{renderNewsAndUpdates(nuitem)}</div>
+        ))}
+      </Slider>
+    )
+  } 
+
   return (
     <section className="container news-updates">
       <div className="head-line">Latest News & Updates </div>
@@ -54,12 +79,7 @@ function NewsAndUpdates({}) {
           <li>College</li>
         </ul>
         <div className="news-card-list">
-          <Slider {...settings}>
-            {newsupdates.length > 0 &&
-              newsupdates.map((nuitem) => (
-                <div>{renderNewsAndUpdates(nuitem)}</div>
-              ))}
-          </Slider>
+          {conditionalNewsAndUpdates(newsupdates)}
         </div>
       </div>
     </section>
