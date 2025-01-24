@@ -1025,7 +1025,16 @@ app.get("/api/editcategory/:cat_id", (req, res) => {
       res.status(500).send(error);
     });
 });
-
+app.post("/api/updatecategory", (req, res) => {
+  colleges_model
+    .updateCategory(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/getfacilitys", (req, res) => {
   colleges_model
     .getFacility()
@@ -1128,6 +1137,7 @@ app.post("/api/updatecollegeviews", (req, res) => {
     });
 });
 app.post("/api/formenquery", (req, res) => {
+  //console.log("req-->", req);
   collegelisting_model
     .insertformeqnuery(req.body)
     .then((response) => {

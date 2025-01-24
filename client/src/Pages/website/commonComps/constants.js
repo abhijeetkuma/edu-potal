@@ -13,58 +13,58 @@ import transport from "../../../../public/images/facility/transport.png";
 import wifi from "../../../../public/images/facility/wifi.png";
 
 export const CONSTANT = {
-    FACILITIES : {
-      "1" : {
-        "name" : "Sports",
-        "imgUrl" : sports
-      },
-      "2" : {
-        "name" : "Medical",
-        "imgUrl" : medical
-      },
-      "3" : {
-        "name" : "Cafeteria",
-        "imgUrl" : cafeteria
-      },
-      "4" : {
-        "name" : "Laboratory",
-        "imgUrl" : laboratory
-      },
-      "5" : {
-        "name" : "Library",
-        "imgUrl" : library
-      },
-      "6" : {
-        "name" : "Auditrium",
-        "imgUrl" : auditorium
-      },
-      "7" : {
-        "name" : "Hostel",
-        "imgUrl" : hostel
-      },
-      "8" : {
-        "name" : "Comp Labs",
-        "imgUrl" : complab
-      },
-      "9" : {
-        "name" : "Banks",
-        "imgUrl" : bank
-      },
-      "10" : {
-        "name" : "Transport",
-        "imgUrl" : transport
-      },
-      "11" : {
-        "name" : "Classrooms",
-        "imgUrl" : classrooms
-      },
-      "12" : {
-        "name" : "Wi-Fi",
-        "imgUrl" : wifi
-      },
-      "13" : {
-        "name" : "Gym",
-        "imgUrl" : gym
-      }
-    } 
-}
+  FACILITIES: {
+    1: {
+      name: "Sports",
+      imgUrl: sports,
+    },
+    2: {
+      name: "Medical",
+      imgUrl: medical,
+    },
+    3: {
+      name: "Cafeteria",
+      imgUrl: cafeteria,
+    },
+    4: {
+      name: "Laboratory",
+      imgUrl: laboratory,
+    },
+    5: {
+      name: "Library",
+      imgUrl: library,
+    },
+    6: {
+      name: "Auditorium",
+      imgUrl: auditorium,
+    },
+    7: {
+      name: "Hostel",
+      imgUrl: hostel,
+    },
+    8: {
+      name: "Comp Labs",
+      imgUrl: complab,
+    },
+    9: {
+      name: "Banks",
+      imgUrl: bank,
+    },
+    10: {
+      name: "Transport",
+      imgUrl: transport,
+    },
+    11: {
+      name: "Classrooms",
+      imgUrl: classrooms,
+    },
+    12: {
+      name: "Wi-Fi",
+      imgUrl: wifi,
+    },
+    13: {
+      name: "Gym",
+      imgUrl: gym,
+    },
+  },
+};

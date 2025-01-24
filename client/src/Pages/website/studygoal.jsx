@@ -10,8 +10,12 @@ import Modal from "./commonComps/modal";
 import Login from "./commonComps/login";
 
 function Studygoal(props) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [popupEvents, setPopupEvents] = useState({cid: '', btnName: '', btnTitle: ''});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [popupEvents, setPopupEvents] = useState({
+    cid: "",
+    btnName: "",
+    btnTitle: "",
+  });
   const [dispsglisting, setDispsglisting] = useState({
     cms_description: "",
     cms_title: "",
@@ -30,9 +34,9 @@ function Studygoal(props) {
   }, []);
 
   const openModal = (event) => {
-    event.stopPropagation()
-    const { name, title} = event.target.dataset;
-    setPopupEvents({cid:  '', btnName: name, btnTitle: title})
+    event.stopPropagation();
+    const { name, title } = event.target.dataset;
+    setPopupEvents({ cid: "", btnName: name, btnTitle: title });
     setIsModalOpen(true);
   };
 
@@ -41,7 +45,7 @@ function Studygoal(props) {
   };
 
   const renderSG = (eitem) => (
-    <Link to={`/studygoal/${''}`}>    
+    <Link to={`/categorywise/${eitem.category_url}`}>
       <div className="chips-link">
         <span>{eitem.category_name}</span>
         <span>

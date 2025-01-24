@@ -1809,6 +1809,50 @@ const addNewcategories = (body) => {
   });
 };
 
+const updateCategory = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const {
+      cat_id,
+      category_name,
+      category_url,
+      category_description,
+      category_meta_title,
+      category_meta_keyword,
+      category_meta_description,
+      category_featured,
+      category_status,
+    } = body;
+    pool.query(
+      "UPDATE categories SET category_name=$2,category_url=$3,category_description=$4,category_meta_title=$5,category_meta_keyword=$6, category_meta_description=$7,category_featured=$8,category_status=$9 WHERE cat_id=$1 RETURNING cat_id",
+      [
+        cat_id,
+        category_name,
+        category_url,
+        category_description,
+        category_meta_title,
+        category_meta_keyword,
+        category_meta_description,
+        category_featured,
+        category_status,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A category details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 //get all facility our database
 const getFacility = async () => {
   try {
@@ -2032,6 +2076,7 @@ module.exports = {
   addCoursebrach,
   getCategories,
   editcategory,
+  updateCategory,
   getCoursetype,
   getCollegetype,
   getFacility,

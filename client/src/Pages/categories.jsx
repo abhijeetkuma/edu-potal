@@ -23,8 +23,6 @@ function Categories() {
     window.location = "login";
   }
   const [datas, setDatas] = useState([]);
-  const [returndspmsg, setReturndspmsg] = useState();
-  const [errorMsg, setErrorMsg] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
   const [rowSelection, setRowSelection] = useState({});
@@ -50,6 +48,13 @@ function Categories() {
   }, []);
   //const data = JSON.parse(datas);
   //const keys = Object.keys(data.length ? data[0] : {});
+  const handleChangeFormdata = (e) => {
+    const { name, value } = e.target;
+    setEditdata((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   const data = datas;
 
   const columns = [
@@ -98,10 +103,6 @@ function Categories() {
       .get("/api/editcategory/" + editval)
       .then((response) => {
         setEditdata(response.data[0]);
-        let editmodulesArr = response.data[0].modules_access_ids;
-        setAssignmodul(
-          editmodulesArr.length > 0 ? editmodulesArr.split(",") : []
-        );
       })
       .catch((error) => {
         console.error(error);
@@ -149,6 +150,7 @@ function Categories() {
   const addcategory = (e) => {
     e.preventDefault();
     const {
+      cat_id,
       category_name,
       category_url,
       category_description,
@@ -159,54 +161,62 @@ function Categories() {
       category_status,
     } = e.target.elements;
 
-    let errorsForm = [];
-
-    if (category_name.value === "") {
-      errorsForm.push(<div key="branameErr">Name cann't be blank!</div>);
+    const payload = {
+      cat_id: cat_id.value,
+      category_name: category_name.value,
+      category_url: category_url.value,
+      category_description: category_description.value,
+      category_meta_title: category_meta_title.value,
+      category_meta_keyword: category_meta_keyword.value,
+      category_meta_description: category_meta_description.value,
+      category_featured: category_featured.value,
+      category_status: category_status.value,
+    };
+    if (cat_id.value > 0) {
+      axios({
+        method: "post",
+        url: "/api/updatecategory",
+        data: payload,
+      })
+        .then(function (response) {
+          console.log(response);
+          category_name.value = "";
+          category_url.value = "";
+          category_description.value = "";
+          category_meta_title.value = "";
+          category_meta_keyword.value = "";
+          category_meta_description.value = "";
+          category_featured.value = "";
+          category_status.value = "A";
+          if (response.statusText == "OK") {
+            setIsEditOpen(false);
+            toast.success("Category details updated!", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              //transition: Bounce,
+            });
+          }
+          //get results
+          axios
+            .get("/api/getcategories")
+            .then((response) => {
+              setDatas(response.data);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+          //end get results
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     } else {
-      errorsForm.push();
-    }
-    if (category_url.value === "") {
-      errorsForm.push(<div key="branurlErr">URL cann't be blank!</div>);
-    } else {
-      errorsForm.push();
-    }
-    if (category_description.value === "") {
-      errorsForm.push(<div key="metatitErr">Description cann't be blank!</div>);
-    } else {
-      errorsForm.push();
-    }
-    if (category_meta_title.value === "") {
-      errorsForm.push(<div key="metatitErr">Meta Title cann't be blank!</div>);
-    } else {
-      errorsForm.push();
-    }
-    if (category_meta_keyword.value === "") {
-      errorsForm.push(
-        <div key="metakeyErr">Meta Keyword cann't be blank!</div>
-      );
-    } else {
-      errorsForm.push();
-    }
-    if (category_meta_description.value === "") {
-      errorsForm.push(
-        <div key="metadescErr">Meta Description cann't be blank!</div>
-      );
-    } else {
-      errorsForm.push();
-    }
-    console.log("errorsForm", errorsForm);
-    if (errorsForm.length === 0) {
-      const payload = {
-        category_name: category_name.value,
-        category_url: category_url.value,
-        category_description: category_description.value,
-        category_meta_title: category_meta_title.value,
-        category_meta_keyword: category_meta_keyword.value,
-        category_meta_description: category_meta_description.value,
-        category_featured: category_featured.value,
-        category_status: category_status.value,
-      };
       axios({
         method: "post",
         url: "/api/addcategories",
@@ -222,9 +232,7 @@ function Categories() {
           category_meta_description.value = "";
           category_featured.value = "";
           category_status.value = "A";
-          setReturndspmsg(
-            "<div className={sussmsg}>Record successfully added</div>"
-          );
+
           //get results
           axios
             .get("/api/getcategories")
@@ -238,12 +246,7 @@ function Categories() {
         })
         .catch(function (error) {
           console.log(error);
-          setReturndspmsg(
-            "<div className={errmsg}>Error in add course record</div>"
-          );
         });
-    } else {
-      setErrorMsg(errorsForm);
     }
   };
   // end add new Category
@@ -317,10 +320,6 @@ function Categories() {
               id="coursebranchForm"
               onSubmit={addcategory}
             >
-              {returndspmsg && returndspmsg}
-              <div className="mt-2">
-                <div className="errmsg">{errorMsg[0]}</div>
-              </div>
               <div className="mt-2">
                 <input type="hidden" value={editdata.cat_id} name="cat_id" />
                 <input
@@ -330,8 +329,8 @@ function Categories() {
                   required="required"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.category_name && editdata.category_name}
+                  onChange={handleChangeFormdata}
                 />
-                <div className="errmsg">{errorMsg[0]}</div>
               </div>
               <div className="mt-2">
                 <input
@@ -341,8 +340,8 @@ function Categories() {
                   required="required"
                   value={editdata.category_url && editdata.category_url}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={handleChangeFormdata}
                 />
-                <div className="errmsg">{errorMsg[1]}</div>
               </div>
               <div className="mt-2">
                 <textarea
@@ -354,8 +353,8 @@ function Categories() {
                     editdata.category_description
                   }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={handleChangeFormdata}
                 />
-                <div className="errmsg">{errorMsg[2]}</div>
               </div>
               <div className="mt-2">
                 <input
@@ -367,8 +366,8 @@ function Categories() {
                     editdata.category_meta_title && editdata.category_meta_title
                   }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={handleChangeFormdata}
                 />
-                <div className="errmsg">{errorMsg[3]}</div>
               </div>
               <div className="mt-2">
                 <input
@@ -381,8 +380,8 @@ function Categories() {
                     editdata.category_meta_keyword
                   }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={handleChangeFormdata}
                 />
-                <div className="errmsg">{errorMsg[4]}</div>
               </div>
               <div className="mt-2">
                 <input
@@ -395,8 +394,8 @@ function Categories() {
                     editdata.category_meta_description
                   }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={handleChangeFormdata}
                 />
-                <div className="errmsg">{errorMsg[5]}</div>
               </div>
               <div className="mt-2">
                 <label>Feature</label>
@@ -410,7 +409,6 @@ function Categories() {
                   placeholder="Meta Descripton*"
                   className="rounded-md border-0 py-1.5 "
                 />
-                <div className="errmsg">{errorMsg[6]}</div>
               </div>
               <div className="mt-2">
                 <label>Status</label>
@@ -436,7 +434,6 @@ function Categories() {
                   className="rounded-md border-0 py-1.5 "
                 />
                 Inactive
-                <div className="errmsg">{errorMsg[6]}</div>
               </div>
               <div className="btn-section">
                 <button type="button" onClick={() => setIsEditOpen(false)}>
