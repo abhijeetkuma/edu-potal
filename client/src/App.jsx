@@ -55,7 +55,7 @@ import COURSE from "./Pages/website/course";
 import SEARCH from "./Pages/website/search";
 
 import DETAILS from "./Pages/website/collegeDetails";
-import Expenses from "./Pages/expenses";
+import SITEMAP from "./Pages/website/sitemap";
 import ErrorPage from "./Components/errorComp";
 
 import "./index.css";
@@ -123,6 +123,10 @@ const router = createBrowserRouter([
       {
         path: "/college?/:college_url",
         element: <DETAILS />,
+      },
+      {
+        path: "/sitemap",
+        element: <SITEMAP />,
       },
     ],
   },
