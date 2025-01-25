@@ -309,8 +309,8 @@
 
     .course-type-container {
       .course-type {
-        width: calc(100% - 20px) !important;
-        margin: 10px !important;
+        width: calc(100% - 2px) !important;
+        margin: 10px 0 !important;
       }
     }
 
@@ -381,7 +381,7 @@
 
   .popular-clg-container {
     .popular-clg {
-      width: 372px !important;
+      width: 100% !important;
     }
   }
 
