@@ -333,14 +333,19 @@
      margin-top: 80px !important;
   }
 
+  #searchForm {
+    display: flex;
+    justify-content: center;
+  }
+
   #search-input {
-    width: 285px !important;
+    width: 275px !important;
     height: 40px !important;
     margin-left: 12px;
   }
 
   #search-btn {
-    width: 90px !important;
+    width: 75px !important;
     height: 40px !important;
   }
 
@@ -388,7 +393,7 @@
       width: 235px !important;
     }
     .exam-card {
-      width: 180px !important;
+      width: 175px !important;
       & .exam-meta {
         & > div {
             h3 {

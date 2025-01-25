@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
+
+// import Relatednews from "../../../src/Pages/website/college/relatednews";
 import adsImg from "/images/ads.svg";
 import clgSmallImg from "/images/img-dummy-sm.png";
 import GetHelp from "./commonComps/getNotify";
@@ -102,6 +104,20 @@ function Exams(props) {
           </div>
         </div>
       </section>
+      
+      {/* <section className="news  mt-10">
+        {props.data.courses && (
+          <Relatednews
+            data={props.data}
+            heading={"Related News and Events"}
+            vtype="h"
+          />
+        )}
+        <Link className="viewAll-btn" to={""}>
+          View All News and Events
+        </Link>
+      </section> */}
+
       <Modal isModalOpen={isModalOpen} onClose={closeModal}>
         <Login heading={"Get Notify !"} data={popupEvents} />
       </Modal>
