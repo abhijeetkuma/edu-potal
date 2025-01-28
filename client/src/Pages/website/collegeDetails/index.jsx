@@ -37,7 +37,11 @@ function CollegeDetails(props) {
   const [modalContent, setModalContent] = useState("");
   const [subcoursestypearr, setSubcoursestypearr] = useState([]);
   const [subcoursearr, setSubcoursearr] = useState([]);
-  const [popupEvents, setPopupEvents] = useState({cid: '', btnName: '', btnTitle: ''});
+  const [popupEvents, setPopupEvents] = useState({
+    cid: "",
+    btnName: "",
+    btnTitle: "",
+  });
   const { college_url } = useParams();
 
   const [displaycollegdetail, setDisplaycollegdetail] = useState({
@@ -47,7 +51,7 @@ function CollegeDetails(props) {
     courses: "",
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     const updatecollegeviews = (cid) => {
       axios({
         method: "post",
@@ -56,10 +60,8 @@ function CollegeDetails(props) {
       });
     };
 
-    displaycollegdetail.cid && updatecollegeviews(displaycollegdetail.cid)
-
-  },[displaycollegdetail])
-
+    displaycollegdetail.cid && updatecollegeviews(displaycollegdetail.cid);
+  }, [displaycollegdetail]);
 
   useEffect(() => {
     const detailsUrl = location.pathname.split("+")[0];
@@ -97,9 +99,13 @@ function CollegeDetails(props) {
   }, [nameUrl]);
 
   const openModal = (event) => {
-    event.stopPropagation()
-    const { name, title} = event.target.dataset;
-    setPopupEvents({cid:  displaycollegdetail.cid, btnName: name, btnTitle: title})
+    event.stopPropagation();
+    const { name, title } = event.target.dataset;
+    setPopupEvents({
+      cid: displaycollegdetail.cid,
+      btnName: name,
+      btnTitle: title,
+    });
     setIsModalOpen(true);
   };
 
@@ -112,7 +118,7 @@ function CollegeDetails(props) {
       <section
         className="detailsBanner"
         style={{
-          backgroundImage: `url(${getImageURL(displaycollegdetail.banner ? displaycollegdetail.banner : '')})`,
+          backgroundImage: `url(${getImageURL(displaycollegdetail.banner ? displaycollegdetail.banner : "")})`,
         }}
       >
         <div className="bgColor">
@@ -124,7 +130,10 @@ function CollegeDetails(props) {
               />
             </div>
             <div className="title">
-              <h1>{displaycollegdetail.college_name}</h1>
+              <h1>
+                {displaycollegdetail.college_name} Ranking, Placements,
+                Admission, Cut off, Fees and Student Review
+              </h1>
             </div>
           </div>
           <div className="container otherInfo">
@@ -175,18 +184,33 @@ function CollegeDetails(props) {
                 </span>
               </li>
             </ul>
-            <div className="apply-link" data-name='Apply' data-title='Header Apply' onClick={(e) => openModal(e)}>
+            <div
+              className="apply-link"
+              data-name="Apply"
+              data-title="Header Apply"
+              onClick={(e) => openModal(e)}
+            >
               <span>Apply</span>
               <span>
                 <img src={arrowTilt} alt="" />
               </span>
             </div>
             <div className="action-btns">
-              <div className="download" data-name='Download Brochure' data-title='Header Download Brochure' onClick={(e) => openModal(e)}>
+              <div
+                className="download"
+                data-name="Download Brochure"
+                data-title="Header Download Brochure"
+                onClick={(e) => openModal(e)}
+              >
                 <img src={downlaod} alt="" />
                 <span>Download Brochure</span>
               </div>
-              <div className="compare" data-name='Compare Colleges' data-title='Header Compare Colleges' onClick={(e) => openModal(e)}>
+              <div
+                className="compare"
+                data-name="Compare Colleges"
+                data-title="Header Compare Colleges"
+                onClick={(e) => openModal(e)}
+              >
                 <img src={compare} alt="" />
                 <span>Compare Colleges</span>
               </div>
