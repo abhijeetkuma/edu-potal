@@ -103,6 +103,7 @@ function Relatedcolleges(props) {
                   <NavLink
                     to={`/`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                    onClick={() => setIsMobMenuOpen(!isMobMenuOpen)}
                   >
                     Home
                   </NavLink>
@@ -111,6 +112,7 @@ function Relatedcolleges(props) {
                   <NavLink
                     to={`/listing`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                    onClick={() => setIsMobMenuOpen(!isMobMenuOpen)}
                   >
                     Colleges
                   </NavLink>
@@ -119,6 +121,7 @@ function Relatedcolleges(props) {
                   <NavLink
                     to={`/exams`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                    onClick={() => setIsMobMenuOpen(!isMobMenuOpen)}
                   >
                     Exams
                   </NavLink>
@@ -127,6 +130,7 @@ function Relatedcolleges(props) {
                   <NavLink
                     to={`/courses`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                    onClick={() => setIsMobMenuOpen(!isMobMenuOpen)}
                   >
                     Courses
                   </NavLink>
@@ -135,6 +139,7 @@ function Relatedcolleges(props) {
                   <NavLink
                     to={`/studygoal`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                    onClick={() => setIsMobMenuOpen(!isMobMenuOpen)}
                   >
                     Study Goal
                   </NavLink>
@@ -143,6 +148,7 @@ function Relatedcolleges(props) {
                   <NavLink
                     to={`/toccafe`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                    onClick={() => setIsMobMenuOpen(!isMobMenuOpen)}
                   >
                     TOC Cafe
                   </NavLink>

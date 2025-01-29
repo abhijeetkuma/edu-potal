@@ -8,6 +8,7 @@ import Relatednews from "../college/relatednews";
 import GetHelp from "../commonComps/getNotify";
 import Login from "../commonComps/login";
 import Modal from "../commonComps/modal";
+import {isMobile} from 'react-device-detect';
 
 import arrowTilt from "/images/arrow-tilt.svg";
 import downlaod from "/images/downloads.svg";
@@ -203,7 +204,7 @@ function CollegeDetails(props) {
                 onClick={(e) => openModal(e)}
               >
                 <img src={downlaod} alt="" />
-                <span>Download Brochure</span>
+                <span>{isMobile ? 'Brochure' : 'Download Brochure'}</span>
               </div>
               <div
                 className="compare"
@@ -212,7 +213,7 @@ function CollegeDetails(props) {
                 onClick={(e) => openModal(e)}
               >
                 <img src={compare} alt="" />
-                <span>Compare Colleges</span>
+                <span>{isMobile ? 'Compare' : 'Compare Colleges'}</span>
               </div>
             </div>
           </div>

@@ -1045,8 +1045,11 @@ header.website-wrapper {
         img,
         h1 {
           margin: 0px;
-          padding: 0px 20px;
+          padding: 5px 20px;
           color: #fff;
+          font-size: 32px;
+          text-align: left;
+          line-height: 40px;
         }
         img {
           min-width: 79px;
@@ -1064,7 +1067,7 @@ header.website-wrapper {
           display: flex;
           gap: 30px;
           position: absolute;
-          top: -40px;
+          top: 0px;
           left: 95px;
           li {
             border-right: 2px solid #fff;
@@ -1085,7 +1088,7 @@ header.website-wrapper {
           display: flex;
           gap: 15px;
           position: absolute;
-          top: 0px;
+          top: 38px;
           left: 110px;
           li {
             padding: 2px 15px;
