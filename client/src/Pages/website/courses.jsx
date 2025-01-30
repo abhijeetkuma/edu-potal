@@ -10,9 +10,13 @@ import Modal from "./commonComps/modal";
 import Login from "./commonComps/login";
 
 function Couseses(props) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [popupEvents, setPopupEvents] = useState({cid: '', btnName: '', btnTitle: ''});
-  const [displayexamlisting, setDisplayexamlisting] = useState({
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [popupEvents, setPopupEvents] = useState({
+    cid: "",
+    btnName: "",
+    btnTitle: "",
+  });
+  const [displaycourselisting, setDisplaycourselisting] = useState({
     cms_description: "",
     cms_title: "",
   });
@@ -21,7 +25,7 @@ function Couseses(props) {
     axios
       .get("/api/courseslisting/")
       .then((response) => {
-        setDisplayexamlisting(response.data);
+        setDisplaycourselisting(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -30,9 +34,9 @@ function Couseses(props) {
   }, []);
 
   const openModal = (event) => {
-    event.stopPropagation()
-    const { name, title} = event.target.dataset;
-    setPopupEvents({cid:  '', btnName: name, btnTitle: title})
+    event.stopPropagation();
+    const { name, title } = event.target.dataset;
+    setPopupEvents({ cid: "", btnName: name, btnTitle: title });
     setIsModalOpen(true);
   };
 
@@ -41,7 +45,7 @@ function Couseses(props) {
   };
 
   const renderCourses = (eitem) => (
-    <Link to={`/course/${eitem.course_url}`}>    
+    <Link to={`/course/${eitem.course_url}`}>
       <div className="chips-link">
         <span>{eitem.course_name}</span>
         <span>
@@ -58,8 +62,8 @@ function Couseses(props) {
         <section className="college-list-wrapper exams-container">
           <div className="font-bold text-2xl pb-3 pt-3">Courses</div>
           <div className="exam-card-list">
-            {displayexamlisting.length > 0 &&
-              displayexamlisting.map((item, id) => (
+            {displaycourselisting.length > 0 &&
+              displaycourselisting.map((item, id) => (
                 <div>{renderCourses(item)}</div>
               ))}
           </div>

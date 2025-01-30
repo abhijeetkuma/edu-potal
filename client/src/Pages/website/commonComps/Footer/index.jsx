@@ -64,6 +64,14 @@ function Relatedcolleges(props) {
                     Terms & Conditions
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to={`/sitemap`}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    Sitemap
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>

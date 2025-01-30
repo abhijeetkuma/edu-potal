@@ -16,8 +16,12 @@ function Exams(props) {
     btnTitle: "",
   });
   const [displayexamlisting, setDisplayexamlisting] = useState({
-    cms_description: "",
-    cms_title: "",
+    na_title: "",
+    na_url: "",
+  });
+  const [displaycourselisting, setDisplaycourselisting] = useState({
+    course_name: "",
+    course_url: "",
   });
   //const { cms_url } = useParams();
   useEffect(() => {
@@ -29,7 +33,22 @@ function Exams(props) {
       .catch((error) => {
         console.error(error);
       });
-    //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
+    axios
+      .get("/api/courseslisting/")
+      .then((response) => {
+        setDisplaycourselisting(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      .get("/api/studygoallisting/")
+      .then((response) => {
+        setDispsglisting(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   const openModal = (event) => {
@@ -45,6 +64,9 @@ function Exams(props) {
 
   const renderExams = (eitem) => (
     <a href={"/exam/" + eitem.na_url}>{eitem.na_title}</a>
+  );
+  const renderCourse = (citem) => (
+    <a href={"/course/" + citem.course_url}>{citem.course_name}</a>
   );
 
   //console.log(cms_url);
@@ -69,6 +91,7 @@ function Exams(props) {
                 <NavLink to={`/exams`}>
                   <b>Exams</b>
                 </NavLink>
+
                 {displayexamlisting.length > 0 &&
                   displayexamlisting.map((item, id) => (
                     <div>{renderExams(item)}</div>
@@ -78,6 +101,11 @@ function Exams(props) {
                 <NavLink to={`/courses`}>
                   <b>Courses</b>
                 </NavLink>
+
+                {displaycourselisting.length > 0 &&
+                  displaycourselisting.map((item, id) => (
+                    <div>{renderCourse(item)}</div>
+                  ))}
               </li>
               <li>
                 <NavLink to={`/studygoal`}>
