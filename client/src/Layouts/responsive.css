@@ -70,7 +70,7 @@
           height: auto !important;
         }
         .detaisHead {
-          margin: 0px;
+          margin: 0px !important;
           height: auto !important;
           padding: 10px 10px 0 !important;
           .image {
@@ -82,6 +82,7 @@
             }
           }
           .title h1 {
+            padding: 5px 10px;
             font-size: 20px !important;
             text-align: left !important;
             line-height: 22px;
@@ -94,12 +95,15 @@
             font-size: 14px;
             li {
               padding-right: 5px !important;
+              line-height: 12px;
+              font-size: 10px;
+              margin-bottom: 15px;
             }
           }
           .historyInfo {
             position: initial !important;
             margin: 10px 0px;
-            gap: 10px !important;
+            gap: 5px !important;
             li {
               padding: 2px 10px !important;
               font-size: 12px;
@@ -117,7 +121,7 @@
             /* display: inherit !important; */
             padding-top: 10px !important;
             right: 10px !important;
-            top: 26px !important;
+            top: 40px !important;
             > div {
               width: 100px;
               line-height: 12px;
@@ -130,6 +134,9 @@
         padding: 10px 0px !important;
         .college-list-card {
           max-height: initial !important;
+          h2 {
+            line-height: 20px;
+          }
           .other-details {
             height: inherit;
             max-height: initial !important;
@@ -149,6 +156,7 @@
               .apply-btn {
                 width: 100%;
                 margin-top: 10px;
+                height: 30px;
               }
             }
           }
@@ -351,7 +359,7 @@
   } */
 
   #search-input {
-    width: 275px !important;
+    width: 265px !important;
     height: 40px !important;
     margin-left: 12px;
   }
@@ -408,7 +416,7 @@
       width: 235px !important;
     }
     .exam-card {
-      width: 175px !important;
+      width: 170px !important;
       & .exam-meta {
         & > div {
             h3 {
@@ -457,8 +465,15 @@
   }
   .detailsTab {
     ul {
-      display: flex;
-      flex-wrap: wrap;
+      overflow-x: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      li {
+        a {
+          white-space: nowrap;
+        }
+      }
     }
   }
 

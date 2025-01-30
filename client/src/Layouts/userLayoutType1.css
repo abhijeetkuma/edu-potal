@@ -891,6 +891,10 @@ header.website-wrapper {
     }
 
     .detailsTab {
+      position: sticky;
+      top: -1px;
+      z-index: 9;
+      background-color: #fff;
       margin: 0 auto 0px auto;
       padding: 10px 0px 0px;
       box-shadow: 1px 2px 4px #ccc;
@@ -1072,6 +1076,7 @@ header.website-wrapper {
           li {
             border-right: 2px solid #fff;
             height: 22px;
+            line-height: 22px;
             padding-right: 25px;
             &:last-child {
               border-right: none;
