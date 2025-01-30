@@ -15,6 +15,10 @@ function Exams(props) {
     btnName: "",
     btnTitle: "",
   });
+  const [displaycollegelisting, setDisplaycollegelisting] = useState({
+    college_name: "",
+    college_url: "",
+  });
   const [displayexamlisting, setDisplayexamlisting] = useState({
     na_title: "",
     na_url: "",
@@ -23,8 +27,23 @@ function Exams(props) {
     course_name: "",
     course_url: "",
   });
+  const [displaysglisting, setDisplaysglisting] = useState({
+    category_name: "",
+    category_url: "",
+  });
   //const { cms_url } = useParams();
   useEffect(() => {
+    axios
+      //.get("/api/cmsdetails/" + cms_url)
+      .get("/api/collegelisting/", {
+        params: {},
+      })
+      .then((response) => {
+        setDisplaycollegelisting(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     axios
       .get("/api/examlisting/")
       .then((response) => {
@@ -44,7 +63,7 @@ function Exams(props) {
     axios
       .get("/api/studygoallisting/")
       .then((response) => {
-        setDispsglisting(response.data);
+        setDisplaysglisting(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -62,11 +81,17 @@ function Exams(props) {
     setIsModalOpen(false);
   };
 
+  const renderColleges = (citem) => (
+    <a href={"/college/" + citem.college_url}>{citem.college_name}</a>
+  );
   const renderExams = (eitem) => (
     <a href={"/exam/" + eitem.na_url}>{eitem.na_title}</a>
   );
   const renderCourse = (citem) => (
     <a href={"/course/" + citem.course_url}>{citem.course_name}</a>
+  );
+  const renderStudygoal = (sgitem) => (
+    <a href={"/categorywise/" + sgitem.category_url}>{sgitem.category_name}</a>
   );
 
   //console.log(cms_url);
@@ -86,35 +111,85 @@ function Exams(props) {
                 <NavLink to={`/listing`}>
                   <b>Colleges</b>
                 </NavLink>
+
+                <div className="sitemapinnerlink">
+                  {displaycollegelisting.length > 0 &&
+                    displaycollegelisting.map((item, id) => (
+                      <div>{renderColleges(item)}</div>
+                    ))}
+                </div>
               </li>
               <li>
                 <NavLink to={`/exams`}>
                   <b>Exams</b>
                 </NavLink>
-
-                {displayexamlisting.length > 0 &&
-                  displayexamlisting.map((item, id) => (
-                    <div>{renderExams(item)}</div>
-                  ))}
+                <div className="sitemapinnerlink">
+                  {displayexamlisting.length > 0 &&
+                    displayexamlisting.map((item, id) => (
+                      <div>{renderExams(item)}</div>
+                    ))}
+                </div>
               </li>
               <li>
                 <NavLink to={`/courses`}>
                   <b>Courses</b>
                 </NavLink>
-
-                {displaycourselisting.length > 0 &&
-                  displaycourselisting.map((item, id) => (
-                    <div>{renderCourse(item)}</div>
-                  ))}
+                <div className="sitemapinnerlink">
+                  {displaycourselisting.length > 0 &&
+                    displaycourselisting.map((item, id) => (
+                      <div>{renderCourse(item)}</div>
+                    ))}
+                </div>
               </li>
               <li>
                 <NavLink to={`/studygoal`}>
                   <b>Study Goal</b>
                 </NavLink>
+                <div className="sitemapinnerlink">
+                  {displaysglisting.length > 0 &&
+                    displaysglisting.map((item, id) => (
+                      <div>{renderStudygoal(item)}</div>
+                    ))}
+                </div>
               </li>
               <li>
                 <NavLink to={`/toccafe`}>
                   <b>TOC Cafe</b>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`/cms/about-us`}>
+                  <b>About Us</b>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`/cms/contact-us`}>
+                  <b>Contact Us</b>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`/cms/help`}>
+                  <b>Help</b>
+                </NavLink>
+              </li>{" "}
+              <li>
+                <NavLink to={`/`}>
+                  <b>Careers</b>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`/cms/privacy-policy`}>
+                  <b>Privacy Policy</b>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`/cms/terms-conditions`}>
+                  <b>Terms & Conditions</b>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={`/sitemap`}>
+                  <b>Sitemap</b>
                 </NavLink>
               </li>
             </ul>
