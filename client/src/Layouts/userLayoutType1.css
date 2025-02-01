@@ -366,17 +366,19 @@ header.website-wrapper {
         .course-type {
           margin: 4px;
           width: 250px;
-          height: 270px;
+          height: 260px;
           border-radius: 4px;
           background-color: #fff;
           box-shadow:
             rgba(0, 0, 0, 0.12) 0px 1px 3px,
             rgba(0, 0, 0, 0.24) 0px 1px 2px;
           .info {
-            background-color: #e0edea;
+            background-color: #393555;
             height: 80px;
             max-height: 80px;
             padding: 10px 20px;
+            border-radius: 4px 4px 0 0;
+            color: #fff;
             h1 {
               font-size: 24px;
               margin: auto;
@@ -390,7 +392,7 @@ header.website-wrapper {
           ul {
             li {
               margin: 8px 20px;
-              padding-bottom: 10px;
+              padding-bottom: 5px;
               font-size: 14px;
               color: #5c3a7c;
               border-bottom: 1px solid #e0edea;
@@ -474,6 +476,7 @@ header.website-wrapper {
             display: flex;
             justify-content: space-between;
             color: #5c3a7c;
+            font-weight: 600;
             > span:first-child {
               font-size: 14px;
             }
@@ -492,7 +495,7 @@ header.website-wrapper {
 
           ul.links {
             /*working in progress */
-            height: 110px;
+            /* height: 110px; */
             li {
               color: #5c3a7c;
             }
@@ -645,12 +648,12 @@ header.website-wrapper {
           border-radius: 4px;
           background-color: #fff;
           .heading {
-            background-color: #f3faf8;
+            background-color: #5c3a7c;
             padding: 10px;
             font-size: 14px;
-            height: 50px;
+            height: 65px;
             line-height: 16px;
-            color: #5c3a7c;
+            color: #fff;
             border-radius: 4px 4px 0px 0px;
           }
           .date {
@@ -1546,7 +1549,8 @@ header.website-wrapper {
       background-color: #1d1c26;
       padding: 20px;
       nav {
-        width: 580px;
+        display: flex;
+        justify-content: center;
         margin: 0 auto;
       }
     }
@@ -1696,7 +1700,7 @@ header.website-wrapper {
       margin-bottom: 15px;
       .title-section {
         padding: 5px 15px;
-        background-color: #f8f7f7;
+        background-color: #dbd3e5;
         position: relative;
         display: flex;
         align-items: center;
@@ -1756,12 +1760,14 @@ header.website-wrapper {
             span:first-child {
               font-size: 10px;
               display: block;
-              font-weight: 100;
+              font-weight: 600;
+              color: #5c3a7c;
             }
             span:last-child {
               font-size: 12px;
               display: block;
-              font-weight: 400;
+              font-weight: 600;
+              color: #5c3a7c;
             }
           }
         }
@@ -1939,12 +1945,13 @@ header.website-wrapper {
   border-radius: 4px;
   background-color: #fff;
   .heading {
-    background-color: #f3faf8;
+    background-color: #5c3a7c;
     padding: 10px;
-    font-size: 14px;
-    height: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    height: 65px;
     line-height: 16px;
-    color: #595f74;
+    color: #ffffff;
     border-radius: 4px 4px 0px 0px;
   }
   .date {
@@ -1958,6 +1965,12 @@ header.website-wrapper {
     color: #595f74;
     font-size: 12px;
     line-height: 14px;
+    height: 62px;
+    max-height: 62px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   .hr-x {
     width: calc(225px - 20px);
@@ -1983,4 +1996,10 @@ header.website-wrapper {
     font-size: 14px;
     padding-left: 10px;
   }
+}
+
+
+/*hideen items temp*/
+.heart {
+  display: none;
 }

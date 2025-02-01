@@ -49,7 +49,9 @@ function Relatednews(props) {
                 <div className="heading">
                   <h3>{item.na_title}</h3>
                 </div>
-                <div className="date">{item.na_date}</div>
+                {/* <div className="date">Date: {item.na_date}</div> */}
+                <div className="date">Date: </div>
+
                 <p className="details">
                   {item.na_brief_description.substring(0, 200)}
                 </p>

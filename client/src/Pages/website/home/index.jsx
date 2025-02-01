@@ -328,7 +328,7 @@ function Home(props) {
                               <span>4.5 (55)</span>
                             </span>
                           </div>
-                          <ul className="links mt-2">
+                          <ul className="links mt-2 mb-2">
                             <li className="text-sm">
                               <span>College Type: </span>
                               <span>

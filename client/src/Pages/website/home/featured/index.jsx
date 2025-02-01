@@ -57,7 +57,7 @@ function Featured({ clgSmallImg, mapIcon }) {
           </div>
         </div>
         <div className="other-info">
-          Avg. Package {item.averageplacementrecord}, India Rank 10th
+          Avg. Package <b>&nbsp;{ item.averageplacementrecord } </b>, India Rank <b>&nbsp;10th</b>
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ function NewsAndUpdates({}) {
       <div className="heading">
         <h3>{nuitem.na_title}</h3>
       </div>
-      <div className="date">{nuitem.disp_date}</div>
+      <div className="date">Date: {nuitem.disp_date}</div>
       <p className="details">{nuitem.na_brief_description}</p>
       <hr className="hr-x" />
       <span className="link">
