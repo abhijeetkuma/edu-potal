@@ -80,19 +80,44 @@ function Relatedcolleges(props) {
               <h3>Top Links</h3>
               <ul>
                 <li>
-                  <span>Top Engineering Collages</span>
+                  <Link
+                    to={`/categorywise/engineering-colleges`}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    <span>Top Engineering Collages</span>
+                  </Link>
                 </li>
                 <li>
-                  <span>Top Medical Collages</span>
+                  <Link
+                    to={`/categorywise/medical-colleges`}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    <span>Top Medical Collages</span>
+                  </Link>
                 </li>
                 <li>
-                  <span>Top Management Collages</span>
+                  <Link
+                    to={`/categorywise/management1`}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    <span>Top Management Collages</span>
+                  </Link>
                 </li>
                 <li>
-                  <span>Top Low Collages</span>
+                  <Link
+                    to={`/categorywise/law`}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    <span>Top Low Collages</span>
+                  </Link>
                 </li>
                 <li>
-                  <span>Top Commerce Collages</span>
+                  <Link
+                    to={`/categorywise/commerce`}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    <span>Top Commerce Collages</span>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -100,19 +125,44 @@ function Relatedcolleges(props) {
               <h3>Top Courses</h3>
               <ul>
                 <li>
-                  <span>B.Tech/BE</span>
+                  <Link
+                    to={`/course/bebtech`}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    <span>B.Tech/BE</span>
+                  </Link>
                 </li>
                 <li>
-                  <span>MBA/PGDM</span>
+                  <Link
+                    to={`/course/mba-pgdm`}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    <span>MBA/PGDM</span>
+                  </Link>
                 </li>
                 <li>
-                  <span>MCA</span>
+                  <Link
+                    to={`/course/mca`}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    <span>MCA</span>
+                  </Link>
                 </li>
                 <li>
-                  <span>BCA</span>
+                  <Link
+                    to={`/course/bca`}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    <span>BCA</span>
+                  </Link>
                 </li>
                 <li>
-                  <span>B.Sc</span>
+                  <Link
+                    to={`/course/bsc`}
+                    className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
+                  >
+                    <span>B.Sc</span>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -120,19 +170,19 @@ function Relatedcolleges(props) {
               <h3>Top Exams</h3>
               <ul>
                 <li>
-                  <span>GATE 2024</span>
+                  <span>GATE 2025</span>
                 </li>
                 <li>
-                  <span>JEE-MAIN 2024</span>
+                  <span>JEE-MAIN 2025</span>
                 </li>
                 <li>
-                  <span>CAT 2024</span>
+                  <span>CAT 2025</span>
                 </li>
                 <li>
-                  <span>NEET 2024</span>
+                  <span>NEET 2025</span>
                 </li>
                 <li>
-                  <span>XAT 2024</span>
+                  <span>XAT 2025</span>
                 </li>
               </ul>
             </div>
@@ -140,19 +190,19 @@ function Relatedcolleges(props) {
               <h3>Latest Updates</h3>
               <ul>
                 <li>
-                  <span>GATE Admit Card 2024</span>
+                  <span>GATE Admit Card 2025</span>
                 </li>
                 <li>
-                  <span>NEET Application Form 2024</span>
+                  <span>NEET Application Form 2025</span>
                 </li>
                 <li>
-                  <span>CTET Admit Card 2024</span>
+                  <span>CTET Admit Card 2025</span>
                 </li>
                 <li>
-                  <span>CUET Application Form 2024</span>
+                  <span>CUET Application Form 2025</span>
                 </li>
                 <li>
-                  <span>UGC NET Result 2023</span>
+                  <span>UGC NET Result 2024</span>
                 </li>
               </ul>
             </div>
