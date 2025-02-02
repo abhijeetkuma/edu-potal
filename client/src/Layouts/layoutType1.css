@@ -4,8 +4,8 @@
 }
 
 .sidebar {
-  height: 100vh;
-  width: 180px;
+  height: auto;
+  width: 230px;
   min-width: 180px;
   background-color: white;
   padding: 1rem;
@@ -17,7 +17,10 @@
 }
 
 .sidebar ul li {
-  margin-bottom: 2px;
+  margin-bottom: 0px;
+  background-color: #f3f3f3;
+  border-bottom: 1px solid #ddd6d6;
+  padding: 0 10px;
 }
 
 .sidebar ul li a {
@@ -30,6 +33,7 @@
   background-color: #333;
   color: #fff;
   border-radius: 5px;
+  font-weight: 400;
 }
 
 .sidebar ul li a.active {
@@ -222,4 +226,8 @@ dialog {
   padding: 20px;
   background-color: #fffcfc;
   border-radius: 10px;
+}
+.error-message {
+  font-size: 14px;
+  color: #ff0000;
 }
