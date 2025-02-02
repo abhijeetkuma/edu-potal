@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 
 import emailIcon from "/images/email-icon.svg";
@@ -7,8 +7,20 @@ import fbIcon from "/images/fb.svg";
 import instaIcon from "/images/insta.svg";
 import xIcon from "/images/x.svg";
 import inIcon from "/images/linkdin.svg";
+import axios from "axios";
 
-function Relatedcolleges(props) {
+function Footer(props) {
+  const [adsdisplist, setAdsdisplistlist] = useState([]);
+  useEffect(() => {
+    axios
+      .get("/api/ads/")
+      .then((response) => {
+        setAdsdisplistlist(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
   return (
     <>
       <div className="website-wrapper">
@@ -84,7 +96,7 @@ function Relatedcolleges(props) {
                     to={`/categorywise/engineering-colleges`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                   >
-                    <span>Top Engineering Collages</span>
+                    <span>Top Engineering Colleges</span>
                   </Link>
                 </li>
                 <li>
@@ -92,7 +104,7 @@ function Relatedcolleges(props) {
                     to={`/categorywise/medical-colleges`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                   >
-                    <span>Top Medical Collages</span>
+                    <span>Top Medical Colleges</span>
                   </Link>
                 </li>
                 <li>
@@ -100,7 +112,7 @@ function Relatedcolleges(props) {
                     to={`/categorywise/management1`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                   >
-                    <span>Top Management Collages</span>
+                    <span>Top Management Colleges</span>
                   </Link>
                 </li>
                 <li>
@@ -108,7 +120,7 @@ function Relatedcolleges(props) {
                     to={`/categorywise/law`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                   >
-                    <span>Top Low Collages</span>
+                    <span>Top Low Colleges</span>
                   </Link>
                 </li>
                 <li>
@@ -116,7 +128,7 @@ function Relatedcolleges(props) {
                     to={`/categorywise/commerce`}
                     className={`text-sm ${({ isActive }) => (isActive ? "active" : "")}`}
                   >
-                    <span>Top Commerce Collages</span>
+                    <span>Top Commerce Colleges</span>
                   </Link>
                 </li>
               </ul>
@@ -243,4 +255,4 @@ function Relatedcolleges(props) {
     </>
   );
 }
-export default Relatedcolleges;
+export default Footer;
