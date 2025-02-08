@@ -1690,7 +1690,7 @@ header.website-wrapper {
     .college-list-card {
       /* max-width: 650px;
       width: 650px; */
-      max-height: 180px;
+      max-height: auto;
       border-radius: 4px;
       background-color: #fff;
       /* padding: 5px 15px; */
@@ -1716,6 +1716,7 @@ header.website-wrapper {
             font-size: 18px;
             color: #31314a;
             font-weight: 600;
+            margin-bottom: 10px;
           }
           div,
           * {
@@ -1749,8 +1750,8 @@ header.website-wrapper {
         }
       }
       .other-details {
-        height: 100px;
-        max-height: 100px;
+        height: auto;
+        min-height: 100px;
         padding: 10px 15px;
         .highlights {
           display: flex;
