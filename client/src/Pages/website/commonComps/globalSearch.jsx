@@ -6,53 +6,52 @@ import { getImageURL } from "../../../utils/utils-image";
 import mapIcon from "/images/map-icon.png";
 
 function GlobalSearch(props) {
+  const [suggestcolleges, setSuggestcolleges] = useState();
+  const [searchparameter, setSearchparameter] = useState({
+    search_parameter: "",
+  });
 
-    const [suggestcolleges, setSuggestcolleges] = useState();
-    const [searchparameter, setSearchparameter] = useState({
-        search_parameter: "",
-    });
+  const handleChangeFormdata = (e) => {
+    const { name, value } = e.target;
+    setSearchparameter((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-    const handleChangeFormdata = (e) => {
-        const { name, value } = e.target;
-        setSearchparameter((prevState) => ({
-          ...prevState,
-          [name]: value,
-        }));
-    };
+  const autosuggestcolleges = (e) => {
+    const college_name = e.target.value;
+    //console.log("s", collegeName);
+    if (college_name != "") {
+      axios
+        //.get("/api/cmsdetails/" + cms_url)
+        .get("/api/autosuggestcolleges/" + college_name)
+        .then((response) => {
+          setSuggestcolleges(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      setSuggestcolleges();
+    }
+  };
 
-    const autosuggestcolleges = (e) => {
-        const college_name = e.target.value;
-        //console.log("s", collegeName);
-        if (college_name != "") {
-          axios
-            //.get("/api/cmsdetails/" + cms_url)
-            .get("/api/autosuggestcolleges/" + college_name)
-            .then((response) => {
-              setSuggestcolleges(response.data);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        } else {
-          setSuggestcolleges();
-        }
-    };
+  const searchvalueset = (e, val) => {
+    setSearchparameter({ search_parameter: val });
+    setSuggestcolleges();
+  };
 
-    const searchvalueset = (e, val) => {
-        setSearchparameter({ search_parameter: val });
-        setSuggestcolleges();
-    };
+  const searchCollege = () => {
+    //alert(searchparameter.search_parameter);
+    window.location = "/search?keyword=" + searchparameter.search_parameter;
+  };
 
-    const searchCollege = () => {
-        //alert(searchparameter.search_parameter);
-        window.location = "search?keyword=" + searchparameter.search_parameter;
-    };
-      
-    return (
+  return (
     <>
-        <div className="search-wrapper mt-7">
+      <div className="search-wrapper mt-7">
         <form action="" name="searchForm" id="searchForm" method="post">
-            <input
+          <input
             type="text"
             value={searchparameter.search_parameter}
             id="search-input"
@@ -62,31 +61,31 @@ function GlobalSearch(props) {
             onKeyUp={(e) => autosuggestcolleges(e)}
             autocomplete="off"
             autoFocus
-            />
-            <input
+          />
+          <input
             type="button"
             id="search-btn"
             value="Search"
             onClick={searchCollege}
-            />
+          />
 
-            {suggestcolleges?.length > 0 && (
+          {suggestcolleges?.length > 0 && (
             <div className="collegeAutosuggest-section">
-                <ul>
+              <ul>
                 {suggestcolleges.map((item, id) => (
-                    <li
+                  <li
                     key={id}
                     onClick={(e) => searchvalueset(e, item.college_name)}
-                    >
+                  >
                     {item.college_name}
-                    </li>
+                  </li>
                 ))}
-                </ul>
+              </ul>
             </div>
-            )}
+          )}
         </form>
-        </div>
+      </div>
     </>
-    );
+  );
 }
 export default GlobalSearch;
