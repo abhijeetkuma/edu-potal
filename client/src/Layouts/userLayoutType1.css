@@ -2004,3 +2004,9 @@ header.website-wrapper {
 .heart {
   display: none;
 }
+
+.scroll-to-top  {
+  svg {
+    width: 100%;
+  }
+}

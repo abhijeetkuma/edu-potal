@@ -10,13 +10,11 @@ function UserLayoutType1(props) {
   return (
     <>
       <Header />
-
       <div className="website-wrapper">
         <div className="main-contents w-full">
           <Outlet />
         </div>
       </div>
-
       <Footer />
     </>
   );

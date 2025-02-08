@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
+import ScrollToTop from "react-scroll-to-top";
 
 import emailIcon from "/images/email-icon.svg";
 import phoneIcon from "/images/phone-icon.svg";
@@ -251,6 +252,7 @@ function Footer(props) {
             copyright &copy; {new Date().getFullYear()} All rights reserved!
           </div>
         </footer>
+        <ScrollToTop smooth color="#6f00ff" />
       </div>
     </>
   );
