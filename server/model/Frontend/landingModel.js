@@ -117,7 +117,7 @@ const goal = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT cat.cat_id, cat.category_name,cat.category_url, string_agg(distinct c.course_name,', ') courses, string_agg(distinct c.course_url,', ') course_url,count(co.cid) total_colleges FROM categories cat JOIN courses c on c.cour_id = any(string_to_array(cat.cour_ids,',')::int[]) LEFT JOIN colleges co on cat.cat_id=any(string_to_array(co.categories,',')::int[]) WHERE cat.category_status='A' GROUP BY cat.cat_id ORDER BY cat_id DESC LIMIT 15",
+        "SELECT cat.cat_id, cat.category_name,cat.category_url, string_agg(distinct c.course_name,', ') courses, string_agg(distinct c.course_url,', ') course_url,count(co.cid) total_colleges FROM categories cat JOIN courses c on c.cour_id = any(string_to_array(cat.cour_ids,',')::int[]) LEFT JOIN colleges co on cat.cat_id=any(string_to_array(co.categories,',')::int[]) WHERE cat.category_status='A' GROUP BY cat.cat_id ORDER BY goal_disp_position ASC LIMIT 15",
         (error, results) => {
           if (error) {
             reject(error);

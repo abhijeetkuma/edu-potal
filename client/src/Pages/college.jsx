@@ -80,7 +80,7 @@ function College() {
   const [countryarr, setCountryarr] = useState([]);
   const [statearr, setStatearr] = useState([]);
   const [cityarr, setCityarr] = useState([]);
-  const [collegedescvalue, setCollegedescvalue] = useState();
+  const [collegedescvalue, setCollegedescvalue] = useState("");
   const [admissiondetailsvalue, setAdmissiondetailsvalue] = useState("");
   const [scholarshipoffervalue, setScholarshipoffervalue] = useState("");
   const [facultyprofilevalue, setFacultyprofilevalue] = useState();
@@ -109,6 +109,8 @@ function College() {
   const [ratingActive, setRatingActive] = useState();
   const [successmsg, setSuccessmsg] = useState();
   const [appopenvalue, setAppopenvalue] = useState();
+
+  const [errors, setErrors] = useState({});
 
   //const [editdata, setEditdata] = useState([]);
   const [editdata, setEditdata] = useState({
@@ -407,9 +409,42 @@ function College() {
     editdata.college_url = collegeurl.toLowerCase();
   };
 
+  const basicifovalidateForm = (data) => {
+    const errors = {};
+    console.log(" college_name -->", data.college_name);
+    if (!data.college_name.trim()) {
+      errors.college_name = "College name is required.";
+    }
+    if (!data.college_url.trim()) {
+      errors.college_url = "College url is required.";
+    }
+    if (!data.tag_line.trim()) {
+      errors.tag_line = "Tag line is required.";
+    }
+    if (!data.usp_remark.trim()) {
+      errors.usp_remark = "USP remark is required.";
+    }
+    if (!data.found_year.trim()) {
+      errors.found_year = "Foundation Year is required.";
+    }
+    if (!data.college_descripton.trim()) {
+      errors.college_descripton = "Description is required.";
+    }
+    if (!data.meta_title.trim()) {
+      errors.meta_title = "Meta title is required.";
+    }
+    if (!data.meta_description.trim()) {
+      errors.meta_description = "Meta description is required.";
+    }
+    if (!data.meta_keyword.trim()) {
+      errors.meta_keyword = "Meta keyword is required.";
+    }
+    return errors;
+  };
   const submitbasicinformation = async (event) => {
     event.preventDefault();
     const formData = new FormData();
+
     formData.append("cid", cid);
     formData.append("logo", logo);
     formData.append("banner", banner);
@@ -436,86 +471,110 @@ function College() {
     formData.append("old_logo", event.target.old_logo.value);
     formData.append("old_banner", event.target.old_banner.value);
     formData.append("added_by", localStorage.login_id);
+    //console.log("formData----->", Object.fromEntries(formData.entries()));
+    console.log("collegedescvalue-->", collegedescvalue);
+    const newErrors = basicifovalidateForm(
+      Object.fromEntries(formData.entries())
+    );
+    setErrors(newErrors);
 
-    if (cid > 0) {
-      //update form data
-      console.log("update query ");
-      await axios({
-        method: "post",
-        url: apiurl + "/updatebasicinformation",
-        data: formData,
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-        .then(function (response) {
-          //console.log(response);
-          // console.log(response.statusText);
-          if (response.statusText === "OK") {
-            toast.success("Basic info. sucessfully updated", {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              //transition: Bounce,
-            });
-            //return;
-            //setSuccessmsg("Successfully Updated.");
-            /*  setTimeout(function () {
+    if (Object.keys(newErrors).length > 0) {
+      console.log("newErrors-->", newErrors);
+      /*
+      toast.error("Basic info. sucessfully updated", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        //transition: Bounce,
+      });*/
+    }
+    if (Object.keys(newErrors).length === 0) {
+      if (cid > 0) {
+        //update form data
+        console.log("update query ");
+        await axios({
+          method: "post",
+          url: apiurl + "/updatebasicinformation",
+          data: formData,
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+          .then(function (response) {
+            //console.log(response);
+            // console.log(response.statusText);
+            if (response.statusText === "OK") {
+              toast.success("Basic info. sucessfully updated", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                //transition: Bounce,
+              });
+              //return;
+              //setSuccessmsg("Successfully Updated.");
+              /*  setTimeout(function () {
               window.location.replace("../../collegelisting");
             }, 3000); */
-          }
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        //end update form data
+      } else {
+        //console.log("insert query ");
+        //insert basicinformation data
+        await axios({
+          method: "post",
+          url: apiurl + "/insertbasicinformation",
+          data: formData,
+          headers: { "Content-Type": "multipart/form-data" },
         })
-        .catch(function (error) {
-          console.log(error);
-        });
-      //end update form data
-    } else {
-      //console.log("insert query ");
-      //insert basicinformation data
-      await axios({
-        method: "post",
-        url: apiurl + "/insertbasicinformation",
-        data: formData,
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-        .then(function (response) {
-          console.log("response.data.cid-->", response.data["cid"]);
-          if (response.data["cid"] > 0 && response.statusText === "OK") {
-            //setSuccessmsg("Successfully Updated.");
-            toast.success("Basic info. sucessfully inserted", {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-              //transition: Bounce,
-            });
-            window.location.href =
-              "/admin/collegelisting/college/" + response.data["cid"];
-            //cid = response.data["cid"];
-            //setInsertActivetabs(true);
-          }
+          .then(function (response) {
+            console.log("response.data.cid-->", response.data["cid"]);
+            if (response.data["cid"] > 0 && response.statusText === "OK") {
+              //setSuccessmsg("Successfully Updated.");
+              toast.success("Basic info. sucessfully inserted", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                //transition: Bounce,
+              });
+              window.location.href =
+                "/admin/collegelisting/college/" + response.data["cid"];
+              //cid = response.data["cid"];
+              //setInsertActivetabs(true);
+            }
 
-          /* console.log(response.statusText);
+            /* console.log(response.statusText);
           if (response.statusText === "OK") {
             setSuccessmsg("Successfully Updated.");
             setTimeout(function () {
               window.location.replace("../../collegelisting");
             }, 3000);
           } */
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      //end basicinformation form data
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        //end basicinformation form data
+      }
     }
   };
+
   const submitGallery = async (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -1182,9 +1241,12 @@ function College() {
                     value={editdata.college_name && editdata.college_name}
                     onChangeCapture={createUrl}
                     onChange={handleChangeFormdata}
-                    required
+                    //required
                   />
                 </div>
+                {errors.college_name && (
+                  <span className="error-message">{errors.college_name}</span>
+                )}
               </div>
             </div>
             <div className="sm:col-span-4 pb-2">
@@ -1192,7 +1254,7 @@ function College() {
                 htmlFor="college_url"
                 className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
-                College URL *
+                College URL <span className="text-orange">*</span>
               </label>
 
               <div className="flex rounded-md mt-1">
@@ -1204,16 +1266,19 @@ function College() {
                   placeholder="College Url not user space"
                   value={editdata.college_url && editdata.college_url}
                   onChange={handleChangeFormdata}
-                  required
+                  //required
                 />
               </div>
+              {errors.college_url && (
+                <span className="error-message">{errors.college_url}</span>
+              )}
             </div>
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="tag_line"
                 className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
-                Tag Line *
+                Tag Line <span className="text-orange">*</span>
               </label>
 
               <div className="flex rounded-md mt-1">
@@ -1225,16 +1290,19 @@ function College() {
                   placeholder=""
                   value={editdata.tag_line && editdata.tag_line}
                   onChange={handleChangeFormdata}
-                  required
+                  // required
                 />
               </div>
+              {errors.tag_line && (
+                <span className="error-message">{errors.tag_line}</span>
+              )}
             </div>
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="usp_remark"
                 className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
-                USP Remark *
+                USP Remark <span className="text-orange">*</span>
               </label>
 
               <div className="flex rounded-md mt-1">
@@ -1246,16 +1314,19 @@ function College() {
                   placeholder=""
                   value={editdata.usp_remark && editdata.usp_remark}
                   onChange={handleChangeFormdata}
-                  required
+                  //required
                 />
               </div>
+              {errors.usp_remark && (
+                <span className="error-message">{errors.usp_remark}</span>
+              )}
             </div>
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="found_year"
                 className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
-                Foundation Year *
+                Foundation Year <span className="text-orange">*</span>
               </label>
               <div className="flex rounded-md mt-1">
                 <input
@@ -1265,9 +1336,12 @@ function College() {
                   className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.found_year && editdata.found_year}
                   onChange={handleChangeFormdata}
-                  required
+                  //required
                 />
               </div>
+              {errors.found_year && (
+                <span className="error-message">{errors.found_year}</span>
+              )}
             </div>
             <div className="sm:col-span-4 pb-2">
               <label
@@ -1307,7 +1381,7 @@ function College() {
             </div>
             <div className="sm:col-span-4 pb-2">
               <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
-                Description
+                Description <span className="text-orange">*</span>
               </label>
               <div className=" rounded-md  mt-1">
                 <CKEditor
@@ -1372,6 +1446,11 @@ function College() {
                     onChange={handleChangeFormdata}
                   /> */}
               </div>
+              {errors.college_descripton && (
+                <span className="error-message">
+                  {errors.college_descripton}
+                </span>
+              )}
             </div>
             <div className="sm:col-span-4 pb-2">
               <label className="block text-left font-normal leading-6 text-gray-dark pb-1">
@@ -1589,7 +1668,7 @@ function College() {
                 htmlFor="meta_title"
                 className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
-                Meta Title
+                Meta Title <span className="text-orange">*</span>
               </label>
               <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-1">
                 <input
@@ -1599,16 +1678,19 @@ function College() {
                   className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.meta_title && editdata.meta_title}
                   onChange={handleChangeFormdata}
-                  required
+                  //required
                 />
               </div>
+              {errors.meta_title && (
+                <span className="error-message">{errors.meta_title}</span>
+              )}
             </div>
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="meta_description"
                 className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
-                Meta Description
+                Meta Description <span className="text-orange">*</span>
               </label>
               <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-1">
                 <textarea
@@ -1619,16 +1701,19 @@ function College() {
                   className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.meta_description && editdata.meta_description}
                   onChange={handleChangeFormdata}
-                  required
+                  //required
                 />
               </div>
+              {errors.meta_description && (
+                <span className="error-message">{errors.meta_description}</span>
+              )}
             </div>
             <div className="sm:col-span-4 pb-2">
               <label
                 htmlFor="meta_keyword"
                 className="block text-left font-normal leading-6 text-gray-dark pb-1"
               >
-                Meta Keyword
+                Meta Keyword <span className="text-orange">*</span>
               </label>
               <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-1">
                 <input
@@ -1638,9 +1723,12 @@ function College() {
                   className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.meta_keyword && editdata.meta_keyword}
                   onChange={handleChangeFormdata}
-                  required
+                  //required
                 />
               </div>
+              {errors.meta_keyword && (
+                <span className="error-message">{errors.meta_keyword}</span>
+              )}
             </div>
             <div className="sm:col-span-4 pb-2">
               <label

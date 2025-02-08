@@ -19,6 +19,7 @@ const studygoal_model = require("./model/Frontend/studygoalModel");
 const courses_model = require("./model/Frontend/coursesModel");
 const toccafe_model = require("./model/Frontend/toccafeModel");
 const filter_model = require("./model/Frontend/filterModel");
+const ads_model = require("./model/Frontend/ads");
 
 app.use(cors());
 
@@ -1345,6 +1346,16 @@ app.get("/api/toccafelisting/", (req, res) => {
 app.get("/api/examlisting/", (req, res) => {
   exan_model
     .examlisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/ads/", (req, res) => {
+  ads_model
+    .getadslisting()
     .then((response) => {
       res.status(200).send(response);
     })
