@@ -80,7 +80,7 @@ function CollegeOverview(props) {
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+placements`}>
-                {college_name} {city_name} Placememts 2025
+                {college_name} {city_name} Placements 2025
               </Link>
             </li>
             <li>
