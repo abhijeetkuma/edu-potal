@@ -19,6 +19,7 @@ function CollegeOverview(props) {
     highlights,
     sub_course_details,
     facilities,
+    city_name,
   } = props.data;
 
   const { courses, openModal } = props;
@@ -69,27 +70,27 @@ function CollegeOverview(props) {
           <ul>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+courses-and-fees`}>
-                Courses and Fees
+                {college_name} {city_name} Courses and Fees 2025
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+admissions`}>
-                Admissions
+                {college_name} {city_name} Admissions 2025
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+placements`}>
-                Placememts
+                {college_name} {city_name} Placememts 2025
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+scholarships`}>
-                Scholarships
+                {college_name} {city_name} Scholarships 2025
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+faculties`}>
-                Faculties
+                {college_name} {city_name} Faculties 2025
               </Link>
             </li>
           </ul>
