@@ -2010,3 +2010,7 @@ header.website-wrapper {
     width: 100%;
   }
 }
+
+.sticky-bottom {
+  display: none;
+}

@@ -588,6 +588,7 @@ function Listing(props) {
           </div>
         </form>
       </section>
+      
       <Modal isModalOpen={isModalOpen} onClose={closeModal}>
         <Login heading={"Get Notify !"} data={popupEvents} />
       </Modal>

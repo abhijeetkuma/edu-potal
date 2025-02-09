@@ -369,6 +369,18 @@ function CollegeDetails(props) {
           </div>
         </div>
       </section>
+
+      <div className="sticky-bottom">
+        <div className="action-btns">
+            <div className="download-btn" onClick={(e) => openModal(e)}>
+              <span>Download Brochure</span>
+            </div>
+            <div className="apply-btn" onClick={(e) => openModal(e)}>
+              <button>Apply Now</button>
+            </div>
+        </div>
+      </div>
+
       <Modal isModalOpen={isModalOpen} onClose={closeModal}>
         <Login heading={"Get Notify !"} data={popupEvents} />
       </Modal>

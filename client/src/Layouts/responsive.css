@@ -506,12 +506,48 @@
     }
   }
 
+  .sticky-bottom {
+    display: flex !important;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+      .action-btns {
+        display: grid;
+        grid-template-columns: 50% 50%;      
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        background-color: #fff;
+        padding: 15px;
+      .download-btn {
+        background-color: #6821c3;
+        padding: 8px 10px;
+        border-radius: 5px;
+        color: #fff;
+      }
+      .apply-btn {
+        min-width: 120px;
+        background-color: #393555;
+        padding: 8px 10px;
+        border-radius: 5px;
+        color: #fff;
+        text-align: center;
+      }
+    }
+  }
+
+  .scroll-to-top {
+    bottom: 70px !important;
+    right: 15px !important;
+  }
+ 
+
 
   /*header menu responsive*/
   .mobile-menu {
     display: flex !important;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
 
     ul, .logo, .hamburger-menu {
       display: block !important;
