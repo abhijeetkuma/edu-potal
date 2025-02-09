@@ -1404,6 +1404,16 @@ app.get("/api/relatednews/:courses", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/getcollegetitleappend/", (req, res) => {
+  collegelisting_model
+    .collegetitleappend(req.params.courses)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 //end front end apis
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
