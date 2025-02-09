@@ -18,11 +18,12 @@ function CollegeOverview(props) {
     display_type,
     highlights,
     sub_course_details,
-    facilities
+    facilities,
   } = props.data;
 
   const { courses, openModal } = props;
-  
+  const detailsUrl = location.pathname.split("+")[0];
+
   return (
     <>
       <Helmet>
@@ -65,29 +66,29 @@ function CollegeOverview(props) {
 
         <section className="tableOfContent mt-10">
           <h2 className="font-bold text-2xl">Table of Content</h2>
-          <ul className="mt-2">
+          <ul>
             <li>
-              <Link rel="stylesheet" href="">
+              <Link rel="stylesheet" to={`${detailsUrl}+courses-and-fees`}>
                 Courses and Fees
               </Link>
             </li>
             <li>
-              <Link rel="stylesheet" href="">
+              <Link rel="stylesheet" to={`${detailsUrl}+admissions`}>
                 Admissions
               </Link>
             </li>
             <li>
-              <Link rel="stylesheet" href="">
+              <Link rel="stylesheet" to={`${detailsUrl}+placements`}>
                 Placememts
               </Link>
             </li>
             <li>
-              <Link rel="stylesheet" href="">
+              <Link rel="stylesheet" to={`${detailsUrl}+scholarships`}>
                 Scholarships
               </Link>
             </li>
             <li>
-              <Link rel="stylesheet" href="">
+              <Link rel="stylesheet" to={`${detailsUrl}+faculties`}>
                 Faculties
               </Link>
             </li>
@@ -188,7 +189,7 @@ function CollegeOverview(props) {
             View All Courses
           </Link>
         </section>
-        {console.log('facilities-----', facilities)}
+        {console.log("facilities-----", facilities)}
 
         <Facilities data={facilities && facilities} />
 

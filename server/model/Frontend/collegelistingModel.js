@@ -190,6 +190,28 @@ const insertformeqnuery = (body) => {
     );
   });
 };
+const collegetitleappend = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT college_title_append FROM website_config",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
 module.exports = {
   listing,
   collegedetails,
@@ -197,4 +219,5 @@ module.exports = {
   relatedcollegecoursewise,
   relatedcollegenews,
   insertformeqnuery,
+  collegetitleappend,
 };

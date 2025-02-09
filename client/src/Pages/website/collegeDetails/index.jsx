@@ -8,7 +8,7 @@ import Relatednews from "../college/relatednews";
 import GetHelp from "../commonComps/getNotify";
 import Login from "../commonComps/login";
 import Modal from "../commonComps/modal";
-import {isMobile} from 'react-device-detect';
+import { isMobile } from "react-device-detect";
 
 import arrowTilt from "/images/arrow-tilt.svg";
 import downlaod from "/images/downloads.svg";
@@ -51,7 +51,7 @@ function CollegeDetails(props) {
     college_description: "",
     courses: "",
   });
-
+  const [collegetitleappend, setCollegetitleappend] = useState("");
   useEffect(() => {
     const updatecollegeviews = (cid) => {
       axios({
@@ -97,6 +97,14 @@ function CollegeDetails(props) {
       .catch((error) => {
         console.error(error);
       });
+    axios
+      .get("/api/getcollegetitleappend")
+      .then((response) => {
+        setCollegetitleappend(response.data[0]["college_title_append"]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [nameUrl]);
 
   const openModal = (event) => {
@@ -132,8 +140,8 @@ function CollegeDetails(props) {
             </div>
             <div className="title">
               <h1>
-                {displaycollegdetail.college_name} Ranking, Placements,
-                Admission, Cut off, Fees and Student Review
+                {displaycollegdetail.college_name}
+                {collegetitleappend && ", " + collegetitleappend}
               </h1>
             </div>
           </div>
@@ -204,7 +212,7 @@ function CollegeDetails(props) {
                 onClick={(e) => openModal(e)}
               >
                 <img src={downlaod} alt="" />
-                <span>{isMobile ? 'Brochure' : 'Download Brochure'}</span>
+                <span>{isMobile ? "Brochure" : "Download Brochure"}</span>
               </div>
               <div
                 className="compare"
@@ -213,7 +221,7 @@ function CollegeDetails(props) {
                 onClick={(e) => openModal(e)}
               >
                 <img src={compare} alt="" />
-                <span>{isMobile ? 'Compare' : 'Compare Colleges'}</span>
+                <span>{isMobile ? "Compare" : "Compare Colleges"}</span>
               </div>
             </div>
           </div>
