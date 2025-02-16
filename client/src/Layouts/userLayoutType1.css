@@ -40,7 +40,7 @@ header.website-wrapper {
   }
   #search-btn {
     width: 215px;
-    background-color: #454d66;
+    background-color: #1e1c30;
     color: #fff;
     height: 70px;
     border-radius: 0px 4px 4px 0px;
@@ -190,16 +190,21 @@ header.website-wrapper {
     .sliding-banner {
       background-color: #009975;
       height: 475px;
-      background-image: url(./../images/Oxford-University.jpg);
+      background-image: url(./../images/University-Sydney-Australia.png);
       background-repeat: no-repeat, repeat;
-      background-size: contain;
+      background-size: cover;
+      background-position: bottom;
+      padding-top: 100px;
     }
 
     .serach-container {
-      width: calc(1360px - 445px);
-      margin: 0 auto;
-      height: 300px;
+      width: calc(1360px - 385px);
+      margin: 0px auto;
+      height: 240px;
       padding-top: 100px;
+      background-color: #1a2a3391;
+      padding: 30px;
+      border-radius: 10px;
     }
 
     .top-search {
@@ -246,14 +251,15 @@ header.website-wrapper {
 
     .latest-news {
       position: absolute;
-      top: 500px;
-      width: 1360px;
-      left: 50%;
-      margin-left: -670px;
+      top: 503px;
+      background: #115332c7;
+      width: 100%;
+      padding: 6px;
       .news-wrapper {
         display: flex;
         gap: 30px;
         align-items: center;
+        justify-content: center;
         .news-list {
           display: flex;
           gap: 20px;
@@ -1534,6 +1540,17 @@ header.website-wrapper {
           }
         }
       }
+    }
+
+    .sticky-help {
+      position: fixed;
+      bottom: 0;
+      right: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: #d81b1b;
+      padding: 2px 15px;
+      border-radius: 5px 5px 0 0;
     }
 
     /* end container*/

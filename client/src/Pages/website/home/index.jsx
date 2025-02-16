@@ -197,7 +197,7 @@ function Home(props) {
       <section className="sliding-banner">
         <div className="serach-container">
           <div className="top-search">
-            <span>Top Courses:</span>
+            <span style={{color: '#fff'}}>Top Courses:</span>
             {topcourses.length > 0 &&
               topcourses.map((citem) => (
                 <span className="border-chips" id={citem.cour_id}>
