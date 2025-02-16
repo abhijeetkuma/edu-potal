@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import Relatedcolleges from "../../college/relatedcolleges";
 import Relatednews from "../../college/relatednews";
 import Rating from "../../commonComps/ratings";
 import Contact from "../../commonComps/contact";
 import Facilities from "../../commonComps/facilities";
+import { getImageURL } from "../../../../utils/utils-image";
 
 function CollegePlacements(props) {
   const {
@@ -17,13 +19,42 @@ function CollegePlacements(props) {
     toprecruiters,
     toprecuitingsectors,
     topprofile,
-    facilities
+    facilities,
+    meta_title,
+    meta_description,
+    meta_keyword,
+    college_url,
+    logo,
   } = props.data;
 
   const { openModal } = props;
+  const year = new Date();
 
   return (
     <>
+      <Helmet>
+        <title>{`Placements ${year.getFullYear() - 1}  ${meta_title}`}</title>
+        <meta name="description" content={meta_description} />
+        <meta name="keywords" content={meta_keyword} />
+        <link
+          id="canonicalUrl"
+          rel="canonical"
+          href={`https://timesofcollege.com/college/${college_url}`}
+        />
+        <meta property="og:site_name" content="Times of College"></meta>
+        <meta
+          property="og:url"
+          content={`https://timesofcollege.com/college/${college_url}`}
+        />
+        <meta property="og:type" content="college-view" />
+        <meta property="og:title" key="og:title" content={meta_title} />=
+        <meta
+          property="og:description"
+          key="og:description"
+          content={meta_description}
+        />
+        <meta property="og:image" key="og:image" content={getImageURL(logo)} />
+      </Helmet>
       <section>
         <div className="placementHighlights">
           <ul className="phCards">
