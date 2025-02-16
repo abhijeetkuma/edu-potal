@@ -190,7 +190,6 @@ function CollegeOverview(props) {
             View All Courses
           </Link>
         </section>
-        {console.log("facilities-----", facilities)}
 
         <Facilities data={facilities && facilities} />
 

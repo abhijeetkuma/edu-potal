@@ -107,7 +107,7 @@ function LayoutType1(props) {
         </div>
       </header>
       <div className="root">
-        <div className="sidebar relative flex flex-col bg-white text-gray-700 h-100vh p-4 shadow-xl shadow-blue-gray-900/5">
+        <div className="sidebar relative flex flex-col bg-white text-gray-700 h-100vh shadow-xl shadow-blue-gray-900/5">
           <aside id="sidebar">
             <ul>
               {menulist.map((item, i) => (

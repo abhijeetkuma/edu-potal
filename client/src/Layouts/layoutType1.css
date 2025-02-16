@@ -8,7 +8,6 @@
   width: 230px;
   min-width: 180px;
   background-color: white;
-  padding: 1rem;
   flex-direction: column;
 }
 
@@ -20,7 +19,7 @@
   margin-bottom: 0px;
   background-color: #f3f3f3;
   border-bottom: 1px solid #ddd6d6;
-  padding: 0 10px;
+  /* padding: 0 10px; */
 }
 
 .sidebar ul li a {
@@ -30,28 +29,32 @@
 
 .sidebar ul li:hover {
   /* padding: 7px; */
-  background-color: #333;
+  background-color: #5c496e;
   color: #fff;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   font-weight: 400;
 }
 
 .sidebar ul li a.active {
-  background-color: #333;
+  background-color: #3c2d4b;
   color: #fff;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 60px;
 }
 
 header .logo img {
-  width: 20rem;
+  width: 12rem;
   padding: 0.4rem;
-  margin-left: 1rem;
+}
+
+.profile {
+  padding-right: 20px;
 }
 
 .pageHeader {

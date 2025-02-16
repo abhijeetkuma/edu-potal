@@ -3,9 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 // Define the async thunk for fetching user data
 export const fetchRelatedNewsData = createAsyncThunk('fetchRelatedNewsData', async (courses) => {
     const response = await fetch(`/api/relatednews/${courses}`);
-    const jsonData = await response.json();
-    console.log('response--->', jsonData);
-    
+    const jsonData = await response.json();    
     return jsonData;
   });
 
