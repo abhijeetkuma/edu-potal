@@ -6,7 +6,7 @@ import Modal from "../../commonComps/modal";
 import GlobalSearch from "../globalSearch";
 import { openModel, closeModel } from "../../../../redux/manageModelSlice";
 
-import logo from "/images/logo.png";
+import logo from "/images/logoWhite.png";
 import searchIcon from "/images/search.svg";
 
 function Relatedcolleges(props) {

@@ -211,7 +211,13 @@
         }
       }
       .news-wrapper {
-        display: inherit !important;
+        display: flex !important;
+        white-space: nowrap;
+        flex-wrap: nowrap !important;
+        overflow-x: scroll;
+        &::-webkit-scrollbar {
+          display: none;
+        }
         >div {
           display: inherit !important;
           float: none !important;
@@ -297,6 +303,7 @@
     }
     .latest-news {
       width: 100% !important;
+      top: 270px !important;
     }
     .search-wrapper {
       width: 100% !important;
@@ -385,17 +392,19 @@
     height: 40px !important;
   }
 
-  .serach-container {
-    padding-top: 10px !important;
+  .search-container {
+    padding: 45px 0 0 0 !important;
     width: 100% !important;
+    border-radius: 0px !important;
     .search-wrapper {
-      margin-top: 50px !important;
+      margin-top: 15px !important;
     }
   }
 
   .sliding-banner {
     height: 200px !important;  
     background-size: cover !important;
+    padding: 0 !important;
   }
 
   .search-wrapper mt-7 {

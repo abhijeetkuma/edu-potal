@@ -195,7 +195,7 @@ function Home(props) {
         />
       </Helmet>
       <section className="sliding-banner">
-        <div className="serach-container">
+        <div className="search-container">
           <div className="top-search">
             <span style={{color: '#fff'}}>Top Courses:</span>
             {topcourses.length > 0 &&

@@ -197,7 +197,7 @@ header.website-wrapper {
       padding-top: 100px;
     }
 
-    .serach-container {
+    .search-container {
       width: calc(1360px - 385px);
       margin: 0px auto;
       height: 240px;
@@ -1642,7 +1642,7 @@ header.website-wrapper {
         rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
       margin-bottom: 15px;
 
-      .serach {
+      .search {
         display: flex;
         justify-content: space-between;
         border: 1px solid #d9d9d9;
