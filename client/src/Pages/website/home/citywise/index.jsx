@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Slider from "react-slick";
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+
 import {isMobile} from 'react-device-detect';
 
 function Citywise({ imglite }) {
@@ -34,7 +36,8 @@ function Citywise({ imglite }) {
     <div className="city-card" id={citem.cit_id}>
       <div>
         <a href={"studybycity/" + citem.city_url}>
-          <img src={imglite} alt="" style={{margin:'0 auto'}}/>
+          {/* <img src={imglite} alt="" style={{margin:'0 auto'}}/> */}
+          <LocationCityIcon style={{fontSize: '35px', color: '#402756', width: '100%'}} />
           <p>{citem.city_name}</p>
         </a>
       </div>
