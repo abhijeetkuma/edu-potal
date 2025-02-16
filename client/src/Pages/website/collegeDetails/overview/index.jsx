@@ -92,27 +92,30 @@ function CollegeOverview(props) {
           <ul>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+courses-and-fees`}>
-                {college_name} {city_name} Courses and Fees 2025
+                {college_name} {city_name} Courses and Fees{" "}
+                {new Date().getFullYear()}
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+admissions`}>
-                {college_name} {city_name} Admissions 2025
+                {college_name} {city_name} Admissions {new Date().getFullYear()}
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+placements`}>
-                {college_name} {city_name} Placements 2025
+                {college_name} {city_name} Placements{" "}
+                {new Date().getFullYear() - 1}
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+scholarships`}>
-                {college_name} {city_name} Scholarships 2025
+                {college_name} {city_name} Scholarships{" "}
+                {new Date().getFullYear()}
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+faculties`}>
-                {college_name} {city_name} Faculties 2025
+                {college_name} {city_name} Faculties {new Date().getFullYear()}
               </Link>
             </li>
           </ul>
