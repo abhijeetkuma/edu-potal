@@ -1,22 +1,53 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import Relatedcolleges from "../../college/relatedcolleges";
 import Relatednews from "../../college/relatednews";
 import Rating from "../../commonComps/ratings";
 import Contact from "../../commonComps/contact";
 import Facilities from "../../commonComps/facilities";
+import { getImageURL } from "../../../../utils/utils-image";
 
 function CollegeCoursesFees(props) {
   const {
     sub_course_details,
-    facilities
+    facilities,
+    meta_title,
+    meta_description,
+    meta_keyword,
+    college_url,
+    logo,
   } = props.data;
 
   const { courses, openModal } = props;
+  const placementyear = new Date();
 
   return (
     <>
+      <Helmet>
+        <title>{`Courses, Eligibility and Fees ${meta_title}`}</title>
+        <meta name="description" content={meta_description} />
+        <meta name="keywords" content={meta_keyword} />
+        <link
+          id="canonicalUrl"
+          rel="canonical"
+          href={`https://timesofcollege.com/college/${college_url}`}
+        />
+        <meta property="og:site_name" content="Times of College"></meta>
+        <meta
+          property="og:url"
+          content={`https://timesofcollege.com/college/${college_url}`}
+        />
+        <meta property="og:type" content="college-view" />
+        <meta property="og:title" key="og:title" content={meta_title} />=
+        <meta
+          property="og:description"
+          key="og:description"
+          content={meta_description}
+        />
+        <meta property="og:image" key="og:image" content={getImageURL(logo)} />
+      </Helmet>
       <section className="courses-fees">
         <h2 className="font-bold text-2xl mb-5">
           Courses, Eligibility and Fees
@@ -37,9 +68,10 @@ function CollegeCoursesFees(props) {
                 <tr>
                   <td>{courses[item.subcourseId]}</td>
                   <td>
-                      <b>{item.course_fee ? item.course_fee : "-"}</b>
-                      <p className="underline text-xs" onClick={openModal}
-                      >Get Fee Details</p> 
+                    <b>{item.course_fee ? item.course_fee : "-"}</b>
+                    <p className="underline text-xs" onClick={openModal}>
+                      Get Fee Details
+                    </p>
                   </td>
                   <td>
                     {item.subcourseselectiioneligibility
@@ -135,7 +167,9 @@ function CollegeCoursesFees(props) {
                   <div className="compare" onClick={openModal}>
                     {/* <img src="/images/compare.svg" alt="" /> */}
                     <img src="/images/downloads.svg" alt="" />
-                    <span>Latest Placements</span>
+                    <span>
+                      Check Placements {placementyear.getFullYear() - 1}
+                    </span>
                   </div>
                 </div>
                 <div className="apply-btn">

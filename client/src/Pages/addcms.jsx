@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
+import { CKEditor, wysiwyg } from "@ckeditor/ckeditor5-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -12,6 +12,9 @@ import {
   Paragraph,
   List,
   Table,
+  Heading,
+  BlockQuote,
+  Alignment,
 } from "ckeditor5";
 
 import axios from "axios";
@@ -250,22 +253,65 @@ function Addcms() {
             </label>
             <CKEditor
               editor={ClassicEditor}
-              config={{
-                plugins: [Essentials, Bold, Italic, Paragraph, List, Table],
+              // config={{
+              //   plugins: [Essentials, Bold, Italic, Paragraph, List, Table],
 
+              //   toolbar: [
+              //     "bold",
+              //     "italic",
+              //     "|",
+              //     "undo",
+              //     "redo",
+              //     "|",
+              //     "numberedList",
+              //     "bulletedList",
+              //   ],
+              //   menuBar: {
+              //     isVisible: true,
+              //   },
+              // }}
+              config={{
+                plugins: [
+                  Essentials,
+                  Heading,
+                  Paragraph,
+                  Bold,
+                  Italic,
+                  BlockQuote,
+                  Alignment,
+                  List,
+                  Mention,
+                  Table,
+                  Number,
+                ],
                 toolbar: [
-                  "bold",
-                  "italic",
+                  "Heading",
                   "|",
-                  "undo",
-                  "redo",
+                  "Essentials",
+                  "Paragraph",
+
+                  "Bold",
+                  "Italic",
+                  "Alignment",
+                  "Link",
+                  "ListUI",
+                  "BlockQuote",
+                  "Undo",
+                  "Redo",
+                  "Mention",
+                  "Table",
                   "|",
                   "numberedList",
                   "bulletedList",
+                  ,
                 ],
-                menuBar: {
-                  isVisible: true,
-                },
+                removePlugins: [
+                  "Image",
+                  "ImageCaption",
+                  "ImageStyle",
+                  "ImageToolbar",
+                  "ImageUpload",
+                ],
               }}
               data={editdata.cms_description ? editdata.cms_description : ""}
               onReady={(editor) => {

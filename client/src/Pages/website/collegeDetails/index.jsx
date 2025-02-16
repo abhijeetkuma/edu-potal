@@ -141,7 +141,7 @@ function CollegeDetails(props) {
             <div className="title">
               <h1>
                 {displaycollegdetail.college_name}
-                {collegetitleappend && ", " + collegetitleappend}
+                {collegetitleappend && " " + collegetitleappend}
               </h1>
             </div>
           </div>
@@ -380,12 +380,12 @@ function CollegeDetails(props) {
 
       <div className="sticky-bottom">
         <div className="action-btns">
-            <div className="download-btn" onClick={(e) => openModal(e)}>
-              <span>Download Brochure</span>
-            </div>
-            <div className="apply-btn" onClick={(e) => openModal(e)}>
-              <button>Apply Now</button>
-            </div>
+          <div className="download-btn" onClick={(e) => openModal(e)}>
+            <span>Download Brochure</span>
+          </div>
+          <div className="apply-btn" onClick={(e) => openModal(e)}>
+            <button>Apply Now</button>
+          </div>
         </div>
       </div>
 

@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 function CollegeHeaders(props) {
   const { tabName, collageUrl } = props;
   const detailsUrl = location.pathname.split("+")[0];
+  const adminssinyear = new Date();
 
   return (
     <>
@@ -21,10 +22,14 @@ function CollegeHeaders(props) {
             <Link to={`${detailsUrl}+courses-and-fees`}>Courses & Fees</Link>
           </li>
           <li className={tabName === "admissions" ? "active" : ""}>
-            <Link to={`${detailsUrl}+admissions`}>Admission 2025</Link>
+            <Link to={`${detailsUrl}+admissions`}>
+              Admission {adminssinyear.getFullYear()}
+            </Link>
           </li>
           <li className={tabName === "placements" ? "active" : ""}>
-            <Link to={`${detailsUrl}+placements`}>Placements</Link>
+            <Link to={`${detailsUrl}+placements`}>
+              Placements {adminssinyear.getFullYear() - 1}
+            </Link>
           </li>
           <li className={tabName === "scholarships" ? "active" : ""}>
             <Link to={`${detailsUrl}+scholarships`}>Scholarships</Link>

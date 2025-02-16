@@ -7,6 +7,7 @@ import Relatednews from "../../college/relatednews";
 import Rating from "../../commonComps/ratings";
 import Contact from "../../commonComps/contact";
 import Facilities from "../../commonComps/facilities";
+import { getImageURL } from "../../../../utils/utils-image";
 
 function CollegeOverview(props) {
   const {
@@ -20,6 +21,8 @@ function CollegeOverview(props) {
     sub_course_details,
     facilities,
     city_name,
+    college_url,
+    logo,
   } = props.data;
 
   const { courses, openModal } = props;
@@ -31,7 +34,26 @@ function CollegeOverview(props) {
         <title>{meta_title}</title>
         <meta name="description" content={meta_description} />
         <meta name="keywords" content={meta_keyword} />
+        <link
+          id="canonicalUrl"
+          rel="canonical"
+          href={`https://timesofcollege.com/college/${college_url}`}
+        />
+        <meta property="og:site_name" content="Times of College"></meta>
+        <meta
+          property="og:url"
+          content={`https://timesofcollege.com/college/${college_url}`}
+        />
+        <meta property="og:type" content="college-view" />
+        <meta property="og:title" key="og:title" content={meta_title} />=
+        <meta
+          property="og:description"
+          key="og:description"
+          content={meta_description}
+        />
+        <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>
+
       <div className="overview-details">
         {/* <section className="latestNews">
           <h2 className="font-bold text-2xl">Noticeboard</h2>
@@ -70,27 +92,30 @@ function CollegeOverview(props) {
           <ul>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+courses-and-fees`}>
-                {college_name} {city_name} Courses and Fees 2025
+                {college_name} {city_name} Courses and Fees{" "}
+                {new Date().getFullYear()}
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+admissions`}>
-                {college_name} {city_name} Admissions 2025
+                {college_name} {city_name} Admissions {new Date().getFullYear()}
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+placements`}>
-                {college_name} {city_name} Placements 2025
+                {college_name} {city_name} Placements{" "}
+                {new Date().getFullYear() - 1}
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+scholarships`}>
-                {college_name} {city_name} Scholarships 2025
+                {college_name} {city_name} Scholarships{" "}
+                {new Date().getFullYear()}
               </Link>
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+faculties`}>
-                {college_name} {city_name} Faculties 2025
+                {college_name} {city_name} Faculties {new Date().getFullYear()}
               </Link>
             </li>
           </ul>
