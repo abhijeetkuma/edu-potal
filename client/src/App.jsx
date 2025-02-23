@@ -37,6 +37,7 @@ import Notifications from "./Pages/notifications";
 import Notificationsadd from "./Pages/notificationadd";
 import Advertisement from "./Pages/advertisement";
 import Advertisementform from "./Pages/advertisementform";
+import Websitecofig from "./Pages/websitecofig";
 
 //-----------Website------------------
 
@@ -255,6 +256,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/advertisement/advertisementform?/:ad_id",
         element: <Advertisementform />,
+      },
+      {
+        path: "/admin/websitecofig",
+        element: <Websitecofig />,
       },
     ],
   },

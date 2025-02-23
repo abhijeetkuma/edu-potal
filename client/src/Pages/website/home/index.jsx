@@ -193,11 +193,39 @@ function Home(props) {
           name="keywords"
           content="timesofcollege, higher education, colleges, universities, institutes, career, career options, career prospects, engineering, mba & pgdm, medical, mbbs,study abroad, foreign education, college, university, institute,courses, coaching, technical education, higher education,forum, community, education career experts,ask experts, admissions,results, events,scholarships"
         />
+        <link
+          id="canonicalUrl"
+          rel="canonical"
+          href={`https://timesofcollege.com/college`}
+        />
+        <meta property="og:site_name" content="Times of College"></meta>
+        <meta
+          property="og:url"
+          content={`https://timesofcollege.com/college`}
+        />
+        <meta property="og:type" content="college-view" />
+        <meta
+          property="og:title"
+          key="og:title"
+          content="Check Abroad Colleges Scholarships, College Search, Lists, Admission,
+          Rankings & Awards and Students Review!"
+        />
+        =
+        <meta
+          property="og:description"
+          key="og:description"
+          content="Times of College: Making the Abroad college search easier with our state-of-the-art search tools, college rankings and lists, and awesome expert advice. Get Detailed Information on Top Colleges, Courses & Exams across globe. Get alerts about Ranking, Cutoff, Placements, Fees & Admissions."
+        />
+        <meta
+          property="og:image"
+          key="og:image"
+          content={`https://timesofcollege.com/images/logoWhite.png`}
+        />
       </Helmet>
       <section className="sliding-banner">
         <div className="search-container">
           <div className="top-search">
-            <span style={{color: '#fff'}}>Top Courses:</span>
+            <span style={{ color: "#fff" }}>Top Courses:</span>
             {topcourses.length > 0 &&
               topcourses.map((citem) => (
                 <span className="border-chips" id={citem.cour_id}>
