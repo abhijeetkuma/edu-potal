@@ -539,7 +539,6 @@ function College() {
           headers: { "Content-Type": "multipart/form-data" },
         })
           .then(function (response) {
-            console.log("response.data.cid-->", response.data["cid"]);
             if (response.data["cid"] > 0 && response.statusText === "OK") {
               //setSuccessmsg("Successfully Updated.");
               toast.success("Basic info. sucessfully inserted", {

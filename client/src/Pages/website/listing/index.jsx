@@ -437,8 +437,6 @@ function Listing(props) {
         </div>
       </section>
 
-
-
       <NewsAndUpdates />
 
       <section className="container admissions">
@@ -559,6 +557,7 @@ function Listing(props) {
           </div>
         </div>
       </section>
+      
       <section className="container get-notify">
         <div className="head-line"> Get Notify About Your Choices</div>
         <form action="">
