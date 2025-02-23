@@ -700,6 +700,28 @@ app.get("/api/getadvertisementlisting", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/websiteconfig", (req, res) => {
+  advertisement_model
+    .getWebsiteconfig()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/getupdatewebconfing", (req, res) => {
+  //const body = req.body;
+
+  advertisement_model
+    .updateWebconfig(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.post("/api/addadvertisement", (req, res) => {
   advertisement_model
     .addAdvertisement(req.body)

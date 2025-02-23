@@ -11,6 +11,25 @@ const pool = new Pool({
   port: config.dbport,
 });
 
+const getWebsiteconfig = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query("SELECT * FROM website_config", (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        } else {
+          reject(new Error("No results found"));
+        }
+      });
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
 const getAvertisementlisting = async () => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -91,6 +110,26 @@ const updateAvertisementlisting = (body) => {
     );
   });
 };
+const updateWebconfig = (body) => {
+  console.log("body-->", body);
+  return new Promise(function (resolve, reject) {
+    const { college_title_append } = body;
+    pool.query(
+      "UPDATE website_config SET college_title_append = $1 RETURNING *",
+      [college_title_append],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(`Webconfig updated: ${JSON.stringify(results.rows[0])}`);
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 const addAdvertisement = (body) => {
   console.log("body->", body);
   return new Promise(function (resolve, reject) {
@@ -134,4 +173,6 @@ module.exports = {
   getAvertisement,
   updateAvertisementlisting,
   addAdvertisement,
+  getWebsiteconfig,
+  updateWebconfig,
 };
