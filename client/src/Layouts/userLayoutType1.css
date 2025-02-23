@@ -1554,6 +1554,14 @@ header.website-wrapper {
       padding: 2px 15px;
       border-radius: 5px 5px 0 0;
     }
+    
+    .showMoreLess {
+      color: #2b58e0;
+      cursor: pointer;
+      float: right;
+      margin-right: 20px;
+    }
+
 
     /* end container*/
   }
