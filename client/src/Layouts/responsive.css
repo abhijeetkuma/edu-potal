@@ -134,6 +134,7 @@
         }
       }
       .college-list-wrapper {
+        width: 100%;
         padding: 10px 0px !important;
         .college-list-card {
           max-height: initial !important;
@@ -275,6 +276,9 @@
             > img {
               height: 20px;
             }
+          }
+          .rating > span {
+            width: 40px;
           }
         }
         .heart {
@@ -546,11 +550,16 @@
   }
 
   .scroll-to-top {
-    bottom: 70px !important;
+    bottom: 120px !important;
     right: 15px !important;
   }
- 
 
+  .sticky-help {
+    bottom: 65px !important;
+    font-size: 12px !important;
+    padding: 12px 5px !important;
+    border-radius: 25px !important;
+  }
 
   /*header menu responsive*/
   .mobile-menu {

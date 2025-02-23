@@ -4,6 +4,9 @@ import axios from "axios";
 import PropTypes from "prop-types";
 
 // import Relatednews from "../../../src/Pages/website/college/relatednews";
+// import Relatedcolleges from "./college/relatedcolleges";
+
+
 import adsImg from "/images/ads.svg";
 import clgSmallImg from "/images/img-dummy-sm.png";
 import GetHelp from "./commonComps/getNotify";
@@ -18,6 +21,10 @@ function Exams(props) {
     cms_title: "",
   });
   //const { cms_url } = useParams();
+  const [displaycollegdetail, setDisplaycollegdetail] = useState({
+    college_description: ""
+  });
+
   useEffect(() => {
     axios
       .get("/api/examlisting/")
@@ -28,6 +35,14 @@ function Exams(props) {
         console.error(error);
       });
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
+    // axios
+    //   .get("/api/collegedetail/" + college_url.split("+")[0])
+    //   .then((response) => {
+    //     setDisplaycollegdetail(response.data[0]);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   }, []);
 
   
@@ -96,6 +111,18 @@ function Exams(props) {
             openModal={openModal}
             headingClass={"headingSeaGreen"}
           />
+
+          {/* {displaycollegdetail.courses && (
+            <div className="relatedColg">
+              <Relatedcolleges
+                data={displaycollegdetail}
+                heading={"Top Viewed Colleges"}
+                headingClass={"headingSeaGreen"}
+                vtype="v"
+              />
+            </div>
+          )} */}
+
           <div className="ads">
             <img src={adsImg} alt="" />
           </div>

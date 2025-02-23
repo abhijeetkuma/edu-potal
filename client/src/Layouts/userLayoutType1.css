@@ -561,8 +561,8 @@ header.website-wrapper {
         gap: 20px; */
         .exam-card {
           margin: 2px;
-          width: 225px;
-          max-width: 225px;
+          width: 214px;
+          max-width: 214px;
           height: 170px;
           box-shadow:
             rgba(0, 0, 0, 0.12) 0px 1px 3px,
@@ -610,7 +610,7 @@ header.website-wrapper {
             }
           }
           .hr-x {
-            width: calc(225px - 20px);
+            width: calc(225px - 55px);
             margin: 5px auto;
             color: #f3f3f3;
           }
@@ -633,7 +633,7 @@ header.website-wrapper {
         .exam-card-list {
           display: flex;
           flex-wrap: wrap;
-          gap: 10px;
+          gap: 5px;
         }
       }
     }
@@ -675,7 +675,7 @@ header.website-wrapper {
             line-height: 14px;
           }
           .hr-x {
-            width: calc(225px - 20px);
+            width: calc(225px - 30px);
             margin: 5px auto;
             color: #f3f3f3;
           }
@@ -808,8 +808,6 @@ header.website-wrapper {
       box-shadow:
         rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
         rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-        position: sticky;
-        top: 0px;
       .head-line {
         font-size: 24px;
         color: #31314a;
@@ -851,6 +849,13 @@ header.website-wrapper {
         background-color: #58b368;
         border-radius: 4px;
         color: #fff;
+      }
+    }
+
+    .college-filter-wrapper {
+      .get-help {
+        position: sticky;
+        top: 0px;
       }
     }
 
@@ -1329,7 +1334,8 @@ header.website-wrapper {
               display: none;
             }
             &:last-child {
-              margin-left: 100px;
+              margin-left: 20px;
+              word-wrap: break-word;
             }
           }
         }
@@ -1706,6 +1712,7 @@ header.website-wrapper {
   }
 
   .college-list-wrapper {
+    width: 620px;
     background-color: #fff;
     margin: 20px 0px;
     padding: 10px 15px;
@@ -2001,7 +2008,7 @@ header.website-wrapper {
     }
   }
   .hr-x {
-    width: calc(225px - 20px);
+    width: calc(225px - 30px);
     margin: 5px auto;
     color: #f3f3f3;
   }

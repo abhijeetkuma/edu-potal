@@ -393,7 +393,7 @@ function CollegeDetails(props) {
         <Login heading={"Get Notify !"} data={popupEvents} />
       </Modal>
       <span className="sticky-help" onClick={(e) => openModal(e)}>
-        Need Help
+        Help?
       </span>
     </>
   );

@@ -183,7 +183,7 @@ function Listing(props) {
                 <img src={arrowUpIcon} alt="" />
               </span>
             </div>
-            <div className="serach">
+            <div className="search">
               <input type="text" placeholder="Search" />
               <img src={searchIcon} alt="" />
             </div>

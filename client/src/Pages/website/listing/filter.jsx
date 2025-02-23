@@ -12,7 +12,7 @@ function Filter(props) {
         </span>
       </div>
       {props.search && (
-        <div className="serach">
+        <div className="search">
           <input type="text" placeholder="Search" />
           <img src={searchIcon} alt="" />
         </div>
