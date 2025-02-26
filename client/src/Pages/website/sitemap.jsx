@@ -80,9 +80,61 @@ function Exams(props) {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
+  const adminssinyear = new Date();
   const renderColleges = (citem) => (
-    <a href={"/college/" + citem.college_url}>{citem.college_name}</a>
+    <>
+      {/* <a href={"/college/" + citem.college_url}>{citem.college_name}</a>
+      <a href={"/college/" + citem.college_url}>{citem.college_url}</a>
+      <a href={"/college/" + citem.college_url}>{citem.college_name}</a> */}
+      <li>
+        <a href={"/college/" + citem.college_url}>{citem.college_name}</a>
+      </li>
+      <li>
+        <a href={"/college/" + citem.college_url + "+courses-and-fees"}>
+          {citem.college_name} Courses & Fees
+        </a>
+      </li>
+      <li>
+        <a href={"/college/" + citem.college_url + "+admissions"}>
+          {citem.college_name} Admission {adminssinyear.getFullYear()}
+        </a>
+      </li>
+      <li>
+        <a href={"/college/" + citem.college_url + "+placements"}>
+          {citem.college_name} Placements {adminssinyear.getFullYear() - 1}
+        </a>
+      </li>
+      <li>
+        <a href={"/college/" + citem.college_url + "+scholarships"}>
+          {citem.college_name} Scholarships
+        </a>
+      </li>
+      <li>
+        <a href={"/college/" + citem.college_url + "+faculties"}>
+          {citem.college_name} Faculties
+        </a>
+      </li>
+      <li>
+        <a href={"/college/" + citem.college_url + "+gallery"}>
+          {citem.college_name} Gallery
+        </a>
+      </li>
+      <li>
+        <a href={"/college/" + citem.college_url + " +reviews"}>
+          {citem.college_name} Reviews
+        </a>
+      </li>
+      <li>
+        <a href={"/college/" + citem.college_url + " +news"}>
+          {citem.college_name} News
+        </a>
+      </li>
+      <li>
+        <a href={"/college/" + citem.college_url + "+question-answer"}>
+          {citem.college_name} Q&A
+        </a>
+      </li>
+    </>
   );
   const renderExams = (eitem) => (
     <a href={"/exam/" + eitem.na_url}>{eitem.na_title}</a>

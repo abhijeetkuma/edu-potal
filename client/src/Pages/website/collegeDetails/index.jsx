@@ -141,7 +141,23 @@ function CollegeDetails(props) {
             <div className="title">
               <h1>
                 {displaycollegdetail.college_name}
-                {collegetitleappend && " " + collegetitleappend}
+                {(tabName === "overview" || tabName == undefined) &&
+                  collegetitleappend &&
+                  collegetitleappend}
+                {tabName === "courses-and-fees" &&
+                  ": Courses, Fees, Intake & Eligibility 2025"}
+                {tabName === "admissions" &&
+                  ": Admissions 2025* Fees, Eligibility, Dates, Cut off & Selection Process"}
+                {tabName === "placements" &&
+                  ": Placements 2024*: Highest Placement, Average Placement, Lowest Placement & Top "}
+                {tabName === "scholarships" && ": Types of Scholarship Details"}
+                {tabName === "faculties" &&
+                  ": Faculty Profile Details & Reviews"}
+                {tabName === "gallery" && ": Campus Photo & Video"}
+                {tabName === "reviews" &&
+                  ": Reviews of Placements, Faculty & Facilities"}
+                {tabName === "news" && ": New like Events & Activity"}
+                {tabName === "question-answer" && ": Questions & Answered"}
               </h1>
             </div>
           </div>
