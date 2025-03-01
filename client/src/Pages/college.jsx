@@ -30,8 +30,8 @@ import { getImageURL, getGalleryURL } from "../utils/utils-image";
 // import CKTextEditor from "../Components/ckTextEditor/editor";
 const apiurl = "/api";
 function College() {
-  if (localStorage.getItem("logedin") == "") {
-    window.location = "login";
+  if (localStorage.getItem("login_id") <= 0) {
+    window.location = "/login";
   }
   //const [errorMsg, setErrorMsg] = useState([]);
   const [highLights, setHighLights] = useState([

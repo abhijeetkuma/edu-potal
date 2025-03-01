@@ -1,8 +1,8 @@
 import React from "react";
 
 export default function Location() {
-  if (localStorage.getItem("logedin") == "") {
-    window.location = "login";
+  if (localStorage.getItem("login_id") <= 0) {
+    window.location = "/login";
   }
   return (
     <>

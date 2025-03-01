@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 function Notificationadd() {
-  if (localStorage.getItem("logedin") == "") {
-    window.location = "login";
+  if (localStorage.getItem("login_id") <= 0) {
+    window.location = "/login";
   }
 
   const [editdata, setEditdata] = useState({

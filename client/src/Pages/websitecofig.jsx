@@ -7,7 +7,7 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 function Websitconfig() {
-  if (localStorage.getItem("logedin") == "") {
+  if (localStorage.getItem("login_id") <= 0) {
     window.location = "/login";
   }
 

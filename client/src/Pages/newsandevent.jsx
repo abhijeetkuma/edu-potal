@@ -2,8 +2,8 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 
 const Newsandevent = () => {
-  if (localStorage.getItem("logedin") == "") {
-    window.location = "login";
+  if (localStorage.getItem("login_id") <= 0) {
+    window.location = "/login";
   }
   const [image, setImage] = useState();
   const fileUploadRef = useRef();

@@ -17,8 +17,8 @@ import {
 import axios from "axios";
 
 function Adminusers() {
-  if (localStorage.getItem("logedin") == "") {
-    window.location = "login";
+  if (localStorage.getItem("login_id") <= 0) {
+    window.location = "/login";
   }
   const [datas, setDatas] = useState([]);
   const [returndspmsg, setReturndspmsg] = useState();

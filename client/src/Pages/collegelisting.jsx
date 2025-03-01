@@ -20,8 +20,9 @@ import { getImageURL } from "../utils/utils-image";
 import axios from "axios";
 
 function Collegelisting() {
-  if (localStorage.getItem("logedin") == "") {
-    window.location = "login";
+  console.log("loging-->", localStorage.getItem("logedin"));
+  if (localStorage.getItem("login_id") <= 0) {
+    window.location = "/login";
   }
   const [datas, setDatas] = useState([]);
   const [isFilter, setIsFilter] = useState(false);

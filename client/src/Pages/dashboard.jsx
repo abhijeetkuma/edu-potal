@@ -3,8 +3,8 @@ import { Box } from "@mui/material";
 
 export default function Dashboard() {
   console.log(localStorage.getItem("logedin"));
-  if (localStorage.getItem("logedin") == "") {
-    window.location = "login";
+  if (localStorage.getItem("login_id") <= 0) {
+    window.location = "/login";
   }
   return (
     <>

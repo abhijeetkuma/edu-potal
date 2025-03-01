@@ -22,8 +22,8 @@ import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 
 function Newsarticles() {
-  if (localStorage.getItem("logedin") == "") {
-    window.location = "login";
+  if (localStorage.getItem("login_id") <= 0) {
+    window.location = "/login";
   }
 
   const [errorMsg, setErrorMsg] = useState([]);

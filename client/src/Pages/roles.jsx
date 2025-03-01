@@ -19,8 +19,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
 function Roles() {
-  if (localStorage.getItem("logedin") == "") {
-    window.location = "login";
+  if (localStorage.getItem("login_id") <= 0) {
+    window.location = "/login";
   }
   const [datas, setDatas] = useState([]);
   //const [editdata, setEditdata] = useState([]);

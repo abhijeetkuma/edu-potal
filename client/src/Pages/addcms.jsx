@@ -20,8 +20,8 @@ import {
 import axios from "axios";
 
 function Addcms() {
-  if (localStorage.getItem("logedin") == "") {
-    window.location = "login";
+  if (localStorage.getItem("login_id") <= 0) {
+    window.location = "/login";
   }
   const [returndspmsg, setReturndspmsg] = useState();
   const [cmsdescvalue, setCmsdescvalue] = useState();
