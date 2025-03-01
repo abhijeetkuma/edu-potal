@@ -312,6 +312,9 @@ function Addcms() {
                   "ImageToolbar",
                   "ImageUpload",
                 ],
+                menuBar: {
+                  isVisible: true,
+                },
               }}
               data={editdata.cms_description ? editdata.cms_description : ""}
               onReady={(editor) => {

@@ -13,6 +13,9 @@ import {
   Paragraph,
   List,
   Table,
+  Heading,
+  BlockQuote,
+  Alignment,
 } from "ckeditor5";
 
 //import { SlashCommand } from "ckeditor5-premium-features";
@@ -1394,6 +1397,10 @@ function College() {
                       Mention,
                       List,
                       Table,
+                      Heading,
+                      BlockQuote,
+                      Alignment,
+                      Number,
                     ],
 
                     toolbar: [
@@ -1405,6 +1412,16 @@ function College() {
                       "|",
                       "numberedList",
                       "bulletedList",
+
+                      "Alignment",
+                      "Link",
+                      "ListUI",
+                      "|",
+                      "BlockQuote",
+                      "Undo",
+                      "Redo",
+                      "Mention",
+                      "Table",
                     ],
                     menuBar: {
                       isVisible: true,
@@ -1633,7 +1650,19 @@ function College() {
                 <CKEditor
                   editor={ClassicEditor}
                   config={{
-                    plugins: [Essentials, Bold, Italic, Paragraph, List, Table],
+                    plugins: [
+                      Essentials,
+                      Bold,
+                      Italic,
+                      Paragraph,
+                      Mention,
+                      List,
+                      Table,
+                      Heading,
+                      BlockQuote,
+                      Alignment,
+                      Number,
+                    ],
 
                     toolbar: [
                       "bold",
@@ -1644,6 +1673,16 @@ function College() {
                       "|",
                       "numberedList",
                       "bulletedList",
+
+                      "Alignment",
+                      "Link",
+                      "ListUI",
+                      "|",
+                      "BlockQuote",
+                      "Undo",
+                      "Redo",
+                      "Mention",
+                      "Table",
                     ],
                     menuBar: {
                       isVisible: true,
@@ -2202,6 +2241,10 @@ function College() {
                       Mention,
                       List,
                       Table,
+                      Heading,
+                      BlockQuote,
+                      Alignment,
+                      Number,
                     ],
 
                     toolbar: [
@@ -2213,6 +2256,16 @@ function College() {
                       "|",
                       "numberedList",
                       "bulletedList",
+
+                      "Alignment",
+                      "Link",
+                      "ListUI",
+                      "|",
+                      "BlockQuote",
+                      "Undo",
+                      "Redo",
+                      "Mention",
+                      "Table",
                     ],
                     menuBar: {
                       isVisible: true,
@@ -2253,6 +2306,10 @@ function College() {
                       Mention,
                       List,
                       Table,
+                      Heading,
+                      BlockQuote,
+                      Alignment,
+                      Number,
                     ],
 
                     toolbar: [
@@ -2264,6 +2321,16 @@ function College() {
                       "|",
                       "numberedList",
                       "bulletedList",
+
+                      "Alignment",
+                      "Link",
+                      "ListUI",
+                      "|",
+                      "BlockQuote",
+                      "Undo",
+                      "Redo",
+                      "Mention",
+                      "Table",
                     ],
                     menuBar: {
                       isVisible: true,
@@ -2325,7 +2392,19 @@ function College() {
                 <CKEditor
                   editor={ClassicEditor}
                   config={{
-                    plugins: [Essentials, Bold, Italic, Paragraph, List, Table],
+                    plugins: [
+                      Essentials,
+                      Bold,
+                      Italic,
+                      Paragraph,
+                      Mention,
+                      List,
+                      Table,
+                      Heading,
+                      BlockQuote,
+                      Alignment,
+                      Number,
+                    ],
 
                     toolbar: [
                       "bold",
@@ -2336,6 +2415,16 @@ function College() {
                       "|",
                       "numberedList",
                       "bulletedList",
+
+                      "Alignment",
+                      "Link",
+                      "ListUI",
+                      "|",
+                      "BlockQuote",
+                      "Undo",
+                      "Redo",
+                      "Mention",
+                      "Table",
                     ],
                     menuBar: {
                       isVisible: true,
@@ -2854,7 +2943,19 @@ function College() {
                 <CKEditor
                   editor={ClassicEditor}
                   config={{
-                    plugins: [Essentials, Bold, Italic, Paragraph, List, Table],
+                    plugins: [
+                      Essentials,
+                      Bold,
+                      Italic,
+                      Paragraph,
+                      Mention,
+                      List,
+                      Table,
+                      Heading,
+                      BlockQuote,
+                      Alignment,
+                      Number,
+                    ],
 
                     toolbar: [
                       "bold",
@@ -2865,6 +2966,16 @@ function College() {
                       "|",
                       "numberedList",
                       "bulletedList",
+
+                      "Alignment",
+                      "Link",
+                      "ListUI",
+                      "|",
+                      "BlockQuote",
+                      "Undo",
+                      "Redo",
+                      "Mention",
+                      "Table",
                     ],
                     menuBar: {
                       isVisible: true,

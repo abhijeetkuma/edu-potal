@@ -147,15 +147,15 @@ function CollegeDetails(props) {
                 {tabName === "courses-and-fees" &&
                   ": Courses, Fees, Intake & Eligibility 2025"}
                 {tabName === "admissions" &&
-                  ": Admissions 2025* Fees, Eligibility, Dates, Cut off & Selection Process"}
+                  ": Admissions, Fees, Eligibility, Dates, Cut off & Selection Process"}
                 {tabName === "placements" &&
-                  ": Placements 2024*: Highest Placement, Average Placement, Lowest Placement & Top "}
+                  ": Placements, Highest Placement, Average Placement, Lowest Placement & Top "}
                 {tabName === "scholarships" && ": Types of Scholarship Details"}
                 {tabName === "faculties" &&
                   ": Faculty Profile Details & Reviews"}
                 {tabName === "gallery" && ": Campus Photo & Video"}
                 {tabName === "reviews" &&
-                  ": Reviews of Placements, Faculty & Facilities"}
+                  ": Reviews of Placements, Faculty & Details"}
                 {tabName === "news" && ": New like Events & Activity"}
                 {tabName === "question-answer" && ": Questions & Answered"}
               </h1>

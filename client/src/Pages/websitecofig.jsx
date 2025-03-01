@@ -8,7 +8,7 @@ import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 function Websitconfig() {
   if (localStorage.getItem("logedin") == "") {
-    window.location = "login";
+    window.location = "/login";
   }
 
   const [editdata, setEditdata] = useState({
