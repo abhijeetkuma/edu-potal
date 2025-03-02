@@ -82,6 +82,12 @@ function Courses() {
       Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
+      accessorKey: "category_name", //simple recommended way to define a column
+      header: "Category Name",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
       accessorKey: "cmeta_title", //simple recommended way to define a column
       header: "Meta Title",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
