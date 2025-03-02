@@ -1048,6 +1048,26 @@ app.get("/api/editcategory/:cat_id", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/editcourse/:cour_id", (req, res) => {
+  colleges_model
+    .editcourse(req.params.cour_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/updatecourse", (req, res) => {
+  colleges_model
+    .updatecourse(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.post("/api/updatecategory", (req, res) => {
   colleges_model
     .updateCategory(req.body)
