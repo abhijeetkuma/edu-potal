@@ -1009,7 +1009,7 @@ const getCourses = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT *, case when cstatus = 'A' then 'Active' else 'Inactive' end as status FROM courses ORDER BY cour_id DESC",
+        "SELECT c.*,cat.category_name, case when c.cstatus = 'A' then 'Active' else 'Inactive' end as status FROM courses c LEFT JOIN categories cat ON c.cat_id=cat.cat_id ORDER BY c.cour_id DESC",
         (error, results) => {
           if (error) {
             reject(error);

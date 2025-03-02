@@ -117,7 +117,8 @@ const goal = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT cat.cat_id, cat.category_name,cat.category_url, string_agg(distinct c.course_name,', ') courses, string_agg(distinct c.course_url,', ') course_url,count(co.cid) total_colleges FROM categories cat JOIN courses c on c.cour_id = any(string_to_array(cat.cour_ids,',')::int[]) LEFT JOIN colleges co on cat.cat_id=any(string_to_array(co.categories,',')::int[]) WHERE cat.category_status='A' GROUP BY cat.cat_id ORDER BY goal_disp_position ASC LIMIT 15",
+        //"SELECT cat.cat_id, cat.category_name,cat.category_url, string_agg(distinct c.course_name,', ') courses, string_agg(distinct c.course_url,', ') course_url,count(co.cid) total_colleges FROM categories cat JOIN courses c on c.cour_id = any(string_to_array(cat.cour_ids,',')::int[]) LEFT JOIN colleges co on cat.cat_id=any(string_to_array(co.categories,',')::int[]) WHERE cat.category_status='A' GROUP BY cat.cat_id ORDER BY goal_disp_position ASC LIMIT 15",
+        "SELECT CAT.CATEGORY_NAME,CATEGORY_URL,STRING_AGG(DISTINCT C.COURSE_NAME,', ') COURSES,STRING_AGG(DISTINCT C.COURSE_URL,', ') COURSE_URL, COUNT(CO.CID) TOTAL_COLLEGES FROM CATEGORIES CAT JOIN COURSES C ON CAT.CAT_ID=C.CAT_ID LEFT JOIN COLLEGES CO ON CAT.CAT_ID=ANY(STRING_TO_ARRAY(CO.CATEGORIES,',')::INT[]) WHERE CAT.CATEGORY_STATUS='A' GROUP BY CAT.CATEGORY_URL,CAT.CATEGORY_NAME,CAT.GOAL_DISP_POSITION ORDER BY CAT.GOAL_DISP_POSITION ASC LIMIT 15",
         (error, results) => {
           if (error) {
             reject(error);
