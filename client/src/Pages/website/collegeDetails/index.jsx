@@ -149,7 +149,11 @@ function CollegeDetails(props) {
                 {tabName === "admissions" &&
                   ": Admissions, Fees, Eligibility, Dates, Cut off & Selection Process"}
                 {tabName === "placements" &&
-                  ": Placements, Highest Placement, Average Placement, Lowest Placement & Top "}
+                  ": Highest Placement " +
+                    displaycollegdetail.higestplacementrecord +
+                    ", Average Placement " +
+                    displaycollegdetail.averageplacementrecord +
+                    ", Lowest Placement"}
                 {tabName === "scholarships" && ": Types of Scholarship Details"}
                 {tabName === "faculties" &&
                   ": Faculty Profile Details & Reviews"}

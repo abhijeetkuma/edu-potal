@@ -16,7 +16,7 @@ function CollegeHeaders(props) {
               tabName === "overview" || tabName == undefined ? "active" : ""
             }
           >
-            <Link to={`${detailsUrl}+overview`}>Overview</Link>
+            <Link to={`${detailsUrl}`}>Overview</Link>
           </li>
           <li className={tabName === "courses-and-fees" ? "active" : ""}>
             <Link to={`${detailsUrl}+courses-and-fees`}>Courses & Fees</Link>
