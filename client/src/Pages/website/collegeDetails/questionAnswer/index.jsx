@@ -12,6 +12,7 @@ function CollegeQuesAns(props) {
   const {
     openModal,
     data: {
+      college_name,
       facilities,
       meta_title,
       meta_description,
@@ -50,6 +51,7 @@ function CollegeQuesAns(props) {
         {/* <h1>Question Answer</h1> */}
 
         <section className="p-2">
+          <h2 className="font-bold text-2xl mb-5">{`${college_name} Q&A`}</h2>
           <div dangerouslySetInnerHTML={{ __html: props.data.faq }}></div>
         </section>
       </div>

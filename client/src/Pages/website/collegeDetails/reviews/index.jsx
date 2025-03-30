@@ -12,6 +12,7 @@ function CollegeReviews(props) {
   const {
     openModal,
     data: {
+      college_name,
       facilities,
       meta_title,
       meta_description,
@@ -48,6 +49,7 @@ function CollegeReviews(props) {
       </Helmet>
       <div className="container detailsTab">
         <h1>Reviews</h1>
+        <h2 className="font-bold text-2xl mb-5">{`${college_name} Reviews`}</h2>
       </div>
 
       <Facilities data={facilities && facilities} />

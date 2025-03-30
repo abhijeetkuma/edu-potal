@@ -28,13 +28,15 @@ function CollegeOverview(props) {
   const { courses, openModal } = props;
   const detailsUrl = location.pathname.split("+")[0];
 
-  const [showDescription, setShowDescription] = useState('')
-  const [isShowMore, setShowMore] = useState(false)
+  const [showDescription, setShowDescription] = useState("");
+  const [isShowMore, setShowMore] = useState(false);
 
-  useEffect(()=>{
-    const content = !isShowMore ? `${college_descripton?.slice(0, 350)}` : college_descripton    
-    setShowDescription(content)
-  },[college_descripton, isShowMore])
+  useEffect(() => {
+    const content = !isShowMore
+      ? `${college_descripton?.slice(0, 350)}`
+      : college_descripton;
+    setShowDescription(content);
+  }, [college_descripton, isShowMore]);
 
   return (
     <>
@@ -88,13 +90,17 @@ function CollegeOverview(props) {
         </section> */}
 
         <section className="about">
-          <h2 className="font-bold text-2xl">About {college_name}</h2>
-            <span
-              className="mt-2"
-              dangerouslySetInnerHTML={{ __html: showDescription }}
-            >
-            </span>
-            <span className="showMoreLess" onClick={() => setShowMore(!isShowMore)}>{isShowMore ? `Show less` : `Show more`}</span>
+          <h2 className="font-bold text-2xl">{`About ${college_name}`}</h2>
+          <span
+            className="mt-2"
+            dangerouslySetInnerHTML={{ __html: showDescription }}
+          ></span>
+          <span
+            className="showMoreLess"
+            onClick={() => setShowMore(!isShowMore)}
+          >
+            {isShowMore ? `Show less` : `Show more`}
+          </span>
         </section>
 
         <section className="tableOfContent mt-10">

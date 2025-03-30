@@ -12,6 +12,7 @@ import { getImageURL } from "../../../../utils/utils-image";
 function CollegeCoursesFees(props) {
   const {
     sub_course_details,
+    college_name,
     facilities,
     meta_title,
     meta_description,
@@ -50,7 +51,7 @@ function CollegeCoursesFees(props) {
       </Helmet>
       <section className="courses-fees">
         <h2 className="font-bold text-2xl mb-5">
-          Courses, Eligibility and Fees
+          {`${college_name} Courses, Eligibility and Fees`}
         </h2>
         <div>
           <table className="table-bordered">
