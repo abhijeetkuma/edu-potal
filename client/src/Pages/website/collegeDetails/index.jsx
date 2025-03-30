@@ -140,28 +140,33 @@ function CollegeDetails(props) {
             </div>
             <div className="title">
               <h1>
-                {displaycollegdetail.college_name}
                 {(tabName === "overview" || tabName == undefined) &&
                   collegetitleappend &&
-                  collegetitleappend}
+                  `${displaycollegdetail.college_name + collegetitleappend}`}
+
                 {tabName === "courses-and-fees" &&
-                  ": Courses, Fees, Intake & Eligibility 2025"}
+                  `${displaycollegdetail.college_name} : Courses, Fees, Intake & Eligibility 2025`}
+
                 {tabName === "admissions" &&
-                  ": Admissions, Fees, Eligibility, Dates, Cut off & Selection Process"}
+                  `${displaycollegdetail.college_name} : Admissions, Fees, Eligibility, Dates, Cut off & Selection Process`}
                 {tabName === "placements" &&
-                  ": Highest Placement " +
+                  `${displaycollegdetail.college_name} : Highest Placement ` +
                     displaycollegdetail.higestplacementrecord +
                     ", Average Placement " +
                     displaycollegdetail.averageplacementrecord +
                     ", Lowest Placement"}
-                {tabName === "scholarships" && ": Types of Scholarship Details"}
+                {tabName === "scholarships" &&
+                  `${displaycollegdetail.college_name} : Types of Scholarship Details`}
                 {tabName === "faculties" &&
-                  ": Faculty Profile Details & Reviews"}
-                {tabName === "gallery" && ": Campus Photo & Video"}
+                  `${displaycollegdetail.college_name} : Faculty Profile Details & Reviews`}
+                {tabName === "gallery" &&
+                  `${displaycollegdetail.college_name} : Campus Photo & Video`}
                 {tabName === "reviews" &&
-                  ": Reviews of Placements, Faculty & Details"}
-                {tabName === "news" && ": New like Events & Activity"}
-                {tabName === "question-answer" && ": Questions & Answered"}
+                  `${displaycollegdetail.college_name} : Reviews of Placements, Faculty & Details`}
+                {tabName === "news" &&
+                  `${displaycollegdetail.college_name} : New like Events & Activity`}
+                {tabName === "question-answer" &&
+                  `${displaycollegdetail.college_name} : Questions & Answered`}
               </h1>
             </div>
           </div>

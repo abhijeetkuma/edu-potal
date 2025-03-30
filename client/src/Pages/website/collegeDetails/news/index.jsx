@@ -12,6 +12,7 @@ function CollegeNews(props) {
   const {
     openModal,
     data: {
+      college_name,
       facilities,
       meta_title,
       meta_description,
@@ -48,12 +49,14 @@ function CollegeNews(props) {
       </Helmet>
       <div className="container detailsTab">
         <h1>News</h1>
+        <h2 className="font-bold text-2xl mb-5">{`${college_name} News`}</h2>
       </div>
 
       <Facilities data={facilities && facilities} />
 
       <section className="rating  mt-10">
         <h2 className="font-bold text-2xl mb-5">Rating</h2>
+
         <Rating data={props.data} />
       </section>
 

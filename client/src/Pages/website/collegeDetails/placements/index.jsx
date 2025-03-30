@@ -11,6 +11,7 @@ import { getImageURL } from "../../../../utils/utils-image";
 
 function CollegePlacements(props) {
   const {
+    college_name,
     placement_overview,
     totalplacementratio,
     averageplacementrecord,
@@ -119,6 +120,9 @@ function CollegePlacements(props) {
         </div>
 
         <hr style={{ color: "#ebe5ec", marginBottom: "20px" }} />
+        <h2 className="font-bold text-2xl mb-5">
+          {`${college_name} Placement`}
+        </h2>
         <div dangerouslySetInnerHTML={{ __html: placement_overview }}></div>
       </section>
 

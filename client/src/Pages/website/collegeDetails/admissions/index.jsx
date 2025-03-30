@@ -12,6 +12,7 @@ function CollegeAdmissions(props) {
   const {
     openModal,
     data: {
+      college_name,
       facilities,
       meta_title,
       meta_description,
@@ -48,6 +49,9 @@ function CollegeAdmissions(props) {
         <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>
       <section className="admissions">
+        <h2 className="font-bold text-2xl mb-5">
+          {`${college_name} Admission Process`}
+        </h2>
         <div
           dangerouslySetInnerHTML={{
             __html: props.data.adminssiondetails,
