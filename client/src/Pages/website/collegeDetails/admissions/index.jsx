@@ -32,12 +32,12 @@ function CollegeAdmissions(props) {
         <link
           id="canonicalUrl"
           rel="canonical"
-          href={`https://timesofcollege.com/college/${college_url}`}
+          href={`https://timesofcollege.com/college/${college_url}+admissions`}
         />
         <meta property="og:site_name" content="Times of College"></meta>
         <meta
           property="og:url"
-          content={`https://timesofcollege.com/college/${college_url}`}
+          content={`https://timesofcollege.com/college/${college_url}+admissions`}
         />
         <meta property="og:type" content="college-view" />
         <meta property="og:title" key="og:title" content={meta_title} />=
