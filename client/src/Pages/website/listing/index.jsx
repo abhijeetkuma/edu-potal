@@ -25,7 +25,11 @@ import Login from "../commonComps/login";
 
 function Listing(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [popupEvents, setPopupEvents] = useState({cid: '', btnName: '', btnTitle: ''});
+  const [popupEvents, setPopupEvents] = useState({
+    cid: "",
+    btnName: "",
+    btnTitle: "",
+  });
   const [collegelisting, setCollegelisting] = useState({
     cid: "",
     college_name: "",
@@ -117,9 +121,9 @@ function Listing(props) {
   //console.log("props", props.city_url);
 
   const openModal = (event) => {
-    event.stopPropagation()
-    const { name, title} = event.target.dataset;
-    setPopupEvents({cid:  '', btnName: name, btnTitle: title})
+    event.stopPropagation();
+    const { name, title } = event.target.dataset;
+    setPopupEvents({ cid: "", btnName: name, btnTitle: title });
     setIsModalOpen(true);
   };
 
@@ -346,7 +350,10 @@ function Listing(props) {
                         <span className="location">
                           <img src={mapIcon} alt="" />
                           <span>
-                            {item.city_name}, {item.state_name}
+                            <a href={"./../studybycity/" + item.city_url}>
+                              {item.city_name}
+                            </a>
+                            , {item.state_name}
                           </span>
                         </span>
                         <span className="tieup">{item.approved_by}</span>
@@ -356,7 +363,9 @@ function Listing(props) {
                         <span className="rank bold green"># NIRF</span>
                         <span className="rating">
                           <img src={star} alt="" />
-                          <span><b>{7}</b>/10</span>
+                          <span>
+                            <b>{7}</b>/10
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -419,7 +428,6 @@ function Listing(props) {
             </div>
           )}
         </section>
-
 
         <div className="others">
           <GetHelp
@@ -557,7 +565,7 @@ function Listing(props) {
           </div>
         </div>
       </section>
-      
+
       <section className="container get-notify">
         <div className="head-line"> Get Notify About Your Choices</div>
         <form action="">
@@ -587,7 +595,7 @@ function Listing(props) {
           </div>
         </form>
       </section>
-      
+
       <Modal isModalOpen={isModalOpen} onClose={closeModal}>
         <Login heading={"Get Notify !"} data={popupEvents} />
       </Modal>
