@@ -327,6 +327,19 @@ function Home(props) {
               const examsView = examArr.slice(0,3).join(',')
               const remainingCount = examArr.length - 3
               const remainingExam = examArr.slice(3).join(',')
+              
+              var courlink = "";
+              if (item.courses) {
+                const courarrs = item.courses.split(", ");
+
+                courarrs.map((cor, c) => {
+                  courlink = (
+                    <a href={"course/" + cor.split("~")[0]}>
+                      {cor.split("~")[1]}
+                    </a>
+                  );
+                });
+              }
 
               if (id < 8) {
                 return (
@@ -356,10 +369,17 @@ function Home(props) {
                         </div>
                         <div className="other-details relative">
                           <div className="clg-type-rating">
-                            <span>BE/B.Tech</span>
+                            <span>{item.courses && courlink}</span>
                             <span className="clg-rating">
                               <img src={star} alt="" />
-                              <span>4.5 (55)</span>
+                              <span>
+                                <b>
+                                  {item.total_rating
+                                    ? item.total_rating.slice(0, 3)
+                                    : "0"}
+                                </b>
+                                /10
+                              </span>
                             </span>
                           </div>
                           <ul className="links mt-2 mb-2">
