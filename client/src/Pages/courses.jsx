@@ -63,7 +63,13 @@ function Courses() {
         console.error(error);
       });
   }, []);
-
+  const handleChangeFormdata = (e) => {
+    const { name, value } = e.target;
+    setEditdata((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   //const data = JSON.parse(datas);
   //const keys = Object.keys(data.length ? data[0] : {});
   const data = datas;
@@ -411,6 +417,7 @@ function Courses() {
                   placeholder="Course Name*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.course_name && editdata.course_name}
+                  onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[0]}</div>
               </div>
@@ -421,6 +428,7 @@ function Courses() {
                   placeholder="Branch URL*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.course_url && editdata.course_url}
+                  onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[1]}</div>
               </div>
@@ -431,6 +439,7 @@ function Courses() {
                   placeholder="Meta Title*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.cmeta_title && editdata.cmeta_title}
+                  onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[2]}</div>
               </div>
@@ -443,6 +452,7 @@ function Courses() {
                   value={
                     editdata.cmeta_description && editdata.cmeta_description
                   }
+                  onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[3]}</div>
               </div>
@@ -453,6 +463,7 @@ function Courses() {
                   placeholder="Meta Keyword*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={editdata.cmeta_keyword && editdata.cmeta_keyword}
+                  onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[4]}</div>
               </div>
