@@ -82,6 +82,8 @@ function Home(props) {
     trading_name: "",
   });
 
+  const [viewExm, setViewExm] = useState(false)
+
   // const [searchparameter, setSearchparameter] = useState({
   //   search_parameter: "",
   // });
@@ -321,10 +323,15 @@ function Home(props) {
         <div className="popular-clg-container">
           {toppopularcollegelisting.length > 0 &&
             toppopularcollegelisting.map((item, id) => {
+              const examArr = item.exam_name.split(',')
+              const examsView = examArr.slice(0,3).join(',')
+              const remainingCount = examArr.length - 3
+              const remainingExam = examArr.slice(3).join(',')
+
               if (id < 8) {
                 return (
                   <>
-                    <a href={"college/" + item.college_url}>
+                    {/* <a href={"college/" + item.college_url}> */}
                       <div className="popular-clg" key={id}>
                         <div
                           className="header"
@@ -334,6 +341,7 @@ function Home(props) {
                           }}
                         >
                           <div>
+                            <a href={"college/" + item.college_url}>
                             <img src={getImageURL(item.logo)} alt="" />
                             <div className="details">
                               <h3>{item.college_name} </h3>
@@ -342,10 +350,11 @@ function Home(props) {
                               </p>
                               <p>{item.approved_by}</p>
                             </div>
+                            </a>
                           </div>
                           <div className="heart"></div>
                         </div>
-                        <div className="other-details">
+                        <div className="other-details relative">
                           <div className="clg-type-rating">
                             <span>BE/B.Tech</span>
                             <span className="clg-rating">
@@ -375,7 +384,8 @@ function Home(props) {
                             <li className="text-sm">
                               <span>Exam Accepted: </span>
                               <span>
-                                <b>{item.exam_name}</b>
+                                <b>{examsView} {examArr.length > 3 && <span className="text-green cursor-pointer" onClick={() => setViewExm(!viewExm)}>+{remainingCount}</span>}</b>
+                                {/* {viewExm && <span className="absolute block w-20 text-xs right-2 bottom-14 bg-[#fcfcfc] p-1 font-bold rounded-md border-2 border-solid">{remainingExam}</span>}  */}
                               </span>
                             </li>
                           </ul>
@@ -391,7 +401,7 @@ function Home(props) {
                           </div>
                         </div>
                       </div>
-                    </a>
+                    {/* </a> */}
                   </>
                 );
               }

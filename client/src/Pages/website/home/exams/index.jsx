@@ -3,6 +3,8 @@ import axios from "axios";
 import Slider from "react-slick";
 import {isMobile} from 'react-device-detect';
 
+import NoteAltIcon from '@mui/icons-material/NoteAlt';
+
 function Exams({ clgSmallImg }) {
   var settings = {
     dots: true,
@@ -35,7 +37,9 @@ function Exams({ clgSmallImg }) {
     <a href={"exam/" + eitem.na_url}>
       <div className="exam-card" id={eitem.na_id}>
         <div className="exam-meta">
-          <img src={clgSmallImg} alt="" />
+          {/* <img src={clgSmallImg} alt="" /> */}
+          <NoteAltIcon style={{fontSize: '35px', color: '#402756'}} />
+
           <div>
             <h3>{eitem.na_title}</h3>
             <span>online</span>
