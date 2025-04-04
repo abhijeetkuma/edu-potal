@@ -364,7 +364,12 @@ function Listing(props) {
                         <span className="rating">
                           <img src={star} alt="" />
                           <span>
-                            <b>{7}</b>/10
+                            <b>
+                              {item.total_rating
+                                ? item.total_rating.slice(0, 3)
+                                : "0"}
+                            </b>
+                            /10
                           </span>
                         </span>
                       </div>
