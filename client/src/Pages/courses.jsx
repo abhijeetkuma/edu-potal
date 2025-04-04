@@ -28,6 +28,17 @@ function Courses() {
   const [catarr, setCatarr] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
+  const [editdata, setEditdata] = useState({
+    cour_id: "",
+    cmeta_description: "",
+    cmeta_keyword: "",
+    cmeta_title: "",
+    cour_top: "",
+    course_name: "",
+    course_url: "",
+    cstatus: "",
+    cat_id: "",
+  });
   useEffect(() => {
     /*fetch("http://localhost:3001/")
       .then((response) => response.json())
@@ -102,6 +113,17 @@ function Courses() {
     },
   ];
   const [rowSelection, setRowSelection] = useState({});
+  const editDetails = (editval) => {
+    console.log("Edit course id:", editval);
+    axios
+      .get("/api/editcourse/" + editval)
+      .then((response) => {
+        setEditdata(response.data[0]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const table = useMaterialReactTable({
     columns,
@@ -143,11 +165,13 @@ function Courses() {
   const addcouse = (e) => {
     e.preventDefault();
     const {
+      cour_id,
       course_name,
       course_url,
       cmeta_title,
       cmeta_description,
       cmeta_keyword,
+      cat_id,
     } = e.target.elements;
 
     let errorsForm = [];
@@ -184,45 +208,92 @@ function Courses() {
     console.log("errorsForm", errorsForm);
     if (errorsForm.length === 0) {
       const payload = {
+        cour_id: cour_id.value,
         course_name: course_name.value,
         course_url: course_url.value,
         meta_title: cmeta_title.value,
         cmeta_description: cmeta_description.value,
         cmeta_keyword: cmeta_keyword.value,
+        cat_id: cat_id.value,
         cstatus: "A",
       };
-      axios({
-        method: "post",
-        url: "/api/addcourse",
-        data: payload,
-      })
-        .then(function (response) {
-          console.log(response);
-          course_name.value = "";
-          course_url.value = "";
-          cmeta_title.value = "";
-          cmeta_description.value = "";
-          cmeta_keyword.value = "";
-          setReturndspmsg(
-            "<div className={sussmsg}>Record successfully added</div>"
-          );
-          //get results
-          axios
-            .get("/api/getcourses")
-            .then((response) => {
-              setDatas(response.data);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          //end get results
+      if (cour_id.value > 0) {
+        axios({
+          method: "post",
+          url: "/api/updatecourse",
+          data: payload,
         })
-        .catch(function (error) {
-          console.log(error);
-          setReturndspmsg(
-            "<div className={errmsg}>Error in add course record</div>"
-          );
-        });
+          .then(function (response) {
+            console.log(response);
+            cat_id.value = "";
+            course_name.value = "";
+            course_url.value = "";
+            cmeta_title.value = "";
+            cmeta_description.value = "";
+            cmeta_keyword.value = "";
+            if (response.statusText == "OK") {
+              setIsEditOpen(false);
+              toast.success("Course details updated!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                //transition: Bounce,
+              });
+            }
+            //get results
+            axios
+              .get("/api/getcourses")
+              .then((response) => {
+                setDatas(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            //end get results
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        axios({
+          method: "post",
+          url: "/api/addcourse",
+          data: payload,
+        })
+          .then(function (response) {
+            console.log(response);
+            cat_id.value = "";
+            course_name.value = "";
+            course_url.value = "";
+            cmeta_title.value = "";
+            cmeta_description.value = "";
+            cmeta_keyword.value = "";
+            setReturndspmsg(
+              "<div className={sussmsg}>Record successfully added</div>"
+            );
+            //get results
+            axios
+              .get("/api/getcourses")
+              .then((response) => {
+                setDatas(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            //end get results
+          })
+          .catch(function (error) {
+            console.log(error);
+            setReturndspmsg(
+              "<div className={errmsg}>Error in add course record</div>"
+            );
+          });
+      }
     } else {
       setErrorMsg(errorsForm);
     }
@@ -295,7 +366,9 @@ function Courses() {
                 ✕
               </button>
             </form>
-            <h3 className="font-bold text-lg">Add Course</h3>
+            <h3 className="font-bold text-lg">
+              {editdata.cour_id > 0 ? "Edit" : "Add"} Course
+            </h3>
 
             <form
               action=""
@@ -305,14 +378,27 @@ function Courses() {
             >
               {returndspmsg && returndspmsg}
               <div className="mt-2">
+                <input type="hidden" value={editdata.cour_id} name="cour_id" />
                 <select
-                  name="course_id"
-                  id="course_id"
+                  name="cat_id"
+                  id="cat_id"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                 >
-                  <option value="">Select Category</option>
+                  <option
+                    value=""
+                    defaultValue={editdata.cat_id == "" ? "selected" : ""}
+                  >
+                    Select Category
+                  </option>
                   {catarr.map((cour) => (
-                    <option value={cour.cat_id}>{cour.category_name}</option>
+                    <option
+                      value={cour.cat_id}
+                      selected={
+                        editdata.cat_id == cour.cat_id ? "selected" : ""
+                      }
+                    >
+                      {cour.category_name}
+                    </option>
                   ))}
                   ;
                 </select>
@@ -324,6 +410,7 @@ function Courses() {
                   name="course_name"
                   placeholder="Course Name*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.course_name && editdata.course_name}
                 />
                 <div className="errmsg">{errorMsg[0]}</div>
               </div>
@@ -333,6 +420,7 @@ function Courses() {
                   name="course_url"
                   placeholder="Branch URL*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.course_url && editdata.course_url}
                 />
                 <div className="errmsg">{errorMsg[1]}</div>
               </div>
@@ -342,6 +430,7 @@ function Courses() {
                   name="cmeta_title"
                   placeholder="Meta Title*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.cmeta_title && editdata.cmeta_title}
                 />
                 <div className="errmsg">{errorMsg[2]}</div>
               </div>
@@ -351,6 +440,9 @@ function Courses() {
                   name="cmeta_description"
                   placeholder="Meta Description*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={
+                    editdata.cmeta_description && editdata.cmeta_description
+                  }
                 />
                 <div className="errmsg">{errorMsg[3]}</div>
               </div>
@@ -360,6 +452,7 @@ function Courses() {
                   name="cmeta_keyword"
                   placeholder="Meta Keyword*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.cmeta_keyword && editdata.cmeta_keyword}
                 />
                 <div className="errmsg">{errorMsg[4]}</div>
               </div>
@@ -371,7 +464,7 @@ function Courses() {
                   type="submit"
                   className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Submit
+                  {editdata.cour_id > 0 ? "Update" : "Submit"}
                 </button>
               </div>
             </form>
