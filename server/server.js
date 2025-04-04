@@ -522,6 +522,16 @@ app.post("/api/updatehighlight", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/editcourse/:cour_id", (req, res) => {
+  colleges_model
+    .editcourse(req.params.cour_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.post("/api/updatecourses", (req, res) => {
   //console.log("contact us details-->", req.body);
   colleges_model
