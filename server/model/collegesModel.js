@@ -2028,26 +2028,7 @@ const editcourse = (cour_id) => {
   });
 };
 //get all facility our database
-const editcourse = (cour_id) => {
-  //const rol_id = rol_id;
-  return new Promise(function (resolve, reject) {
-    pool.query(
-      "SELECT * FROM courses WHERE cour_id = $1",
-      [cour_id],
-      (error, results) => {
-        if (error) {
-          reject(error);
-        }
-        if (results && results.rows) {
-          resolve(results.rows);
-        }
 
-        //resolve(`Edit roles ID: ${id}`);
-      }
-    );
-    console.log(query);
-  });
-};
 const getApprovedby = async () => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -2158,7 +2139,6 @@ module.exports = {
   addCoursebrach,
   getCategories,
   editcategory,
-  editcourse,
   updateCategory,
   updatecourse,
   getCoursetype,
