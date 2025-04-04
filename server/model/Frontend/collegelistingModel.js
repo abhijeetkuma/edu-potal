@@ -49,7 +49,7 @@ const listing = async (parmameters) => {
       }
       console.log(search);
       const query =
-        "SELECT c.cid,c.college_name,c.college_url,c.logo,c.totalplacementratio,c.lowestplacementrecord,c.higestplacementrecord,regexp_count(c.courses, ',') + 1  total_courses, string_agg(distinct e.exam_name,', ') exam_name,string_agg(distinct a.approved_name,', ') approved_by, string_agg(distinct cty.college_type,', ') college_types,c.banner,s.state_name,ct.city_url,ct.city_name FROM colleges c  LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar LEFT JOIN examnames e ON e.exam_id = any(string_to_array(c.exams,',')::int[]) LEFT JOIN approvedby a ON a.approv_id = any(string_to_array(c.approvedby,',')::int[]) LEFT JOIN collegetype cty ON cty.col_type = any(string_to_array(c.ctype,',')::int[])  LEFT JOIN categories cat ON cat.cat_id = any(string_to_array(c.categories,',')::int[]) LEFT JOIN courses cour ON cour.cour_id = any(string_to_array(c.courses,',')::int[])  WHERE 1=1 ";
+        "SELECT c.cid,c.college_name,c.college_url,c.logo,c.totalplacementratio,c.lowestplacementrecord,c.higestplacementrecord,regexp_count(c.courses, ',') + 1  total_courses, (c.ratingacademic+c.rattingaccommodation+c.rattingfaculty+c.rattinginfrastructure+c.rattingplacements+rattingsocial+c.rattingthroughout)/7 as total_rating,string_agg(distinct e.exam_name,', ') exam_name,string_agg(distinct a.approved_name,', ') approved_by, string_agg(distinct cty.college_type,', ') college_types,c.banner,s.state_name,ct.city_url,ct.city_name FROM colleges c  LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar LEFT JOIN examnames e ON e.exam_id = any(string_to_array(c.exams,',')::int[]) LEFT JOIN approvedby a ON a.approv_id = any(string_to_array(c.approvedby,',')::int[]) LEFT JOIN collegetype cty ON cty.col_type = any(string_to_array(c.ctype,',')::int[])  LEFT JOIN categories cat ON cat.cat_id = any(string_to_array(c.categories,',')::int[]) LEFT JOIN courses cour ON cour.cour_id = any(string_to_array(c.courses,',')::int[])  WHERE 1=1 ";
 
       pool.query(
         query +
@@ -98,7 +98,7 @@ const relatedcollegecoursewise = (course) => {
     pool.query(
       // "SELECT c.cid,c.college_name,c.college_url,c.logo,c.averageplacementrecord,s.state_name,ct.city_name  FROM colleges c LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar  WHERE c.courses IN ($1) GROUP BY c.cid ,s.state_name,ct.city_name ORDER BY c.cid DESC  LIMIT 15",
       // "SELECT * FROM colleges WHERE courses IN($1) ORDER BY cid DESC",
-      "SELECT c.cid,c.college_name,c.college_url,c.logo,c.averageplacementrecord,s.state_name,ct.city_name FROM colleges c LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar WHERE position(c.courses in $1)>0 ORDER BY RANDOM() LIMIT 9",
+      "SELECT c.cid,c.college_name,c.college_url,c.logo,c.averageplacementrecord,s.state_name,ct.city_url,ct.city_name FROM colleges c LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar WHERE position(c.courses in $1)>0 ORDER BY RANDOM() LIMIT 9",
       [course],
       (error, results) => {
         //  console.log(results);

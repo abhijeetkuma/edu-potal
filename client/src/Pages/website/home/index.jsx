@@ -321,10 +321,23 @@ function Home(props) {
         <div className="popular-clg-container">
           {toppopularcollegelisting.length > 0 &&
             toppopularcollegelisting.map((item, id) => {
+              var courlink = "";
+              if (item.courses) {
+                const courarrs = item.courses.split(", ");
+
+                courarrs.map((cor, c) => {
+                  courlink = (
+                    <a href={"course/" + cor.split("~")[0]}>
+                      {cor.split("~")[1]}
+                    </a>
+                  );
+                });
+              }
+
               if (id < 8) {
                 return (
                   <>
-                    <a href={"college/" + item.college_url}>
+                    <a key={id} href={"college/" + item.college_url}>
                       <div className="popular-clg" key={id}>
                         <div
                           className="header"
@@ -347,10 +360,17 @@ function Home(props) {
                         </div>
                         <div className="other-details">
                           <div className="clg-type-rating">
-                            <span>BE/B.Tech</span>
+                            <span>{item.courses && courlink}</span>
                             <span className="clg-rating">
                               <img src={star} alt="" />
-                              <span>4.5 (55)</span>
+                              <span>
+                                <b>
+                                  {item.total_rating
+                                    ? item.total_rating.slice(0, 3)
+                                    : "0"}
+                                </b>
+                                /10
+                              </span>
                             </span>
                           </div>
                           <ul className="links mt-2 mb-2">

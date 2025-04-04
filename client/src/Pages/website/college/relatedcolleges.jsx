@@ -9,7 +9,7 @@ function Relatedcolleges(props) {
     data: { courses },
     vtype,
     heading,
-    headingClass
+    headingClass,
   } = props;
 
   const [dispcolleges, setDispcolleges] = useState({
@@ -34,39 +34,45 @@ function Relatedcolleges(props) {
   }, []);
   return (
     <>
-      <h2 className={`font-bold pb-1 text-2xl mt-10 mb-2 ${headingClass}`}>{heading}</h2>
+      <h2 className={`font-bold pb-1 text-2xl mt-10 mb-2 ${headingClass}`}>
+        {heading}
+      </h2>
       <div className="related-colleges mt-5 mb-5">
-      {dispcolleges.length > 0 &&
-        dispcolleges.map((item, id) => (
-          <div id={item.cid}>
-            <div className="related-colleges-box">
-              <div className="details">
-                <div className="img-box">
-                  <img src={getImageURL(item.logo)} alt="" />
-                </div>
-                <div className="info">
-                  <a href={"./" + item.college_url}>  
-                    <p className="underline">{item.college_name}</p>
-                  </a>
-                  <div>
-                    <span className="location">
-                      <img src={mapIcon} alt="" />
-                      <span>{item.city_name}</span>
-                    </span>
-                    <span className="view-more">
-                      <a href={"./" + item.college_url}>Placement</a>
-                      <a href={"./" + item.college_url}>Apply</a>
-                    </span>
+        {dispcolleges.length > 0 &&
+          dispcolleges.map((item, id) => (
+            <div id={item.cid}>
+              <div className="related-colleges-box">
+                <div className="details">
+                  <div className="img-box">
+                    <img src={getImageURL(item.logo)} alt="" />
+                  </div>
+                  <div className="info">
+                    <a href={"./" + item.college_url}>
+                      <p className="underline">{item.college_name}</p>
+                    </a>
+                    <div>
+                      <span className="location">
+                        <img src={mapIcon} alt="" />
+                        <span>
+                          <a href={"./../studybycity/" + item.city_url}>
+                            {item.city_name}
+                          </a>
+                        </span>
+                      </span>
+                      <span className="view-more">
+                        <a href={"./" + item.college_url}>Placement</a>
+                        <a href={"./" + item.college_url}>Apply</a>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-    </div>
-    <Link className="viewAll-btn" to={"/listing"}>
-      View All Related Collages
-    </Link>
+          ))}
+      </div>
+      <Link className="viewAll-btn" to={"/listing"}>
+        View All Related Collages
+      </Link>
     </>
   );
 }
