@@ -51,15 +51,14 @@ function College() {
     },
   ]);
 
-  const [logo, setLogo] = useState();
-  const [banner, setBanner] = useState();
-  const [gallery1, setGallery1] = useState();
-  const [gallery2, setGallery2] = useState();
-  const [gallery3, setGallery3] = useState();
-  const [gallery4, setGallery4] = useState();
-  const [gallery5, setGallery5] = useState();
-  const [brouchure, setBrouchure] = useState();
-  const [, set] = useState();
+  const [logo, setLogo] = useState("");
+  const [banner, setBanner] = useState("");
+  const [gallery1, setGallery1] = useState("");
+  const [gallery2, setGallery2] = useState("");
+  const [gallery3, setGallery3] = useState("");
+  const [gallery4, setGallery4] = useState("");
+  const [gallery5, setGallery5] = useState("");
+  const [brouchure, setBrouchure] = useState("");
   const [catgoryarr, setCatgoryarr] = useState([]);
   const [coursearr, setCoursearr] = useState([]);
   const [subcoursestypearr, setSubcoursestypearr] = useState([]);
@@ -102,16 +101,16 @@ function College() {
 
   const [insertActivetabs, setInsertActivetabs] = useState(false);
   const [basicActive, setBasicActive] = useState("active");
-  const [contactActive, setContactActive] = useState();
-  const [highlightsActive, setHighlightsActive] = useState();
-  const [galleryActive, setGalleryActive] = useState();
-  const [admissionActive, setAdmissionActive] = useState();
-  const [placementActive, setPlacementActive] = useState();
-  const [faqActive, setFaqActive] = useState();
-  const [courseActive, setCourseActive] = useState();
-  const [ratingActive, setRatingActive] = useState();
-  const [successmsg, setSuccessmsg] = useState();
-  const [appopenvalue, setAppopenvalue] = useState();
+  const [contactActive, setContactActive] = useState("");
+  const [highlightsActive, setHighlightsActive] = useState("");
+  const [galleryActive, setGalleryActive] = useState("");
+  const [admissionActive, setAdmissionActive] = useState("");
+  const [placementActive, setPlacementActive] = useState("");
+  const [faqActive, setFaqActive] = useState("");
+  const [courseActive, setCourseActive] = useState("");
+  const [ratingActive, setRatingActive] = useState("");
+  const [successmsg, setSuccessmsg] = useState("");
+  const [appopenvalue, setAppopenvalue] = useState("");
 
   const [errors, setErrors] = useState({});
 
@@ -1130,7 +1129,7 @@ function College() {
         });
     }
   };
-
+  console.log("facilityvalue-->", facilityvalue);
   const renderPageHeader = () => {
     return (
       <>
