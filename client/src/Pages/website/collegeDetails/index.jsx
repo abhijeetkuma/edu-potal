@@ -435,10 +435,10 @@ function CollegeDetails(props) {
             )}
 
             <div className="ads">
-              <Link><img src={adsImg1} alt="JAIPURIA" /></Link>
+              <a href="https://timesofcollege.com/college/jaipuria-school-of-business-ghaziabad"><img src={adsImg1} alt="JAIPURIA" /></a>
             </div>
             <div className="ads">
-              <Link><img src={adsImg2} alt="BIMTECH" /></Link>
+              <a href="https://timesofcollege.com/college/bimtech-greater-noida"><img src={adsImg2} alt="BIMTECH" /></a>
             </div>
           </div>
         </div>
