@@ -44,6 +44,7 @@ function CollegeDetails(props) {
     btnTitle: "",
   });
   const { college_url } = useParams();
+  //const topCourselinks = ""
 
   const [displaycollegdetail, setDisplaycollegdetail] = useState({
     cid: "",
@@ -52,6 +53,7 @@ function CollegeDetails(props) {
     courses: "",
   });
   const [collegetitleappend, setCollegetitleappend] = useState("");
+  //const setAlltopcourse = "";
   useEffect(() => {
     const updatecollegeviews = (cid) => {
       axios({
@@ -120,6 +122,43 @@ function CollegeDetails(props) {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+  //var courlink = "";
+  const display_top_course = (topcourses) => {
+    let links = [];
+    if (topcourses) {
+      const courarrs = topcourses.split(", ");
+      courarrs.map((cor, c) => {
+        //  console.log("coursse****", cor);
+        if (c < 3) {
+          links.push(
+            <div>
+              <p>
+                <b>
+                  <a href={"../course/" + cor.split("~")[0]}>
+                    {cor.split("~")[1]}
+                  </a>
+                </b>
+              </p>
+            </div>
+          );
+        }
+      });
+    }
+    //return <div>{links}</div>;
+    return (
+      <ul className="phCards">
+        <hr style={{ color: "#32325d40", margin: "15px" }} />
+        <li>
+          <p>
+            <h2 className="headingSeaGreen font-bold pb-1 text-2xl text-center mb-2">
+              Top Courses
+            </h2>
+          </p>
+          {links}
+        </li>
+      </ul>
+    );
   };
 
   return (
@@ -351,28 +390,29 @@ function CollegeDetails(props) {
                 </div>
               </li>
             </ul>
+            {display_top_course(displaycollegdetail.top_courses)}
 
-            <hr style={{ color: "#32325d40", margin: "15px" }} />
-
-            <ul className="phCards">
-              <li>
-                <p>
-                  <h2 className="headingSeaGreen font-bold pb-1 text-2xl text-center mb-2">
-                    Top Courses
-                  </h2>
-                </p>
-                <div>
+            {/*} <ul className="phCards">
+                <hr style={{ color: "#32325d40", margin: "15px" }} />
+                <li>
                   <p>
-                    <b>{"B.Tech"}</b>
+                    <h2 className="headingSeaGreen font-bold pb-1 text-2xl text-center mb-2">
+                      Top Courses
+                    </h2>
                   </p>
-                </div>
-                <div>
-                  <p>
-                    <b>{"BCA"}</b>
-                  </p>
-                </div>
-              </li>
-            </ul>
+                  <div>
+                    {topcourses.map((tc, cid) => (
+                      <p key={cid}>
+                        <b>
+                          <a href={"../course/" + tc.courseurl}>
+                            {tc.coursename}
+                          </a>
+                        </b>
+                      </p>
+                    ))}
+                  </div>
+                </li>
+              </ul> */}
 
             <hr style={{ color: "#32325d40", margin: "15px" }} />
 

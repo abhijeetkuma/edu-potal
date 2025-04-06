@@ -12,7 +12,7 @@ function Facilities(props) {
         <ul>
           {data &&
             data.split(",").map((item, i) => (
-              <li>
+              <li key={i}>
                 <img
                   src={CONSTANT.FACILITIES[item].imgUrl}
                   style={{ width: "50px" }}
