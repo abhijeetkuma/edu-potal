@@ -40,7 +40,7 @@ function Relatedcolleges(props) {
       <div className="related-colleges mt-5 mb-5">
         {dispcolleges.length > 0 &&
           dispcolleges.map((item, id) => (
-            <div id={item.cid}>
+            <div id={item.cid} key={id}>
               <div className="related-colleges-box">
                 <div className="details">
                   <div className="img-box">
