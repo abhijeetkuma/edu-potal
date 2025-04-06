@@ -90,7 +90,7 @@ function CollegeOverview(props) {
         </section> */}
 
         <section className="about">
-          <h2 className="font-bold text-2xl">{`About ${college_name}`}</h2>
+          <h2 className="font-bold text-2xl mb-2">{`About ${college_name}`}</h2>
           <span
             className="mt-2"
             dangerouslySetInnerHTML={{ __html: showDescription }}

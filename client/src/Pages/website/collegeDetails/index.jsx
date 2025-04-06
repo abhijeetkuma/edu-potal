@@ -14,7 +14,8 @@ import arrowTilt from "/images/arrow-tilt.svg";
 import downlaod from "/images/downloads.svg";
 import mapIcon from "/images/map-icon.png";
 import compare from "/images/compare.svg";
-import adsImg from "/images/ads.svg";
+import adsImg1 from "/images/ads/ads1.gif";
+import adsImg2 from "/images/ads/ads2.gif";
 import star from "/images/star.png";
 
 import Details from "../college/details";
@@ -434,10 +435,10 @@ function CollegeDetails(props) {
             )}
 
             <div className="ads">
-              <img src={adsImg} alt="" />
+              <Link><img src={adsImg1} alt="JAIPURIA" /></Link>
             </div>
             <div className="ads">
-              <img src={adsImg} alt="" />
+              <Link><img src={adsImg2} alt="BIMTECH" /></Link>
             </div>
           </div>
         </div>
