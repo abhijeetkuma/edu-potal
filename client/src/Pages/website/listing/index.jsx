@@ -331,7 +331,8 @@ function Listing(props) {
         </section>
         <section className="college-list-wrapper">
           <div className="applied-filters"></div>
-          {collegelisting.length > 0 ? (
+          {collegelisting.length > 0 ?
+          (
             collegelisting.map((item, id) => (
               <a href={"./../college/" + item.college_url}>
                 <div className="college-list-card" id={item.cid} key={item.cid}>
@@ -427,10 +428,26 @@ function Listing(props) {
                 </div>
               </a>
             ))
-          ) : (
-            <div className="college-list-card">
-              <p className="p-5 text-center text-xl">No College Found...</p>
+          ) 
+          : 
+          (
+          [1,2,3,4,5].map(item => (
+            <div class="mx-auto w-full rounded-md border border-[#ccc] p-4 mb-5">
+            <div class="flex animate-pulse space-x-4">
+              <div class="size-10 rounded-full bg-[#ccc]"></div>
+              <div class="flex-1 space-y-6 py-1">
+                <div class="h-2 rounded bg-[#ccc]"></div>
+                <div class="space-y-3">
+                  <div class="grid grid-cols-3 gap-4">
+                    <div class="col-span-2 h-2 rounded bg-[#ccc]"></div>
+                    <div class="col-span-1 h-2 rounded bg-[#ccc]"></div>
+                  </div>
+                  <div class="h-2 rounded bg-[#ccc]"></div>
+                </div>
+              </div>
             </div>
+          </div>
+          ))  
           )}
         </section>
 

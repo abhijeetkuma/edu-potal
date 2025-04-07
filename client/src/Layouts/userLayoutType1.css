@@ -447,16 +447,22 @@ header.website-wrapper {
             );
             padding: 5px;
             width: 100%;
-            > img {
-              padding: 5px 10px;
-              width: 55px;
-            }
+          }
+          img {
+            width: 40px;
+            height: 40px;
+            padding: 2px;
+            margin-left: 12px;
+            border-radius: 30px;
+            background-size: cover;
           }
           .details {
             padding: 2px 10px;
             color: #fff;
             h3 {
               font-size: 16px;
+              line-height: 18px;
+              margin-bottom: 5px;
             }
             p {
               font-size: 12px;
@@ -1067,9 +1073,9 @@ header.website-wrapper {
           margin: 0px;
           padding: 5px 20px;
           color: #fff;
-          font-size: 32px;
+          font-size: 26px;
           text-align: left;
-          line-height: 40px;
+          line-height: 32px;
         }
         img {
           min-width: 79px;
@@ -1853,8 +1859,9 @@ header.website-wrapper {
   }
 
   .ads {
-    width: 200px;
-    height: 225px;
+    padding: 10px 0px;
+    /* width: 200px; */
+    /* height: 225px; */
     display: flex;
     align-items: center;
     justify-content: center;
