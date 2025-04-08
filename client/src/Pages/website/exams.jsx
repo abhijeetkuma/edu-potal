@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 // import Relatednews from "../../../src/Pages/website/college/relatednews";
 // import Relatedcolleges from "./college/relatedcolleges";
 
-
-import adsImg from "/images/ads.svg";
+import adsImg1 from "/images/ads/ads1.gif";
+import adsImg2 from "/images/ads/ads2.gif";
 import clgSmallImg from "/images/img-dummy-sm.png";
 import GetHelp from "./commonComps/getNotify";
 import Modal from "./commonComps/modal";
@@ -15,14 +15,18 @@ import Login from "./commonComps/login";
 
 function Exams(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [popupEvents, setPopupEvents] = useState({cid: '', btnName: '', btnTitle: ''});
+  const [popupEvents, setPopupEvents] = useState({
+    cid: "",
+    btnName: "",
+    btnTitle: "",
+  });
   const [displayexamlisting, setDisplayexamlisting] = useState({
     cms_description: "",
     cms_title: "",
   });
   //const { cms_url } = useParams();
   const [displaycollegdetail, setDisplaycollegdetail] = useState({
-    college_description: ""
+    college_description: "",
   });
 
   useEffect(() => {
@@ -45,18 +49,16 @@ function Exams(props) {
     //   });
   }, []);
 
-  
   const openModal = (event) => {
-    event.stopPropagation()
-    const { name, title} = event.target.dataset;
-    setPopupEvents({cid:  '', btnName: name, btnTitle: title})
+    event.stopPropagation();
+    const { name, title } = event.target.dataset;
+    setPopupEvents({ cid: "", btnName: name, btnTitle: title });
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
 
   const renderExams = (eitem) => (
     <a href={"/exam/" + eitem.na_url}>
@@ -124,14 +126,18 @@ function Exams(props) {
           )} */}
 
           <div className="ads">
-            <img src={adsImg} alt="" />
+            <a href="https://timesofcollege.com/college/jaipuria-school-of-business-ghaziabad">
+              <img src={adsImg1} alt="JAIPURIA" />
+            </a>
           </div>
           <div className="ads">
-            <img src={adsImg} alt="" />
+            <a href="https://timesofcollege.com/college/bimtech-greater-noida">
+              <img src={adsImg2} alt="BIMTECH" />
+            </a>
           </div>
         </div>
       </section>
-      
+
       {/* <section className="news  mt-10">
         {props.data.courses && (
           <Relatednews
