@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
-import adsImg from "/images/ads.svg";
+import adsImg1 from "/images/ads/ads1.gif";
+import adsImg2 from "/images/ads/ads2.gif";
 import clgSmallImg from "/images/img-dummy-sm.png";
 
 function Toccafe(props) {
@@ -47,10 +48,14 @@ function Toccafe(props) {
         </section>
         <div className="others">
           <div className="ads">
-            <img src={adsImg} alt="" />
+            <a href="https://timesofcollege.com/college/jaipuria-school-of-business-ghaziabad">
+              <img src={adsImg1} alt="JAIPURIA" />
+            </a>
           </div>
           <div className="ads">
-            <img src={adsImg} alt="" />
+            <a href="https://timesofcollege.com/college/bimtech-greater-noida">
+              <img src={adsImg2} alt="BIMTECH" />
+            </a>
           </div>
         </div>
       </section>
