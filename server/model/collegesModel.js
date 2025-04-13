@@ -1,5 +1,5 @@
 const { query } = require("express");
-const session = require("express-session");
+//const session = require("express-session");
 const config = require("./../config/config.js");
 
 const Pool = require("pg").Pool;
