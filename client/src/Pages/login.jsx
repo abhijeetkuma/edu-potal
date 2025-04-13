@@ -46,9 +46,10 @@ export default function Login() {
           console.log(response.data[0].admin_id);
           if (response.data.length > 0) {
             if (response.data[0].admin_id) {
-              //console.log("user details-->", response.data);
+              //  console.log("user details-->", response.data);
               localStorage.setItem("login_id", response.data[0].au_id);
               localStorage.setItem("logedin", response.data[0].admin_id);
+              localStorage.setItem("role_id", response.data[0].rol_id);
               window.location = "/admin";
             } else {
               localStorage.setItem("logedin", "");
