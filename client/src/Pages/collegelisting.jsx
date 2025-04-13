@@ -35,7 +35,12 @@ function Collegelisting() {
     axios
       //.get("https://jsonplaceholder.typicode.com/posts")
       //.get("http://localhost:3007/")
-      .get("/api/")
+      .get(
+        "/api/?loginid=" +
+          localStorage.getItem("login_id") +
+          "&loginrole_id=" +
+          localStorage.getItem("role_id")
+      )
       .then((response) => {
         setDatas(response.data);
       })

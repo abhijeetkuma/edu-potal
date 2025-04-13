@@ -1,4 +1,5 @@
 const { query } = require("express");
+const session = require("express-session");
 const config = require("./../config/config.js");
 
 const Pool = require("pg").Pool;
@@ -26,22 +27,29 @@ const pool = new Pool({
 });
 
 //get all colleges our database
-const getColleges = async () => {
+const getColleges = async (req) => {
   try {
     return await new Promise(function (resolve, reject) {
-      pool.query(
-        "select * from colleges order by cid desc",
-        (error, results) => {
-          if (error) {
-            reject(error);
-          }
-          if (results && results.rows) {
-            resolve(results.rows);
-          } else {
-            reject(new Error("No results found"));
-          }
+      var search = "";
+      //console.log("loging-->", localStorage.getItem("logedin"));
+      //console.log("loging-->", session.Session["logedin"]);
+      // console.log("server req -->", req);
+      if (req.loginrole_id == "2") {
+        search = " AND added_by=" + req.loginid;
+      }
+
+      const query =
+        "select * from colleges where 1=1 " + search + " order by cid desc";
+      pool.query(query, (error, results) => {
+        if (error) {
+          reject(error);
         }
-      );
+        if (results && results.rows) {
+          resolve(results.rows);
+        } else {
+          reject(new Error("No results found"));
+        }
+      });
     });
   } catch (error_1) {
     console.error(error_1);
@@ -53,7 +61,7 @@ const Login = async (body) => {
     return await new Promise(function (resolve, reject) {
       const { admin_email, admin_password } = body;
       pool.query(
-        "select au_id,admin_id,admin_email,admin_contact from adminusers where admin_status='A' and admin_email=$1 and admin_password=$2",
+        "select au_id,admin_id,admin_email,admin_contact,rol_id from adminusers where admin_status='A' and admin_email=$1 and admin_password=$2",
         [admin_email, admin_password],
         (error, results) => {
           if (error) {

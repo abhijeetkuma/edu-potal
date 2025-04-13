@@ -152,8 +152,10 @@ app.use(function (req, res, next) {
 });
 
 app.get("/api/", (req, res) => {
+  //app.post("/api/updatecourses", (req, res) => {
+  //console.log("college req-->", req.query);
   colleges_model
-    .getColleges()
+    .getColleges(req.query)
     .then((response) => {
       res.status(200).send(response);
     })
