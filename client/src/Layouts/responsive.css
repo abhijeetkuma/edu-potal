@@ -429,11 +429,9 @@
   }
 
   .popular-clg-container {
-    a {
+    width: 100% !important;
+    .popular-clg {
       width: 100% !important;
-      .popular-clg {
-        width: 100% !important;
-      }
     }
   }
 
