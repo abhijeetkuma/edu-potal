@@ -43,6 +43,7 @@ function Filter(props) {
                   name=""
                   id="checkbox"
                   value={items.cour_id}
+                  onClick={props.click}
                 />
                 <label htmlFor="checkbox">{items.course_name}</label>
               </span>

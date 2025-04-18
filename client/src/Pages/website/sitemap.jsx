@@ -87,53 +87,104 @@ function Exams(props) {
       <a href={"/college/" + citem.college_url}>{citem.college_url}</a>
       <a href={"/college/" + citem.college_url}>{citem.college_name}</a> */}
       <li>
-        <a href={"/college/" + citem.college_url}>{citem.college_name}</a>
+        <a href={`/college/${citem.college_url}`}>{citem.college_name}</a>
       </li>
       <li>
-        <a href={"/college/" + citem.college_url + "+courses-and-fees"}>
+        <a href={`/college/${citem.college_url}+courses-and-fees`}>
           {citem.college_name} Courses & Fees
         </a>
       </li>
       <li>
-        <a href={"/college/" + citem.college_url + "+admissions"}>
+        <a href={`/college/${citem.college_url}+admissions`}>
           {citem.college_name} Admission {adminssinyear.getFullYear()}
         </a>
       </li>
       <li>
-        <a href={"/college/" + citem.college_url + "+placements"}>
+        <a href={`/college/${citem.college_url}+placements`}>
           {citem.college_name} Placements {adminssinyear.getFullYear() - 1}
         </a>
       </li>
       <li>
-        <a href={"/college/" + citem.college_url + "+scholarships"}>
+        <a href={`/college/${citem.college_url}+scholarships`}>
           {citem.college_name} Scholarships
         </a>
       </li>
       <li>
-        <a href={"/college/" + citem.college_url + "+faculties"}>
+        <a href={`/college/${citem.college_url}+faculties`}>
           {citem.college_name} Faculties
         </a>
       </li>
       <li>
-        <a href={"/college/" + citem.college_url + "+gallery"}>
+        <a href={`/college/${citem.college_url}+gallery`}>
           {citem.college_name} Gallery
         </a>
       </li>
       <li>
-        <a href={"/college/" + citem.college_url + " +reviews"}>
+        <a href={`/college/${citem.college_url}+reviews`}>
           {citem.college_name} Reviews
         </a>
       </li>
       <li>
-        <a href={"/college/" + citem.college_url + " +news"}>
+        <a href={`/college/${citem.college_url}+news`}>
           {citem.college_name} News
         </a>
       </li>
       <li>
-        <a href={"/college/" + citem.college_url + "+question-answer"}>
+        <a href={`/college/${citem.college_url}+question-answer`}>
           {citem.college_name} Q&A
         </a>
       </li>
+      {/*
+      <li>
+        <a
+          href={`/college/${citem.college_url}`}
+        >{`https://timesofcollege.com/college/${citem.college_url}`}</a>
+      </li>
+      <li>
+        <a href={`/college/${citem.college_url}+courses-and-fees`}>
+          {`https://timesofcollege.com/college/${citem.college_url}+courses-and-fees`}
+        </a>
+      </li>
+      <li>
+        <a href={`/college/${citem.college_url}+admissions`}>
+          {`https://timesofcollege.com/college/${citem.college_url}+admissions`}
+        </a>
+      </li>
+      <li>
+        <a href={`/college/${citem.college_url}+placements`}>
+          {`https://timesofcollege.com/college/${citem.college_url}+placements`}
+        </a>
+      </li>
+      <li>
+        <a href={`/college/${citem.college_url}+scholarships`}>
+          {`https://timesofcollege.com/college/${citem.college_url}+scholarships`}
+        </a>
+      </li>
+      <li>
+        <a href={`/college/${citem.college_url}+faculties`}>
+          {`https://timesofcollege.com/college/${citem.college_url}+faculties`}
+        </a>
+      </li>
+      <li>
+        <a href={`/college/${citem.college_url}+gallery`}>
+          {`https://timesofcollege.com/college/${citem.college_url}+gallery`}
+        </a>
+      </li>
+      <li>
+        <a href={`/college/${citem.college_url}+reviews`}>
+          {`https://timesofcollege.com/college/${citem.college_url}+reviews`}
+        </a>
+      </li>
+      <li>
+        <a href={`/college/${citem.college_url}+news`}>
+          {`https://timesofcollege.com/college/${citem.college_url}+news`}
+        </a>
+      </li>
+      <li>
+        <a href={`/college/${citem.college_url}+question-answer`}>
+          {`https://timesofcollege.com/college/${citem.college_url}+question-answer`}
+        </a>
+      </li> */}
     </>
   );
   const renderExams = (eitem) => (

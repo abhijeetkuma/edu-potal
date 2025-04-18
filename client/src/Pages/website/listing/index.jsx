@@ -134,13 +134,29 @@ function Listing(props) {
     setIsModalOpen(false);
   };
 
+  //filter section
+  var cfilterarr = [];
+  const coursefilter = (e) => {
+    //alert(e.target.value);
+    if (e.target.value > 0) {
+      cfilterarr.push(e.target.value);
+    }
+    console.log("cfilterarr-->", cfilterarr);
+  };
+  // end filter section
+
   return (
     <>
       <section className="header"></section>
       <section className="container college-filter-wrapper">
         <section className="filter-section mt-5">
           <Filter header="Ownership Type" fdata={filterct} search={false} />
-          <Filter header="Course" filtercourse={filtercourse} search={true} />
+          <Filter
+            header="Course"
+            filtercourse={filtercourse}
+            search={true}
+            click={coursefilter}
+          />
           <Filter header="State" filterstate={filterstate} search={true} />
           <Filter header="City" filtercity={filtercity} search={true} />
 
