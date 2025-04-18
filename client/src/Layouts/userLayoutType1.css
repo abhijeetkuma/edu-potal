@@ -155,6 +155,14 @@ header.website-wrapper {
       color: orange;
     }
 
+    .bg-orange {
+      background-color: orange !important;
+    }
+
+    .bg-purple {
+      background-color: #1e1c30 !important;
+    }
+
     .light {
       font-weight: 100;
     }
@@ -165,6 +173,10 @@ header.website-wrapper {
 
     .bold {
       font-weight: 600;
+    }
+
+    .alignCenter {
+      text-align: center;
     }
 
     h1 {
@@ -219,6 +231,16 @@ header.website-wrapper {
         cursor: pointer;
         background-color: #a3de83;
       }
+    }
+
+    .tocBtn {
+      padding: 5px 40px;
+      color: #fff;
+      font-weight: 600;
+      background-color: #009975;
+      margin: 5px;
+      border-radius: 5px;
+      min-width: 300px;
     }
 
     .search-wrapper {
@@ -1652,6 +1674,21 @@ header.website-wrapper {
 
     .others {
       margin-top: 20px;
+      &.examRightSide {
+         width: 295px;
+         .relatedColg {
+          .headingSeaGreen {
+           text-align: center;
+           margin-top: 5px;
+          }
+           .related-colleges {
+            padding: 10px;
+           }
+           .viewAll-btn {
+            display: none;
+           }
+         }
+      }
     }
 
     .filter-card {
