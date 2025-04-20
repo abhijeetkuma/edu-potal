@@ -48,7 +48,7 @@ function CollegeFaculties(props) {
         />
         <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>
-      <section>
+      <section className="faculties">
         <h2 className="font-bold text-2xl mb-5">{`${college_name} Faculty`}</h2>
         <div
           dangerouslySetInnerHTML={{

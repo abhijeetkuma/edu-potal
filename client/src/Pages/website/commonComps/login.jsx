@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
-import groupImg from "/images/group.png";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import HighlightAltIcon from '@mui/icons-material/HighlightAlt';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import SchoolIcon from '@mui/icons-material/School';
+import EventIcon from '@mui/icons-material/Event';
+
+import groupImg from "/images/group.png";
 
 function Login(props) {
   const { heading, inlineStyle, data } = props;
   const [courses, setCourses] = useState([]);
+
   useEffect(() => {
     axios
       .get("/api/getcoursesarr")
@@ -113,6 +122,7 @@ function Login(props) {
         });
     }
   };
+
   return (
     <>
       <section className="container loginPage">
@@ -121,31 +131,43 @@ function Login(props) {
           <ul>
             <li>
               <div>
-                <span></span>
+                <span>
+                  <HighlightAltIcon style={{fontSize: '35px', color: '#e76710', width: '100%'}} />
+                </span>
                 <p>Shortlist & Apply</p>
               </div>
               <div>
-                <span></span>
+                <span>
+                  <CurrencyRupeeIcon style={{fontSize: '35px', color: '#e76710', width: '100%'}} />
+                </span>
                 <p>Check Fees</p>
               </div>
             </li>
             <li>
               <div>
-                <span></span>
+                <span>
+                  <ReceiptIcon style={{fontSize: '35px', color: '#e76710', width: '100%'}} />                 
+                </span>
                 <p>Brochures</p>
               </div>
               <div>
-                <span></span>
+                <span>
+                  <SupportAgentIcon style={{fontSize: '35px', color: '#e76710', width: '100%'}} />
+                </span>
                 <p>24/7 Support</p>
               </div>
             </li>
             <li>
               <div>
-                <span></span>
+                <span>
+                  <EventIcon style={{fontSize: '35px', color: '#e76710', width: '100%'}} />                 
+                </span>
                 <p>Deadlines</p>
               </div>
               <div>
-                <span></span>
+                <span>
+                  <SchoolIcon style={{fontSize: '35px', color: '#e76710', width: '100%'}} />                 
+                </span>
                 <p>Scholarships</p>
               </div>
             </li>
