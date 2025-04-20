@@ -29,7 +29,9 @@ const listing = async (parmameters) => {
   try {
     return await new Promise(function (resolve, reject) {
       //console.log("parmameters value -->", parmameters.query.city_url);
+      console.log("parmameters value -->", parmameters.query.coursefilter);
       var search = "";
+      var filter = "";
       if (parmameters.query.city_url) {
         search = " AND ct.city_url = '" + parmameters.query.city_url + "'";
       }
@@ -47,6 +49,9 @@ const listing = async (parmameters) => {
           parmameters.query.search_parameter +
           "%'";
       }
+      /*if(parmameters.query.coursefilter){
+        filter = 
+      }*/
       console.log(search);
       const query =
         "SELECT c.cid,c.college_name,c.college_url,c.logo,c.totalplacementratio,c.lowestplacementrecord,c.higestplacementrecord,regexp_count(c.courses, ',') + 1  total_courses, (c.ratingacademic+c.rattingaccommodation+c.rattingfaculty+c.rattinginfrastructure+c.rattingplacements+rattingsocial+c.rattingthroughout)/7 as total_rating,string_agg(distinct e.exam_name,', ') exam_name,string_agg(distinct a.approved_name,', ') approved_by, string_agg(distinct cty.college_type,', ') college_types,c.banner,s.state_name,ct.city_url,ct.city_name FROM colleges c  LEFT JOIN state_list s ON c.state = s.sta_id::varchar LEFT JOIN city_list ct on c.city = ct.cit_id::varchar LEFT JOIN examnames e ON e.exam_id = any(string_to_array(c.exams,',')::int[]) LEFT JOIN approvedby a ON a.approv_id = any(string_to_array(c.approvedby,',')::int[]) LEFT JOIN collegetype cty ON cty.col_type = any(string_to_array(c.ctype,',')::int[])  LEFT JOIN categories cat ON cat.cat_id = any(string_to_array(c.categories,',')::int[]) LEFT JOIN courses cour ON cour.cour_id = any(string_to_array(c.courses,',')::int[])  WHERE 1=1 ";
@@ -54,6 +59,7 @@ const listing = async (parmameters) => {
       pool.query(
         query +
           search +
+          filter +
           "GROUP BY c.cid ,s.state_name,ct.city_url,ct.city_name ORDER BY c.cid DESC",
         (error, results) => {
           if (error) {
