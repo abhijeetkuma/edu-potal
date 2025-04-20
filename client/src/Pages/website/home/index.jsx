@@ -32,6 +32,8 @@ import Citywise from "./citywise";
 import { openModel } from "../../../redux/manageModelSlice";
 
 import GlobalSearch from "../commonComps/globalSearch";
+import Modal from "../commonComps/modal";
+import Login from "../commonComps/login";
 
 function Home(props) {
   const dispatch = useDispatch();
@@ -77,11 +79,19 @@ function Home(props) {
     cit_id: "",
     city_name: "",
   });
+  
   const [tradingarr, setTradingarr] = useState({
     trading_url: "",
     trading_name: "",
   });
 
+  const [popupEvents, setPopupEvents] = useState({
+    cid: "",
+    btnName: "",
+    btnTitle: "",
+  });
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [viewExm, setViewExm] = useState(false)
 
   // const [searchparameter, setSearchparameter] = useState({
@@ -142,6 +152,21 @@ function Home(props) {
   );
 
   const renderFutureGolesType = () => <FutureGoals />;
+
+  const openModal = (event) => {
+    event.stopPropagation();
+    const { name, title } = event.target.dataset;
+    // setPopupEvents({
+    //   cid: displaycollegdetail.cid,
+    //   btnName: name,
+    //   btnTitle: title,
+    // });
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   // const handleChangeFormdata = (e) => {
   //   const { name, value } = e.target;
@@ -410,11 +435,12 @@ function Home(props) {
                             </li>
                           </ul>
                           <div className="action-btns">
-                            <div className="download">
+                            <div className="download" onClick={(e) => openModal(e)}
+                            >
                               <img src={downlaod} alt="" />
                               <span>Download Brochure</span>
                             </div>
-                            <div className="compare">
+                            <div className="compare" onClick={(e) => openModal(e)}                            >
                               <img src={compare} alt="" />
                               <span>Compare</span>
                             </div>
@@ -549,6 +575,10 @@ function Home(props) {
           </div>
         </form>
       </section>
+
+      <Modal isModalOpen={isModalOpen} onClose={closeModal}>
+        <Login heading={"Get Notify !"} data={popupEvents} />
+      </Modal>
     </>
   );
 }

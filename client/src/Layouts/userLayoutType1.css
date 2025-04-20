@@ -589,8 +589,8 @@ header.website-wrapper {
         gap: 20px; */
         .exam-card {
           margin: 2px;
-          width: 214px;
-          max-width: 214px;
+          width: 210px;
+          max-width: 210px;
           height: 170px;
           box-shadow:
             rgba(0, 0, 0, 0.12) 0px 1px 3px,
@@ -1324,6 +1324,40 @@ header.website-wrapper {
           font-size: 24px;
         }
       } */
+       ul {
+        list-style: disc;
+        padding-left: 20px;
+       }
+    }
+
+    .faculties {
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        li {
+          width: 190px;
+          height: auto;
+          margin: 10px;
+          padding: 10px;
+          box-shadow: 0px 1px 4px #666;
+          border-radius: 5px;
+          background-color: #f7edff;
+          p {
+            text-align: left !important;
+            line-height: 15px;
+            font-size: 12px;
+            color: #5c3a7c;
+            strong {
+                display: block;
+                margin-bottom: 15px;
+                line-height: 20px;
+                font-size: 16px;
+                height: 50px;
+                border-bottom: 1px solid #6821c3;
+            }
+          }
+        }
+      }
     }
 
     .rating-wrapper {
@@ -1514,10 +1548,12 @@ header.website-wrapper {
               border-radius: 5px;
               span {
                 display: block;
-                height: 70px;
+                height: 65px;
+                padding-top: 20px;
               }
               p {
                 font-size: 12px;
+                font-weight: 600;
                 text-align: center;
                 color: #2e294a;
               }
