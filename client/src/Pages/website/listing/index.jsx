@@ -27,6 +27,13 @@ import Modal from "../commonComps/modal";
 import Login from "../commonComps/login";
 
 function Listing(props) {
+  const { courfilter } = useParams();
+  //const params = useParams();
+  console.log(
+    "path link-->",
+    new URLSearchParams(location.search).get("courfilter")
+  );
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [popupEvents, setPopupEvents] = useState({
     cid: "",
@@ -76,6 +83,7 @@ function Listing(props) {
           category_url: props.category_url,
           course_url: props.course_url,
           search_parameter: props.search_parameter,
+          coursefilter: new URLSearchParams(location.search).get("courfilter"),
         },
       })
       .then((response) => {
@@ -122,7 +130,7 @@ function Listing(props) {
   }, []);
   //console.log("collegelisting", collegelisting.length);
   //console.log("props", props.city_url);
-
+  const filterurl = "/listing?filter=college";
   const openModal = (event) => {
     event.stopPropagation();
     const { name, title } = event.target.dataset;
@@ -142,6 +150,9 @@ function Listing(props) {
       cfilterarr.push(e.target.value);
     }
     console.log("cfilterarr-->", cfilterarr);
+    cfilterarr
+      ? (window.location = filterurl + "&courfilter=" + cfilterarr)
+      : "";
   };
   // end filter section
 
