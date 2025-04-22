@@ -775,7 +775,7 @@ app.post("/api/updatevertisement/", adupload.single("ad_image"), (req, res) => {
 });
 app.get("/api/getnotificationlisting", (req, res) => {
   colleges_model
-    .collegeenquirylisting()
+    .getNotificationlisting()
     .then((response) => {
       res.status(200).send(response);
     })

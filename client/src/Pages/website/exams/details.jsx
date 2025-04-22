@@ -35,14 +35,13 @@ function Examdetails(props) {
         console.error(error);
       });
     //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
-
   }, []);
 
   const openModal = (event) => {
     event.stopPropagation();
     const { name, title } = event.target.dataset;
     setPopupEvents({
-      cid: '',
+      cid: "",
       btnName: name,
       btnTitle: title,
     });
@@ -85,45 +84,47 @@ function Examdetails(props) {
               __html: displayexamdetail.na_description,
             }}
           ></div>
-          <div className="mt-5 mb-5 alignCenter">
-            <button className="tocBtn bg-purple" onClick={openModal}>
-              Start Test
-            </button>
-            <button className="tocBtn bg-orange" onClick={openModal}>
-              Sample Questions
-            </button>
-          </div>
-        </section>
-
-
-      <div className="relatedWrapper">        
-        <div className="others examRightSide">
-
-          {displayexamdetail && (
-            <div className="relatedColg">
-              <Relatedcolleges
-                data={24}
-                heading={"Top Viewed Colleges"}
-                headingClass={"headingSeaGreen"}
-                vtype="v"
-              />
+          {displayexamdetail.na_type === "e" && (
+            <div className="mt-5 mb-5 alignCenter">
+              <button className="tocBtn bg-purple" onClick={openModal}>
+                Start Test
+              </button>
+              <button className="tocBtn bg-orange" onClick={openModal}>
+                Sample Questions
+              </button>
             </div>
           )}
+        </section>
 
-          <div className="ads">
-            <a href="https://timesofcollege.com/college/jaipuria-school-of-business-ghaziabad"><img src={adsImg1} alt="JAIPURIA" /></a>
-          </div>
-          <div className="ads">
-            <a href="https://timesofcollege.com/college/bimtech-greater-noida"><img src={adsImg2} alt="BIMTECH" /></a>
-          </div>
+        <div className="relatedWrapper">
+          <div className="others examRightSide">
+            {displayexamdetail && (
+              <div className="relatedColg">
+                <Relatedcolleges
+                  data={24}
+                  heading={"Top Viewed Colleges"}
+                  headingClass={"headingSeaGreen"}
+                  vtype="v"
+                />
+              </div>
+            )}
 
+            <div className="ads">
+              <a href="https://timesofcollege.com/college/jaipuria-school-of-business-ghaziabad">
+                <img src={adsImg1} alt="JAIPURIA" />
+              </a>
+            </div>
+            <div className="ads">
+              <a href="https://timesofcollege.com/college/bimtech-greater-noida">
+                <img src={adsImg2} alt="BIMTECH" />
+              </a>
+            </div>
+          </div>
         </div>
-      </div> 
 
-      <Modal isModalOpen={isModalOpen} onClose={closeModal}>
-        <Login heading={"Get Notify !"} data={popupEvents} />
-      </Modal>
-
+        <Modal isModalOpen={isModalOpen} onClose={closeModal}>
+          <Login heading={"Get Notify !"} data={popupEvents} />
+        </Modal>
       </section>
     </>
   );

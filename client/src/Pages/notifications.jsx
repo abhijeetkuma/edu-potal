@@ -51,6 +51,18 @@ function Notifications() {
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
+    {
+      accessorKey: "notification_position", //simple recommended way to define a column
+      header: "Position",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
+      accessorKey: "status", //simple recommended way to define a column
+      header: "Status",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
   ];
   const [rowSelection, setRowSelection] = useState({});
 
