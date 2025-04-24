@@ -26,7 +26,7 @@ function Notifications() {
   const [isFilter, setIsFilter] = useState(false);
   useEffect(() => {
     axios
-      .get("/api/getnotificationlisting")
+      .get("/api/getcollegeenquirylisting")
       .then((response) => {
         setDatas(response.data);
       })

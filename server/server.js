@@ -783,6 +783,16 @@ app.get("/api/getnotificationlisting", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/getcollegeenquirylisting", (req, res) => {
+  colleges_model
+    .collegeenquirylisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/editnotification/:notif_id", (req, res) => {
   notification_model
     .geteditnotification(req.params.notif_id)
