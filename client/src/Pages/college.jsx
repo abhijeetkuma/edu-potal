@@ -127,6 +127,7 @@ function College() {
     meta_description: "",
     meta_keyword: "",
     coupon_code: "",
+    nirg_ranking: "",
     application_open: "",
     address: "",
     address2: "",
@@ -468,6 +469,10 @@ function College() {
     formData.append("meta_title", event.target.meta_title.value);
     formData.append("meta_keyword", event.target.meta_keyword.value);
     formData.append("coupon_code", event.target.coupon_code.value);
+    formData.append(
+      "nirg_ranking",
+      event.target.nirg_ranking.value ? event.target.nirg_ranking.value : 0
+    );
     formData.append("application_open", appopenvalue);
     formData.append("meta_description", event.target.meta_description.value);
     formData.append("old_logo", event.target.old_logo.value);
@@ -1781,6 +1786,28 @@ function College() {
                   type="text"
                   className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
                   value={editdata.coupon_code && editdata.coupon_code}
+                  onChange={handleChangeFormdata}
+                />
+              </div>
+            </div>
+            <div className="sm:col-span-4 pb-2">
+              <label
+                htmlFor="nirg_ranking"
+                className="block text-left font-normal leading-6 text-gray-dark pb-1"
+              >
+                NIRF Ranking
+              </label>
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 mt-1">
+                <input
+                  id="nirg_ranking"
+                  name="nirg_ranking"
+                  type="number"
+                  className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                  value={
+                    editdata.nirg_ranking && editdata.nirg_ranking > 0
+                      ? editdata.nirg_ranking
+                      : ""
+                  }
                   onChange={handleChangeFormdata}
                 />
               </div>
