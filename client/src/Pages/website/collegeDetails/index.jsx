@@ -42,7 +42,7 @@ function CollegeDetails(props) {
   const [popupEvents, setPopupEvents] = useState({
     cid: "",
     btnName: "",
-    btnTitle: "",
+    btnTitle: ""
   });
   const { college_url } = useParams();
   //const topCourselinks = ""
@@ -239,12 +239,14 @@ function CollegeDetails(props) {
                   </span>
                 </span>
               </li>
+              {displaycollegdetail.nirg_ranking > 0 && 
               <li>
                 <span className="nirfRank">
                   <b>#NIRF </b>
-                  <span> 5</span>
+                  <span>{displaycollegdetail.nirg_ranking}</span>
                 </span>
               </li>
+              }
             </ul>
             <ul className="historyInfo">
               <li>
@@ -456,7 +458,7 @@ function CollegeDetails(props) {
       </div>
 
       <Modal isModalOpen={isModalOpen} onClose={closeModal}>
-        <Login heading={"Get Notify !"} data={popupEvents} />
+        <Login heading={"Get Notify !"} data={Object.assign({}, popupEvents, {collageName: displaycollegdetail.college_name, logo: displaycollegdetail.logo})} />
       </Modal>
       <span className="sticky-help" onClick={(e) => openModal(e)}>
         Help?
