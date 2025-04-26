@@ -394,7 +394,7 @@ function Listing(props) {
                           <span className="owner medium">
                             {item.college_types}
                           </span>
-                          <span className="rank bold green"># NIRF</span>
+                          { item.nirg_ranking > 0 && <span className="rank bold green"># NIRF {`(${item.nirg_ranking})`}</span>}
                           <span className="rating">
                             <img src={star} alt="" />
                             <span>

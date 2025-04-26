@@ -9,12 +9,13 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import SchoolIcon from '@mui/icons-material/School';
 import EventIcon from '@mui/icons-material/Event';
 
+import { getImageURL } from "../../../utils/utils-image";
 import groupImg from "/images/group.png";
 
 function Login(props) {
   const { heading, inlineStyle, data } = props;
   const [courses, setCourses] = useState([]);
-
+  
   useEffect(() => {
     axios
       .get("/api/getcoursesarr")
@@ -181,7 +182,19 @@ function Login(props) {
             id="loginpopupform"
             //onSubmit={formsubmit}
           >
-            <div className="head-line">
+            {data.collageName && 
+              <div className="flex items-center">
+              <img
+                style={{width: 45, height: 45, marginRight: 5, marginLeft: -50}}
+                src={getImageURL(data.logo)}
+                alt="college logo"
+              />              
+              <div className="head-line">
+                {data.collageName}
+              </div>
+              </div>
+            }
+            <div className="heading">
               Fill the details below. <br /> We are here to help you !
             </div>
             <div className="">
