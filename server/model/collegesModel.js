@@ -360,13 +360,14 @@ const insertCollegebasicinformation = (body) => {
       meta_keyword,
       meta_description,
       coupon_code,
+      nirg_ranking,
       application_open,
       logo,
       banner,
       added_by,
     } = body;
     pool.query(
-      "INSERT INTO colleges(college_name,college_url,tag_line,usp_remark,found_year,intake,hostel_available,college_descripton,facultyprofile,ctype,trading,approvedby,facilities,categories,exams,meta_title,meta_keyword,meta_description, coupon_code,application_open,logo,banner,added_by) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23) RETURNING *",
+      "INSERT INTO colleges(college_name,college_url,tag_line,usp_remark,found_year,intake,hostel_available,college_descripton,facultyprofile,ctype,trading,approvedby,facilities,categories,exams,meta_title,meta_keyword,meta_description, coupon_code,nirg_ranking,application_open,logo,banner,added_by) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24) RETURNING *",
       [
         college_name,
         college_url,
@@ -431,10 +432,11 @@ const updateCollegebasicinformation = (body) => {
       logo,
       banner,
       coupon_code,
+      nirg_ranking,
       application_open,
     } = body;
     pool.query(
-      "UPDATE colleges SET college_name = $2, college_url = $3,tag_line=$4,usp_remark=$5,found_year=$6,intake=$7,hostel_available=$8,college_descripton=$9,facultyprofile=$10,ctype=$11,trading=$12,approvedby=$13,facilities=$14,categories=$15,exams=$16,meta_title=$17,meta_keyword=$18,meta_description=$19,logo=$20,banner=$21,coupon_code=$22,application_open=$23 WHERE cid = $1 RETURNING *",
+      "UPDATE colleges SET college_name = $2, college_url = $3,tag_line=$4,usp_remark=$5,found_year=$6,intake=$7,hostel_available=$8,college_descripton=$9,facultyprofile=$10,ctype=$11,trading=$12,approvedby=$13,facilities=$14,categories=$15,exams=$16,meta_title=$17,meta_keyword=$18,meta_description=$19,logo=$20,banner=$21,coupon_code=$22,nirg_ranking=$23,application_open=$24 WHERE cid = $1 RETURNING *",
       [
         cid,
         college_name,
@@ -458,6 +460,7 @@ const updateCollegebasicinformation = (body) => {
         logo,
         banner,
         coupon_code,
+        nirg_ranking,
         application_open,
       ],
       (error, results) => {
@@ -2061,7 +2064,7 @@ const collegeenquirylisting = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT ce.*,c.college_name FROM collegeenquery ce LEFT JOIN colleges c ON ce.college_id=c.cid ORDER BY ce.ce_id DESC",
+        "SELECT ce.*,TO_CHAR(ce.enqury_date, 'dd-Mon-yyyy') enqury_at,c.college_name FROM collegeenquery ce LEFT JOIN colleges c ON ce.college_id=c.cid ORDER BY ce.ce_id DESC",
         (error, results) => {
           if (error) {
             reject(error);
