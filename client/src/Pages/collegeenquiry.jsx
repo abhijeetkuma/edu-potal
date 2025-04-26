@@ -46,6 +46,18 @@ function Notifications() {
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
+      accessorKey: "enqury_at", //simple recommended way to define a column
+      header: "Date",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
+      accessorKey: "coursename", //simple recommended way to define a column
+      header: "Course",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
       accessorKey: "fullname", //simple recommended way to define a column
       header: "Full Name",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
@@ -69,12 +81,7 @@ function Notifications() {
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
-    {
-      accessorKey: "coursename", //simple recommended way to define a column
-      header: "Course",
-      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
-      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
-    },
+
     {
       accessorKey: "event_name", //simple recommended way to define a column
       header: "Event Name",
@@ -84,12 +91,6 @@ function Notifications() {
     {
       accessorKey: "event_title", //simple recommended way to define a column
       header: "Event Title",
-      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
-      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
-    },
-    {
-      accessorKey: "enqury_date", //simple recommended way to define a column
-      header: "Date",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
