@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import axios from "axios";
 import PropTypes from "prop-types";
 import adsImg from "/images/ads.svg";
@@ -52,9 +53,16 @@ function Examdetails(props) {
     setIsModalOpen(false);
   };
 
-  //console.log(cms_url);
   return (
     <>
+      <Helmet>
+        <title>{displayexamdetail.na_metatitle}</title>
+        <meta
+          name="description"
+          content={displayexamdetail.na_metadescription}
+        />
+        <meta name="keywords" content={displayexamdetail.na_metakeyword} />
+      </Helmet>
       <section className="container college-filter-wrapper">
         <section className="college-list-wrapper">
           <div className="font-bold pt-2 newstitle">
