@@ -279,7 +279,7 @@ function CollegeDetails(props) {
                 onClick={(e) => openModal(e)}
               >
                 <img src={downlaod} alt="" />
-                <span>{isMobile ? "Brochure" : "Download Brochure"}</span>
+                <span>{"Download Brochure"}</span>
               </div>
               <div
                 className="compare"
@@ -288,7 +288,7 @@ function CollegeDetails(props) {
                 onClick={(e) => openModal(e)}
               >
                 <img src={compare} alt="" />
-                <span>{isMobile ? "Compare" : "Compare Colleges"}</span>
+                <span>{"Compare Colleges"}</span>
               </div>
             </div>
           </div>

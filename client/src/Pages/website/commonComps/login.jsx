@@ -194,7 +194,7 @@ function Login(props) {
               </div>
               </div>
             }
-            <div className="heading">
+            <div className={`heading ${!data.collageName ? 'mt-10' : '' }`}>
               Fill the details below. <br /> We are here to help you !
             </div>
             <div className="">
