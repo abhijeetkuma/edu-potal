@@ -1077,13 +1077,14 @@ header.website-wrapper {
     .detailsBanner {
       .bgColor {
         background-color: #351d47b0;
-        height: 280px;
+        height: 190px;
       }
       .detaisHead {
         display: flex;
         height: 100px;
         margin-top: 0px;
-        padding-top: 30px;
+        padding-top: 25px;
+        margin-bottom: 15px;
         .image {
           width: 80px;
           height: 80px;
@@ -1113,44 +1114,56 @@ header.website-wrapper {
         position: relative;
         ul.rankInfo {
           display: flex;
-          gap: 30px;
+          gap: 15px;
           position: absolute;
           top: 0px;
           left: 95px;
+          font-size: 12px;
           li {
             border-right: 2px solid #fff;
-            height: 22px;
-            line-height: 22px;
-            padding-right: 25px;
+            height: 14px;
+            line-height: 14px;
+            padding-right: 15px;
             &:last-child {
               border-right: none;
             }
             .location,
             .clg-rating {
               display: flex;
-              align-items: center;
+              align-items: normal;
               gap: 5px;
+              img {
+                width: 14px;
+              }
+            }
+            .location {
+              img {
+                width: 22px;
+              }
             }
           }
         }
         ul.historyInfo {
           display: flex;
-          gap: 15px;
+          gap: 10px;
           position: absolute;
-          top: 38px;
+          top: 25px;
           left: 110px;
           li {
-            padding: 2px 15px;
-            background-color: #1c6e5b;
+            padding: 2px 10px;
+            background-color: #ffffff;
             border-radius: 25px;
+            font-size: 12px;
+            color: #393555;
+            font-weight: 600;
           }
         }
         .apply-link {
           display: flex;
           gap: 15px;
           position: absolute;
-          top: 80px;
-          left: 110px;
+          top: 18px;
+          right: -35px;
           background-color: #e99446;
           padding: 8px 100px;
           border-radius: 25px;
@@ -1159,8 +1172,8 @@ header.website-wrapper {
           display: flex;
           gap: 10px;
           position: absolute;
-          right: 0px;
-          top: 90px;
+          left: 650px;
+          top: 25px;
           .download {
             display: flex;
             gap: 5px;
