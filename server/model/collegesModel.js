@@ -388,6 +388,7 @@ const insertCollegebasicinformation = (body) => {
         meta_keyword,
         meta_description,
         coupon_code,
+        nirg_ranking,
         application_open,
         logo,
         banner,
