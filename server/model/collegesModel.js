@@ -367,7 +367,7 @@ const insertCollegebasicinformation = (body) => {
       added_by,
     } = body;
     pool.query(
-      "INSERT INTO colleges(college_name,college_url,tag_line,usp_remark,found_year,intake,hostel_available,college_descripton,facultyprofile,ctype,trading,approvedby,facilities,categories,exams,meta_title,meta_keyword,meta_description, coupon_code,nirg_ranking,application_open,logo,banner,added_by) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24) RETURNING *",
+      "INSERT INTO colleges(college_name,college_url,tag_line,usp_remark,found_year,intake,hostel_available,college_descripton,facultyprofile,ctype,trading,approvedby,facilities,categories,exams,meta_title,meta_keyword,meta_description, coupon_code,nirg_ranking,application_open,logo,banner,added_by,added_at) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,CURRENT_DATE) RETURNING *",
       [
         college_name,
         college_url,
@@ -388,6 +388,7 @@ const insertCollegebasicinformation = (body) => {
         meta_keyword,
         meta_description,
         coupon_code,
+        nirg_ranking,
         application_open,
         logo,
         banner,
@@ -436,7 +437,7 @@ const updateCollegebasicinformation = (body) => {
       application_open,
     } = body;
     pool.query(
-      "UPDATE colleges SET college_name = $2, college_url = $3,tag_line=$4,usp_remark=$5,found_year=$6,intake=$7,hostel_available=$8,college_descripton=$9,facultyprofile=$10,ctype=$11,trading=$12,approvedby=$13,facilities=$14,categories=$15,exams=$16,meta_title=$17,meta_keyword=$18,meta_description=$19,logo=$20,banner=$21,coupon_code=$22,nirg_ranking=$23,application_open=$24 WHERE cid = $1 RETURNING *",
+      "UPDATE colleges SET college_name = $2, college_url = $3,tag_line=$4,usp_remark=$5,found_year=$6,intake=$7,hostel_available=$8,college_descripton=$9,facultyprofile=$10,ctype=$11,trading=$12,approvedby=$13,facilities=$14,categories=$15,exams=$16,meta_title=$17,meta_keyword=$18,meta_description=$19,logo=$20,banner=$21,coupon_code=$22,nirg_ranking=$23,application_open=$24,updated_at=CURRENT_DATE WHERE cid = $1 RETURNING *",
       [
         cid,
         college_name,
@@ -907,9 +908,10 @@ const addNewsarticle = (body) => {
       na_trends,
       na_categories,
       na_image,
+      na_postedby,
     } = body;
     pool.query(
-      "INSERT INTO newsarticles(na_type,na_title,na_url,na_brief_description,na_description,na_metatitle,na_metadescription,na_metakeyword,na_status,added_by,na_trends,na_categories,na_image) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING *",
+      "INSERT INTO newsarticles(na_type,na_title,na_url,na_brief_description,na_description,na_metatitle,na_metadescription,na_metakeyword,na_status,added_by,na_trends,na_categories,na_image,na_postedby) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING *",
       [
         na_type,
         na_title,
@@ -924,6 +926,7 @@ const addNewsarticle = (body) => {
         na_trends,
         na_categories,
         na_image,
+        na_postedby,
       ],
       (error, results) => {
         if (error) {
@@ -960,9 +963,10 @@ const updateNewsarticles = (body) => {
       added_by,
       na_image,
       na_date,
+      na_postedby,
     } = body;
     pool.query(
-      "UPDATE newsarticles SET na_type = $2,na_title=$3, na_url=$4, na_brief_description=$5,na_description=$6,na_metatitle=$7,na_metadescription=$8,na_metakeyword=$9,na_status=$10,na_trends=$11,na_categories=$12,added_by=$13,na_image=$14,na_date=$15 WHERE na_id = $1 RETURNING *",
+      "UPDATE newsarticles SET na_type = $2,na_title=$3, na_url=$4, na_brief_description=$5,na_description=$6,na_metatitle=$7,na_metadescription=$8,na_metakeyword=$9,na_status=$10,na_trends=$11,na_categories=$12,added_by=$13,na_image=$14,na_date=$15,na_postedby=$16 WHERE na_id = $1 RETURNING *",
       [
         na_id,
         na_type,
@@ -979,6 +983,7 @@ const updateNewsarticles = (body) => {
         added_by,
         na_image,
         na_date,
+        na_postedby,
       ],
       (error, results) => {
         if (error) {

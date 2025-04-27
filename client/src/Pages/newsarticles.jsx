@@ -45,6 +45,7 @@ function Newsarticles() {
     na_metatitle: "",
     na_metadescription: "",
     na_metakeyword: "",
+    na_postedby: "",
     na_status: "A",
   });
   const [na_date, setNa_date] = useState(new Date());
@@ -138,6 +139,7 @@ function Newsarticles() {
       event.target.na_metadescription.value
     );
     formData.append("na_metakeyword", event.target.na_metakeyword.value);
+    formData.append("na_postedby", event.target.na_postedby.value);
     formData.append("na_status", event.target.na_status.value);
     formData.append("added_by", localStorage.login_id);
     formData.append("na_trends", tradingvalue.join(","));
@@ -523,6 +525,24 @@ function Newsarticles() {
               name="na_metakeyword"
               id="na_metakeyword"
               value={editdata.na_metakeyword ? editdata.na_metakeyword : ""}
+              required="required"
+              onChange={handleChangeFormdata}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+            <div className="errmsg">{errorMsg[0]}</div>
+          </div>
+          <div className="mt-2">
+            <label
+              htmlFor="na_postedby"
+              className="block text-sm font-bold leading-6 text-gray-900"
+            >
+              Author / Posted By
+            </label>
+            <input
+              type="text"
+              name="na_postedby"
+              id="na_postedby"
+              value={editdata.na_postedby ? editdata.na_postedby : ""}
               required="required"
               onChange={handleChangeFormdata}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
