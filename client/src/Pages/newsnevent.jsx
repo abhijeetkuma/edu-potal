@@ -58,6 +58,12 @@ function Newsnevent() {
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
+      accessorKey: "na_postedby", //simple recommended way to define a column
+      header: "Posted By",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
       accessorKey: "na_image", //simple recommended way to define a column
       header: "Image",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
