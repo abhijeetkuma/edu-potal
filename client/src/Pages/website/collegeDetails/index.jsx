@@ -68,10 +68,13 @@ function CollegeDetails(props) {
   }, [displaycollegdetail]);
 
   useEffect(() => {
+
     const detailsUrl = location.pathname.split("+")[0];
     const detailsTabs = location.pathname.split("+")[1];
+
     setNameUrl(detailsUrl);
     setTabName(detailsTabs);
+
   }, [location.pathname]);
 
   useEffect(() => {

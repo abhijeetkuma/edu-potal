@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
 //import { Link } from "react-router-dom";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CollegeHeaders(props) {
   const { tabName, collageUrl } = props;
-  const detailsUrl = location.pathname.split("+")[0];
+  const [detailsUrl, setDetailsUrl] = useState(location.pathname.split("+")[0]?.replace(/%20/g, ""))
   const adminssinyear = new Date();
+
+  useEffect(() => {
+
+    const detailsUrl = location.pathname.split("+")[0]?.replace(/%20/g, "");
+    // console.log('url---------', detailsUrl);
+    setDetailsUrl(detailsUrl);
+
+  }, [location.pathname]);
 
   return (
     <>

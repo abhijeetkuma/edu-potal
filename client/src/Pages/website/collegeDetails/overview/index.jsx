@@ -8,6 +8,7 @@ import Rating from "../../commonComps/ratings";
 import Contact from "../../commonComps/contact";
 import Facilities from "../../commonComps/facilities";
 import { getImageURL } from "../../../../utils/utils-image";
+import star from "/images/star.png";
 
 function CollegeOverview(props) {
   const {
@@ -23,6 +24,7 @@ function CollegeOverview(props) {
     city_name,
     college_url,
     logo,
+    total_rating
   } = props.data;
 
   const { courses, openModal } = props;
@@ -234,8 +236,20 @@ function CollegeOverview(props) {
 
         <Facilities data={facilities && facilities} />
 
-        <section className="rating  mt-10">
-          <h2 className="font-bold text-2xl mb-5">Rating</h2>
+        <section className="rating wrapper mt-10">
+          <h2 className="font-bold text-2xl">Rating</h2>
+            <h3 className="font-bold text-xs mb-5">{college_name}</h3>
+            <span className="shadow-md clg-rating">
+              <img src={star} alt="" />
+              <span>
+                <b>
+                  {total_rating
+                    ? total_rating.slice(0, 3)
+                    : "0"}
+                </b>{" "}
+                /10
+              </span>
+            </span>
           <Rating data={props.data} />
         </section>
 
