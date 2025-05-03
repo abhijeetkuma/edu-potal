@@ -47,7 +47,7 @@ function Relatedcolleges(props) {
                     <img src={getImageURL(item.logo)} alt="" />
                   </div>
                   <div className="info">
-                    <a href={"./" + item.college_url}>
+                    <a href={"../college/" + item.college_url}>
                       <p className="underline">{item.college_name}</p>
                     </a>
                     <div>
