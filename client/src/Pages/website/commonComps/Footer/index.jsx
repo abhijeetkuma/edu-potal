@@ -249,7 +249,9 @@ function Footer(props) {
             </div>
           </div>
           <div className="copy-right">
-            copyright &copy; {new Date().getFullYear()} All rights reserved!
+            Trade Marks belong to the respective owners. Copyright &copy;{" "}
+            {new Date().getFullYear()} TimesTek Edge Pvt. Ltd. All rights
+            reserved.
           </div>
         </footer>
         <ScrollToTop smooth color="#6f00ff" />

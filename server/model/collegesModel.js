@@ -1869,6 +1869,48 @@ const updateCategory = (body) => {
     );
   });
 };
+const updatecourse = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const {
+      cour_id,
+      course_name,
+      course_url,
+      meta_title,
+      cmeta_description,
+      cmeta_keyword,
+      cstatus,
+      cat_id,
+    } = body;
+    pool.query(
+      "UPDATE courses SET course_name=$2,course_url=$3,cmeta_title=$4,cmeta_description=$5,cmeta_keyword=$6,cstatus=$7, cat_id=$8 WHERE cour_id=$1 RETURNING cour_id",
+      [
+        cour_id,
+        course_name,
+        course_url,
+        meta_title,
+        cmeta_description,
+        cmeta_keyword,
+        cstatus,
+        cat_id,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A category details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 //get all facility our database
 const getFacility = async () => {
   try {
@@ -1981,7 +2023,6 @@ const editcategory = (cat_id) => {
     console.log(query);
   });
 };
-//get all facility our database
 const editcourse = (cour_id) => {
   //const rol_id = rol_id;
   return new Promise(function (resolve, reject) {
@@ -2002,6 +2043,8 @@ const editcourse = (cour_id) => {
     console.log(query);
   });
 };
+//get all facility our database
+
 const getApprovedby = async () => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -2136,6 +2179,7 @@ module.exports = {
   getCategories,
   editcategory,
   updateCategory,
+  updatecourse,
   getCoursetype,
   getCollegetype,
   getFacility,

@@ -312,7 +312,9 @@ function Categories() {
                 ✕
               </button>
             </form>
-            <h3 className="font-bold text-lg">Add Category</h3>
+            <h3 className="font-bold text-lg">
+              {editdata.cat_id > 0 ? "Edit" : "Add"} Category
+            </h3>
 
             <form
               action=""
@@ -352,7 +354,7 @@ function Categories() {
                     editdata.category_description &&
                     editdata.category_description
                   }
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 mr-4"
                   onChange={handleChangeFormdata}
                 />
               </div>
@@ -398,7 +400,6 @@ function Categories() {
                 />
               </div>
               <div className="mt-2">
-                <label>Feature</label>
                 <input
                   type="checkbox"
                   name="category_featured"
@@ -409,31 +410,38 @@ function Categories() {
                   placeholder="Meta Descripton*"
                   className="rounded-md border-0 py-1.5 "
                 />
+                <label> Feature</label>
               </div>
               <div className="mt-2">
                 <label>Status</label>
-                <input
-                  type="radio"
-                  name="category_status"
-                  defaultChecked={
-                    editdata.category_status === "A" ? true : false
-                  }
-                  value="A"
-                  placeholder="Meta Descripton*"
-                  className="rounded-md border-0 py-1.5 "
-                />
-                Active
-                <input
-                  type="radio"
-                  name="category_status"
-                  defaultChecked={
-                    editdata.category_status === "D" ? true : false
-                  }
-                  value="D"
-                  placeholder="Meta Descripton*"
-                  className="rounded-md border-0 py-1.5 "
-                />
-                Inactive
+                <div className="mt-1 flex">
+                  <div className="pr-2">
+                    <input
+                      type="radio"
+                      name="category_status"
+                      defaultChecked={
+                        editdata.category_status === "A" ? true : false
+                      }
+                      value="A"
+                      placeholder="Meta Descripton*"
+                      className="rounded-md border-0 py-1.5 "
+                    />
+                    Active
+                  </div>
+                  <div className="pr-2">
+                    <input
+                      type="radio"
+                      name="category_status"
+                      defaultChecked={
+                        editdata.category_status === "D" ? true : false
+                      }
+                      value="D"
+                      placeholder="Meta Descripton*"
+                      className="rounded-md border-0 py-1.5 "
+                    />
+                    Inactive
+                  </div>
+                </div>
               </div>
               <div className="btn-section">
                 <button type="button" onClick={() => setIsEditOpen(false)}>
@@ -443,7 +451,7 @@ function Categories() {
                   type="submit"
                   className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Submit
+                  {editdata.cat_id > 0 ? "Update" : "Submit"}
                 </button>
               </div>
             </form>
