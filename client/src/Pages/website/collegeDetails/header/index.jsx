@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 //import { Link } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function CollegeHeaders(props) {
+  const navigate = useNavigate();
+
   const { tabName, collageUrl } = props;
   const [detailsUrl, setDetailsUrl] = useState(location.pathname.split("+")[0]?.replace(/%20/g, ""))
   const adminssinyear = new Date();
@@ -10,10 +12,15 @@ function CollegeHeaders(props) {
   useEffect(() => {
 
     const detailsUrl = location.pathname.split("+")[0]?.replace(/%20/g, "");
-    // console.log('url---------', detailsUrl);
     setDetailsUrl(detailsUrl);
+    
+    setTimeout(() => {
+      navigate(`${location.pathname.replace(/%20/g, "")}`)
+    }, 500);
+   
+    return () => false
 
-  }, [location.pathname]);
+  }, [location.pathname])
 
   return (
     <>
