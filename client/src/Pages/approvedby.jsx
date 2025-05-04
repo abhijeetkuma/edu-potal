@@ -13,7 +13,9 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 function Approvedby() {
@@ -23,6 +25,17 @@ function Approvedby() {
   const [datas, setDatas] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
+  const [editdata, setEditdata] = useState({
+    approv_id: "",
+    approved_name: "",
+    approved_description: "",
+    app_meta_title: "",
+    app_meta_description: "",
+    app_meta_keyword: "",
+    app_status: "",
+    approved_url: "",
+    user_id: "",
+  });
   useEffect(() => {
     /*fetch("http://localhost:3001/")
       .then((response) => response.json())
@@ -48,6 +61,12 @@ function Approvedby() {
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
+    {
+      accessorKey: "approved_url", //simple recommended way to define a column
+      header: "URL",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
 
     {
       accessorKey: "status", //simple recommended way to define a column
@@ -57,15 +76,52 @@ function Approvedby() {
     },
   ];
   const [rowSelection, setRowSelection] = useState({});
+  const editDetails = (editval) => {
+    console.log("Edit course id:", editval);
+    axios
+      .get("/api/editapproval/" + editval)
+      .then((response) => {
+        setEditdata(response.data[0]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const table = useMaterialReactTable({
     columns,
     data,
     enableColumnOrdering: true, //enable some features
     enableRowSelection: false,
-    enablePagination: false, //disable a default feature
+    enablePagination: true, //disable a default feature
+    enableRowActions: true,
     onRowSelectionChange: setRowSelection, //hoist internal state to your own state (optional)
     state: { rowSelection }, //manage your own state, pass it back to the table (optional)
+    renderRowActions: ({ row, table }) => (
+      <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Tooltip title="Edit">
+          <IconButton onClick={() => setIsEditOpen(true)}>
+            <EditIcon
+              onClick={() => {
+                // table.setEditingRow(row);
+                editDetails(row.original.approv_id);
+
+                //console.log("Edit======------>", row.original.approv_id);
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
+            <DeleteIcon
+              onClick={() => {
+                // data.splice(row.index, 1); //assuming simple data table
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    ),
   });
 
   return (
