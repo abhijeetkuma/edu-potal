@@ -36,6 +36,7 @@ function Approvedby() {
     approved_url: "",
     user_id: "",
   });
+  const [errorMsg, setErrorMsg] = useState([]);
   useEffect(() => {
     /*fetch("http://localhost:3001/")
       .then((response) => response.json())
@@ -123,6 +124,151 @@ function Approvedby() {
       </Box>
     ),
   });
+  const handleChangeFormdata = (e) => {
+    const { name, value } = e.target;
+    setEditdata((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  // add edit approval by
+  const addapprovedby = (e) => {
+    e.preventDefault();
+    const {
+      approv_id,
+      approved_name,
+      approved_url,
+      app_meta_title,
+      app_meta_description,
+      app_meta_keyword,
+      approved_description,
+    } = e.target.elements;
+
+    let errorsForm = [];
+
+    if (approved_name.value === "") {
+      errorsForm.push(<div key="branameErr">Approved by cann't be blank!</div>);
+    } else {
+      errorsForm.push();
+    }
+    if (approved_url.value === "") {
+      errorsForm.push(<div key="branurlErr">Approved by cann't be blank!</div>);
+    } else {
+      errorsForm.push();
+    }
+    if (app_meta_title.value === "") {
+      errorsForm.push(<div key="metatitErr">Meta Title cann't be blank!</div>);
+    } else {
+      errorsForm.push();
+    }
+    if (app_meta_keyword.value === "") {
+      errorsForm.push(
+        <div key="metakeyErr">Meta Keyword cann't be blank!</div>
+      );
+    } else {
+      errorsForm.push();
+    }
+    if (app_meta_description.value === "") {
+      errorsForm.push(
+        <div key="metadescErr">Meta Description cann't be blank!</div>
+      );
+    } else {
+      errorsForm.push();
+    }
+    console.log("errorsForm", errorsForm);
+    if (errorsForm.length === 0) {
+      const payload = {
+        approv_id: approv_id.value,
+        approved_name: approved_name.value,
+        approved_url: approved_url.value,
+        app_meta_title: app_meta_title.value,
+        app_meta_description: app_meta_description.value,
+        app_meta_keyword: app_meta_keyword.value,
+        approved_description: approved_description.value,
+        app_status: "A",
+      };
+      if (approv_id.value > 0) {
+        axios({
+          method: "post",
+          url: "/api/updateapprovedby",
+          data: payload,
+        })
+          .then(function (response) {
+            console.log(response);
+            approv_id.value = "";
+            approved_name.value = "";
+            approved_url.value = "";
+            app_meta_title.value = "";
+            app_meta_description.value = "";
+            app_meta_keyword.value = "";
+            if (response.statusText == "OK") {
+              setIsEditOpen(false);
+              toast.success("Approved by details updated!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                //transition: Bounce,
+              });
+            }
+            //get results
+            axios
+              .get("/api/getapprovedby")
+              .then((response) => {
+                setDatas(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            //end get results
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        axios({
+          method: "post",
+          url: "/api/addnewapprovedby",
+          data: payload,
+        })
+          .then(function (response) {
+            console.log(response);
+            approv_id.value = "";
+            approved_name.value = "";
+            approved_url.value = "";
+            app_meta_title.value = "";
+            app_meta_description.value = "";
+            app_meta_keyword.value = "";
+            setReturndspmsg(
+              "<div className={sussmsg}>Record successfully added</div>"
+            );
+            //get results
+            axios
+              .get("/api/getapprovedby")
+              .then((response) => {
+                setDatas(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            //end get results
+          })
+          .catch(function (error) {
+            console.log(error);
+            setReturndspmsg(
+              "<div className={errmsg}>Error in add approved by record</div>"
+            );
+          });
+      }
+    } else {
+      setErrorMsg(errorsForm);
+    }
+  };
+  // end add edit approval by
 
   return (
     <>
@@ -130,26 +276,24 @@ function Approvedby() {
         <div className="pageHeader p-3">
           <h1 className="text-2xl font-semibold">Approved by Listing</h1>
           <div className="actions">
-            <span>
-              <Link to="" alt="New Course" title="New Course">
-                <svg
-                  className="h-6 w-6 text-stone-600"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  strokeWidth="2"
-                  stroke="currentColor"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  {" "}
-                  <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                  <circle cx="12" cy="12" r="9" />{" "}
-                  <line x1="9" y1="12" x2="15" y2="12" />{" "}
-                  <line x1="12" y1="9" x2="12" y2="15" />
-                </svg>
-              </Link>
+            <span onClick={() => setIsEditOpen(true)}>
+              <svg
+                className="h-6 w-6 text-stone-600"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {" "}
+                <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                <circle cx="12" cy="12" r="9" />{" "}
+                <line x1="9" y1="12" x2="15" y2="12" />{" "}
+                <line x1="12" y1="9" x2="12" y2="15" />
+              </svg>
             </span>
             <span onClick={() => setIsFilter(true)}>
               <svg
@@ -174,6 +318,121 @@ function Approvedby() {
           <MaterialReactTable table={table} />
         </div>
       </div>
+
+      {isEditOpen && (
+        <DialogContent>
+          <div className="modal-box">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                onClick={() => setIsEditOpen(false)}
+              >
+                ✕
+              </button>
+            </form>
+            <h3 className="font-bold text-lg">
+              {editdata.approv_id > 0 ? "Edit" : "Add"} Approved By{" "}
+            </h3>
+
+            <form
+              action=""
+              method="post"
+              id="coursebranchForm"
+              onSubmit={addapprovedby}
+            >
+              <div className="mt-2">
+                <input
+                  type="hidden"
+                  value={editdata.approv_id}
+                  name="approv_id"
+                />
+                <input
+                  type="text"
+                  name="approved_name"
+                  placeholder="Approved By*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.approved_name && editdata.approved_name}
+                  onChange={handleChangeFormdata}
+                />
+                <div className="errmsg">{errorMsg[0]}</div>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="approved_url"
+                  placeholder="Approved By URL*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.approved_url && editdata.approved_url}
+                  onChange={handleChangeFormdata}
+                />
+                <div className="errmsg">{errorMsg[1]}</div>
+              </div>{" "}
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="approved_description"
+                  placeholder="Approved By Details*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={
+                    editdata.approved_description &&
+                    editdata.approved_description.trim()
+                  }
+                  onChange={handleChangeFormdata}
+                />
+                <div className="errmsg">{errorMsg[1]}</div>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="app_meta_title"
+                  placeholder="Meta Title*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.app_meta_title && editdata.app_meta_title}
+                  onChange={handleChangeFormdata}
+                />
+                <div className="errmsg">{errorMsg[2]}</div>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="app_meta_description"
+                  placeholder="Meta Description*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={
+                    editdata.app_meta_description &&
+                    editdata.app_meta_description
+                  }
+                  onChange={handleChangeFormdata}
+                />
+                <div className="errmsg">{errorMsg[3]}</div>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="app_meta_keyword"
+                  placeholder="Meta Keyword*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.app_meta_keyword && editdata.app_meta_keyword}
+                  onChange={handleChangeFormdata}
+                />
+                <div className="errmsg">{errorMsg[4]}</div>
+              </div>
+              <div className="btn-section">
+                <button type="button" onClick={() => setIsEditOpen(false)}>
+                  Cancle
+                </button>
+                <button
+                  type="submit"
+                  className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  {editdata.approv_id > 0 ? "Update" : "Submit"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </DialogContent>
+      )}
 
       {isFilter && (
         <DialogContent>
@@ -206,6 +465,7 @@ function Approvedby() {
           </div>
         </DialogContent>
       )}
+      <ToastContainer />
     </>
   );
 }

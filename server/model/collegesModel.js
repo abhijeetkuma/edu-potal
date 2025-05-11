@@ -2087,6 +2087,85 @@ const editapproved = (approv_id) => {
     //console.log(query);
   });
 };
+const addnewapprovedby = (body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      approved_name,
+      approved_url,
+      app_meta_title,
+      app_meta_description,
+      app_meta_keyword,
+      app_status,
+      approved_description,
+    } = body;
+    pool.query(
+      "INSERT INTO approvedby( approved_name,approved_url,app_meta_title,app_meta_description,app_meta_keyword,app_status,approved_description,) VALUES ($1, $2, $3,$4,$5,$6,$7) RETURNING *",
+      [
+        approved_name,
+        approved_url,
+        app_meta_title,
+        app_meta_description,
+        app_meta_keyword,
+        app_status,
+        approved_description,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A new approved by details has been added: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateapprovedby = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const {
+      approv_id,
+      approved_name,
+      approved_url,
+      app_meta_title,
+      app_meta_description,
+      app_meta_keyword,
+      app_status,
+      approved_description,
+    } = body;
+    pool.query(
+      "UPDATE approvedby SET approved_name=$2,approved_url=$3,app_meta_title=$4,app_meta_description=$5,app_meta_keyword=$6,app_status=$7, approved_description=$8 WHERE approv_id=$1 RETURNING approv_id",
+      [
+        approv_id,
+        approved_name,
+        approved_url,
+        app_meta_title,
+        app_meta_description,
+        app_meta_keyword,
+        app_status,
+        approved_description,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A approved by has been updated: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 const getCMSListing = async () => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -2187,6 +2266,8 @@ module.exports = {
   getNewsarticleslisting,
   getApprovedby,
   editapproved,
+  addnewapprovedby,
+  updateapprovedby,
   getAdminusers,
   getRolelist,
   addNewusers,

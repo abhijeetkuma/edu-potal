@@ -1151,6 +1151,26 @@ app.get("/api/editapproval/:approv_id", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.post("/api/addnewapprovedby", (req, res) => {
+  colleges_model
+    .addnewapprovedby(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/updateapprovedby", (req, res) => {
+  colleges_model
+    .updateapprovedby(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/getadminuserslist", (req, res) => {
   colleges_model
     .getAdminusers()
