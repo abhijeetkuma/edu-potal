@@ -2067,6 +2067,26 @@ const getApprovedby = async () => {
     throw new Error("Internal server error");
   }
 };
+const editapproved = (approv_id) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM approvedby WHERE approv_id = $1",
+      [approv_id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit roles ID: ${id}`);
+      }
+    );
+    //console.log(query);
+  });
+};
 const getCMSListing = async () => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -2166,6 +2186,7 @@ module.exports = {
   getQuestionlisting,
   getNewsarticleslisting,
   getApprovedby,
+  editapproved,
   getAdminusers,
   getRolelist,
   addNewusers,

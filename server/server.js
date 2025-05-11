@@ -1141,6 +1141,16 @@ app.get("/api/getapprovedby", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/editapproval/:approv_id", (req, res) => {
+  colleges_model
+    .editapproved(req.params.approv_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/getadminuserslist", (req, res) => {
   colleges_model
     .getAdminusers()
