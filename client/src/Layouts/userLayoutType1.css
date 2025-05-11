@@ -810,6 +810,22 @@ header.website-wrapper {
       }
     }
 
+    .reviews {
+      .clg-rating-avg {
+        display: flex;
+        gap: 10px;
+        align-items: anchor-center;
+        justify-content: center;
+        padding: 20px;
+        box-shadow: 1px 2px 3px #ccc;
+        border-radius: 8px;
+        b {
+          font-size: 28px;
+          font-weight: 800;
+        }
+      }
+    }
+
     .get-notify {
       padding: 10%;
       .head-line {
@@ -1195,6 +1211,7 @@ header.website-wrapper {
           background-color: #e99446;
           padding: 8px 100px;
           border-radius: 25px;
+          cursor: pointer;
         }
         .action-btns {
           display: flex;
@@ -1414,6 +1431,11 @@ header.website-wrapper {
           background-color: #effdfb;
           margin-bottom: 35px;
           border-radius: 10px;
+          > img {
+            width: 40px;
+            display: block;
+            margin: 0 auto 15px;
+          }
           span {
             display: flex;
             align-items: baseline;

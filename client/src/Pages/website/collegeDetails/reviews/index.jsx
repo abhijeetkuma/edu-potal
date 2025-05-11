@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+
+import star from "/images/star.png";
 import Relatedcolleges from "../../college/relatedcolleges";
 import Relatednews from "../../college/relatednews";
 import Rating from "../../commonComps/ratings";
@@ -19,9 +21,10 @@ function CollegeReviews(props) {
       meta_keyword,
       college_url,
       logo,
+      total_rating
     },
   } = props;
-
+  
   return (
     <>
       <Helmet>
@@ -47,9 +50,22 @@ function CollegeReviews(props) {
         />
         <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>
-      <div className="container detailsTab">
-        <h1>Reviews</h1>
-        <h2 className="font-bold text-2xl mb-5">{`${college_name} Reviews`}</h2>
+      
+      <div className="container reviews">
+        {/* <h1 className="">Reviews</h1> */}
+        <h2 className="font-bold text-2xl mb-5 text-center	">{`${college_name} Reviews`}</h2>
+
+        <span className="clg-rating-avg">
+          <img src={star} alt="" />
+          <span>
+            <b>
+              {total_rating
+                ? total_rating.slice(0, 3)
+                : "0"}
+            </b>{" "}
+            /10
+          </span>
+        </span>
       </div>
 
       <Facilities data={facilities && facilities} />

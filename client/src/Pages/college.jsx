@@ -37,6 +37,11 @@ function College() {
   const [highLights, setHighLights] = useState([
     { highParameter: "", highDetails: "" },
   ]);
+
+  const [qusAns, setQusAns] = useState([
+    { question: "", answer: "" },
+  ]);
+
   const [subcoursesoptions, setSubcoursesoptions] = useState([
     {
       subcourseId: "",
@@ -155,6 +160,8 @@ function College() {
     brouchure: "",
     youtube: "",
     highlights: [{ highParameter: "", highDetails: "" }],
+    qusAns: [{ question: "", answer: "" }],
+
     sub_course_details: [
       {
         subcourseId: "",
@@ -404,6 +411,24 @@ function College() {
     setHighLights(deleteData);
   };
 
+
+  const handleFaQClick = (e) => {
+    setQusAns([...qusAns, { question: "", answer: "" }]);
+  };
+
+  const handleFaQChange = (e, i) => {
+    const { name, value } = e.target;
+    const onChangeData = [...qusAns];
+    onChangeData[i][name] = value;
+    setQusAns(onChangeData);
+  };
+
+  const handleFaQDelete = (i) => {
+    const deleteData = [...qusAns];
+    deleteData.splice(i, 1);
+    setQusAns(deleteData);
+  };
+
   const createUrl = (e) => {
     var collegename = e.target.value;
     var collegeurl = collegename
@@ -486,7 +511,7 @@ function College() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
-      console.log("newErrors-->", newErrors);
+      // console.log("newErrors-->", newErrors);
       /*
       toast.error("Basic info. sucessfully updated", {
         position: "top-right",
@@ -2414,7 +2439,59 @@ function College() {
               >
                 FAQ
               </label>
-              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
+
+              {qusAns.map((item, i) => (
+                <>
+                  <div className="flex mb-2" key={`key-${i}`}>
+                    <div className="flex-1	">
+                      <div className="px-2 mb-2">
+                        <input
+                          id="highParameter"
+                          name="highParameter"
+                          type="text"
+                          placeholder="Question"
+                          value={item.highParameter}
+                          onChange={(e) => handleFaQChange(e, i)}
+                          className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                        />
+                      </div>
+                      <div className="px-2">
+                        <input
+                          id="highDetails"
+                          name="highDetails"
+                          type="text"
+                          placeholder="Answer"
+                          value={item.highDetails}
+                          onChange={(e) => handleFaQChange(e, i)}
+                          className="block w-full rounded-md border-0 text-gray-900 ring-1 ring-gray"
+                        />
+                      </div>
+                    </div>
+                    <div className="sm:col-span-2">
+                      {i === 0 && (
+                        <button
+                          type="button"
+                          onClick={handleFaQClick}
+                          className="addButton"
+                        >
+                          Add FAQ
+                        </button>
+                      )}
+                      {i !== 0 && (
+                        <button
+                          type="button"
+                          onClick={() => handleFaQDelete(i)}
+                          className="removeButton"
+                        >
+                          Delete
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              ))}
+
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">     
                 <CKEditor
                   editor={ClassicEditor}
                   config={{

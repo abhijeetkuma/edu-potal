@@ -8,6 +8,7 @@ import Contact from "../../commonComps/contact";
 import Facilities from "../../commonComps/facilities";
 import Accordion from "../../commonComps/accordion";
 
+
 import { getImageURL } from "../../../../utils/utils-image";
 
 function CollegeQuesAns(props) {
@@ -58,11 +59,11 @@ function CollegeQuesAns(props) {
           <h2 className="font-bold text-2xl mb-5">{`${college_name} Q&A`}</h2>
           <div dangerouslySetInnerHTML={{ __html: props.data.faq }}></div>
         </section>
-{/*         
-      <section className="max-w-6xl mx-auto text-center">
-        <Accordion title="Accordion #1" content={lorem} />
-        <Accordion title="Accordion #2" content={lorem} />
-        <Accordion title="Accordion #3" content={lorem} />
+        
+      {/* <section className="max-w-6xl mx-auto text-center">
+        <Accordion title={<b>What Is The Flagship Program Offered?</b>} content={lorem} />
+        <Accordion title={<b>Is It Mandatory To Have Work Experience For The PGDM/MBA Program?</b>} content={lorem} />
+        <Accordion title={<b>What Admission Test Scores Are Used in MBA and PGDM program?</b>} content={lorem} />
       </section> */}
       </div>
 
