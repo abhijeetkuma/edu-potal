@@ -1043,6 +1043,48 @@ const getCourses = async () => {
     throw new Error("Internal server error");
   }
 };
+const getExamlist = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT * from examnames ORDER BY exam_id DESC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const editexam = (cour_id) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM examnames WHERE exam_id = $1",
+      [cour_id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit roles ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
 const getMenurolewise = async (login_id) => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -2277,6 +2319,8 @@ module.exports = {
   getModulearr,
   getCollegetypearr,
   getExamlistarr,
+  getExamlist,
+  editexam,
   getFeetypearr,
   getCategoriesarr,
   getApprovedbyarr,

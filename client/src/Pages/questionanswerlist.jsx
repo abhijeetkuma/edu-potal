@@ -115,7 +115,7 @@ function Questionanswerlisting() {
     <>
       <div className="flex bg-white shadow">
         <div className="pageHeader p-3">
-          <h1 className="text-2xl font-semibold">Question & Answer Listing</h1>
+          <h1 className="text-2xl font-semibold">Toc Cafe Listing</h1>
           <div className="actions">
             <span onClick={() => setIsEditOpen(true)}>
               <Link

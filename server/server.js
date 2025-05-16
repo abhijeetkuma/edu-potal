@@ -692,6 +692,16 @@ app.get("/api/getcourses", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/getexamlisting", (req, res) => {
+  colleges_model
+    .getExamlist()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/getcmslisting", (req, res) => {
   colleges_model
     .getCMSListing()
@@ -1073,6 +1083,16 @@ app.get("/api/editcategory/:cat_id", (req, res) => {
 app.get("/api/editcourse/:cour_id", (req, res) => {
   colleges_model
     .editcourse(req.params.cour_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/editexam/:exam_id", (req, res) => {
+  colleges_model
+    .editexam(req.params.exam_id)
     .then((response) => {
       res.status(200).send(response);
     })
