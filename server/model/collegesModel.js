@@ -1085,6 +1085,7 @@ const editexam = (cour_id) => {
     console.log(query);
   });
 };
+
 const addNewexam = (body) => {
   return new Promise(function (resolve, reject) {
     const {
@@ -1823,6 +1824,26 @@ const addNewcourses = (body) => {
     );
   });
 };
+const editfacility = (cour_id) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM facility WHERE facility_id = $1",
+      [cour_id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit facility ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
 const addNewfacility = (body) => {
   return new Promise(function (resolve, reject) {
     const { facility_name, facility_status } = body;
@@ -1836,6 +1857,30 @@ const addNewfacility = (body) => {
         if (results && results.rows) {
           resolve(
             `A new facility has been added: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updatefacility = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const { facility_id, facility_name, facility_status } = body;
+    pool.query(
+      "UPDATE facility SET facility_name=$2,facility_status=$3 WHERE facility_id=$1 RETURNING facility_id",
+      [facility_id, facility_name, facility_status],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A facility details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
           );
         } else {
           reject(new Error("No results found"));
@@ -2409,6 +2454,8 @@ module.exports = {
   getRolesrr,
   addNewcategories,
   addNewfacility,
+  updatefacility,
+  editfacility,
   addQuestion,
   addNewsarticle,
   editroles,
