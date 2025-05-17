@@ -237,6 +237,26 @@ app.post("/api/addcourse", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.post("/api/addexam", (req, res) => {
+  colleges_model
+    .addNewexam(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/updateexam", (req, res) => {
+  colleges_model
+    .updateexam(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.post("/api/addcategories", (req, res) => {
   colleges_model
     .addNewcategories(req.body)

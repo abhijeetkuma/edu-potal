@@ -1085,6 +1085,85 @@ const editexam = (cour_id) => {
     console.log(query);
   });
 };
+const addNewexam = (body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      exam_name,
+      exam_url,
+      exam_brief,
+      exam_description,
+      emeta_title,
+      emeta_description,
+      emeta_keyword,
+    } = body;
+    pool.query(
+      "INSERT INTO examnames(exam_name,exam_url,exam_brief,exam_description,emeta_title,emeta_description,emeta_keyword) VALUES ($1, $2, $3,$4,$5,$6,$7) RETURNING *",
+      [
+        exam_name,
+        exam_url,
+        exam_brief,
+        exam_description,
+        emeta_title,
+        emeta_description,
+        emeta_keyword,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `Exam details has been added: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateexam = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const {
+      exam_id,
+      exam_name,
+      exam_url,
+      exam_brief,
+      exam_description,
+      emeta_title,
+      emeta_description,
+      emeta_keyword,
+    } = body;
+    pool.query(
+      "UPDATE examnames SET exam_name=$2,exam_url=$3,exam_brief=$4,exam_description=$5,emeta_title=$6,emeta_description=$7, emeta_keyword=$8 WHERE exam_id=$1 RETURNING exam_id",
+      [
+        exam_id,
+        exam_name,
+        exam_url,
+        exam_brief,
+        exam_description,
+        emeta_title,
+        emeta_description,
+        emeta_keyword,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A exam details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 const getMenurolewise = async (login_id) => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -2321,6 +2400,8 @@ module.exports = {
   getExamlistarr,
   getExamlist,
   editexam,
+  addNewexam,
+  updateexam,
   getFeetypearr,
   getCategoriesarr,
   getApprovedbyarr,

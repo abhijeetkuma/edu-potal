@@ -25,19 +25,15 @@ function Exam() {
   const [datas, setDatas] = useState([]);
   const [returndspmsg, setReturndspmsg] = useState();
   const [errorMsg, setErrorMsg] = useState([]);
-  const [catarr, setCatarr] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
   const [editdata, setEditdata] = useState({
-    cour_id: "",
-    cmeta_description: "",
-    cmeta_keyword: "",
-    cmeta_title: "",
-    cour_top: "",
-    course_name: "",
-    course_url: "",
-    cstatus: "",
-    cat_id: "",
+    exam_id: "",
+    emeta_description: "",
+    emeta_keyword: "",
+    emeta_title: "",
+    exam_name: "",
+    exam_url: "",
   });
   useEffect(() => {
     /*fetch("http://localhost:3001/")
@@ -134,45 +130,58 @@ function Exam() {
       </Box>
     ),
   });
-  // add new course
+  // add new exam
 
-  const addcouse = (e) => {
+  const addexam = (e) => {
     e.preventDefault();
     const {
-      cour_id,
-      course_name,
-      course_url,
-      cmeta_title,
-      cmeta_description,
-      cmeta_keyword,
-      cat_id,
+      exam_id,
+      exam_name,
+      exam_url,
+      exam_brief,
+      exam_description,
+      emeta_title,
+      emeta_description,
+      emeta_keyword,
     } = e.target.elements;
 
     let errorsForm = [];
 
-    if (course_name.value === "") {
-      errorsForm.push(<div key="branameErr">Course Name cann't be blank!</div>);
+    if (exam_name.value === "") {
+      errorsForm.push(<div key="branameErr">Exam Name cann't be blank!</div>);
     } else {
       errorsForm.push();
     }
-    if (course_url.value === "") {
-      errorsForm.push(<div key="branurlErr">Course URL cann't be blank!</div>);
+    if (exam_url.value === "") {
+      errorsForm.push(<div key="branurlErr">Exam URL cann't be blank!</div>);
     } else {
       errorsForm.push();
     }
-    if (cmeta_title.value === "") {
+    if (exam_brief.value === "") {
+      errorsForm.push(<div key="branurlErr">Exam Brief cann't be blank!</div>);
+    } else {
+      errorsForm.push();
+    }
+    if (exam_description.value === "") {
+      errorsForm.push(
+        <div key="branurlErr">Exam Description cann't be blank!</div>
+      );
+    } else {
+      errorsForm.push();
+    }
+    if (emeta_title.value === "") {
       errorsForm.push(<div key="metatitErr">Meta Title cann't be blank!</div>);
     } else {
       errorsForm.push();
     }
-    if (cmeta_keyword.value === "") {
+    if (emeta_keyword.value === "") {
       errorsForm.push(
         <div key="metakeyErr">Meta Keyword cann't be blank!</div>
       );
     } else {
       errorsForm.push();
     }
-    if (cmeta_description.value === "") {
+    if (emeta_description.value === "") {
       errorsForm.push(
         <div key="metadescErr">Meta Description cann't be blank!</div>
       );
@@ -182,32 +191,36 @@ function Exam() {
     console.log("errorsForm", errorsForm);
     if (errorsForm.length === 0) {
       const payload = {
-        cour_id: cour_id.value,
-        course_name: course_name.value,
-        course_url: course_url.value,
-        meta_title: cmeta_title.value,
-        cmeta_description: cmeta_description.value,
-        cmeta_keyword: cmeta_keyword.value,
-        cat_id: cat_id.value,
+        exam_id: exam_id.value,
+        exam_name: exam_name.value,
+        exam_url: exam_url.value,
+        exam_brief: exam_brief.value,
+        exam_description: exam_description.value,
+        emeta_title: emeta_title.value,
+        emeta_description: emeta_description.value,
+        emeta_keyword: emeta_keyword.value,
+        exam_id: exam_id.value,
         cstatus: "A",
       };
-      if (cour_id.value > 0) {
+      if (exam_id.value > 0) {
         axios({
           method: "post",
-          url: "/api/updatecourse",
+          url: "/api/updateexam",
           data: payload,
         })
           .then(function (response) {
             console.log(response);
-            cat_id.value = "";
-            course_name.value = "";
-            course_url.value = "";
-            cmeta_title.value = "";
-            cmeta_description.value = "";
-            cmeta_keyword.value = "";
+            exam_id.value = "";
+            exam_name.value = "";
+            exam_url.value = "";
+            exam_brief.value = "";
+            exam_description.value = "";
+            emeta_title.value = "";
+            emeta_description.value = "";
+            emeta_keyword.value = "";
             if (response.statusText == "OK") {
               setIsEditOpen(false);
-              toast.success("Course details updated!", {
+              toast.success("Exam details updated!", {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -221,7 +234,7 @@ function Exam() {
             }
             //get results
             axios
-              .get("/api/getcourses")
+              .get("/api/getexamlisting")
               .then((response) => {
                 setDatas(response.data);
               })
@@ -236,23 +249,25 @@ function Exam() {
       } else {
         axios({
           method: "post",
-          url: "/api/addcourse",
+          url: "/api/addexam",
           data: payload,
         })
           .then(function (response) {
             console.log(response);
-            cat_id.value = "";
-            course_name.value = "";
-            course_url.value = "";
-            cmeta_title.value = "";
-            cmeta_description.value = "";
-            cmeta_keyword.value = "";
+            exam_id.value = "";
+            exam_name.value = "";
+            exam_url.value = "";
+            exam_brief.value = "";
+            exam_description.value = "";
+            emeta_title.value = "";
+            emeta_description.value = "";
+            emeta_keyword.value = "";
             setReturndspmsg(
               "<div className={sussmsg}>Record successfully added</div>"
             );
             //get results
             axios
-              .get("/api/getcourses")
+              .get("/api/getexamlisting")
               .then((response) => {
                 setDatas(response.data);
               })
@@ -264,7 +279,7 @@ function Exam() {
           .catch(function (error) {
             console.log(error);
             setReturndspmsg(
-              "<div className={errmsg}>Error in add course record</div>"
+              "<div className={errmsg}>Error in add exam record</div>"
             );
           });
       }
@@ -272,7 +287,7 @@ function Exam() {
       setErrorMsg(errorsForm);
     }
   };
-  // end add new course
+  // end add new exam
   return (
     <>
       <div className="flex bg-white shadow">
@@ -341,50 +356,19 @@ function Exam() {
               </button>
             </form>
             <h3 className="font-bold text-lg">
-              {editdata.cour_id > 0 ? "Edit" : "Add"} Course
+              {editdata.exam_id > 0 ? "Edit" : "Add"} Exam
             </h3>
 
-            <form
-              action=""
-              method="post"
-              id="coursebranchForm"
-              onSubmit={addcouse}
-            >
+            <form action="" method="post" id="examForm" onSubmit={addexam}>
               {returndspmsg && returndspmsg}
               <div className="mt-2">
-                <input type="hidden" value={editdata.cour_id} name="cour_id" />
-                <select
-                  name="cat_id"
-                  id="cat_id"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  <option
-                    value=""
-                    defaultValue={editdata.cat_id == "" ? "selected" : ""}
-                  >
-                    Select Category
-                  </option>
-                  {catarr.map((cour) => (
-                    <option
-                      value={cour.cat_id}
-                      selected={
-                        editdata.cat_id == cour.cat_id ? "selected" : ""
-                      }
-                    >
-                      {cour.category_name}
-                    </option>
-                  ))}
-                  ;
-                </select>
-                <div className="errmsg">{errorMsg[0]}</div>
-              </div>
-              <div className="mt-2">
+                <input type="hidden" value={editdata.exam_id} name="exam_id" />
                 <input
                   type="text"
-                  name="course_name"
-                  placeholder="Course Name*"
+                  name="exam_name"
+                  placeholder="Exam Name*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.course_name && editdata.course_name}
+                  value={editdata.exam_name && editdata.exam_name}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[0]}</div>
@@ -392,21 +376,41 @@ function Exam() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="course_url"
-                  placeholder="Branch URL*"
+                  name="exam_url"
+                  placeholder="Exam URL*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.course_url && editdata.course_url}
+                  value={editdata.exam_url && editdata.exam_url}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[1]}</div>
               </div>
               <div className="mt-2">
+                <textarea
+                  name="exam_brief"
+                  placeholder="Exam Brief*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={handleChangeFormdata}
+                  value={editdata.exam_brief && editdata.exam_brief}
+                ></textarea>
+                <div className="errmsg">{errorMsg[1]}</div>
+              </div>
+              <div className="mt-2">
+                <textarea
+                  name="exam_description"
+                  placeholder="Exam Description*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={handleChangeFormdata}
+                  value={editdata.exam_description && editdata.exam_description}
+                ></textarea>
+                <div className="errmsg">{errorMsg[1]}</div>
+              </div>
+              <div className="mt-2">
                 <input
                   type="text"
-                  name="cmeta_title"
+                  name="emeta_title"
                   placeholder="Meta Title*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.cmeta_title && editdata.cmeta_title}
+                  value={editdata.emeta_title && editdata.emeta_title}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[2]}</div>
@@ -414,11 +418,11 @@ function Exam() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="cmeta_description"
+                  name="emeta_description"
                   placeholder="Meta Description*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={
-                    editdata.cmeta_description && editdata.cmeta_description
+                    editdata.emeta_description && editdata.emeta_description
                   }
                   onChange={handleChangeFormdata}
                 />
@@ -427,10 +431,10 @@ function Exam() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="cmeta_keyword"
+                  name="emeta_keyword"
                   placeholder="Meta Keyword*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.cmeta_keyword && editdata.cmeta_keyword}
+                  value={editdata.emeta_keyword && editdata.emeta_keyword}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[4]}</div>
@@ -443,7 +447,7 @@ function Exam() {
                   type="submit"
                   className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  {editdata.cour_id > 0 ? "Update" : "Submit"}
+                  {editdata.exam_id > 0 ? "Update" : "Submit"}
                 </button>
               </div>
             </form>
