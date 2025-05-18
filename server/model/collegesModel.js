@@ -1065,12 +1065,101 @@ const getExamlist = async () => {
     throw new Error("Internal server error");
   }
 };
-const editexam = (cour_id) => {
+const getTrendinglist = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT * from trending ORDER BY tid DESC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const edittrending = (tid) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM trending WHERE tid = $1",
+      [tid],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit roles ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
+const updatetrending = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const { tid, trading_name, trading_url, trading_status } = body;
+    pool.query(
+      "UPDATE trending SET trading_name=$2,trading_url=$3,trading_status=$4 WHERE tid=$1 RETURNING tid",
+      [tid, trading_name, trading_url, trading_status],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A trending details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const addNewTrending = (body) => {
+  return new Promise(function (resolve, reject) {
+    const { trading_name, trading_url, trading_status } = body;
+    pool.query(
+      "INSERT INTO trending(trading_name, trading_url, trading_status) VALUES ($1, $2, $3) RETURNING *",
+      [trading_name, trading_url, trading_status],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `Trending details has been added: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const editexam = (exam_id) => {
   //const rol_id = rol_id;
   return new Promise(function (resolve, reject) {
     pool.query(
       "SELECT * FROM examnames WHERE exam_id = $1",
-      [cour_id],
+      [exam_id],
       (error, results) => {
         if (error) {
           reject(error);
@@ -1123,6 +1212,7 @@ const addNewexam = (body) => {
     );
   });
 };
+
 const updateexam = (body) => {
   return new Promise(function (resolve, reject) {
     console.log(body);
@@ -1165,6 +1255,7 @@ const updateexam = (body) => {
     );
   });
 };
+
 const getMenurolewise = async (login_id) => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -2447,6 +2538,10 @@ module.exports = {
   editexam,
   addNewexam,
   updateexam,
+  getTrendinglist,
+  edittrending,
+  updatetrending,
+  addNewTrending,
   getFeetypearr,
   getCategoriesarr,
   getApprovedbyarr,

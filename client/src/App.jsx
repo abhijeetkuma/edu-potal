@@ -22,6 +22,7 @@ import Addcms from "./Pages/addcms";
 import Cms from "./Pages/cms";
 import Adminusers from "./Pages/adminusers";
 import Exam from "./Pages/exam";
+import Trending from "./Pages/trending";
 import Newsnevent from "./Pages/newsnevent";
 import Newsandevent from "./Pages/newsandevent";
 import Newsarticles from "./Pages/newsarticles";
@@ -181,6 +182,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/exam",
         element: <Exam />,
+      },
+      {
+        path: "/admin/trending",
+        element: <Trending />,
       },
       {
         path: "/admin/coursebranchs",

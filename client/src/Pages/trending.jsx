@@ -18,7 +18,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
-function Exam() {
+function Trending() {
   if (localStorage.getItem("login_id") <= 0) {
     window.location = "/login";
   }
@@ -28,21 +28,13 @@ function Exam() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
   const [editdata, setEditdata] = useState({
-    exam_id: "",
-    emeta_description: "",
-    emeta_keyword: "",
-    emeta_title: "",
-    exam_name: "",
-    exam_url: "",
+    tid: "",
+    trading_name: "",
+    trading_url: "",
   });
   useEffect(() => {
-    /*fetch("http://localhost:3001/")
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error));*/
     axios
-      //.get("https://jsonplaceholder.typicode.com/posts")
-      .get("/api/getexamlisting")
+      .get("/api/gettrending")
       .then((response) => {
         setDatas(response.data);
       })
@@ -63,34 +55,27 @@ function Exam() {
 
   const columns = [
     {
-      accessorKey: "exam_name", //simple recommended way to define a column
+      accessorKey: "trading_name", //simple recommended way to define a column
       header: "Name",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
-      accessorKey: "exam_url", //simple recommended way to define a column
+      accessorKey: "trading_url", //simple recommended way to define a column
       header: "URL",
-      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
-      Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
-    },
-
-    {
-      accessorKey: "exam_brief", //simple recommended way to define a column
-      header: "Brief",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
   ];
   const [rowSelection, setRowSelection] = useState({});
-  const addnewexam = () => {
+  const addnewtrending = () => {
     setIsEditOpen(true);
     setEditdata("");
   };
   const editDetails = (editval) => {
-    console.log("Edit exam id:", editval);
+    console.log("Edit trending id:", editval);
     axios
-      .get("/api/editexam/" + editval)
+      .get("/api/edittrending/" + editval)
       .then((response) => {
         setEditdata(response.data[0]);
       })
@@ -115,7 +100,7 @@ function Exam() {
             <EditIcon
               onClick={() => {
                 // table.setEditingRow(row);
-                editDetails(row.original.exam_id);
+                editDetails(row.original.tid);
 
                 //console.log("Edit======------>", row.original.rol_id);
               }}
@@ -134,97 +119,51 @@ function Exam() {
       </Box>
     ),
   });
-  // add new exam
+  // add new trending
 
-  const addexam = (e) => {
+  const addtrending = (e) => {
     e.preventDefault();
-    const {
-      exam_id,
-      exam_name,
-      exam_url,
-      exam_brief,
-      exam_description,
-      emeta_title,
-      emeta_description,
-      emeta_keyword,
-    } = e.target.elements;
+    const { tid, trading_name, trading_url } = e.target.elements;
 
     let errorsForm = [];
 
-    if (exam_name.value === "") {
-      errorsForm.push(<div key="branameErr">Exam Name cann't be blank!</div>);
-    } else {
-      errorsForm.push();
-    }
-    if (exam_url.value === "") {
-      errorsForm.push(<div key="branurlErr">Exam URL cann't be blank!</div>);
-    } else {
-      errorsForm.push();
-    }
-    if (exam_brief.value === "") {
-      errorsForm.push(<div key="branurlErr">Exam Brief cann't be blank!</div>);
-    } else {
-      errorsForm.push();
-    }
-    if (exam_description.value === "") {
+    if (trading_name.value === "") {
       errorsForm.push(
-        <div key="branurlErr">Exam Description cann't be blank!</div>
+        <div key="branameErr">Trending Name cann't be blank!</div>
       );
     } else {
       errorsForm.push();
     }
-    if (emeta_title.value === "") {
-      errorsForm.push(<div key="metatitErr">Meta Title cann't be blank!</div>);
-    } else {
-      errorsForm.push();
-    }
-    if (emeta_keyword.value === "") {
+    if (trading_url.value === "") {
       errorsForm.push(
-        <div key="metakeyErr">Meta Keyword cann't be blank!</div>
+        <div key="branurlErr">Trending URL cann't be blank!</div>
       );
     } else {
       errorsForm.push();
     }
-    if (emeta_description.value === "") {
-      errorsForm.push(
-        <div key="metadescErr">Meta Description cann't be blank!</div>
-      );
-    } else {
-      errorsForm.push();
-    }
+
     console.log("errorsForm", errorsForm);
     if (errorsForm.length === 0) {
       const payload = {
-        exam_id: exam_id.value,
-        exam_name: exam_name.value,
-        exam_url: exam_url.value,
-        exam_brief: exam_brief.value,
-        exam_description: exam_description.value,
-        emeta_title: emeta_title.value,
-        emeta_description: emeta_description.value,
-        emeta_keyword: emeta_keyword.value,
-        exam_id: exam_id.value,
-        cstatus: "A",
+        tid: tid.value,
+        trading_name: trading_name.value,
+        trading_url: trading_url.value,
+        trading_status: "A",
       };
-      if (exam_id.value > 0) {
+      if (tid.value > 0) {
         axios({
           method: "post",
-          url: "/api/updateexam",
+          url: "/api/updatetrending",
           data: payload,
         })
           .then(function (response) {
             console.log(response);
-            exam_id.value = "";
-            exam_name.value = "";
-            exam_url.value = "";
-            exam_brief.value = "";
-            exam_description.value = "";
-            emeta_title.value = "";
-            emeta_description.value = "";
-            emeta_keyword.value = "";
+            tid.value = "";
+            trading_name.value = "";
+            trading_url.value = "";
             if (response.statusText == "OK") {
               setIsEditOpen(false);
-              toast.success("Exam details updated!", {
+              toast.success("Trending details updated!", {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -238,7 +177,7 @@ function Exam() {
             }
             //get results
             axios
-              .get("/api/getexamlisting")
+              .get("/api/gettrending")
               .then((response) => {
                 setDatas(response.data);
               })
@@ -253,25 +192,32 @@ function Exam() {
       } else {
         axios({
           method: "post",
-          url: "/api/addexam",
+          url: "/api/addtrending",
           data: payload,
         })
           .then(function (response) {
             console.log(response);
-            exam_id.value = "";
-            exam_name.value = "";
-            exam_url.value = "";
-            exam_brief.value = "";
-            exam_description.value = "";
-            emeta_title.value = "";
-            emeta_description.value = "";
-            emeta_keyword.value = "";
-            setReturndspmsg(
-              "<div className={sussmsg}>Record successfully added</div>"
-            );
+            tid.value = "";
+            trading_name.value = "";
+            trading_url.value = "";
+            if (response.statusText == "OK") {
+              setIsEditOpen(false);
+              toast.success("Record successfully added", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                //transition: Bounce,
+              });
+            }
+
             //get results
             axios
-              .get("/api/getexamlisting")
+              .get("/api/gettrending")
               .then((response) => {
                 setDatas(response.data);
               })
@@ -283,7 +229,7 @@ function Exam() {
           .catch(function (error) {
             console.log(error);
             setReturndspmsg(
-              "<div className={errmsg}>Error in add exam record</div>"
+              "<div className={errmsg}>Error in add trending record</div>"
             );
           });
       }
@@ -291,16 +237,16 @@ function Exam() {
       setErrorMsg(errorsForm);
     }
   };
-  // end add new exam
+  // end add new trending
   return (
     <>
       <div className="flex bg-white shadow">
         <div className="pageHeader p-3">
-          <h1 className="text-2xl font-semibold">Exam Listing</h1>
+          <h1 className="text-2xl font-semibold">Trending Listing</h1>
           <div className="actions">
             <span
               // onClick={() => document.getElementById("users_modal").showModal()}
-              onClick={() => addnewexam()}
+              onClick={() => addnewtrending()}
             >
               <svg
                 className="h-6 w-6 text-stone-600"
@@ -360,19 +306,24 @@ function Exam() {
               </button>
             </form>
             <h3 className="font-bold text-lg">
-              {editdata.exam_id > 0 ? "Edit" : "Add"} Exam
+              {editdata.tid > 0 ? "Edit" : "Add"} Trending
             </h3>
 
-            <form action="" method="post" id="examForm" onSubmit={addexam}>
+            <form
+              action=""
+              method="post"
+              id="trendingForm"
+              onSubmit={addtrending}
+            >
               {returndspmsg && returndspmsg}
               <div className="mt-2">
-                <input type="hidden" value={editdata.exam_id} name="exam_id" />
+                <input type="hidden" value={editdata.tid} name="tid" />
                 <input
                   type="text"
-                  name="exam_name"
-                  placeholder="Exam Name*"
+                  name="trading_name"
+                  placeholder="Trending Name*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.exam_name && editdata.exam_name}
+                  value={editdata.trading_name && editdata.trading_name}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[0]}</div>
@@ -380,69 +331,15 @@ function Exam() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="exam_url"
-                  placeholder="Exam URL*"
+                  name="trading_url"
+                  placeholder="Trending URL*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.exam_url && editdata.exam_url}
+                  value={editdata.trading_url && editdata.trading_url}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[1]}</div>
               </div>
-              <div className="mt-2">
-                <textarea
-                  name="exam_brief"
-                  placeholder="Exam Brief*"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
-                  onChange={handleChangeFormdata}
-                  value={editdata.exam_brief && editdata.exam_brief}
-                ></textarea>
-                <div className="errmsg">{errorMsg[1]}</div>
-              </div>
-              <div className="mt-2">
-                <textarea
-                  name="exam_description"
-                  placeholder="Exam Description*"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
-                  onChange={handleChangeFormdata}
-                  value={editdata.exam_description && editdata.exam_description}
-                ></textarea>
-                <div className="errmsg">{errorMsg[1]}</div>
-              </div>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="emeta_title"
-                  placeholder="Meta Title*"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.emeta_title && editdata.emeta_title}
-                  onChange={handleChangeFormdata}
-                />
-                <div className="errmsg">{errorMsg[2]}</div>
-              </div>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="emeta_description"
-                  placeholder="Meta Description*"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={
-                    editdata.emeta_description && editdata.emeta_description
-                  }
-                  onChange={handleChangeFormdata}
-                />
-                <div className="errmsg">{errorMsg[3]}</div>
-              </div>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="emeta_keyword"
-                  placeholder="Meta Keyword*"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.emeta_keyword && editdata.emeta_keyword}
-                  onChange={handleChangeFormdata}
-                />
-                <div className="errmsg">{errorMsg[4]}</div>
-              </div>
+
               <div className="btn-section">
                 <button type="button" onClick={() => setIsEditOpen(false)}>
                   Cancle
@@ -451,7 +348,7 @@ function Exam() {
                   type="submit"
                   className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  {editdata.exam_id > 0 ? "Update" : "Submit"}
+                  {editdata.tid > 0 ? "Update" : "Submit"}
                 </button>
               </div>
             </form>
@@ -494,4 +391,4 @@ function Exam() {
     </>
   );
 }
-export default Exam;
+export default Trending;
