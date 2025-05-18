@@ -203,7 +203,6 @@ function Exam() {
         emeta_title: emeta_title.value,
         emeta_description: emeta_description.value,
         emeta_keyword: emeta_keyword.value,
-        exam_id: exam_id.value,
         cstatus: "A",
       };
       if (exam_id.value > 0) {
