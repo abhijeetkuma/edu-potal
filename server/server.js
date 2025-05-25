@@ -11,6 +11,8 @@ const colleges_model = require("./model/collegesModel");
 const notification_model = require("./model/notificationModel");
 const advertisement_model = require("./model/advertisementModel");
 const cms_model = require("./model/Frontend/cmsModel");
+const location_model = require("./model/locationModel");
+
 const landing_model = require("./model/Frontend/landingModel");
 const collegelisting_model = require("./model/Frontend/collegelistingModel");
 const exan_model = require("./model/Frontend/examModel");
@@ -762,6 +764,37 @@ app.get("/api/getexamlisting", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/getcountrylisting", (req, res) => {
+  location_model
+    .countrylisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/getstatelisting", (req, res) => {
+  location_model
+    .statelisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/getcitylisting", (req, res) => {
+  location_model
+    .citylisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
 app.get("/api/gettrending", (req, res) => {
   colleges_model
     .getTrendinglist()

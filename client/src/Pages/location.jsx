@@ -22,7 +22,9 @@ function Location() {
   if (localStorage.getItem("login_id") <= 0) {
     window.location = "/login";
   }
-  const [datas, setDatas] = useState([]);
+  const [countrylist, setCountrylist] = useState([]);
+  const [statelist, setStatelist] = useState([]);
+  const [citylist, setCitylist] = useState([]);
   const [returndspmsg, setReturndspmsg] = useState();
   const [errorMsg, setErrorMsg] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -49,14 +51,34 @@ function Location() {
       .catch((error) => console.error(error));*/
     axios
       //.get("https://jsonplaceholder.typicode.com/posts")
-      .get("/api/getexamlisting")
+      .get("/api/getcountrylisting")
       .then((response) => {
-        setDatas(response.data);
+        setCountrylist(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    axios
+      //.get("https://jsonplaceholder.typicode.com/posts")
+      .get("/api/getstatelisting")
+      .then((response) => {
+        setStatelist(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios
+      //.get("https://jsonplaceholder.typicode.com/posts")
+      .get("/api/getcitylisting")
+      .then((response) => {
+        setCitylist(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
+
   const handleChangeFormdata = (e) => {
     const { name, value } = e.target;
     setEditdata((prevState) => ({
@@ -64,48 +86,20 @@ function Location() {
       [name]: value,
     }));
   };
+
+  //start country listing
   //const data = JSON.parse(datas);
   //const keys = Object.keys(data.length ? data[0] : {});
-  const data = datas;
-
+  const data = countrylist;
   const columns = [
     {
-      accessorKey: "exam_name", //simple recommended way to define a column
+      accessorKey: "country_name", //simple recommended way to define a column
       header: "Name",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
-    {
-      accessorKey: "exam_url", //simple recommended way to define a column
-      header: "URL",
-      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
-      Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
-    },
-
-    {
-      accessorKey: "exam_brief", //simple recommended way to define a column
-      header: "Brief",
-      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
-      Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
-    },
   ];
   const [rowSelection, setRowSelection] = useState({});
-  const addnewexam = () => {
-    setIsEditOpen(true);
-    setEditdata("");
-  };
-  const editDetails = (editval) => {
-    console.log("Edit exam id:", editval);
-    axios
-      .get("/api/editexam/" + editval)
-      .then((response) => {
-        setEditdata(response.data[0]);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   const table = useMaterialReactTable({
     columns,
     data,
@@ -122,7 +116,7 @@ function Location() {
             <EditIcon
               onClick={() => {
                 // table.setEditingRow(row);
-                editDetails(row.original.exam_id);
+                editCountryDetails(row.original.cout_id);
 
                 //console.log("Edit======------>", row.original.rol_id);
               }}
@@ -141,7 +135,140 @@ function Location() {
       </Box>
     ),
   });
+  //end country listing
+
+  // state listing
+  const dataste = statelist;
+  const columnstate = [
+    {
+      accessorKey: "state_name", //simple recommended way to define a column
+      header: "State Name",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
+      accessorKey: "country_name", //simple recommended way to define a column
+      header: "Country Name",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+  ];
+  const [rowSelectionste, setRowSelectionste] = useState({});
+
+  const tablestate = useMaterialReactTable({
+    columns: columnstate,
+    data: dataste,
+    enableColumnOrdering: true, //enable some features
+    enableRowSelection: false,
+    enablePagination: true, //disable a default feature
+    enableRowActions: true,
+    onRowSelectionChange: setRowSelectionste, //hoist internal state to your own state (optional)
+    state: { rowSelection }, //manage your own state, pass it back to the table (optional)
+    renderRowActions: ({ row, tablestate }) => (
+      <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Tooltip title="Edit">
+          <IconButton onClick={() => setIsEditOpen(true)}>
+            <EditIcon
+              onClick={() => {
+                // table.setEditingRow(row);
+                editCountryDetails(row.original.cout_id);
+
+                //console.log("Edit======------>", row.original.rol_id);
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
+            <DeleteIcon
+              onClick={() => {
+                // data.splice(row.index, 1); //assuming simple data table
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    ),
+  });
+  //end state listing
+
+  // city listing
+  const datacity = citylist;
+  const columncity = [
+    {
+      accessorKey: "city_name", //simple recommended way to define a column
+      header: "City Name",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
+      accessorKey: "city_url", //simple recommended way to define a column
+      header: "City URL",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
+      accessorKey: "state_name", //simple recommended way to define a column
+      header: "State Name",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+  ];
+  const [rowSelectioncity, setRowSelectioncity] = useState({});
+
+  const tablecity = useMaterialReactTable({
+    columns: columncity,
+    data: datacity,
+    enableColumnOrdering: true, //enable some features
+    enableRowSelection: false,
+    enablePagination: true, //disable a default feature
+    enableRowActions: true,
+    onRowSelectionChange: setRowSelectioncity, //hoist internal state to your own state (optional)
+    state: { rowSelectioncity }, //manage your own state, pass it back to the table (optional)
+    renderRowActions: ({ row, tablecity }) => (
+      <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Tooltip title="Edit">
+          <IconButton onClick={() => setIsEditOpen(true)}>
+            <EditIcon
+              onClick={() => {
+                // table.setEditingRow(row);
+                editCountryDetails(row.original.cit_id);
+
+                //console.log("Edit======------>", row.original.rol_id);
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
+            <DeleteIcon
+              onClick={() => {
+                // data.splice(row.index, 1); //assuming simple data table
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    ),
+  });
+  //end state listing
+
   // add new exam
+  const addnewexam = () => {
+    setIsEditOpen(true);
+    setEditdata("");
+  };
+  const editCountryDetails = (editval) => {
+    console.log("Edit exam id:", editval);
+    axios
+      .get("/api/editexam/" + editval)
+      .then((response) => {
+        setEditdata(response.data[0]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const addexam = (e) => {
     e.preventDefault();
@@ -309,8 +436,8 @@ function Location() {
   };
   const showState = () => {
     setIsCountry(false);
-    setIsState(false);
-    setIsCity(true);
+    setIsState(true);
+    setIsCity(false);
 
     setCountryActive("");
     setStateActive("active");
@@ -435,7 +562,7 @@ function Location() {
 
         <div className="p-2">
           <div className="mx-auto max-w-7xl py-6 sm:px-2 lg:px-2">
-            <MaterialReactTable table={table} />
+            <MaterialReactTable table={tablestate} />
           </div>
         </div>
       </>
@@ -493,7 +620,7 @@ function Location() {
 
         <div className="p-2">
           <div className="mx-auto max-w-7xl py-6 sm:px-2 lg:px-2">
-            <MaterialReactTable table={table} />
+            <MaterialReactTable table={tablecity} />
           </div>
         </div>
       </>
@@ -502,6 +629,7 @@ function Location() {
 
   return (
     <>
+      {console.log("status --> ", isCountry, isState, isCity)}
       <div className="p-2 locationlist">
         <div className="mx-auto max-w-7xl py-6 sm:px-2 lg:px-2">
           <div className="flex-grow gap-10 step-tabs">
