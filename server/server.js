@@ -774,6 +774,36 @@ app.get("/api/getcountrylisting", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/countrydetail/:cout_id", (req, res) => {
+  location_model
+    .countrydetail(req.params.cout_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/updatecountry", (req, res) => {
+  location_model
+    .updatecountry(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/addcountry", (req, res) => {
+  location_model
+    .addcountry(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/getstatelisting", (req, res) => {
   location_model
     .statelisting()

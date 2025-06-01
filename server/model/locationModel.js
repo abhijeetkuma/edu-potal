@@ -47,17 +47,85 @@ const countrylisting = async () => {
     throw new Error("Internal server error");
   }
 };
-const countrydetail = (na_url) => {
+const countrydetail = (cout_id) => {
   return new Promise(function (resolve, reject) {
     pool.query(
-      "SELECT * FROM countrylist WHERE caut_id = $1",
-      [na_url],
+      "SELECT * FROM countrylist WHERE cout_id = $1",
+      [cout_id],
       (error, results) => {
         if (error) {
           reject(error);
         }
         if (results && results.rows) {
           resolve(results.rows);
+        }
+      }
+    );
+  });
+};
+const updatecountry = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const {
+      cout_id,
+      country_name,
+      country_url,
+      meta_title,
+      meta_description,
+      meta_keyword,
+    } = body;
+    pool.query(
+      "UPDATE countrylist SET country_name=$2,country_url=$3,meta_title=$4,meta_description=$5, meta_keyword=$6 WHERE cout_id=$1 RETURNING cout_id",
+      [
+        cout_id,
+        country_name,
+        country_url,
+        meta_title,
+        meta_description,
+        meta_keyword,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A country details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const addcountry = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const {
+      country_name,
+      country_url,
+      meta_title,
+      meta_description,
+      meta_keyword,
+    } = body;
+    pool.query(
+      "INSERT INTO countrylist(country_name,country_url,meta_title,meta_description,meta_keyword) VALUES ($1, $2, $3,$4,$5) RETURNING *",
+      [country_name, country_url, meta_title, meta_description, meta_keyword],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A country details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
         }
       }
     );
@@ -112,6 +180,8 @@ const citylisting = async () => {
 module.exports = {
   countrylisting,
   countrydetail,
+  updatecountry,
+  addcountry,
   statelisting,
   citylisting,
 };
