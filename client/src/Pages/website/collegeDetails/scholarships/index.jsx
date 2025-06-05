@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import Relatedcolleges from "../../college/relatedcolleges";
@@ -22,6 +22,11 @@ function CollegeScholarships(props) {
       logo,
     },
   } = props;
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+      window.scroll(0, 0)
+  }, [pathname])
 
   return (
     <>

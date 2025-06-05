@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 import PropTypes from "prop-types";
+import axios from "axios";
+
 import adsImg1 from "/images/ads/ads1.gif";
 import adsImg2 from "/images/ads/ads2.gif";
 import clgSmallImg from "/images/img-dummy-sm.png";
+import Accordion from "./commonComps/accordion";
 
 function Toccafe(props) {
   const [displaytoclisting, setDisplaytoclisting] = useState({
@@ -40,9 +42,11 @@ function Toccafe(props) {
         <section className="college-list-wrapper exams-container">
           <div className="font-bold text-2xl pb-3 pt-3">Toc Cafe</div>
           <div className="toclist">
+            {/* <div>{renderToc(item, id)}</div> */}
+
             {displaytoclisting.length > 0 &&
               displaytoclisting.map((item, id) => (
-                <div>{renderToc(item, id)}</div>
+                 <Accordion  title={item.question} content={item.answer}/>
               ))}
           </div>
         </section>

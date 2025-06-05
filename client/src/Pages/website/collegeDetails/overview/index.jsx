@@ -140,7 +140,7 @@ function CollegeOverview(props) {
         </section>
 
         <section className="highlights mt-10">
-          <h2 className="font-bold text-2xl mb-5">Highlights</h2>
+          <h2 className="font-bold text-2xl mb-5">{college_name} Highlights</h2>
           <ul
             className={
               display_type === "Tabuller" ? "tabullerDisplay" : "bulletDisplay"
@@ -156,7 +156,7 @@ function CollegeOverview(props) {
         </section>
 
         <section className="courses college-list-wrapper mt-10">
-          <h2 className="font-bold text-2xl mb-5">Top Programs</h2>
+          <h2 className="font-bold text-2xl mb-5">{college_name} Top Programs</h2>
           {sub_course_details?.map((item, i) => (
             <div className="college-list-card" id="34">
               <div className="title-section">
@@ -229,16 +229,68 @@ function CollegeOverview(props) {
             </div>
           ))}
 
-          <Link className="viewAll-btn" to={""}>
+          <Link className="viewAll-btn" to={`/college/${college_url}+courses-and-fees`}>
             View All Courses
           </Link>
         </section>
 
-        <Facilities data={facilities && facilities} />
+      <section className="admissions">
+        <h2 className="font-bold text-2xl mb-5">
+          {`${college_name} Admission Process`}
+        </h2>
+        <div className="mb-2"
+          dangerouslySetInnerHTML={{
+            __html: props.data.adminssiondetails?.substring(0, 450)+' ...... ',
+          }}
+        ></div>
+          <Link className="viewAll-btn" to={`/college/${college_url}+admissions`}>
+            View Details
+          </Link>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="font-bold text-2xl mt-12 mb-5">
+          {`${college_name} Placement`}
+        </h2>
+        <div className="mb-2"
+        dangerouslySetInnerHTML={{ __html: props.data.placement_overview?.substring(0, 450)+' ...... ' }}>
+        </div>
+          <Link className="viewAll-btn" to={`/college/${college_url}+placements`}>
+            View Details
+          </Link>
+      </section>
+
+
+      <section className="mb-12">
+        <h2 className="font-bold text-2xl mb-5">
+          {`${college_name} Scholarships`}
+        </h2>
+        <div className="mb-2"
+          dangerouslySetInnerHTML={{ __html: props.data.scholarshipoffer?.substring(0, 450)+' ...... ' }}
+        ></div>
+          <Link className="viewAll-btn" to={`/college/${college_url}+scholarships`}>
+            View Details
+          </Link>
+      </section>
+
+      <section className="faculties mb-12">
+        <h2 className="font-bold text-2xl mb-5">{`${college_name} Faculty`}</h2>
+        <div className="mb-2"
+          dangerouslySetInnerHTML={{
+            __html: props.data.facultyprofile?.substring(0, 250)+' ...... ',
+          }}
+        ></div>
+          <Link className="viewAll-btn" to={`/college/${college_url}+faculties`}>
+            View Details
+          </Link>
+      </section>
+      
+
+        <Facilities data={facilities && facilities} clgName={college_name} />
 
         <section className="rating wrapper mt-10">
-          <h2 className="font-bold text-2xl">Rating</h2>
-            <h3 className="font-bold text-xs mb-5">{college_name}</h3>
+          <h2 className="font-bold text-2xl mb-5">{college_name} Rating</h2>
+            {/* <h3 className="font-bold text-xs mb-5">{college_name}</h3> */}
             <span className="shadow-md clg-rating">
               <img src={star} alt="" />
               <span>
@@ -254,7 +306,7 @@ function CollegeOverview(props) {
         </section>
 
         <section className="address mt-10">
-          <h2 className="font-bold text-2xl mb-5">Address/Contact</h2>
+          <h2 className="font-bold text-2xl mb-5">{college_name} Address/Contact</h2>
           <Contact data={props.data} modelOpen={openModal} />
         </section>
 
