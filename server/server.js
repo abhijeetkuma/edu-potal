@@ -11,6 +11,8 @@ const colleges_model = require("./model/collegesModel");
 const notification_model = require("./model/notificationModel");
 const advertisement_model = require("./model/advertisementModel");
 const cms_model = require("./model/Frontend/cmsModel");
+const location_model = require("./model/locationModel");
+
 const landing_model = require("./model/Frontend/landingModel");
 const collegelisting_model = require("./model/Frontend/collegelistingModel");
 const exan_model = require("./model/Frontend/examModel");
@@ -237,6 +239,46 @@ app.post("/api/addcourse", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.post("/api/addexam", (req, res) => {
+  colleges_model
+    .addNewexam(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/updateexam", (req, res) => {
+  colleges_model
+    .updateexam(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/updatetrending", (req, res) => {
+  colleges_model
+    .updatetrending(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/addtrending", (req, res) => {
+  colleges_model
+    .addNewTrending(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.post("/api/addcategories", (req, res) => {
   colleges_model
     .addNewcategories(req.body)
@@ -251,6 +293,26 @@ app.post("/api/addcategories", (req, res) => {
 app.post("/api/addfacitly", (req, res) => {
   colleges_model
     .addNewfacility(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/editfacility/:facility_id", (req, res) => {
+  colleges_model
+    .editfacility(req.params.facility_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/updatefacility", (req, res) => {
+  colleges_model
+    .updatefacility(req.body)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -692,6 +754,107 @@ app.get("/api/getcourses", (req, res) => {
       res.status(500).send(error);
     });
 });
+app.get("/api/getexamlisting", (req, res) => {
+  colleges_model
+    .getExamlist()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/getcountrylisting", (req, res) => {
+  location_model
+    .countrylisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/countrydetail/:cout_id", (req, res) => {
+  location_model
+    .countrydetail(req.params.cout_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/updatecountry", (req, res) => {
+  location_model
+    .updatecountry(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/addcountry", (req, res) => {
+  location_model
+    .addcountry(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/getstatelisting", (req, res) => {
+  location_model
+    .statelisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/getcitylisting", (req, res) => {
+  location_model
+    .citylisting()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.get("/api/gettrending", (req, res) => {
+  colleges_model
+    .getTrendinglist()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/edittrending/:tid", (req, res) => {
+  colleges_model
+    .edittrending(req.params.tid)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/editexam/:exam_id", (req, res) => {
+  colleges_model
+    .editexam(req.params.exam_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
 app.get("/api/getcmslisting", (req, res) => {
   colleges_model
     .getCMSListing()
@@ -1080,6 +1243,7 @@ app.get("/api/editcourse/:cour_id", (req, res) => {
       res.status(500).send(error);
     });
 });
+
 app.post("/api/updatecourse", (req, res) => {
   colleges_model
     .updatecourse(req.body)
@@ -1144,6 +1308,26 @@ app.get("/api/getapprovedby", (req, res) => {
 app.get("/api/editapproval/:approv_id", (req, res) => {
   colleges_model
     .editapproved(req.params.approv_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/addnewapprovedby", (req, res) => {
+  colleges_model
+    .addnewapprovedby(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/updateapprovedby", (req, res) => {
+  colleges_model
+    .updateapprovedby(req.body)
     .then((response) => {
       res.status(200).send(response);
     })

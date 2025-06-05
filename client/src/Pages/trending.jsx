@@ -18,32 +18,23 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
-function Approvedby() {
+function Trending() {
   if (localStorage.getItem("login_id") <= 0) {
     window.location = "/login";
   }
   const [datas, setDatas] = useState([]);
+  const [returndspmsg, setReturndspmsg] = useState();
+  const [errorMsg, setErrorMsg] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
   const [editdata, setEditdata] = useState({
-    approv_id: "",
-    approved_name: "",
-    approved_description: "",
-    app_meta_title: "",
-    app_meta_description: "",
-    app_meta_keyword: "",
-    app_status: "",
-    approved_url: "",
-    user_id: "",
+    tid: "",
+    trading_name: "",
+    trading_url: "",
   });
-  const [errorMsg, setErrorMsg] = useState([]);
   useEffect(() => {
-    /*fetch("http://localhost:3001/")
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error));*/
     axios
-      .get("/api/getapprovedby")
+      .get("/api/gettrending")
       .then((response) => {
         setDatas(response.data);
       })
@@ -51,36 +42,40 @@ function Approvedby() {
         console.error(error);
       });
   }, []);
+  const handleChangeFormdata = (e) => {
+    const { name, value } = e.target;
+    setEditdata((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   //const data = JSON.parse(datas);
   //const keys = Object.keys(data.length ? data[0] : {});
   const data = datas;
 
   const columns = [
     {
-      accessorKey: "approved_name", //simple recommended way to define a column
+      accessorKey: "trading_name", //simple recommended way to define a column
       header: "Name",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
-      accessorKey: "approved_url", //simple recommended way to define a column
+      accessorKey: "trading_url", //simple recommended way to define a column
       header: "URL",
-      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
-      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
-    },
-
-    {
-      accessorKey: "status", //simple recommended way to define a column
-      header: "Status",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
   ];
   const [rowSelection, setRowSelection] = useState({});
+  const addnewtrending = () => {
+    setIsEditOpen(true);
+    setEditdata("");
+  };
   const editDetails = (editval) => {
-    console.log("Edit course id:", editval);
+    console.log("Edit trending id:", editval);
     axios
-      .get("/api/editapproval/" + editval)
+      .get("/api/edittrending/" + editval)
       .then((response) => {
         setEditdata(response.data[0]);
       })
@@ -105,9 +100,9 @@ function Approvedby() {
             <EditIcon
               onClick={() => {
                 // table.setEditingRow(row);
-                editDetails(row.original.approv_id);
+                editDetails(row.original.tid);
 
-                //console.log("Edit======------>", row.original.approv_id);
+                //console.log("Edit======------>", row.original.rol_id);
               }}
             />
           </IconButton>
@@ -124,86 +119,51 @@ function Approvedby() {
       </Box>
     ),
   });
-  const handleChangeFormdata = (e) => {
-    const { name, value } = e.target;
-    setEditdata((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-  // add edit approval by
-  const addapprovedby = (e) => {
+  // add new trending
+
+  const addtrending = (e) => {
     e.preventDefault();
-    const {
-      approv_id,
-      approved_name,
-      approved_url,
-      app_meta_title,
-      app_meta_description,
-      app_meta_keyword,
-      approved_description,
-    } = e.target.elements;
+    const { tid, trading_name, trading_url } = e.target.elements;
 
     let errorsForm = [];
 
-    if (approved_name.value === "") {
-      errorsForm.push(<div key="branameErr">Approved by cann't be blank!</div>);
-    } else {
-      errorsForm.push();
-    }
-    if (approved_url.value === "") {
-      errorsForm.push(<div key="branurlErr">Approved by cann't be blank!</div>);
-    } else {
-      errorsForm.push();
-    }
-    if (app_meta_title.value === "") {
-      errorsForm.push(<div key="metatitErr">Meta Title cann't be blank!</div>);
-    } else {
-      errorsForm.push();
-    }
-    if (app_meta_keyword.value === "") {
+    if (trading_name.value === "") {
       errorsForm.push(
-        <div key="metakeyErr">Meta Keyword cann't be blank!</div>
+        <div key="branameErr">Trending Name cann't be blank!</div>
       );
     } else {
       errorsForm.push();
     }
-    if (app_meta_description.value === "") {
+    if (trading_url.value === "") {
       errorsForm.push(
-        <div key="metadescErr">Meta Description cann't be blank!</div>
+        <div key="branurlErr">Trending URL cann't be blank!</div>
       );
     } else {
       errorsForm.push();
     }
+
     console.log("errorsForm", errorsForm);
     if (errorsForm.length === 0) {
       const payload = {
-        approv_id: approv_id.value,
-        approved_name: approved_name.value,
-        approved_url: approved_url.value,
-        app_meta_title: app_meta_title.value,
-        app_meta_description: app_meta_description.value,
-        app_meta_keyword: app_meta_keyword.value,
-        approved_description: approved_description.value,
-        app_status: "A",
+        tid: tid.value,
+        trading_name: trading_name.value,
+        trading_url: trading_url.value,
+        trading_status: "A",
       };
-      if (approv_id.value > 0) {
+      if (tid.value > 0) {
         axios({
           method: "post",
-          url: "/api/updateapprovedby",
+          url: "/api/updatetrending",
           data: payload,
         })
           .then(function (response) {
             console.log(response);
-            approv_id.value = "";
-            approved_name.value = "";
-            approved_url.value = "";
-            app_meta_title.value = "";
-            app_meta_description.value = "";
-            app_meta_keyword.value = "";
+            tid.value = "";
+            trading_name.value = "";
+            trading_url.value = "";
             if (response.statusText == "OK") {
               setIsEditOpen(false);
-              toast.success("Approved by details updated!", {
+              toast.success("Trending details updated!", {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -217,7 +177,7 @@ function Approvedby() {
             }
             //get results
             axios
-              .get("/api/getapprovedby")
+              .get("/api/gettrending")
               .then((response) => {
                 setDatas(response.data);
               })
@@ -232,23 +192,32 @@ function Approvedby() {
       } else {
         axios({
           method: "post",
-          url: "/api/addnewapprovedby",
+          url: "/api/addtrending",
           data: payload,
         })
           .then(function (response) {
             console.log(response);
-            approv_id.value = "";
-            approved_name.value = "";
-            approved_url.value = "";
-            app_meta_title.value = "";
-            app_meta_description.value = "";
-            app_meta_keyword.value = "";
-            setReturndspmsg(
-              "<div className={sussmsg}>Record successfully added</div>"
-            );
+            tid.value = "";
+            trading_name.value = "";
+            trading_url.value = "";
+            if (response.statusText == "OK") {
+              setIsEditOpen(false);
+              toast.success("Record successfully added", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                //transition: Bounce,
+              });
+            }
+
             //get results
             axios
-              .get("/api/getapprovedby")
+              .get("/api/gettrending")
               .then((response) => {
                 setDatas(response.data);
               })
@@ -260,7 +229,7 @@ function Approvedby() {
           .catch(function (error) {
             console.log(error);
             setReturndspmsg(
-              "<div className={errmsg}>Error in add approved by record</div>"
+              "<div className={errmsg}>Error in add trending record</div>"
             );
           });
       }
@@ -268,15 +237,17 @@ function Approvedby() {
       setErrorMsg(errorsForm);
     }
   };
-  // end add edit approval by
-
+  // end add new trending
   return (
     <>
       <div className="flex bg-white shadow">
         <div className="pageHeader p-3">
-          <h1 className="text-2xl font-semibold">Approved by Listing</h1>
+          <h1 className="text-2xl font-semibold">Trending Listing</h1>
           <div className="actions">
-            <span onClick={() => setIsEditOpen(true)}>
+            <span
+              // onClick={() => document.getElementById("users_modal").showModal()}
+              onClick={() => addnewtrending()}
+            >
               <svg
                 className="h-6 w-6 text-stone-600"
                 width="24"
@@ -295,7 +266,10 @@ function Approvedby() {
                 <line x1="12" y1="9" x2="12" y2="15" />
               </svg>
             </span>
-            <span onClick={() => setIsFilter(true)}>
+            <span
+              //onClick={() =>document.getElementById("filter_modal").showModal()}
+              onClick={() => setIsFilter(true)}
+            >
               <svg
                 className="h-6 w-6 text-stone-600"
                 viewBox="0 0 24 24"
@@ -332,27 +306,24 @@ function Approvedby() {
               </button>
             </form>
             <h3 className="font-bold text-lg">
-              {editdata.approv_id > 0 ? "Edit" : "Add"} Approved By{" "}
+              {editdata.tid > 0 ? "Edit" : "Add"} Trending
             </h3>
 
             <form
               action=""
               method="post"
-              id="coursebranchForm"
-              onSubmit={addapprovedby}
+              id="trendingForm"
+              onSubmit={addtrending}
             >
+              {returndspmsg && returndspmsg}
               <div className="mt-2">
-                <input
-                  type="hidden"
-                  value={editdata.approv_id}
-                  name="approv_id"
-                />
+                <input type="hidden" value={editdata.tid} name="tid" />
                 <input
                   type="text"
-                  name="approved_name"
-                  placeholder="Approved By*"
+                  name="trading_name"
+                  placeholder="Trending Name*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.approved_name && editdata.approved_name}
+                  value={editdata.trading_name && editdata.trading_name}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[0]}</div>
@@ -360,64 +331,15 @@ function Approvedby() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="approved_url"
-                  placeholder="Approved By URL*"
+                  name="trading_url"
+                  placeholder="Trending URL*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.approved_url && editdata.approved_url}
-                  onChange={handleChangeFormdata}
-                />
-                <div className="errmsg">{errorMsg[1]}</div>
-              </div>{" "}
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="approved_description"
-                  placeholder="Approved By Details*"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={
-                    editdata.approved_description &&
-                    editdata.approved_description.trim()
-                  }
+                  value={editdata.trading_url && editdata.trading_url}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[1]}</div>
               </div>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="app_meta_title"
-                  placeholder="Meta Title*"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.app_meta_title && editdata.app_meta_title}
-                  onChange={handleChangeFormdata}
-                />
-                <div className="errmsg">{errorMsg[2]}</div>
-              </div>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="app_meta_description"
-                  placeholder="Meta Description*"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={
-                    editdata.app_meta_description &&
-                    editdata.app_meta_description
-                  }
-                  onChange={handleChangeFormdata}
-                />
-                <div className="errmsg">{errorMsg[3]}</div>
-              </div>
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="app_meta_keyword"
-                  placeholder="Meta Keyword*"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.app_meta_keyword && editdata.app_meta_keyword}
-                  onChange={handleChangeFormdata}
-                />
-                <div className="errmsg">{errorMsg[4]}</div>
-              </div>
+
               <div className="btn-section">
                 <button type="button" onClick={() => setIsEditOpen(false)}>
                   Cancle
@@ -426,7 +348,7 @@ function Approvedby() {
                   type="submit"
                   className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  {editdata.approv_id > 0 ? "Update" : "Submit"}
+                  {editdata.tid > 0 ? "Update" : "Submit"}
                 </button>
               </div>
             </form>
@@ -450,7 +372,7 @@ function Approvedby() {
             <form>
               <input
                 type="text"
-                placeholder="Search by name"
+                placeholder="Search by college name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
               <div className="btn-section">
@@ -469,4 +391,4 @@ function Approvedby() {
     </>
   );
 }
-export default Approvedby;
+export default Trending;

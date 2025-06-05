@@ -13,6 +13,9 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 function Facilites() {
@@ -24,6 +27,11 @@ function Facilites() {
   const [errorMsg, setErrorMsg] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
+  const [editdata, setEditdata] = useState({
+    facility_id: "",
+    facility_name: "",
+    facility_status: "",
+  });
   useEffect(() => {
     /*fetch("http://localhost:3001/")
       .then((response) => response.json())
@@ -38,6 +46,13 @@ function Facilites() {
         console.error(error);
       });
   }, []);
+  const handleChangeFormdata = (e) => {
+    const { name, value } = e.target;
+    setEditdata((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   //const data = JSON.parse(datas);
   //const keys = Object.keys(data.length ? data[0] : {});
   const data = datas;
@@ -59,21 +74,58 @@ function Facilites() {
   ];
   const [rowSelection, setRowSelection] = useState({});
 
+  const editDetails = (editval) => {
+    console.log("Edit exam id:", editval);
+    axios
+      .get("/api/editfacility/" + editval)
+      .then((response) => {
+        setEditdata(response.data[0]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const table = useMaterialReactTable({
     columns,
     data,
     enableColumnOrdering: true, //enable some features
     enableRowSelection: false,
-    enablePagination: false, //disable a default feature
+    enablePagination: true, //disable a default feature
+    enableRowActions: true,
     onRowSelectionChange: setRowSelection, //hoist internal state to your own state (optional)
     state: { rowSelection }, //manage your own state, pass it back to the table (optional)
-  });
+    renderRowActions: ({ row, table }) => (
+      <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Tooltip title="Edit">
+          <IconButton onClick={() => setIsEditOpen(true)}>
+            <EditIcon
+              onClick={() => {
+                // table.setEditingRow(row);
+                editDetails(row.original.facility_id);
 
-  // add new course
+                //console.log("Edit======------>", row.original.facility_id);
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
+            <DeleteIcon
+              onClick={() => {
+                // data.splice(row.index, 1); //assuming simple data table
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    ),
+  });
+  // add new facility
 
   const addfacitly = (e) => {
     e.preventDefault();
-    const { facility_name, facility_status } = e.target.elements;
+    const { facility_id, facility_name, facility_status } = e.target.elements;
 
     let errorsForm = [];
 
@@ -88,37 +140,90 @@ function Facilites() {
     console.log("errorsForm", errorsForm);
     if (errorsForm.length === 0) {
       const payload = {
+        facility_id: facility_id.value,
         facility_name: facility_name.value,
         facility_status: "A",
       };
-      axios({
-        method: "post",
-        url: "/api/addfacitly",
-        data: payload,
-      })
-        .then(function (response) {
-          console.log(response);
-          facility_name.value = "";
-          setReturndspmsg(
-            "<div className={sussmsg}>Record successfully added</div>"
-          );
-          //get results
-          axios
-            .get("/api/getfacilitys")
-            .then((response) => {
-              setDatas(response.data);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          //end get results
+      if (facility_id.value > 0) {
+        axios({
+          method: "post",
+          url: "/api/updatefacility",
+          data: payload,
         })
-        .catch(function (error) {
-          console.log(error);
-          setReturndspmsg(
-            "<div className={errmsg}>Error in add facility record</div>"
-          );
-        });
+          .then(function (response) {
+            console.log(response);
+            facility_id.value = "";
+            facility_name.value = "";
+            if (response.statusText == "OK") {
+              setIsEditOpen(false);
+              toast.success("Facility details updated!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                //transition: Bounce,
+              });
+            }
+            //get results
+            axios
+              .get("/api/getfacilitys")
+              .then((response) => {
+                setDatas(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            //end get results
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        axios({
+          method: "post",
+          url: "/api/addfacitly",
+          data: payload,
+        })
+          .then(function (response) {
+            console.log(response);
+            facility_id.value = "";
+            facility_name.value = "";
+            if (response.statusText == "OK") {
+              setIsEditOpen(false);
+              toast.success("facility details updated!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                //transition: Bounce,
+              });
+            }
+            //get results
+            axios
+              .get("/api/getfacilitys")
+              .then((response) => {
+                setDatas(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            //end get results
+          })
+          .catch(function (error) {
+            console.log(error);
+            setReturndspmsg(
+              "<div className={errmsg}>Error in add facility record</div>"
+            );
+          });
+      }
     } else {
       setErrorMsg(errorsForm);
     }
@@ -186,7 +291,9 @@ function Facilites() {
                 ✕
               </button>
             </form>
-            <h3 className="font-bold text-lg">Add Facility</h3>
+            <h3 className="font-bold text-lg">
+              {editdata.facility_id > 0 ? "Edit" : "Add"} Facility
+            </h3>
 
             <form
               action=""
@@ -198,10 +305,17 @@ function Facilites() {
 
               <div className="mt-2">
                 <input
+                  type="hidden"
+                  name="facility_id"
+                  value={editdata.facility_id}
+                />
+                <input
                   type="text"
                   name="facility_name"
                   placeholder="Facility Name*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editdata.facility_name ? editdata.facility_name : ""}
+                  onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[0]}</div>
               </div>
@@ -214,7 +328,7 @@ function Facilites() {
                   type="submit"
                   className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Submit
+                  {editdata.facility_id > 0 ? "Update" : "Submit"}
                 </button>
               </div>
             </form>
@@ -253,6 +367,7 @@ function Facilites() {
           </div>
         </DialogContent>
       )}
+      <ToastContainer />
     </>
   );
 }

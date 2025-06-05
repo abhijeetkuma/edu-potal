@@ -18,32 +18,31 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
-function Approvedby() {
+function Exam() {
   if (localStorage.getItem("login_id") <= 0) {
     window.location = "/login";
   }
   const [datas, setDatas] = useState([]);
+  const [returndspmsg, setReturndspmsg] = useState();
+  const [errorMsg, setErrorMsg] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
   const [editdata, setEditdata] = useState({
-    approv_id: "",
-    approved_name: "",
-    approved_description: "",
-    app_meta_title: "",
-    app_meta_description: "",
-    app_meta_keyword: "",
-    app_status: "",
-    approved_url: "",
-    user_id: "",
+    exam_id: "",
+    emeta_description: "",
+    emeta_keyword: "",
+    emeta_title: "",
+    exam_name: "",
+    exam_url: "",
   });
-  const [errorMsg, setErrorMsg] = useState([]);
   useEffect(() => {
     /*fetch("http://localhost:3001/")
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error));*/
     axios
-      .get("/api/getapprovedby")
+      //.get("https://jsonplaceholder.typicode.com/posts")
+      .get("/api/getexamlisting")
       .then((response) => {
         setDatas(response.data);
       })
@@ -51,36 +50,47 @@ function Approvedby() {
         console.error(error);
       });
   }, []);
+  const handleChangeFormdata = (e) => {
+    const { name, value } = e.target;
+    setEditdata((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   //const data = JSON.parse(datas);
   //const keys = Object.keys(data.length ? data[0] : {});
   const data = datas;
 
   const columns = [
     {
-      accessorKey: "approved_name", //simple recommended way to define a column
+      accessorKey: "exam_name", //simple recommended way to define a column
       header: "Name",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
     {
-      accessorKey: "approved_url", //simple recommended way to define a column
+      accessorKey: "exam_url", //simple recommended way to define a column
       header: "URL",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
-      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+      Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
 
     {
-      accessorKey: "status", //simple recommended way to define a column
-      header: "Status",
+      accessorKey: "exam_brief", //simple recommended way to define a column
+      header: "Brief",
       muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
       Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
     },
   ];
   const [rowSelection, setRowSelection] = useState({});
+  const addnewexam = () => {
+    setIsEditOpen(true);
+    setEditdata("");
+  };
   const editDetails = (editval) => {
-    console.log("Edit course id:", editval);
+    console.log("Edit exam id:", editval);
     axios
-      .get("/api/editapproval/" + editval)
+      .get("/api/editexam/" + editval)
       .then((response) => {
         setEditdata(response.data[0]);
       })
@@ -105,9 +115,9 @@ function Approvedby() {
             <EditIcon
               onClick={() => {
                 // table.setEditingRow(row);
-                editDetails(row.original.approv_id);
+                editDetails(row.original.exam_id);
 
-                //console.log("Edit======------>", row.original.approv_id);
+                //console.log("Edit======------>", row.original.rol_id);
               }}
             />
           </IconButton>
@@ -124,51 +134,58 @@ function Approvedby() {
       </Box>
     ),
   });
-  const handleChangeFormdata = (e) => {
-    const { name, value } = e.target;
-    setEditdata((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-  // add edit approval by
-  const addapprovedby = (e) => {
+  // add new exam
+
+  const addexam = (e) => {
     e.preventDefault();
     const {
-      approv_id,
-      approved_name,
-      approved_url,
-      app_meta_title,
-      app_meta_description,
-      app_meta_keyword,
-      approved_description,
+      exam_id,
+      exam_name,
+      exam_url,
+      exam_brief,
+      exam_description,
+      emeta_title,
+      emeta_description,
+      emeta_keyword,
     } = e.target.elements;
 
     let errorsForm = [];
 
-    if (approved_name.value === "") {
-      errorsForm.push(<div key="branameErr">Approved by cann't be blank!</div>);
+    if (exam_name.value === "") {
+      errorsForm.push(<div key="branameErr">Exam Name cann't be blank!</div>);
     } else {
       errorsForm.push();
     }
-    if (approved_url.value === "") {
-      errorsForm.push(<div key="branurlErr">Approved by cann't be blank!</div>);
+    if (exam_url.value === "") {
+      errorsForm.push(<div key="branurlErr">Exam URL cann't be blank!</div>);
     } else {
       errorsForm.push();
     }
-    if (app_meta_title.value === "") {
+    if (exam_brief.value === "") {
+      errorsForm.push(<div key="branurlErr">Exam Brief cann't be blank!</div>);
+    } else {
+      errorsForm.push();
+    }
+    if (exam_description.value === "") {
+      errorsForm.push(
+        <div key="branurlErr">Exam Description cann't be blank!</div>
+      );
+    } else {
+      errorsForm.push();
+    }
+    if (emeta_title.value === "") {
       errorsForm.push(<div key="metatitErr">Meta Title cann't be blank!</div>);
     } else {
       errorsForm.push();
     }
-    if (app_meta_keyword.value === "") {
+    if (emeta_keyword.value === "") {
       errorsForm.push(
         <div key="metakeyErr">Meta Keyword cann't be blank!</div>
       );
     } else {
       errorsForm.push();
     }
-    if (app_meta_description.value === "") {
+    if (emeta_description.value === "") {
       errorsForm.push(
         <div key="metadescErr">Meta Description cann't be blank!</div>
       );
@@ -178,32 +195,35 @@ function Approvedby() {
     console.log("errorsForm", errorsForm);
     if (errorsForm.length === 0) {
       const payload = {
-        approv_id: approv_id.value,
-        approved_name: approved_name.value,
-        approved_url: approved_url.value,
-        app_meta_title: app_meta_title.value,
-        app_meta_description: app_meta_description.value,
-        app_meta_keyword: app_meta_keyword.value,
-        approved_description: approved_description.value,
-        app_status: "A",
+        exam_id: exam_id.value,
+        exam_name: exam_name.value,
+        exam_url: exam_url.value,
+        exam_brief: exam_brief.value,
+        exam_description: exam_description.value,
+        emeta_title: emeta_title.value,
+        emeta_description: emeta_description.value,
+        emeta_keyword: emeta_keyword.value,
+        cstatus: "A",
       };
-      if (approv_id.value > 0) {
+      if (exam_id.value > 0) {
         axios({
           method: "post",
-          url: "/api/updateapprovedby",
+          url: "/api/updateexam",
           data: payload,
         })
           .then(function (response) {
             console.log(response);
-            approv_id.value = "";
-            approved_name.value = "";
-            approved_url.value = "";
-            app_meta_title.value = "";
-            app_meta_description.value = "";
-            app_meta_keyword.value = "";
+            exam_id.value = "";
+            exam_name.value = "";
+            exam_url.value = "";
+            exam_brief.value = "";
+            exam_description.value = "";
+            emeta_title.value = "";
+            emeta_description.value = "";
+            emeta_keyword.value = "";
             if (response.statusText == "OK") {
               setIsEditOpen(false);
-              toast.success("Approved by details updated!", {
+              toast.success("Exam details updated!", {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -217,7 +237,7 @@ function Approvedby() {
             }
             //get results
             axios
-              .get("/api/getapprovedby")
+              .get("/api/getexamlisting")
               .then((response) => {
                 setDatas(response.data);
               })
@@ -232,23 +252,25 @@ function Approvedby() {
       } else {
         axios({
           method: "post",
-          url: "/api/addnewapprovedby",
+          url: "/api/addexam",
           data: payload,
         })
           .then(function (response) {
             console.log(response);
-            approv_id.value = "";
-            approved_name.value = "";
-            approved_url.value = "";
-            app_meta_title.value = "";
-            app_meta_description.value = "";
-            app_meta_keyword.value = "";
+            exam_id.value = "";
+            exam_name.value = "";
+            exam_url.value = "";
+            exam_brief.value = "";
+            exam_description.value = "";
+            emeta_title.value = "";
+            emeta_description.value = "";
+            emeta_keyword.value = "";
             setReturndspmsg(
               "<div className={sussmsg}>Record successfully added</div>"
             );
             //get results
             axios
-              .get("/api/getapprovedby")
+              .get("/api/getexamlisting")
               .then((response) => {
                 setDatas(response.data);
               })
@@ -260,7 +282,7 @@ function Approvedby() {
           .catch(function (error) {
             console.log(error);
             setReturndspmsg(
-              "<div className={errmsg}>Error in add approved by record</div>"
+              "<div className={errmsg}>Error in add exam record</div>"
             );
           });
       }
@@ -268,15 +290,17 @@ function Approvedby() {
       setErrorMsg(errorsForm);
     }
   };
-  // end add edit approval by
-
+  // end add new exam
   return (
     <>
       <div className="flex bg-white shadow">
         <div className="pageHeader p-3">
-          <h1 className="text-2xl font-semibold">Approved by Listing</h1>
+          <h1 className="text-2xl font-semibold">Exam Listing</h1>
           <div className="actions">
-            <span onClick={() => setIsEditOpen(true)}>
+            <span
+              // onClick={() => document.getElementById("users_modal").showModal()}
+              onClick={() => addnewexam()}
+            >
               <svg
                 className="h-6 w-6 text-stone-600"
                 width="24"
@@ -295,7 +319,10 @@ function Approvedby() {
                 <line x1="12" y1="9" x2="12" y2="15" />
               </svg>
             </span>
-            <span onClick={() => setIsFilter(true)}>
+            <span
+              //onClick={() =>document.getElementById("filter_modal").showModal()}
+              onClick={() => setIsFilter(true)}
+            >
               <svg
                 className="h-6 w-6 text-stone-600"
                 viewBox="0 0 24 24"
@@ -332,27 +359,19 @@ function Approvedby() {
               </button>
             </form>
             <h3 className="font-bold text-lg">
-              {editdata.approv_id > 0 ? "Edit" : "Add"} Approved By{" "}
+              {editdata.exam_id > 0 ? "Edit" : "Add"} Exam
             </h3>
 
-            <form
-              action=""
-              method="post"
-              id="coursebranchForm"
-              onSubmit={addapprovedby}
-            >
+            <form action="" method="post" id="examForm" onSubmit={addexam}>
+              {returndspmsg && returndspmsg}
               <div className="mt-2">
-                <input
-                  type="hidden"
-                  value={editdata.approv_id}
-                  name="approv_id"
-                />
+                <input type="hidden" value={editdata.exam_id} name="exam_id" />
                 <input
                   type="text"
-                  name="approved_name"
-                  placeholder="Approved By*"
+                  name="exam_name"
+                  placeholder="Exam Name*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.approved_name && editdata.approved_name}
+                  value={editdata.exam_name && editdata.exam_name}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[0]}</div>
@@ -360,35 +379,41 @@ function Approvedby() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="approved_url"
-                  placeholder="Approved By URL*"
+                  name="exam_url"
+                  placeholder="Exam URL*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.approved_url && editdata.approved_url}
-                  onChange={handleChangeFormdata}
-                />
-                <div className="errmsg">{errorMsg[1]}</div>
-              </div>{" "}
-              <div className="mt-2">
-                <input
-                  type="text"
-                  name="approved_description"
-                  placeholder="Approved By Details*"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={
-                    editdata.approved_description &&
-                    editdata.approved_description.trim()
-                  }
+                  value={editdata.exam_url && editdata.exam_url}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[1]}</div>
               </div>
               <div className="mt-2">
+                <textarea
+                  name="exam_brief"
+                  placeholder="Exam Brief*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
+                  onChange={handleChangeFormdata}
+                  value={editdata.exam_brief && editdata.exam_brief}
+                ></textarea>
+                <div className="errmsg">{errorMsg[1]}</div>
+              </div>
+              <div className="mt-2">
+                <textarea
+                  name="exam_description"
+                  placeholder="Exam Description*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
+                  onChange={handleChangeFormdata}
+                  value={editdata.exam_description && editdata.exam_description}
+                ></textarea>
+                <div className="errmsg">{errorMsg[1]}</div>
+              </div>
+              <div className="mt-2">
                 <input
                   type="text"
-                  name="app_meta_title"
+                  name="emeta_title"
                   placeholder="Meta Title*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.app_meta_title && editdata.app_meta_title}
+                  value={editdata.emeta_title && editdata.emeta_title}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[2]}</div>
@@ -396,12 +421,11 @@ function Approvedby() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="app_meta_description"
+                  name="emeta_description"
                   placeholder="Meta Description*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={
-                    editdata.app_meta_description &&
-                    editdata.app_meta_description
+                    editdata.emeta_description && editdata.emeta_description
                   }
                   onChange={handleChangeFormdata}
                 />
@@ -410,10 +434,10 @@ function Approvedby() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="app_meta_keyword"
+                  name="emeta_keyword"
                   placeholder="Meta Keyword*"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={editdata.app_meta_keyword && editdata.app_meta_keyword}
+                  value={editdata.emeta_keyword && editdata.emeta_keyword}
                   onChange={handleChangeFormdata}
                 />
                 <div className="errmsg">{errorMsg[4]}</div>
@@ -426,7 +450,7 @@ function Approvedby() {
                   type="submit"
                   className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  {editdata.approv_id > 0 ? "Update" : "Submit"}
+                  {editdata.exam_id > 0 ? "Update" : "Submit"}
                 </button>
               </div>
             </form>
@@ -450,7 +474,7 @@ function Approvedby() {
             <form>
               <input
                 type="text"
-                placeholder="Search by name"
+                placeholder="Search by college name"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
               <div className="btn-section">
@@ -469,4 +493,4 @@ function Approvedby() {
     </>
   );
 }
-export default Approvedby;
+export default Exam;

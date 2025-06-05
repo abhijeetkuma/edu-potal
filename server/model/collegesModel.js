@@ -1043,6 +1043,219 @@ const getCourses = async () => {
     throw new Error("Internal server error");
   }
 };
+const getExamlist = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT * from examnames ORDER BY exam_id DESC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const getTrendinglist = async () => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT * from trending ORDER BY tid DESC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const edittrending = (tid) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM trending WHERE tid = $1",
+      [tid],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit roles ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
+const updatetrending = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const { tid, trading_name, trading_url, trading_status } = body;
+    pool.query(
+      "UPDATE trending SET trading_name=$2,trading_url=$3,trading_status=$4 WHERE tid=$1 RETURNING tid",
+      [tid, trading_name, trading_url, trading_status],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A trending details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const addNewTrending = (body) => {
+  return new Promise(function (resolve, reject) {
+    const { trading_name, trading_url, trading_status } = body;
+    pool.query(
+      "INSERT INTO trending(trading_name, trading_url, trading_status) VALUES ($1, $2, $3) RETURNING *",
+      [trading_name, trading_url, trading_status],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `Trending details has been added: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const editexam = (exam_id) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM examnames WHERE exam_id = $1",
+      [exam_id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit roles ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
+
+const addNewexam = (body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      exam_name,
+      exam_url,
+      exam_brief,
+      exam_description,
+      emeta_title,
+      emeta_description,
+      emeta_keyword,
+    } = body;
+    pool.query(
+      "INSERT INTO examnames(exam_name,exam_url,exam_brief,exam_description,emeta_title,emeta_description,emeta_keyword) VALUES ($1, $2, $3,$4,$5,$6,$7) RETURNING *",
+      [
+        exam_name,
+        exam_url,
+        exam_brief,
+        exam_description,
+        emeta_title,
+        emeta_description,
+        emeta_keyword,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `Exam details has been added: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+
+const updateexam = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const {
+      exam_id,
+      exam_name,
+      exam_url,
+      exam_brief,
+      exam_description,
+      emeta_title,
+      emeta_description,
+      emeta_keyword,
+    } = body;
+    pool.query(
+      "UPDATE examnames SET exam_name=$2,exam_url=$3,exam_brief=$4,exam_description=$5,emeta_title=$6,emeta_description=$7, emeta_keyword=$8 WHERE exam_id=$1 RETURNING exam_id",
+      [
+        exam_id,
+        exam_name,
+        exam_url,
+        exam_brief,
+        exam_description,
+        emeta_title,
+        emeta_description,
+        emeta_keyword,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A exam details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+
 const getMenurolewise = async (login_id) => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -1702,6 +1915,26 @@ const addNewcourses = (body) => {
     );
   });
 };
+const editfacility = (cour_id) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM facility WHERE facility_id = $1",
+      [cour_id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit facility ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
 const addNewfacility = (body) => {
   return new Promise(function (resolve, reject) {
     const { facility_name, facility_status } = body;
@@ -1715,6 +1948,30 @@ const addNewfacility = (body) => {
         if (results && results.rows) {
           resolve(
             `A new facility has been added: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updatefacility = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const { facility_id, facility_name, facility_status } = body;
+    pool.query(
+      "UPDATE facility SET facility_name=$2,facility_status=$3 WHERE facility_id=$1 RETURNING facility_id",
+      [facility_id, facility_name, facility_status],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A facility details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
           );
         } else {
           reject(new Error("No results found"));
@@ -2087,6 +2344,85 @@ const editapproved = (approv_id) => {
     //console.log(query);
   });
 };
+const addnewapprovedby = (body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      approved_name,
+      approved_url,
+      app_meta_title,
+      app_meta_description,
+      app_meta_keyword,
+      app_status,
+      approved_description,
+    } = body;
+    pool.query(
+      "INSERT INTO approvedby( approved_name,approved_url,app_meta_title,app_meta_description,app_meta_keyword,app_status,approved_description,) VALUES ($1, $2, $3,$4,$5,$6,$7) RETURNING *",
+      [
+        approved_name,
+        approved_url,
+        app_meta_title,
+        app_meta_description,
+        app_meta_keyword,
+        app_status,
+        approved_description,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A new approved by details has been added: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateapprovedby = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const {
+      approv_id,
+      approved_name,
+      approved_url,
+      app_meta_title,
+      app_meta_description,
+      app_meta_keyword,
+      app_status,
+      approved_description,
+    } = body;
+    pool.query(
+      "UPDATE approvedby SET approved_name=$2,approved_url=$3,app_meta_title=$4,app_meta_description=$5,app_meta_keyword=$6,app_status=$7, approved_description=$8 WHERE approv_id=$1 RETURNING approv_id",
+      [
+        approv_id,
+        approved_name,
+        approved_url,
+        app_meta_title,
+        app_meta_description,
+        app_meta_keyword,
+        app_status,
+        approved_description,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A approved by has been updated: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
 const getCMSListing = async () => {
   try {
     return await new Promise(function (resolve, reject) {
@@ -2187,6 +2523,8 @@ module.exports = {
   getNewsarticleslisting,
   getApprovedby,
   editapproved,
+  addnewapprovedby,
+  updateapprovedby,
   getAdminusers,
   getRolelist,
   addNewusers,
@@ -2196,6 +2534,14 @@ module.exports = {
   getModulearr,
   getCollegetypearr,
   getExamlistarr,
+  getExamlist,
+  editexam,
+  addNewexam,
+  updateexam,
+  getTrendinglist,
+  edittrending,
+  updatetrending,
+  addNewTrending,
   getFeetypearr,
   getCategoriesarr,
   getApprovedbyarr,
@@ -2203,6 +2549,8 @@ module.exports = {
   getRolesrr,
   addNewcategories,
   addNewfacility,
+  updatefacility,
+  editfacility,
   addQuestion,
   addNewsarticle,
   editroles,

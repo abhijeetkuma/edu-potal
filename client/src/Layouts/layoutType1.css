@@ -196,7 +196,8 @@ dialog {
 
 /*------Common------*/
 
-.college-details {
+.college-details,
+.locationlist {
   height: 100px;
   .step-tabs {
     display: flex;
@@ -210,7 +211,7 @@ dialog {
       background-color: #5c5959;
       position: absolute;
     } */
-    > a {
+    a {
       display: flex;
       white-space: nowrap;
       background-color: #bbb4c1;
