@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import Relatedcolleges from "../../college/relatedcolleges";
@@ -40,6 +40,7 @@ function CollegeOverview(props) {
     setShowDescription(content);
   }, [college_descripton, isShowMore]);
 
+
   return (
     <>
       <Helmet>
@@ -65,6 +66,8 @@ function CollegeOverview(props) {
         />
         <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>
+      {college_url && <Navigate to={`/college/${college_url}`} replace={true} />}
+
 
       <div className="overview-details">
         {/* <section className="latestNews">
