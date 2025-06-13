@@ -8,6 +8,7 @@ import fbIcon from "/images/fb.svg";
 import instaIcon from "/images/insta.svg";
 import xIcon from "/images/x.svg";
 import inIcon from "/images/linkdin.svg";
+import youtubeIcon from "/images/linkdin.svg";
 import axios from "axios";
 
 function Footer(props) {
@@ -222,7 +223,12 @@ function Footer(props) {
             <div className="footer-contact">
               <div className="social-media-links">
                 <span>
-                  <img src={fbIcon} alt="" />
+                  <a
+                    href="https://m.facebook.com/timesofcollege/"
+                    target="_blank"
+                  >
+                    <img src={fbIcon} alt="" />
+                  </a>
                 </span>
                 <span>
                   <img src={instaIcon} alt="" />
@@ -232,6 +238,14 @@ function Footer(props) {
                 </span>
                 <span>
                   <img src={inIcon} alt="" />
+                </span>
+                <span>
+                  <a
+                    href="https://www.youtube.com/@timesofcollege"
+                    target="_blank"
+                  >
+                    <img src={youtubeIcon} alt="" />
+                  </a>
                 </span>
               </div>
               <p>
