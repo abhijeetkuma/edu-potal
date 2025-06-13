@@ -20,7 +20,7 @@ import { getImageURL } from "../utils/utils-image";
 import axios from "axios";
 
 function Collegelisting() {
-  console.log("loging-->", localStorage.getItem("logedin"));
+  //console.log("loging-->", localStorage.getItem("logedin"));
   if (localStorage.getItem("login_id") <= 0) {
     window.location = "/login";
   }

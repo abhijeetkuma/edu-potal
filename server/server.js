@@ -249,9 +249,30 @@ app.post("/api/addexam", (req, res) => {
       res.status(500).send(error);
     });
 });
+
 app.post("/api/updateexam", (req, res) => {
   colleges_model
     .updateexam(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/addnewcollegefaq", (req, res) => {
+  colleges_model
+    .addNewCollegefaq(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/updatecollegefaqs", (req, res) => {
+  colleges_model
+    .updatecollegefaqs(req.body)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -386,6 +407,16 @@ app.get("/api/getstatecitylist/:stateid", (req, res) => {
 app.get("/api/editcolleges/:cid", (req, res) => {
   colleges_model
     .editcollege(req.params.cid)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/getcollegefaq/:cid", (req, res) => {
+  colleges_model
+    .faqcollege(req.params.cid)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -848,6 +879,16 @@ app.get("/api/edittrending/:tid", (req, res) => {
 app.get("/api/editexam/:exam_id", (req, res) => {
   colleges_model
     .editexam(req.params.exam_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/editcollegefaq/:cfaq_id", (req, res) => {
+  colleges_model
+    .editcollegefaq(req.params.cfaq_id)
     .then((response) => {
       res.status(200).send(response);
     })
