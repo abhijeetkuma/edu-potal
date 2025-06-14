@@ -383,7 +383,7 @@ header.website-wrapper {
 
     .rating {
       &.wrapper {
-        background-color: #f0f1ce;
+        background-color: #f9f7fc;
         padding: 10px 20px;
         border-radius: 5px;
         > .clg-rating {
@@ -1021,9 +1021,12 @@ header.website-wrapper {
         margin: 20px 0px;
         padding: 10px 15px;
         border-radius: 5px;
+        letter-spacing: 0.5px;
+        color: #333;
         box-shadow:
           rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
           rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+          font-size: 14px;
       }
       .relatedWrapper {
         width: 310px;
@@ -1062,6 +1065,7 @@ header.website-wrapper {
       }
 
       .overview-details {
+        position: relative;
         .latestNews {
           b {
             color: red;
@@ -1080,6 +1084,7 @@ header.website-wrapper {
               a {
                 font-weight: 600;
                 color: #2b58e0;
+                font-size: 14px;
               }
             }
           }
@@ -1377,6 +1382,8 @@ header.website-wrapper {
 
     .admissions {
       padding: 10px;
+      background-color: #fafbff;
+      border-radius: 20px;
       /* p {
         strong {
           font-size: 24px;
@@ -1421,18 +1428,18 @@ header.website-wrapper {
     .rating-wrapper {
       ul {
         display: flex;
-        column-gap: 75px;
+        column-gap: 20px;
         flex-wrap: wrap;
         li {
-          width: 150px;
+          width: 120px;
           /* display: flex; */
           /* justify-content: space-between; */
-          padding: 20px 5px;
-          background-color: #effdfb;
-          margin-bottom: 35px;
+          padding: 10px 5px;
+          background-color: #fff;
+          margin-bottom: 20px;
           border-radius: 10px;
           > img {
-            width: 40px;
+            width: 32px;
             display: block;
             margin: 0 auto 15px;
           }
@@ -1441,7 +1448,7 @@ header.website-wrapper {
             align-items: baseline;
             justify-content: center;
             gap: 5px;
-            font-size: 14px;
+            font-size: 13px;
             line-height: 12px;
             img {
               width: 14px;
@@ -1462,7 +1469,7 @@ header.website-wrapper {
         li {
           display: flex;
           column-gap: 20px;
-          padding: 15px 5px;
+          padding: 5px;
           span {
             min-width: 100px;
             &:first-child {
@@ -1544,13 +1551,14 @@ header.website-wrapper {
         justify-content: space-between;
         border: 1px solid #ccc;
         border-bottom: none;
+        font-size: 14px;
         &:last-child {
           border-bottom: 1px solid #ccc;
         }
         span {
           display: block;
-          padding: 10px;
-          color: #5c3a7c;
+          padding: 5px 10px;
+          /* color: #5c3a7c; */
           &:first-child {
             border-right: 1px solid #ccc;
             font-weight: 600;
@@ -1707,11 +1715,24 @@ header.website-wrapper {
     
     .showMoreLess {
       color: #2b58e0;
+      width: 100%;
+      margin-top: -25px;
       cursor: pointer;
-      float: right;
-      margin-right: 20px;
+      display: flex;
+      justify-content: end;
+      align-items: end;
+      position: absolute;
+      height: 50px;
     }
-
+     
+    .overlayColor {
+      margin-top: -20px;
+      display: block;
+      height: 50px;
+      width: 100%;
+      position: absolute;  
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.722) 0%, rgba(255, 255, 255, 1) 44%, rgba(255, 255, 255, 1) 100%);
+    }
 
     /* end container*/
   }

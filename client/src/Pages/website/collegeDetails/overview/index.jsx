@@ -100,6 +100,7 @@ function CollegeOverview(props) {
             className="mt-2"
             dangerouslySetInnerHTML={{ __html: showDescription }}
           ></span>
+          {!isShowMore && <span className="overlayColor"></span>}
           <span
             className="showMoreLess"
             onClick={() => setShowMore(!isShowMore)}
@@ -231,7 +232,7 @@ function CollegeOverview(props) {
               </div>
             </div>
           ))}
-
+          
           <Link className="viewAll-btn" to={`/college/${college_url}+courses-and-fees`}>
             View All Courses
           </Link>
