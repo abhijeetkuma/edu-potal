@@ -278,6 +278,26 @@ const editcollege = (cid) => {
     console.log(query);
   });
 };
+const faqcollege = (cid) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT cf.*,case when cf.cfaq_status = 'A' then 'Active' else 'Inactive' end as status FROM college_faq cf WHERE cf.cid = $1",
+      [cid],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit college faq ID: ${id}`);
+      }
+    );
+    console.log(query);
+  });
+};
 const editquestion = (cid) => {
   //const rol_id = rol_id;
   return new Promise(function (resolve, reject) {
@@ -1174,6 +1194,26 @@ const editexam = (exam_id) => {
     console.log(query);
   });
 };
+const editcollegefaq = (cfaq_id) => {
+  //const rol_id = rol_id;
+  return new Promise(function (resolve, reject) {
+    pool.query(
+      "SELECT * FROM college_faq WHERE cfaq_id = $1",
+      [cfaq_id],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(results.rows);
+        }
+
+        //resolve(`Edit roles ID: ${id}`);
+      }
+    );
+    //console.log(query);
+  });
+};
 
 const addNewexam = (body) => {
   return new Promise(function (resolve, reject) {
@@ -1245,6 +1285,58 @@ const updateexam = (body) => {
         if (results && results.rows) {
           resolve(
             `A exam details has been updated: ${JSON.stringify(
+              results.rows[0]
+            )}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const addNewCollegefaq = (body) => {
+  return new Promise(function (resolve, reject) {
+    const { cid, cfaq_section, cfaq_question, cfaq_answer, cfaq_status } = body;
+    pool.query(
+      "INSERT INTO college_faq(cid,cfaq_section,cfaq_question,cfaq_answer,cfaq_status) VALUES ($1, $2, $3,$4,$5) RETURNING *",
+      [cid, cfaq_section, cfaq_question, cfaq_answer, cfaq_status],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `faq details has been added: ${JSON.stringify(results.rows[0])}`
+          );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updatecollegefaqs = (body) => {
+  return new Promise(function (resolve, reject) {
+    console.log(body);
+    const {
+      cfaq_id,
+      cid,
+      cfaq_section,
+      cfaq_question,
+      cfaq_answer,
+      cfaq_status,
+    } = body;
+    pool.query(
+      "UPDATE college_faq SET cid=$2,cfaq_section=$3,cfaq_question=$4,cfaq_answer=$5,cfaq_status=$6 WHERE cfaq_id=$1 RETURNING cfaq_id",
+      [cfaq_id, cid, cfaq_section, cfaq_question, cfaq_answer, cfaq_status],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(
+            `A college faq details has been updated: ${JSON.stringify(
               results.rows[0]
             )}`
           );
@@ -2538,6 +2630,8 @@ module.exports = {
   editexam,
   addNewexam,
   updateexam,
+  addNewCollegefaq,
+  updatecollegefaqs,
   getTrendinglist,
   edittrending,
   updatetrending,
@@ -2555,6 +2649,8 @@ module.exports = {
   addNewsarticle,
   editroles,
   editcollege,
+  faqcollege,
+  editcollegefaq,
   editquestion,
   editnewsarticle,
   editcourse,

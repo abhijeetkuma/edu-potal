@@ -1,5 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { CKEditor, wysiwyg } from "@ckeditor/ckeditor5-react";
+import {
+  ClassicEditor,
+  Bold,
+  Essentials,
+  Italic,
+  Mention,
+  Paragraph,
+  List,
+  Table,
+  Heading,
+  BlockQuote,
+  Alignment,
+} from "ckeditor5";
 import {
   MaterialReactTable,
   useMaterialReactTable,
@@ -46,6 +60,9 @@ function Location() {
   const [isCountry, setIsCountry] = useState(true);
   const [isState, setIsState] = useState(false);
   const [isCity, setIsCity] = useState(false);
+  const [countrybriefvalue, setCountrybriefvalue] = useState();
+  const [statebriefvalue, setStatebriefvalue] = useState();
+  const [citybriefvalue, setCitybriefvalue] = useState();
   useEffect(() => {
     /*fetch("http://localhost:3001/")
       .then((response) => response.json())
@@ -329,6 +346,7 @@ function Location() {
         cout_id: cout_id.value,
         country_name: country_name.value,
         country_url: country_url.value,
+        country_brief: countrybriefvalue,
         meta_title: meta_title.value,
         meta_description: meta_description.value,
         meta_keyword: meta_keyword.value,
@@ -683,6 +701,69 @@ function Location() {
                   value={editdata.country_url && editdata.country_url}
                   onChange={handleChangeFormdata}
                 />
+                <div className="errmsg">{errorMsg[1]}</div>
+              </div>
+              <div className="mt-2">
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    plugins: [
+                      Essentials,
+                      Heading,
+                      Paragraph,
+                      Bold,
+                      Italic,
+                      BlockQuote,
+                      Alignment,
+                      List,
+                      Mention,
+                      Table,
+                      Number,
+                    ],
+                    toolbar: [
+                      "Heading",
+                      "|",
+                      "Essentials",
+                      "Paragraph",
+
+                      "Bold",
+                      "Italic",
+                      "Alignment",
+                      "Link",
+                      "ListUI",
+                      "BlockQuote",
+                      "Undo",
+                      "Redo",
+                      "Mention",
+                      "Table",
+                      "|",
+                      "numberedList",
+                      "bulletedList",
+                      ,
+                    ],
+                    removePlugins: [
+                      "Image",
+                      "ImageCaption",
+                      "ImageStyle",
+                      "ImageToolbar",
+                      "ImageUpload",
+                    ],
+                    menuBar: {
+                      isVisible: true,
+                    },
+                  }}
+                  data={editdata.country_brief ? editdata.country_brief : ""}
+                  onReady={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    // console.log("Editor 1 is ready to use!", editor);
+                  }}
+                  onChange={(event, editor) => {
+                    const cuntry_desc = editor.getData();
+                    setCountrybriefvalue(cuntry_desc);
+                    //console.log({ event, editor, cuntry_desc });
+                  }}
+                />
+
                 <div className="errmsg">{errorMsg[1]}</div>
               </div>
 

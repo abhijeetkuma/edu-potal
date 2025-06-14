@@ -70,16 +70,18 @@ const updatecountry = (body) => {
       cout_id,
       country_name,
       country_url,
+      country_brief,
       meta_title,
       meta_description,
       meta_keyword,
     } = body;
     pool.query(
-      "UPDATE countrylist SET country_name=$2,country_url=$3,meta_title=$4,meta_description=$5, meta_keyword=$6 WHERE cout_id=$1 RETURNING cout_id",
+      "UPDATE countrylist SET country_name=$2,country_url=$3,country_brief=$4,meta_title=$5,meta_description=$6, meta_keyword=$7 WHERE cout_id=$1 RETURNING cout_id",
       [
         cout_id,
         country_name,
         country_url,
+        country_brief,
         meta_title,
         meta_description,
         meta_keyword,
@@ -107,13 +109,21 @@ const addcountry = (body) => {
     const {
       country_name,
       country_url,
+      country_brief,
       meta_title,
       meta_description,
       meta_keyword,
     } = body;
     pool.query(
-      "INSERT INTO countrylist(country_name,country_url,meta_title,meta_description,meta_keyword) VALUES ($1, $2, $3,$4,$5) RETURNING *",
-      [country_name, country_url, meta_title, meta_description, meta_keyword],
+      "INSERT INTO countrylist(country_name,country_url, country_brief,meta_title,meta_description,meta_keyword) VALUES ($1, $2, $3,$4, $5, $6) RETURNING *",
+      [
+        country_name,
+        country_url,
+        country_brief,
+        meta_title,
+        meta_description,
+        meta_keyword,
+      ],
       (error, results) => {
         if (error) {
           reject(error);

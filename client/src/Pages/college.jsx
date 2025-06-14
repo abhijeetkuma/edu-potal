@@ -3,7 +3,21 @@ import { Link, useParams } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 //import { Slide, toast, ToastContainer } from "react-toastify";
 import { ToastContainer, toast } from "react-toastify";
-
+import {
+  MaterialReactTable,
+  useMaterialReactTable,
+} from "material-react-table";
+import {
+  Box,
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   ClassicEditor,
   Bold,
@@ -38,9 +52,7 @@ function College() {
     { highParameter: "", highDetails: "" },
   ]);
 
-  const [qusAns, setQusAns] = useState([
-    { question: "", answer: "" },
-  ]);
+  const [qusAns, setQusAns] = useState([{ question: "", answer: "" }]);
 
   const [subcoursesoptions, setSubcoursesoptions] = useState([
     {
@@ -116,6 +128,18 @@ function College() {
   const [ratingActive, setRatingActive] = useState("");
   const [successmsg, setSuccessmsg] = useState("");
   const [appopenvalue, setAppopenvalue] = useState("");
+  const [collegefaqdata, setCollegefaqdata] = useState([]);
+  const [isEditOpenfaq, setIsEditOpenfaq] = useState(false);
+  const [errorMsg, setErrorMsg] = useState([]);
+
+  const [editfaqdata, setEditfaqdata] = useState({
+    cfaq_id: "",
+    cfaq_section: "",
+    cfaq_question: "",
+    cfaq_answer: "",
+    cfaq_status: "",
+    added_by: "",
+  });
 
   const [errors, setErrors] = useState({});
 
@@ -178,6 +202,7 @@ function College() {
   });
   const { cid } = useParams();
   //console.log("College id:", cid);
+  const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     /*fetch("http://localhost:3001/")
@@ -355,12 +380,112 @@ function College() {
           console.error(error);
         });
       //editdata.ctype != "" && setCollegetypevalue(editdata.ctype);
+      // getting faq
+      axios
+        .get(apiurl + "/getcollegefaq/" + cid)
+        .then((response) => {
+          setCollegefaqdata(response.data);
+          //setDatas(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      // end getting faq
     }
   }, []);
+
+  // faq table start
+  //console.log("collegefaqdata-->", collegefaqdata);
+  const data = collegefaqdata;
+  const columns = [
+    // {
+    //   accessorKey: "veh_id", //simple recommended way to define a column
+    //   header: "veh_id",
+    //   muiTableHeadCellProps: { sx: { color: "green" } }, //optional custom props
+    //   Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    // },
+    /*{
+        accessorKey: "veh_id",
+        header: "Id",
+        enableEditing: false,
+        size: 80,
+      }, */
+    {
+      accessorKey: "cfaq_section", //simple recommended way to define a column
+      header: "Section",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
+      accessorKey: "cfaq_question", //simple recommended way to define a column
+      header: "Question",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      //Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
+      accessorKey: "cfaq_answer", //simple recommended way to define a column
+      header: "Answer",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+    {
+      accessorKey: "status", //simple recommended way to define a column
+      header: "Status",
+      muiTableHeadCellProps: { sx: { color: "black" } }, //optional custom props
+      Cell: ({ cell }) => <span>{cell.getValue()}</span>, //optional custom cell render
+    },
+  ];
+  const [rowSelection, setRowSelection] = useState({});
+
+  const table = useMaterialReactTable({
+    columns,
+    data,
+    enableColumnOrdering: true, //enable some features
+    enableRowSelection: false,
+    enablePagination: true, //disable a default feature
+    enableRowActions: true,
+    onRowSelectionChange: setRowSelection, //hoist internal state to your own state (optional)
+    state: { rowSelection }, //manage your own state, pass it back to the table (optional)
+    renderRowActions: ({ row, table }) => (
+      <Box sx={{ display: "flex", gap: "1rem" }}>
+        <Tooltip title="Edit">
+          <IconButton onClick={() => setIsEditOpenfaq(true)}>
+            <EditIcon
+              onClick={() => {
+                // table.setEditingRow(row);
+                editFaqDetails(row.original.cfaq_id);
+                //console.log("Edit======------>", row.original.rol_id);
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <IconButton color="error" onClick={() => openDeleteConfirmModal(row)}>
+            <DeleteIcon
+              onClick={() => {
+                console.log("Delete======------>", row.original.cfaq_id);
+
+                // data.splice(row.index, 1); //assuming simple data table
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    ),
+  });
+
+  // faq table end
 
   const handleChangeFormdata = (e) => {
     const { name, value } = e.target;
     setEditdata((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  const handleChangeFormdatafaq = (e) => {
+    const { name, value } = e.target;
+    setEditfaqdata((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -410,7 +535,6 @@ function College() {
     deleteData.splice(i, 1);
     setHighLights(deleteData);
   };
-
 
   const handleFaQClick = (e) => {
     setQusAns([...qusAns, { question: "", answer: "" }]);
@@ -1159,7 +1283,11 @@ function College() {
         });
     }
   };
-  console.log("facilityvalue-->", facilityvalue);
+  const addnewfaq = () => {
+    setIsEditOpenfaq(true);
+    setEditfaqdata("");
+  };
+  //console.log("facilityvalue-->", facilityvalue);
   const renderPageHeader = () => {
     return (
       <>
@@ -2433,12 +2561,43 @@ function College() {
         <div className="sm:col-span-4 admission step-3 formcontener">
           <form name="faqForm" id="faqForm" onSubmit={submitfaq}>
             <div className="sm:col-span-4">
-              <label
-                htmlFor="faq"
-                className="block text-left font-normal leading-6 text-gray-dark pb-1"
-              >
-                FAQ
-              </label>
+              <div className="flex justify-between">
+                <div
+                  htmlFor="faq"
+                  className="block text-left font-normal leading-6 text-gray-dark pb-1"
+                >
+                  FAQ
+                </div>
+                <div className="actions">
+                  <span
+                    // onClick={() => document.getElementById("users_modal").showModal()}
+                    onClick={() => addnewfaq()}
+                  >
+                    <svg
+                      className="h-6 w-6 text-stone-600"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      {" "}
+                      <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                      <circle cx="12" cy="12" r="9" />{" "}
+                      <line x1="9" y1="12" x2="15" y2="12" />{" "}
+                      <line x1="12" y1="9" x2="12" y2="15" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <MaterialReactTable table={table} />
+              </div>
+              {/*
 
               {qusAns.map((item, i) => (
                 <>
@@ -2489,9 +2648,9 @@ function College() {
                     </div>
                   </div>
                 </>
-              ))}
+              ))} */}
 
-              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">     
+              <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
                 <CKEditor
                   editor={ClassicEditor}
                   config={{
@@ -3685,6 +3844,124 @@ function College() {
     setRatingActive("active");
   };
 
+  // add new faq
+
+  const addfaq = (e) => {
+    e.preventDefault();
+    const { cid, cfaq_id, cfaq_section, cfaq_question, cfaq_answer } =
+      e.target.elements;
+
+    let errorsForm = [];
+
+    if (cfaq_section.value === "") {
+      errorsForm.push(<div key="branameErr">Please select section!</div>);
+    } else {
+      errorsForm.push();
+    }
+    if (cfaq_question.value === "") {
+      errorsForm.push(<div key="branurlErr">Question cann't be blank!</div>);
+    } else {
+      errorsForm.push();
+    }
+    if (cfaq_answer.value === "") {
+      errorsForm.push(<div key="branurlErr">Answer cann't be blank!</div>);
+    } else {
+      errorsForm.push();
+    }
+
+    console.log("errorsForm", errorsForm);
+    if (errorsForm.length === 0) {
+      const payload = {
+        cid: cid.value,
+        cfaq_id: cfaq_id.value,
+        cfaq_section: cfaq_section.value,
+        cfaq_question: cfaq_question.value,
+        cfaq_answer: cfaq_answer.value,
+        cfaq_status: "A",
+      };
+      if (cfaq_id.value > 0) {
+        axios({
+          method: "post",
+          url: "/api/updatecollegefaqs",
+          data: payload,
+        })
+          .then(function (response) {
+            console.log(response);
+            cfaq_id.value = "";
+            cfaq_section.value = "";
+            cfaq_question.value = "";
+            cfaq_answer.value = "";
+            if (response.statusText == "OK") {
+              setIsEditOpen(false);
+              toast.success("FAQ updated!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                //transition: Bounce,
+              });
+            }
+            //get results
+            axios
+              .get("/api/getcollegefaq")
+              .then((response) => {
+                setDatas(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            //end get results
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        axios({
+          method: "post",
+          url: "/api/addnewcollegefaq",
+          data: payload,
+        })
+          .then(function (response) {
+            console.log(response);
+            cfaq_id.value = "";
+            cfaq_section.value = "";
+            cfaq_question.value = "";
+            cfaq_answer.value = "";
+            //get results
+            axios
+              .get("/api/getcollegefaq")
+              .then((response) => {
+                setDatas(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+            //end get results
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    } else {
+      setErrorMsg(errorsForm);
+    }
+  };
+  // end add new faq
+  const editFaqDetails = (editval) => {
+    console.log("Edit faq id:", editval);
+    axios
+      .get("/api/editcollegefaq/" + editval)
+      .then((response) => {
+        setEditfaqdata(response.data[0]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <>
       {renderPageHeader()}
@@ -3714,6 +3991,142 @@ function College() {
         </div>
       </div>
       <ToastContainer />
+      {isEditOpenfaq && (
+        <DialogContent>
+          <div className="modal-box">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                onClick={() => setIsEditOpenfaq(false)}
+              >
+                ✕
+              </button>
+            </form>
+            <h3 className="font-bold text-lg">
+              {editfaqdata.cfaq_id > 0 ? "Edit" : "Add"} FAQ
+            </h3>
+
+            <form action="" method="post" id="examForm" onSubmit={addfaq}>
+              <div className="mt-2">
+                <label
+                  htmlFor="cfaq_section"
+                  className="block text-sm font-bold leading-6 text-gray-900"
+                >
+                  Type
+                </label>
+                <input type="hidden" value={editdata.cid} name="cid" />
+                <input
+                  type="hidden"
+                  value={editfaqdata.cfaq_id}
+                  name="cfaq_id"
+                />
+                <select
+                  name="cfaq_section"
+                  id="cfaq_section"
+                  type="select"
+                  className="block w-auto p-2 mb-6 text-sm text-gray-900  rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option
+                    value=""
+                    defaultValue={
+                      editfaqdata.cfaq_section == "" ? "selected" : ""
+                    }
+                  >
+                    --Select One--
+                  </option>
+                  <option
+                    value="Overview"
+                    selected={
+                      editfaqdata.cfaq_section == "Overview" ? "selected" : ""
+                    }
+                  >
+                    Overview
+                  </option>
+                  <option
+                    value="Courses & Fees"
+                    selected={
+                      editfaqdata.cfaq_section == "Courses & Fees"
+                        ? "selected"
+                        : ""
+                    }
+                  >
+                    Courses & Fees
+                  </option>
+                  <option
+                    value="Admission"
+                    selected={
+                      editfaqdata.cfaq_section == "Admission" ? "selected" : ""
+                    }
+                  >
+                    Admission
+                  </option>{" "}
+                  <option
+                    value="Placement"
+                    selected={
+                      editfaqdata.cfaq_section == "Placement" ? "selected" : ""
+                    }
+                  >
+                    Placement
+                  </option>{" "}
+                  <option
+                    value="Scholarship"
+                    selected={
+                      editfaqdata.cfaq_section == "Scholarship"
+                        ? "selected"
+                        : ""
+                    }
+                  >
+                    Scholarship
+                  </option>
+                  <option
+                    value="Facility"
+                    selected={
+                      editfaqdata.cfaq_section == "Facility" ? "selected" : ""
+                    }
+                  >
+                    Facility
+                  </option>
+                </select>
+              </div>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  name="cfaq_question"
+                  placeholder="Question*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={editfaqdata.cfaq_question && editfaqdata.cfaq_question}
+                  onChange={handleChangeFormdatafaq}
+                />
+                <div className="errmsg">{errorMsg[0]}</div>
+              </div>
+
+              <div className="mt-2">
+                <textarea
+                  name="cfaq_answer"
+                  placeholder="Answer*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-2"
+                  onChange={handleChangeFormdatafaq}
+                  value={editfaqdata.cfaq_answer && editfaqdata.cfaq_answer}
+                ></textarea>
+                <div className="errmsg">{errorMsg[1]}</div>
+              </div>
+
+              <div className="btn-section">
+                <button type="button" onClick={() => setIsEditOpenfaq(false)}>
+                  Cancle
+                </button>
+                <button
+                  type="submit"
+                  className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  {editfaqdata.cfaq_id > 0 ? "Update" : "Submit"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </DialogContent>
+      )}
     </>
   );
 }
