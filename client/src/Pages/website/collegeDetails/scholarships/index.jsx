@@ -20,20 +20,23 @@ function CollegeScholarships(props) {
       meta_keyword,
       college_url,
       logo,
+      city_name,
     },
   } = props;
 
   const { pathname } = useLocation();
   useEffect(() => {
-      window.scroll(0, 0)
-  }, [pathname])
-
+    window.scroll(0, 0);
+  }, [pathname]);
+  const metaTitle = `${college_name} ${city_name} Scholarships: Eligibility & Scholarship Amount`;
+  const metaDescription = `Check out the various Scholarships and Financial Assistance offered by ${college_name} ${city_name}.`;
+  const metakeyword = `${college_name} scholarships, ${college_name} ${city_name} schloarship, ${college_name} scholarship eligibility, ${college_name} scholarship amount, ${college_name} scholarship exams, ${college_name} schloarship types, ${college_name} scholarship process`;
   return (
     <>
       <Helmet>
-        <title>{`Scholarships ${meta_title}`}</title>
-        <meta name="description" content={meta_description} />
-        <meta name="keywords" content={meta_keyword} />
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="keywords" content={metakeyword} />
         <link
           id="canonicalUrl"
           rel="canonical"
@@ -45,11 +48,11 @@ function CollegeScholarships(props) {
           content={`https://timesofcollege.com/college/${college_url}+scholarships`}
         />
         <meta property="og:type" content="college-view" />
-        <meta property="og:title" key="og:title" content={meta_title} />=
+        <meta property="og:title" key="og:title" content={metaTitle} />=
         <meta
           property="og:description"
           key="og:description"
-          content={meta_description}
+          content={metaDescription}
         />
         <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>
