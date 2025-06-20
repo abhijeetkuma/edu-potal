@@ -33,7 +33,7 @@ function CollegeFaculties(props) {
   return (
     <>
       <Helmet>
-        <title>{`Faculties ${metaTitle}`}</title>
+        <title>{metaTitle}</title>
         <meta name="description" content={metaDescription} />
         <meta name="keywords" content={metakeyword} />
         <link
