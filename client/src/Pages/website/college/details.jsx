@@ -96,7 +96,7 @@ function Collegedetails(props) {
             <Link to="#">Courses & Fees</Link>
           </li>
           <li>
-            <Link to="#">Admission 2024</Link>
+            <Link to="#">Admission 2025</Link>
           </li>
           <li>
             <Link to="#">Placements</Link>

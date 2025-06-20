@@ -21,16 +21,19 @@ function CollegeReviews(props) {
       meta_keyword,
       college_url,
       logo,
-      total_rating
+      total_rating,
+      city_name,
     },
   } = props;
-  
+  const metaTitle = `Check ${college_name} ${city_name} Review of Faculty, Placements, Infrastructure, Campus & Facility.`;
+  const metaDescription = `${college_name} ${city_name}: Find the Experts Reviews on Placements, Faculty, Infrastructure & Facilities given by experts and students across various courses and streams.`;
+  const metakeyword = `${college_name} ${city_name} review, ${college_name} student review, ${college_name} student feedback, ${college_name} campus review, ${college_name} placement review, ${college_name} faculty review, ${college_name} infrastructure review, ${college_name} accomodation`;
   return (
     <>
       <Helmet>
-        <title>{`Reviews ${meta_title}`}</title>
-        <meta name="description" content={meta_description} />
-        <meta name="keywords" content={meta_keyword} />
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="keywords" content={metakeyword} />
         <link
           id="canonicalUrl"
           rel="canonical"
@@ -42,15 +45,15 @@ function CollegeReviews(props) {
           content={`https://timesofcollege.com/college/${college_url}+reviews`}
         />
         <meta property="og:type" content="college-view" />
-        <meta property="og:title" key="og:title" content={meta_title} />=
+        <meta property="og:title" key="og:title" content={metaTitle} />=
         <meta
           property="og:description"
           key="og:description"
-          content={meta_description}
+          content={metaDescription}
         />
         <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>
-      
+
       <div className="container reviews">
         {/* <h1 className="">Reviews</h1> */}
         <h2 className="font-bold text-2xl mb-5 text-center	">{`${college_name} Reviews`}</h2>
@@ -58,12 +61,7 @@ function CollegeReviews(props) {
         <span className="clg-rating-avg">
           <img src={star} alt="" />
           <span>
-            <b>
-              {total_rating
-                ? total_rating.slice(0, 3)
-                : "0"}
-            </b>{" "}
-            /10
+            <b>{total_rating ? total_rating.slice(0, 3) : "0"}</b> /10
           </span>
         </span>
       </div>

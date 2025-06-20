@@ -20,15 +20,18 @@ function CollegeGallery(props) {
       meta_keyword,
       college_url,
       logo,
+      city_name,
     },
   } = props;
-
+  const metaTitle = `Check ${college_name} ${city_name} Campus Infrastructure Photo and Video`;
+  const metaDescription = `${college_name} ${city_name} Campus: Photo, Video, Gallery, Campus Tours, Infrastructure, Classroom, Library, Hostel and Auditorium`;
+  const metakeyword = `${college_name} Campus, ${college_name} ${city_name} campus, ${college_name} instrastructure, ${college_name} library, ${college_name} classroom, ${college_name} hostel, ${college_name} accomodation`;
   return (
     <>
       <Helmet>
-        <title>{`Gallery ${meta_title}`}</title>
-        <meta name="description" content={meta_description} />
-        <meta name="keywords" content={meta_keyword} />
+        <title>{`Gallery ${metaTitle}`}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="keywords" content={metakeyword} />
         <link
           id="canonicalUrl"
           rel="canonical"
@@ -40,11 +43,11 @@ function CollegeGallery(props) {
           content={`https://timesofcollege.com/college/${college_url}+gallery`}
         />
         <meta property="og:type" content="college-view" />
-        <meta property="og:title" key="og:title" content={meta_title} />=
+        <meta property="og:title" key="og:title" content={metaTitle} />=
         <meta
           property="og:description"
           key="og:description"
-          content={meta_description}
+          content={metaDescription}
         />
         <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>

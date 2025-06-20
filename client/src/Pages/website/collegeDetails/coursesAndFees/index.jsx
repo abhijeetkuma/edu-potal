@@ -18,23 +18,28 @@ function CollegeCoursesFees(props) {
     meta_description,
     meta_keyword,
     college_url,
+    city_name,
     logo,
   } = props.data;
 
   const { courses, openModal } = props;
   const placementyear = new Date();
-  
+
   const { pathname } = useLocation();
-    useEffect(() => {
-        window.scroll(0, 0)
-    }, [pathname])
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, [pathname]);
+
+  const metaTitle = `Check ${college_name} ${city_name}: Offered Courses, Fees, Cut off, Application, Admission and Brochure`;
+  const metaDescription = `${college_name} ${city_name}: Courses and their program fee details of ${college_name} , ${city_name}. Find the details of all  UG & PG programs offered by ${college_name} along with course Fees, Duration, Intake, Reviews, Eligibility, Selection Process & Apply Dates`;
+  const metakeyword = `${college_name} Courses, ${college_name} fees, ${college_name} intake, ${college_name} course eligibility, ${college_name} cut off, ${college_name} program intake, ${college_name} course duration, ${college_name}, ${college_name} ${city_name} courses`;
 
   return (
     <>
       <Helmet>
-        <title>{`Courses, Eligibility and Fees ${meta_title}`}</title>
-        <meta name="description" content={meta_description} />
-        <meta name="keywords" content={meta_keyword} />
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="keywords" content={metakeyword} />
         <link
           id="canonicalUrl"
           rel="canonical"
@@ -46,11 +51,11 @@ function CollegeCoursesFees(props) {
           content={`https://timesofcollege.com/college/${college_url}+courses-and-fees`}
         />
         <meta property="og:type" content="college-view" />
-        <meta property="og:title" key="og:title" content={meta_title} />=
+        <meta property="og:title" key="og:title" content={metaTitle} />=
         <meta
           property="og:description"
           key="og:description"
-          content={meta_description}
+          content={metaDescription}
         />
         <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>
@@ -173,9 +178,7 @@ function CollegeCoursesFees(props) {
                   <div className="compare" onClick={openModal}>
                     {/* <img src="/images/compare.svg" alt="" /> */}
                     <img src="/images/downloads.svg" alt="" />
-                    <span>
-                      Check Placements {placementyear.getFullYear() - 1}
-                    </span>
+                    <span>Check Placements {placementyear.getFullYear()}</span>
                   </div>
                 </div>
                 <div className="apply-btn">
