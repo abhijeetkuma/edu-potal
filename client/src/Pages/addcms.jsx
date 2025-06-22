@@ -330,7 +330,7 @@ function Addcms() {
           </div>
           <div className="mt-2">
             <label
-              htmlFor="college_url"
+              htmlFor="cms_meta_title"
               className="block text-sm font-bold leading-6 text-gray-900"
             >
               Meta Title *
@@ -346,7 +346,7 @@ function Addcms() {
           </div>
           <div className="mt-2">
             <label
-              htmlFor="college_url"
+              htmlFor="cms_meta_description"
               className="block text-sm font-bold leading-6 text-gray-900"
             >
               Meta Description *
@@ -366,7 +366,7 @@ function Addcms() {
           </div>
           <div className="mt-2">
             <label
-              htmlFor="college_url"
+              htmlFor="cms_meta_keyword"
               className="block text-sm font-bold leading-6 text-gray-900"
             >
               Meta Keyword *

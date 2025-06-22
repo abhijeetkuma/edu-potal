@@ -857,25 +857,7 @@ const updateCollege = (cid, body) => {
     );
   });
 };
-const updateQuestion = (qid, body) => {
-  return new Promise(function (resolve, reject) {
-    const { qid, question, answer, qstatus, trading, catgories } = body;
-    pool.query(
-      "UPDATE questions SET question = $2,answer=$3, qstatus=$4,trading=$5,catgories=$6 WHERE qid = $1 RETURNING *",
-      [qid, question, answer, qstatus, trading, catgories],
-      (error, results) => {
-        if (error) {
-          reject(error);
-        }
-        if (results && results.rows) {
-          resolve(`Question updated: ${JSON.stringify(results.rows[0])}`);
-        } else {
-          reject(new Error("No results found"));
-        }
-      }
-    );
-  });
-};
+
 const updateCMS = (cmsid, body) => {
   return new Promise(function (resolve, reject) {
     const {
@@ -2074,10 +2056,30 @@ const updatefacility = (body) => {
 };
 const addQuestion = (body) => {
   return new Promise(function (resolve, reject) {
-    const { question, answer, qstatus, trading, catgories } = body;
+    const {
+      question,
+      answer,
+      qstatus,
+      trading,
+      catgories,
+      question_url,
+      qmeta_title,
+      qmeta_description,
+      qmeta_keyword,
+    } = body;
     pool.query(
-      "INSERT INTO questions(question,answer, qstatus,trading,catgories) VALUES ($1, $2,$3,$4,$5) RETURNING *",
-      [question, answer, qstatus, trading, catgories],
+      "INSERT INTO questions(question,answer, qstatus,trading,catgories,question_url,qmeta_title,qmeta_description,qmeta_keyword) VALUES ($1, $2,$3,$4,$5,$6,$7,$8,$9) RETURNING *",
+      [
+        question,
+        answer,
+        qstatus,
+        trading,
+        catgories,
+        question_url,
+        qmeta_title,
+        qmeta_description,
+        qmeta_keyword,
+      ],
       (error, results) => {
         if (error) {
           reject(error);
@@ -2086,6 +2088,47 @@ const addQuestion = (body) => {
           resolve(
             `A new question has been added: ${JSON.stringify(results.rows[0])}`
           );
+        } else {
+          reject(new Error("No results found"));
+        }
+      }
+    );
+  });
+};
+const updateQuestion = (qid, body) => {
+  return new Promise(function (resolve, reject) {
+    const {
+      qid,
+      question,
+      answer,
+      qstatus,
+      trading,
+      catgories,
+      question_url,
+      qmeta_title,
+      qmeta_description,
+      qmeta_keyword,
+    } = body;
+    pool.query(
+      "UPDATE questions SET question = $2,answer=$3, qstatus=$4,trading=$5,catgories=$6, question_url=$7,qmeta_title=$8,qmeta_description=$9,qmeta_keyword=$10 WHERE qid = $1 RETURNING *",
+      [
+        qid,
+        question,
+        answer,
+        qstatus,
+        trading,
+        catgories,
+        question_url,
+        qmeta_title,
+        qmeta_description,
+        qmeta_keyword,
+      ],
+      (error, results) => {
+        if (error) {
+          reject(error);
+        }
+        if (results && results.rows) {
+          resolve(`Question updated: ${JSON.stringify(results.rows[0])}`);
         } else {
           reject(new Error("No results found"));
         }
