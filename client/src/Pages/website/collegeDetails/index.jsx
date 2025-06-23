@@ -32,10 +32,13 @@ import CollegeReviews from "./reviews";
 import CollegeNews from "./news";
 import CollegeQuesAns from "./questionAnswer";
 
+import Address from "../commonComps/address";
+
 function CollegeDetails(props) {
   const [nameUrl, setNameUrl] = useState("");
   const [tabName, setTabName] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoader, setIsLoader] = useState(true);
   const [modalContent, setModalContent] = useState("");
   const [subcoursestypearr, setSubcoursestypearr] = useState([]);
   const [subcoursearr, setSubcoursearr] = useState([]);
@@ -45,6 +48,7 @@ function CollegeDetails(props) {
     btnTitle: ""
   });
   const { college_url } = useParams();
+
   //const topCourselinks = ""
 
   const [displaycollegdetail, setDisplaycollegdetail] = useState({
@@ -53,6 +57,7 @@ function CollegeDetails(props) {
     college_description: "",
     courses: "",
   });
+
   const [collegetitleappend, setCollegetitleappend] = useState("");
   //const setAlltopcourse = "";
   useEffect(() => {
@@ -63,8 +68,7 @@ function CollegeDetails(props) {
         data: { cid: cid },
       });
     };
-
-    displaycollegdetail.cid && updatecollegeviews(displaycollegdetail.cid);
+     displaycollegdetail.cid && updatecollegeviews(displaycollegdetail.cid);
   }, [displaycollegdetail]);
 
   useEffect(() => {
@@ -81,7 +85,8 @@ function CollegeDetails(props) {
     axios
       .get("/api/collegedetail/" + college_url.split("+")[0])
       .then((response) => {
-        setDisplaycollegdetail(response.data[0]);
+        setIsLoader(false)
+        setDisplaycollegdetail(response.data[0])
       })
       .catch((error) => {
         console.error(error);
@@ -302,6 +307,51 @@ function CollegeDetails(props) {
 
       <section className="container detailsWrapper">
         <div className="contentWrapper">
+          {isLoader 
+          ? 
+          <>
+            <div class="mx-auto w-full rounded-md border border-[#ccc] p-4 mb-5">
+              <div class="flex animate-pulse space-x-4">
+                <div class="flex-1 space-y-6 py-1">
+                  <div class="h-2 rounded bg-[#ccc]"></div>
+                  <div class="space-y-8">
+                    <div class="grid grid-cols-3 gap-4">
+                      <div class="col-span-2 h-2 rounded bg-[#ccc]"></div>
+                      <div class="col-span-1 h-2 rounded bg-[#ccc]"></div>
+                    </div>
+                    <div class="h-2 rounded bg-[#ccc]"></div>
+                    <div class="h-2 rounded bg-[#ccc]"></div>
+                  </div>
+                  <div class="space-y-12">
+                    <div class="grid grid-cols-3 gap-4">
+                      <div class="col-span-2 h-2 rounded bg-[#ccc]"></div>
+                      <div class="col-span-1 h-2 rounded bg-[#ccc]"></div>
+                    </div>
+                    <div class="h-2 rounded bg-[#ccc]"></div>
+                    <div class="h-2 rounded bg-[#ccc]"></div>
+                  </div>
+                  <div class="space-y-8">
+                    <div class="grid grid-cols-3 gap-4">
+                      <div class="col-span-2 h-2 rounded bg-[#ccc]"></div>
+                      <div class="col-span-1 h-2 rounded bg-[#ccc]"></div>
+                    </div>
+                    <div class="h-2 rounded bg-[#ccc]"></div>
+                    <div class="h-2 rounded bg-[#ccc]"></div>
+                  </div>
+                  <div class="space-y-12">
+                    <div class="grid grid-cols-3 gap-4">
+                      <div class="col-span-2 h-2 rounded bg-[#ccc]"></div>
+                      <div class="col-span-1 h-2 rounded bg-[#ccc]"></div>
+                    </div>
+                    <div class="h-2 rounded bg-[#ccc]"></div>
+                    <div class="h-2 rounded bg-[#ccc]"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+          :   
+          <>
           {(tabName === "overview" || tabName == undefined) && (
             <CollegeOverview
               data={displaycollegdetail}
@@ -355,7 +405,10 @@ function CollegeDetails(props) {
           {/* {displaycollegdetail.courses && (
             <Relatedcolleges data={displaycollegdetail} vtype="v" />
           )} */}
+          </>      
+          }
         </div>
+
         <div className="relatedWrapper">
           <div className="others">
             <ul className="phCards">
@@ -422,11 +475,26 @@ function CollegeDetails(props) {
 
             <hr style={{ color: "#32325d40", margin: "15px" }} />
 
-            <GetHelp
+            {/* <GetHelp
               heading={"Let Us Help You"}
               openModal={openModal}
               headingClass={"headingSeaGreen"}
-            />
+            /> */}
+
+            {/* <div onClick={openModal}>
+              Let Us Help You
+            </div> */}
+
+            <button onClick={openModal} type="button" class="text-white bg-[#0b67ec] hover:bg-[#0b67ec] focus:ring-4 focus:outline-none focus:ring-[#0b67ec] font-medium rounded-lg text-sm px-6 py-3.5 w-5/6 justify-center m-auto text-center flex items-center">
+              Let Us Help You
+              <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+              </svg>
+            </button>
+
+            <hr style={{ color: "#32325d40", margin: "15px" }} />
+
+            <Address data={displaycollegdetail} />
 
             {displaycollegdetail.courses && (
               <div className="relatedColg">
