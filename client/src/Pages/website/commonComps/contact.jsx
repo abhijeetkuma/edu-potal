@@ -20,7 +20,7 @@ const Contact = (props) => {
             <span><b>Address:</b></span>
             <span>{address}, Pin-{pincode}, {state_name}</span>
         </li>
-        <li>
+        {/* <li>
             <span></span>
             <span><b>Phone No:</b></span>
             <span className='underline' onClick={modelOpen}>{contactno ?  `${contactno.slice(0,6)}XXXX` : 'XXXXXXXXXX'}</span>
@@ -34,7 +34,7 @@ const Contact = (props) => {
             <span></span>
             <span><b>Website:</b></span>
             <span>{website}</span>
-        </li>
+        </li> */}
        </ul>
    </section>
  );

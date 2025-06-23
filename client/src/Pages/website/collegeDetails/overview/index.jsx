@@ -35,7 +35,7 @@ function CollegeOverview(props) {
 
   useEffect(() => {
     const content = !isShowMore
-      ? `${college_descripton?.slice(0, 350)}`
+      ? `${college_descripton}`
       : college_descripton;
     setShowDescription(content);
   }, [college_descripton, isShowMore]);
@@ -96,10 +96,10 @@ function CollegeOverview(props) {
 
         <section className="about">
           <h2 className="font-bold text-2xl mb-2">{`About ${college_name}`}</h2>
-          <span
-            className="mt-2"
+          <div
+            className={`mt-2 ${!isShowMore ? 'h-20 overflow-hidden' : ''}`}
             dangerouslySetInnerHTML={{ __html: showDescription }}
-          ></span>
+          ></div>
           {!isShowMore && <span className="overlayColor"></span>}
           <span
             className="showMoreLess"
@@ -242,75 +242,53 @@ function CollegeOverview(props) {
           </Link>
         </section>
 
-        <section className="admissions">
-          <h2 className="font-bold text-2xl mb-5">
-            {`${college_name} Admission Process`}
-          </h2>
-          <div
-            className="mb-2"
-            dangerouslySetInnerHTML={{
-              __html:
-                props.data.adminssiondetails?.substring(0, 450) + " ...... ",
-            }}
-          ></div>
-          <Link
-            className="viewAll-btn"
-            to={`/college/${college_url}+admissions`}
-          >
+      <section className="admissions">
+        <h2 className="font-bold text-2xl mb-5">
+          {`${college_name} Admission Process`}
+        </h2>
+        <div className={`mb-2 h-20 overflow-hidden`}
+          dangerouslySetInnerHTML={{
+            __html: props.data.adminssiondetails,
+          }}
+        ></div>
+          <Link className="viewAll-btn" to={`/college/${college_url}+admissions`}>
             View Details
           </Link>
         </section>
 
-        <section className="mb-12">
-          <h2 className="font-bold text-2xl mt-12 mb-5">
-            {`${college_name} Placement`}
-          </h2>
-          <div
-            className="mb-2"
-            dangerouslySetInnerHTML={{
-              __html:
-                props.data.placement_overview?.substring(0, 450) + " ...... ",
-            }}
-          ></div>
-          <Link
-            className="viewAll-btn"
-            to={`/college/${college_url}+placements`}
-          >
+      <section className="mb-12">
+        <h2 className="font-bold text-2xl mt-12 mb-5">
+          {`${college_name} Placement`}
+        </h2>
+        <div className={`mb-2 h-20 overflow-hidden`}
+        dangerouslySetInnerHTML={{ __html: props.data.placement_overview}}>
+        </div>
+          <Link className="viewAll-btn" to={`/college/${college_url}+placements`}>
             View Details
           </Link>
         </section>
 
-        <section className="mb-12">
-          <h2 className="font-bold text-2xl mb-5">
-            {`${college_name} Scholarships`}
-          </h2>
-          <div
-            className="mb-2"
-            dangerouslySetInnerHTML={{
-              __html:
-                props.data.scholarshipoffer?.substring(0, 450) + " ...... ",
-            }}
-          ></div>
-          <Link
-            className="viewAll-btn"
-            to={`/college/${college_url}+scholarships`}
-          >
+
+      <section className="mb-12">
+        <h2 className="font-bold text-2xl mb-5">
+          {`${college_name} Scholarships`}
+        </h2>
+        <div className={`mb-2 h-20 overflow-hidden`}
+          dangerouslySetInnerHTML={{ __html: props.data.scholarshipoffer}}
+        ></div>
+          <Link className="viewAll-btn" to={`/college/${college_url}+scholarships`}>
             View Details
           </Link>
         </section>
 
-        <section className="faculties mb-12">
-          <h2 className="font-bold text-2xl mb-5">{`${college_name} Faculty`}</h2>
-          <div
-            className="mb-2"
-            dangerouslySetInnerHTML={{
-              __html: props.data.facultyprofile?.substring(0, 250) + " ...... ",
-            }}
-          ></div>
-          <Link
-            className="viewAll-btn"
-            to={`/college/${college_url}+faculties`}
-          >
+      <section className="faculties mb-12">
+        <h2 className="font-bold text-2xl mb-5">{`${college_name} Faculty`}</h2>
+        <div className={`mb-2 h-20 overflow-hidden`}
+          dangerouslySetInnerHTML={{
+            __html: props.data.facultyprofile,
+          }}
+        ></div>
+          <Link className="viewAll-btn" to={`/college/${college_url}+faculties`}>
             View Details
           </Link>
         </section>
