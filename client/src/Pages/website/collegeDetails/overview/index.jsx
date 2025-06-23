@@ -24,7 +24,7 @@ function CollegeOverview(props) {
     city_name,
     college_url,
     logo,
-    total_rating
+    total_rating,
   } = props.data;
 
   const { courses, openModal } = props;
@@ -39,7 +39,6 @@ function CollegeOverview(props) {
       : college_descripton;
     setShowDescription(content);
   }, [college_descripton, isShowMore]);
-
 
   return (
     <>
@@ -66,8 +65,9 @@ function CollegeOverview(props) {
         />
         <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>
-      {college_url && <Navigate to={`/college/${college_url}`} replace={true} />}
-
+      {college_url && (
+        <Navigate to={`/college/${college_url}`} replace={true} />
+      )}
 
       <div className="overview-details">
         {/* <section className="latestNews">
@@ -125,8 +125,7 @@ function CollegeOverview(props) {
             </li>
             <li>
               <Link rel="stylesheet" to={`${detailsUrl}+placements`}>
-                {college_name} {city_name} Placements{" "}
-                {new Date().getFullYear() - 1}
+                {college_name} {city_name} Placements {new Date().getFullYear()}
               </Link>
             </li>
             <li>
@@ -160,7 +159,9 @@ function CollegeOverview(props) {
         </section>
 
         <section className="courses college-list-wrapper mt-10">
-          <h2 className="font-bold text-2xl mb-5">{college_name} Top Programs</h2>
+          <h2 className="font-bold text-2xl mb-5">
+            {college_name} Top Programs
+          </h2>
           {sub_course_details?.map((item, i) => (
             <div className="college-list-card" id="34">
               <div className="title-section">
@@ -232,8 +233,11 @@ function CollegeOverview(props) {
               </div>
             </div>
           ))}
-          
-          <Link className="viewAll-btn" to={`/college/${college_url}+courses-and-fees`}>
+
+          <Link
+            className="viewAll-btn"
+            to={`/college/${college_url}+courses-and-fees`}
+          >
             View All Courses
           </Link>
         </section>
@@ -250,7 +254,7 @@ function CollegeOverview(props) {
           <Link className="viewAll-btn" to={`/college/${college_url}+admissions`}>
             View Details
           </Link>
-      </section>
+        </section>
 
       <section className="mb-12">
         <h2 className="font-bold text-2xl mt-12 mb-5">
@@ -262,7 +266,7 @@ function CollegeOverview(props) {
           <Link className="viewAll-btn" to={`/college/${college_url}+placements`}>
             View Details
           </Link>
-      </section>
+        </section>
 
 
       <section className="mb-12">
@@ -275,7 +279,7 @@ function CollegeOverview(props) {
           <Link className="viewAll-btn" to={`/college/${college_url}+scholarships`}>
             View Details
           </Link>
-      </section>
+        </section>
 
       <section className="faculties mb-12">
         <h2 className="font-bold text-2xl mb-5">{`${college_name} Faculty`}</h2>
@@ -287,30 +291,26 @@ function CollegeOverview(props) {
           <Link className="viewAll-btn" to={`/college/${college_url}+faculties`}>
             View Details
           </Link>
-      </section>
-      
+        </section>
 
         <Facilities data={facilities && facilities} clgName={college_name} />
 
         <section className="rating wrapper mt-10">
           <h2 className="font-bold text-2xl mb-5">{college_name} Rating</h2>
-            {/* <h3 className="font-bold text-xs mb-5">{college_name}</h3> */}
-            <span className="shadow-md clg-rating">
-              <img src={star} alt="" />
-              <span>
-                <b>
-                  {total_rating
-                    ? total_rating.slice(0, 3)
-                    : "0"}
-                </b>{" "}
-                /10
-              </span>
+          {/* <h3 className="font-bold text-xs mb-5">{college_name}</h3> */}
+          <span className="shadow-md clg-rating">
+            <img src={star} alt="" />
+            <span>
+              <b>{total_rating ? total_rating.slice(0, 3) : "0"}</b> /10
             </span>
+          </span>
           <Rating data={props.data} />
         </section>
 
         <section className="address mt-10">
-          <h2 className="font-bold text-2xl mb-5">{college_name} Address/Contact</h2>
+          <h2 className="font-bold text-2xl mb-5">
+            {college_name} Address/Contact
+          </h2>
           <Contact data={props.data} modelOpen={openModal} />
         </section>
 

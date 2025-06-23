@@ -31,9 +31,15 @@ function Questionanswer() {
   const [editdata, setEditdata] = useState({
     qid: "",
     question: "",
+    question_url: "",
+    qmeta_title: "",
+    qmeta_description: "",
+    qmeta_keyword: "",
     answer: "",
     catgories: "",
     qstatus: "A",
+    categories: "",
+    trading: "",
   });
   const { qid } = useParams();
   useEffect(() => {
@@ -97,7 +103,15 @@ function Questionanswer() {
 
   const addquestion = (e) => {
     e.preventDefault();
-    const { qid, question, qstatus } = e.target.elements;
+    const {
+      qid,
+      question,
+      qstatus,
+      question_url,
+      qmeta_title,
+      qmeta_description,
+      qmeta_keyword,
+    } = e.target.elements;
 
     //let errorsForm = [];
 
@@ -116,6 +130,10 @@ function Questionanswer() {
       question: question.value,
       answer: anservalue,
       qstatus: qstatus.value,
+      question_url: question_url.value,
+      qmeta_title: qmeta_title.value,
+      qmeta_description: qmeta_description.value,
+      qmeta_keyword: qmeta_keyword.value,
       trading: tradingvalue.join(","),
       catgories: categoryvalue.join(","),
     };
@@ -177,7 +195,11 @@ function Questionanswer() {
     } */
   };
   // end add new question
-
+  const createUrl = (e) => {
+    var questions = e.target.value;
+    var qsturl = questions.replace(/[_\s]/g, "-").replace(/[^a-z0-9-\s]/gi, "");
+    editdata.question_url = qsturl.toLowerCase();
+  };
   return (
     <>
       <div className="flex bg-white shadow">
@@ -233,10 +255,28 @@ function Questionanswer() {
               name="question"
               value={editdata.question ? editdata.question : ""}
               required="required"
+              onChangeCapture={createUrl}
               onChange={handleChangeFormdata}
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
             <div className="errmsg">{errorMsg[0]}</div>
+          </div>
+          <div className="mt-2">
+            <label
+              htmlFor="college_url"
+              className="block text-sm font-bold leading-6 text-gray-900"
+            >
+              Question Url *
+            </label>
+
+            <input
+              type="text"
+              name="question_url"
+              value={editdata.question_url ? editdata.question_url : ""}
+              required="required"
+              onChange={handleChangeFormdata}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
           </div>
           <div className="mt-2">
             <label
@@ -294,6 +334,13 @@ function Questionanswer() {
                     onChange={handleChangeFormdata}
                     //onChange={(e) => handleCheckBox(e, i)}
                     className="py-2  text-sm font-semibold"
+                    defaultChecked={
+                      editdata.categories?.length
+                        ? editdata.categories.includes(
+                            JSON.stringify(item.cat_id)
+                          )
+                        : false
+                    }
                   />
                   <span className="py-2 px-2 text-sm font-normal text-justify">
                     {item.category_name}
@@ -316,6 +363,11 @@ function Questionanswer() {
                     type="checkbox"
                     name="trading"
                     value={item.tid}
+                    defaultChecked={
+                      editdata.trading?.length
+                        ? editdata.trading.includes(JSON.stringify(item.tid))
+                        : false
+                    }
                     onClick={tradingCheck}
                     onChange={handleChangeFormdata}
                     className="py-2  text-sm font-semibold"
@@ -326,6 +378,56 @@ function Questionanswer() {
                 </div>
               ))}
             </div>
+          </div>
+          <div className="mt-2">
+            <label
+              htmlFor="college_url"
+              className="block text-sm font-bold leading-6 text-gray-900"
+            >
+              Meta Title *
+            </label>
+            <input
+              type="text"
+              name="qmeta_title"
+              value={editdata.qmeta_title ? editdata.qmeta_title : ""}
+              required="required"
+              onChange={handleChangeFormdata}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+          <div className="mt-2">
+            <label
+              htmlFor="qmeta_description"
+              className="block text-sm font-bold leading-6 text-gray-900"
+            >
+              Meta Description *
+            </label>
+            <input
+              type="text"
+              name="qmeta_description"
+              value={
+                editdata.qmeta_description ? editdata.qmeta_description : ""
+              }
+              required="required"
+              onChange={handleChangeFormdata}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+          <div className="mt-2">
+            <label
+              htmlFor="qmeta_keyword"
+              className="block text-sm font-bold leading-6 text-gray-900"
+            >
+              Meta Keyword *
+            </label>
+            <input
+              type="text"
+              name="qmeta_keyword"
+              value={editdata.qmeta_keyword ? editdata.qmeta_keyword : ""}
+              required="required"
+              onChange={handleChangeFormdata}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
           </div>
           <div className="flex mt-2 sm:size-4 lx zl alt ars ary">
             <div className="lk acf cct cgl chn chu flex flex-wrap">

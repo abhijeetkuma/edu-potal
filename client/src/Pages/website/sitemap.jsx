@@ -101,7 +101,7 @@ function Exams(props) {
       </li>
       <li>
         <a href={`/college/${citem.college_url}+placements`}>
-          {citem.college_name} Placements {adminssinyear.getFullYear() - 1}
+          {citem.college_name} Placements {adminssinyear.getFullYear()}
         </a>
       </li>
       <li>

@@ -26,6 +26,7 @@ function CollegePlacements(props) {
     meta_keyword,
     college_url,
     logo,
+    city_name,
   } = props.data;
 
   const { openModal } = props;
@@ -33,15 +34,18 @@ function CollegePlacements(props) {
 
   const { pathname } = useLocation();
   useEffect(() => {
-      window.scroll(0, 0)
-  }, [pathname])
+    window.scroll(0, 0);
+  }, [pathname]);
+  const metaTitle = `${college_name} ${city_name} Placements ${year.getFullYear()}: Check Highest Placement, Average Placement and Top Recruiters!`;
+  const metaDescription = `${college_name} ${city_name} has conducted the placements for the current batch with ${totalplacementratio} placements ratio. The highest and average package offered during ${college_name} placements of the current batch stood at ${higestplacementrecord} and ${averageplacementrecord} respectively.`;
+  const metakeyword = `${college_name}  placements, ${college_name}  average package, ${college_name} top recruiters, ${college_name} package, ${college_name} placement reviews, ${college_name} placement ${year.getFullYear()}, ${college_name}  placement ${year.getFullYear() - 1}, ${college_name} Highest Placement, ${college_name} Average Placement`;
 
   return (
     <>
       <Helmet>
-        <title>{`Placements ${year.getFullYear() - 1}  ${meta_title}`}</title>
-        <meta name="description" content={meta_description} />
-        <meta name="keywords" content={meta_keyword} />
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="keywords" content={metakeyword} />
         <link
           id="canonicalUrl"
           rel="canonical"
@@ -53,11 +57,11 @@ function CollegePlacements(props) {
           content={`https://timesofcollege.com/college/${college_url}+placements`}
         />
         <meta property="og:type" content="college-view" />
-        <meta property="og:title" key="og:title" content={meta_title} />=
+        <meta property="og:title" key="og:title" content={metaTitle} />=
         <meta
           property="og:description"
           key="og:description"
-          content={meta_description}
+          content={metaDescription}
         />
         <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>

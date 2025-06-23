@@ -14,6 +14,7 @@ function CollegeAdmissions(props) {
     data: {
       college_name,
       facilities,
+      city_name,
       meta_title,
       meta_description,
       meta_keyword,
@@ -25,15 +26,17 @@ function CollegeAdmissions(props) {
 
   const { pathname } = useLocation();
   useEffect(() => {
-      window.scroll(0, 0)
-  }, [pathname])
-
+    window.scroll(0, 0);
+  }, [pathname]);
+  const metaTitle = `Check ${college_name} ${city_name} Admission Process ${adminissionyear.getFullYear()} and Selection Criteria.`;
+  const metaDescription = `${college_name} ${city_name} Check Program wise Admission Process ${adminissionyear.getFullYear()}, Exams Accepted, Selection Criteria and Cut off of the program offered by ${college_name}`;
+  const metakeyword = `${college_name} Admission, ${college_name} process, ${college_name} <program> admission, ${college_name} <program> application, ${college_name} <program> cut off, ${college_name} exams accepted, ${college_name} selection process, ${college_name} application, ${college_name} application fees, ${college_name} admission ${adminissionyear.getFullYear()}`;
   return (
     <>
       <Helmet>
-        <title>{`Admission  ${adminissionyear.getFullYear()}  ${meta_title}`}</title>
-        <meta name="description" content={meta_description} />
-        <meta name="keywords" content={meta_keyword} />
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta name="keywords" content={metakeyword} />
         <link
           id="canonicalUrl"
           rel="canonical"
@@ -45,11 +48,11 @@ function CollegeAdmissions(props) {
           content={`https://timesofcollege.com/college/${college_url}+admissions`}
         />
         <meta property="og:type" content="college-view" />
-        <meta property="og:title" key="og:title" content={meta_title} />=
+        <meta property="og:title" key="og:title" content={metaTitle} />=
         <meta
           property="og:description"
           key="og:description"
-          content={meta_description}
+          content={metaDescription}
         />
         <meta property="og:image" key="og:image" content={getImageURL(logo)} />
       </Helmet>

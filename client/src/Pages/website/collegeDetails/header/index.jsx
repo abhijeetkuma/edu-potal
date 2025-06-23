@@ -6,21 +6,21 @@ function CollegeHeaders(props) {
   const navigate = useNavigate();
 
   const { tabName, collageUrl } = props;
-  const [detailsUrl, setDetailsUrl] = useState(location.pathname.split("+")[0]?.replace(/%20/g, ""))
+  const [detailsUrl, setDetailsUrl] = useState(
+    location.pathname.split("+")[0]?.replace(/%20/g, "")
+  );
   const adminssinyear = new Date();
 
   useEffect(() => {
-
     const detailsUrl = location.pathname.split("+")[0]?.replace(/%20/g, "");
     setDetailsUrl(detailsUrl);
-    
-    setTimeout(() => {
-      navigate(`${location.pathname.replace(/%20/g, "")}`)
-    }, 500);
-   
-    return () => false
 
-  }, [location.pathname])
+    setTimeout(() => {
+      navigate(`${location.pathname.replace(/%20/g, "")}`);
+    }, 500);
+
+    return () => false;
+  }, [location.pathname]);
 
   return (
     <>
@@ -43,7 +43,7 @@ function CollegeHeaders(props) {
           </li>
           <li className={tabName === "placements" ? "active" : ""}>
             <Link to={`${detailsUrl}+placements`}>
-              Placements {adminssinyear.getFullYear() - 1}
+              Placements {adminssinyear.getFullYear()}
             </Link>
           </li>
           <li className={tabName === "scholarships" ? "active" : ""}>
