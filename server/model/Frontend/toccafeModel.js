@@ -29,7 +29,30 @@ const toccafelisting = async () => {
   try {
     return await new Promise(function (resolve, reject) {
       pool.query(
-        "SELECT question,answer FROM questions WHERE qstatus='A' ORDER BY qid DESC",
+        "SELECT question_url,question,answer FROM questions WHERE qstatus='A' ORDER BY qid DESC",
+        (error, results) => {
+          if (error) {
+            reject(error);
+          }
+          if (results && results.rows) {
+            resolve(results.rows);
+          } else {
+            reject(new Error("No results found"));
+          }
+        }
+      );
+    });
+  } catch (error_1) {
+    console.error(error_1);
+    throw new Error("Internal server error");
+  }
+};
+const toccafedetail = async (question_url) => {
+  try {
+    return await new Promise(function (resolve, reject) {
+      pool.query(
+        "SELECT question,answer,qmeta_title,qmeta_description,qmeta_keyword FROM questions WHERE qstatus='A' AND question_url = $1",
+        [question_url],
         (error, results) => {
           if (error) {
             reject(error);
@@ -67,4 +90,5 @@ const examdetail = (na_url) => {
 module.exports = {
   toccafelisting,
   examdetail,
+  toccafedetail,
 };
