@@ -50,6 +50,7 @@ import STUDYGOAL from "./Pages/website/studygoal";
 import COURSES from "./Pages/website/courses";
 import EXAMSDETAILS from "./Pages/website/exams/details";
 import TOCCAFE from "./Pages/website/toccafe";
+import TOCCAFEDETAILS from "./Pages/website/toccafe_details";
 import COLLEGEDETAIL from "./Pages/website/college/details";
 import CATEGORYWISE from "./Pages/website/categorywise";
 import STUDYBYCITY from "./Pages/website/studybycity";
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
       {
         path: "/toccafe",
         element: <TOCCAFE />,
+      },
+      {
+        path: "/toccafe?/:question_url",
+        element: <TOCCAFEDETAILS />,
       },
       // {
       //   path: "/college?/:college_url",

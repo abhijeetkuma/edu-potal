@@ -46,7 +46,11 @@ function Toccafe(props) {
 
             {displaytoclisting.length > 0 &&
               displaytoclisting.map((item, id) => (
-                 <Accordion  title={item.question} content={item.answer}/>
+                <Accordion
+                  title={item.question}
+                  content={item.answer}
+                  url={item.question_url}
+                />
               ))}
           </div>
         </section>
