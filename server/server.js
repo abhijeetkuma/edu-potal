@@ -22,6 +22,7 @@ const courses_model = require("./model/Frontend/coursesModel");
 const toccafe_model = require("./model/Frontend/toccafeModel");
 const filter_model = require("./model/Frontend/filterModel");
 const ads_model = require("./model/Frontend/ads");
+const megamenu_model = require("./model/Frontend/megamenuModel");
 
 app.use(cors());
 
@@ -795,6 +796,59 @@ app.get("/api/getexamlisting", (req, res) => {
       res.status(500).send(error);
     });
 });
+//// admin menu module ////////
+app.get("/api/getmegamenulist", (req, res) => {
+  megamenu_model
+    .getMegamenulist()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/megamenuarrlist", (req, res) => {
+  megamenu_model
+    .megamenuarrlist()
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.get("/api/editmenu/:menu_id", (req, res) => {
+  megamenu_model
+    .editmenu(req.params.menu_id)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/addmenu", (req, res) => {
+  megamenu_model
+    .addNewmenudetails(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+app.post("/api/updatemenu", (req, res) => {
+  megamenu_model
+    .updateMenudetails(req.body)
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+//// end admin menu module /////////
+
 app.get("/api/getcountrylisting", (req, res) => {
   location_model
     .countrylisting()
